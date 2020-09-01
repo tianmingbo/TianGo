@@ -2,6 +2,10 @@
 # @Time    : 2020/8/31 17:27
 # @Author  : tmb
 
+'''
+转移方程：
+dp[i] = max(nums[i], dp[i - 1] + nums[i])
+'''
 class Solution:
     def maxSubArray(self, nums):
         if not nums:
