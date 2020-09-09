@@ -1,0 +1,13 @@
+def BFS(root):
+    visited = set()
+	queue = []
+	queue.append([root])
+
+	while queue:
+		node = queue.pop()
+		visited.add(node)
+
+		process(node)
+		nodes = generate_related_nodes(node)
+		queue.push(nodes)
+
