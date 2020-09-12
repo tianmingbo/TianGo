@@ -1,0 +1,428 @@
+<!DOCTYPE HTML>
+<html lang="en" >
+    
+    <head>
+        
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <title>Task Queue | 	问题抛出</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 2.6.7">
+        
+        
+        <meta name="HandheldFriendly" content="true"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+        <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+        
+    <link rel="stylesheet" href="../gitbook/style.css">
+    
+        
+        <link rel="stylesheet" href="../gitbook/plugins/gitbook-plugin-highlight/website.css">
+        
+    
+        
+        <link rel="stylesheet" href="../gitbook/plugins/gitbook-plugin-search/search.css">
+        
+    
+        
+        <link rel="stylesheet" href="../gitbook/plugins/gitbook-plugin-fontsettings/website.css">
+        
+    
+    
+
+        
+    
+    
+    <link rel="next" href="../chapter1/content2.html" />
+    
+    
+    <link rel="prev" href="../chapter1/chapter1.html" />
+    
+
+        
+    </head>
+    <body>
+        
+        
+    <div class="book"
+        data-level="1.1"
+        data-chapter-title="Task Queue"
+        data-filepath="chapter1/content1.md"
+        data-basepath=".."
+        data-revision="Thu Oct 12 2017 12:13:50 GMT+0800 (CST)"
+        data-innerlanguage="">
+    
+
+<div class="book-summary">
+    <nav role="navigation">
+        <ul class="summary">
+            
+            
+            
+            
+
+            
+
+            
+    
+        <li class="chapter " data-level="0" data-path="index.html">
+            
+                
+                    <a href="../index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                        celery概述
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1" data-path="chapter1/chapter1.html">
+            
+                
+                    <a href="../chapter1/chapter1.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.</b>
+                        
+                        快速入门(一)
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter active" data-level="1.1" data-path="chapter1/content1.html">
+            
+                
+                    <a href="../chapter1/content1.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.1.</b>
+                        
+                        Task Queue
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="chapter1/content2.html">
+            
+                
+                    <a href="../chapter1/content2.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.2.</b>
+                        
+                        Celery安装
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="chapter1/content3.html">
+            
+                
+                    <a href="../chapter1/content3.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.3.</b>
+                        
+                        Broker
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="chapter1/content4.html">
+            
+                
+                    <a href="../chapter1/content4.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.4.</b>
+                        
+                        Application
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="chapter1/content5.html">
+            
+                
+                    <a href="../chapter1/content5.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.5.</b>
+                        
+                        配置
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2" data-path="chapter2/chapter2.html">
+            
+                
+                    <a href="../chapter2/chapter2.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.</b>
+                        
+                        快速入门(二)
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.1" data-path="chapter2/content1.html">
+            
+                
+                    <a href="../chapter2/content1.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.1.</b>
+                        
+                        项目中使用celery
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2" data-path="chapter2/content2.html">
+            
+                
+                    <a href="../chapter2/content2.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.2.</b>
+                        
+                        调用任务(Calling Task)
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.3" data-path="chapter2/content4.html">
+            
+                
+                    <a href="../chapter2/content4.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.3.</b>
+                        
+                        Designing Work-flows
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.4" data-path="chapter2/content3.html">
+            
+                
+                    <a href="../chapter2/content3.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.4.</b>
+                        
+                        Routing
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="3" data-path="chapter3/chapter3.html">
+            
+                
+                    <a href="../chapter3/chapter3.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.</b>
+                        
+                        Periodic Tasks
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4" data-path="chapter4/chapter4.html">
+            
+                
+                    <a href="../chapter4/chapter4.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.</b>
+                        
+                        Django使用Celery
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="4.1" data-path="chapter4/content1.html">
+            
+                
+                    <a href="../chapter4/content1.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.1.</b>
+                        
+                        配置celery
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2" data-path="chapter4/content2.html">
+            
+                
+                    <a href="../chapter4/content2.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.2.</b>
+                        
+                        保存任务结果
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.3" data-path="chapter4/content3.html">
+            
+                
+                    <a href="../chapter4/content3.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.3.</b>
+                        
+                        定时任务
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+
+            
+            <li class="divider"></li>
+            <li>
+                <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+                    Published with GitBook
+                </a>
+            </li>
+            
+        </ul>
+    </nav>
+</div>
+
+    <div class="book-body">
+        <div class="body-inner">
+            <div class="book-header" role="navigation">
+    <!-- Actions Left -->
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../" >	问题抛出</a>
+    </h1>
+</div>
+
+            <div class="page-wrapper" tabindex="-1" role="main">
+                <div class="page-inner">
+                
+                
+                    <section class="normal" id="section-">
+                    
+                        <p>&#x2003;&#x2003;&#x4EFB;&#x52A1;&#x961F;&#x5217;&#x662F;&#x4E00;&#x79CD;&#x8DE8;&#x7EBF;&#x7A0B;&#x3001;&#x8DE8;&#x673A;&#x5668;&#x5DE5;&#x4F5C;&#x7684;&#x4E00;&#x79CD;&#x673A;&#x5236;.</p>
+<p>&#x2003;&#x2003;&#x4EFB;&#x52A1;&#x961F;&#x5217;&#x4E2D;&#x5305;&#x542B;&#x79F0;&#x4F5C;&#x4EFB;&#x52A1;&#x7684;&#x5DE5;&#x4F5C;&#x5355;&#x5143;&#x3002;&#x6709;&#x4E13;&#x95E8;&#x7684;&#x5DE5;&#x4F5C;&#x8FDB;&#x7A0B;&#x6301;&#x7EED;&#x4E0D;&#x65AD;&#x7684;&#x76D1;&#x89C6;&#x4EFB;&#x52A1;&#x961F;&#x5217;&#xFF0C;&#x5E76;&#x4ECE;&#x4E2D;&#x83B7;&#x5F97;&#x65B0;&#x7684;&#x4EFB;&#x52A1;&#x5E76;&#x5904;&#x7406;.</p>
+<p>&#x2003;&#x2003;celery&#x901A;&#x8FC7;&#x6D88;&#x606F;&#x8FDB;&#x884C;&#x901A;&#x4FE1;&#xFF0C;&#x901A;&#x5E38;&#x4F7F;&#x7528;&#x4E00;&#x4E2A;&#x53EB;Broker(&#x4E2D;&#x95F4;&#x4EBA;)&#x6765;&#x534F;client(&#x4EFB;&#x52A1;&#x7684;&#x53D1;&#x51FA;&#x8005;)&#x548C;worker(&#x4EFB;&#x52A1;&#x7684;&#x5904;&#x7406;&#x8005;). clients&#x53D1;&#x51FA;&#x6D88;&#x606F;&#x5230;&#x961F;&#x5217;&#x4E2D;&#xFF0C;broker&#x5C06;&#x961F;&#x5217;&#x4E2D;&#x7684;&#x4FE1;&#x606F;&#x6D3E;&#x53D1;&#x7ED9;worker&#x6765;&#x5904;&#x7406;&#x3002;</p>
+<p>&#x2003;&#x2003;&#x4E00;&#x4E2A;celery&#x7CFB;&#x7EDF;&#x53EF;&#x4EE5;&#x5305;&#x542B;&#x5F88;&#x591A;&#x7684;worker&#x548C;broker&#xFF0C;&#x53EF;&#x589E;&#x5F3A;&#x6A2A;&#x5411;&#x6269;&#x5C55;&#x6027;&#x548C;&#x9AD8;&#x53EF;&#x7528;&#x6027;&#x80FD;&#x3002;</p>
+<p><img src="../assets/3.png" alt=""></p>
+
+                    
+                    </section>
+                
+                
+                </div>
+            </div>
+        </div>
+
+        
+        <a href="../chapter1/chapter1.html" class="navigation navigation-prev " aria-label="Previous page: 快速入门(一)"><i class="fa fa-angle-left"></i></a>
+        
+        
+        <a href="../chapter1/content2.html" class="navigation navigation-next " aria-label="Next page: Celery安装"><i class="fa fa-angle-right"></i></a>
+        
+    </div>
+</div>
+
+        
+<script src="../gitbook/app.js"></script>
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-search/lunr.min.js"></script>
+    
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-search/search.js"></script>
+    
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-sharing/buttons.js"></script>
+    
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-fontsettings/buttons.js"></script>
+    
+
+<script>
+require(["gitbook"], function(gitbook) {
+    var config = {"highlight":{},"search":{"maxIndexSize":1000000},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2}};
+    gitbook.start(config);
+});
+</script>
+
+        
+    </body>
+    
+</html>

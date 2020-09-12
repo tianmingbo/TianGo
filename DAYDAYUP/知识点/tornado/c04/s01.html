@@ -1,0 +1,771 @@
+<!DOCTYPE HTML>
+<html lang="en" >
+    
+    <head>
+        
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <title>4.1 静态文件 | 引言</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 2.6.7">
+        
+        
+        <meta name="HandheldFriendly" content="true"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+        <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+        
+    <link rel="stylesheet" href="../gitbook/style.css">
+    
+        
+        <link rel="stylesheet" href="../gitbook/plugins/gitbook-plugin-highlight/website.css">
+        
+    
+        
+        <link rel="stylesheet" href="../gitbook/plugins/gitbook-plugin-search/search.css">
+        
+    
+        
+        <link rel="stylesheet" href="../gitbook/plugins/gitbook-plugin-fontsettings/website.css">
+        
+    
+    
+
+        
+    
+    
+    <link rel="next" href="../c04/s02.html" />
+    
+    
+    <link rel="prev" href="../c04/index.html" />
+    
+
+        
+    </head>
+    <body>
+        
+        
+    <div class="book"
+        data-level="4.1"
+        data-chapter-title="4.1 静态文件"
+        data-filepath="c04/s01.md"
+        data-basepath=".."
+        data-revision="Fri Feb 10 2017 17:36:30 GMT+0800 (CST)"
+        data-innerlanguage="">
+    
+
+<div class="book-summary">
+    <nav role="navigation">
+        <ul class="summary">
+            
+            
+            
+            
+
+            
+
+            
+    
+        <li class="chapter " data-level="0" data-path="index.html">
+            
+                
+                    <a href="../index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                        引言
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1" data-path="c01/index.html">
+            
+                
+                    <a href="../c01/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.</b>
+                        
+                        1 关于Tornado
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.1" data-path="c01/s01.html">
+            
+                
+                    <a href="../c01/s01.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.1.</b>
+                        
+                        1.1 Tornado是为何物
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="c01/s02.html">
+            
+                
+                    <a href="../c01/s02.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.2.</b>
+                        
+                        1.2 Tornado与Django
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2" data-path="c02/index.html">
+            
+                
+                    <a href="../c02/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.</b>
+                        
+                        2 初识Tornado
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.1" data-path="c02/s01.html">
+            
+                
+                    <a href="../c02/s01.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.1.</b>
+                        
+                        2.1 安装
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2" data-path="c02/s02.html">
+            
+                
+                    <a href="../c02/s02.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.2.</b>
+                        
+                        2.2 Hello Itcast
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.3" data-path="c02/s03.html">
+            
+                
+                    <a href="../c02/s03.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.3.</b>
+                        
+                        2.3 httpserver
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.4" data-path="c02/s04.html">
+            
+                
+                    <a href="../c02/s04.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.4.</b>
+                        
+                        2.4 options
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.5" data-path="c02/s05.html">
+            
+                
+                    <a href="../c02/s05.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.5.</b>
+                        
+                        2.5 练习
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="3" data-path="c03/index.html">
+            
+                
+                    <a href="../c03/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.</b>
+                        
+                        3 深入Tornado
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="3.1" data-path="c03/s01.html">
+            
+                
+                    <a href="../c03/s01.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.1.</b>
+                        
+                        3.1 Application
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2" data-path="c03/s02.html">
+            
+                
+                    <a href="../c03/s02.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.2.</b>
+                        
+                        3.2 输入
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.3" data-path="c03/s03.html">
+            
+                
+                    <a href="../c03/s03.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.3.</b>
+                        
+                        3.3 输出
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.4" data-path="c03/s04.html">
+            
+                
+                    <a href="../c03/s04.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.4.</b>
+                        
+                        3.4 接口与调用顺序
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.5" data-path="c03/s05.html">
+            
+                
+                    <a href="../c03/s05.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.5.</b>
+                        
+                        3.5 练习
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="4" data-path="c04/index.html">
+            
+                
+                    <a href="../c04/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.</b>
+                        
+                        4 模板
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter active" data-level="4.1" data-path="c04/s01.html">
+            
+                
+                    <a href="../c04/s01.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.1.</b>
+                        
+                        4.1 静态文件
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2" data-path="c04/s02.html">
+            
+                
+                    <a href="../c04/s02.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.2.</b>
+                        
+                        4.2 使用模板
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.3" data-path="c04/s03.html">
+            
+                
+                    <a href="../c04/s03.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.3.</b>
+                        
+                        4.3 练习
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="5" data-path="c05/index.html">
+            
+                
+                    <a href="../c05/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.</b>
+                        
+                        5 数据库
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="5.1" data-path="c05/s01.html">
+            
+                
+                    <a href="../c05/s01.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.1.</b>
+                        
+                        5.1 数据库
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.2" data-path="c05/s02.html">
+            
+                
+                    <a href="../c05/s02.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.2.</b>
+                        
+                        5.2 练习
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="6" data-path="c06/index.html">
+            
+                
+                    <a href="../c06/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.</b>
+                        
+                        6 安全应用
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="6.1" data-path="c06/s01.html">
+            
+                
+                    <a href="../c06/s01.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.1.</b>
+                        
+                        6.1 Cookie
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6.2" data-path="c06/s02.html">
+            
+                
+                    <a href="../c06/s02.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.2.</b>
+                        
+                        6.2 XSRF
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6.3" data-path="c06/s03.html">
+            
+                
+                    <a href="../c06/s03.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.3.</b>
+                        
+                        6.3 用户验证
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6.4" data-path="c06/s04.html">
+            
+                
+                    <a href="../c06/s04.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.4.</b>
+                        
+                        6.4 练习
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="7" data-path="c07/index.html">
+            
+                
+                    <a href="../c07/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>7.</b>
+                        
+                        7 异步与WebSocket
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="7.1" data-path="c07/s01.html">
+            
+                
+                    <a href="../c07/s01.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>7.1.</b>
+                        
+                        7.1 认识异步
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="7.2" data-path="c07/s02.html">
+            
+                
+                    <a href="../c07/s02.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>7.2.</b>
+                        
+                        7.2 Tornado异步
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="7.3" data-path="c07/s03.html">
+            
+                
+                    <a href="../c07/s03.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>7.3.</b>
+                        
+                        7.3 WebSocket
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="7.4" data-path="c07/s04.html">
+            
+                
+                    <a href="../c07/s04.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>7.4.</b>
+                        
+                        7.4 练习
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="8" data-path="c08/index.html">
+            
+                
+                    <a href="../c08/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.</b>
+                        
+                        8 部署
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="8.1" data-path="c08/s01.html">
+            
+                
+                    <a href="../c08/s01.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.1.</b>
+                        
+                        8.1 部署Tornado
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+
+            
+            <li class="divider"></li>
+            <li>
+                <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+                    Published with GitBook
+                </a>
+            </li>
+            
+        </ul>
+    </nav>
+</div>
+
+    <div class="book-body">
+        <div class="body-inner">
+            <div class="book-header" role="navigation">
+    <!-- Actions Left -->
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../" >引言</a>
+    </h1>
+</div>
+
+            <div class="page-wrapper" tabindex="-1" role="main">
+                <div class="page-inner">
+                
+                
+                    <section class="normal" id="section-">
+                    
+                        <h1 id="41-&#x9759;&#x6001;&#x6587;&#x4EF6;">4.1 &#x9759;&#x6001;&#x6587;&#x4EF6;</h1>
+<p>&#x73B0;&#x5728;&#x6709;&#x4E00;&#x4E2A;&#x9884;&#x5148;&#x5199;&#x597D;&#x7684;&#x9759;&#x6001;&#x9875;&#x9762;&#x6587;&#x4EF6;
+&#xFF08;<a href="statics/template_statics.tar.gz" target="_blank">&#x4E0B;&#x8F7D;&#x9759;&#x6001;&#x6587;&#x4EF6;&#x8D44;&#x6E90;</a>&#xFF09;&#xFF0C;
+&#x6211;&#x4EEC;&#x6765;&#x770B;&#x4E0B;&#x5982;&#x4F55;&#x7528;tornado&#x63D0;&#x4F9B;&#x9759;&#x6001;&#x6587;&#x4EF6;&#x3002;</p>
+<h2 id="staticpath">static_path</h2>
+<p>&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x5411;web.Application&#x7C7B;&#x7684;&#x6784;&#x9020;&#x51FD;&#x6570;&#x4F20;&#x9012;&#x4E00;&#x4E2A;&#x540D;&#x4E3A;<strong>static_path</strong>&#x7684;&#x53C2;&#x6570;&#x6765;&#x544A;&#x8BC9;Tornado&#x4ECE;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#x7684;&#x4E00;&#x4E2A;&#x7279;&#x5B9A;&#x4F4D;&#x7F6E;&#x63D0;&#x4F9B;&#x9759;&#x6001;&#x6587;&#x4EF6;&#xFF0C;&#x5982;&#xFF1A;</p>
+<pre><code class="lang-python">app = tornado.web.Application(
+    [(<span class="hljs-string">r&apos;/&apos;</span>, IndexHandler)],
+    static_path=os.path.join(os.path.dirname(__file__), <span class="hljs-string">&quot;statics&quot;</span>),
+)
+</code></pre>
+<p>&#x5728;&#x8FD9;&#x91CC;&#xFF0C;&#x6211;&#x4EEC;&#x8BBE;&#x7F6E;&#x4E86;&#x4E00;&#x4E2A;&#x5F53;&#x524D;&#x5E94;&#x7528;&#x76EE;&#x5F55;&#x4E0B;&#x540D;&#x4E3A;statics&#x7684;&#x5B50;&#x76EE;&#x5F55;&#x4F5C;&#x4E3A;static_path&#x7684;&#x53C2;&#x6570;&#x3002;&#x73B0;&#x5728;&#x5E94;&#x7528;&#x5C06;&#x4EE5;&#x8BFB;&#x53D6;statics&#x76EE;&#x5F55;&#x4E0B;&#x7684;filename.ext&#x6765;&#x54CD;&#x5E94;&#x8BF8;&#x5982;/static/filename.ext&#x7684;&#x8BF7;&#x6C42;&#xFF0C;&#x5E76;&#x5728;&#x54CD;&#x5E94;&#x7684;&#x4E3B;&#x4F53;&#x4E2D;&#x8FD4;&#x56DE;&#x3002;</p>
+<h4 id="&#x5BF9;&#x4E8E;&#x9759;&#x6001;&#x6587;&#x4EF6;&#x76EE;&#x5F55;&#x7684;&#x547D;&#x540D;&#xFF0C;&#x4E3A;&#x4E86;&#x4FBF;&#x4E8E;&#x90E8;&#x7F72;&#xFF0C;&#x5EFA;&#x8BAE;&#x4F7F;&#x7528;static">&#x5BF9;&#x4E8E;&#x9759;&#x6001;&#x6587;&#x4EF6;&#x76EE;&#x5F55;&#x7684;&#x547D;&#x540D;&#xFF0C;&#x4E3A;&#x4E86;&#x4FBF;&#x4E8E;&#x90E8;&#x7F72;&#xFF0C;&#x5EFA;&#x8BAE;&#x4F7F;&#x7528;static</h4>
+<p>&#x5BF9;&#x4E8E;&#x6211;&#x4EEC;&#x63D0;&#x4F9B;&#x7684;&#x9759;&#x6001;&#x6587;&#x4EF6;&#x8D44;&#x6E90;&#xFF0C;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;<code>http://127.0.0.1/static/html/index.html</code>&#x6765;&#x8BBF;&#x95EE;&#x3002;&#x800C;&#x4E14;&#x5728;index.html&#x4E2D;&#x5F15;&#x7528;&#x7684;&#x9759;&#x6001;&#x8D44;&#x6E90;&#x6587;&#x4EF6;&#xFF0C;&#x6211;&#x4EEC;&#x7ED9;&#x5B9A;&#x7684;&#x8DEF;&#x5F84;&#x4E5F;&#x7B26;&#x5408;/static/...&#x7684;&#x683C;&#x5F0F;&#xFF0C;&#x6545;&#x9875;&#x9762;&#x53EF;&#x4EE5;&#x6B63;&#x5E38;&#x6D4F;&#x89C8;&#x3002;</p>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-title">link</span> <span class="hljs-attribute">href</span>=<span class="hljs-value">&quot;/static/plugins/bootstrap/css/bootstrap.min.css&quot;</span> <span class="hljs-attribute">rel</span>=<span class="hljs-value">&quot;stylesheet&quot;</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">link</span> <span class="hljs-attribute">href</span>=<span class="hljs-value">&quot;/static/plugins/font-awesome/css/font-awesome.min.css&quot;</span> <span class="hljs-attribute">rel</span>=<span class="hljs-value">&quot;stylesheet&quot;</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">link</span> <span class="hljs-attribute">href</span>=<span class="hljs-value">&quot;/static/css/reset.css&quot;</span> <span class="hljs-attribute">rel</span>=<span class="hljs-value">&quot;stylesheet&quot;</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">link</span> <span class="hljs-attribute">href</span>=<span class="hljs-value">&quot;/static/css/main.css&quot;</span> <span class="hljs-attribute">rel</span>=<span class="hljs-value">&quot;stylesheet&quot;</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">link</span> <span class="hljs-attribute">href</span>=<span class="hljs-value">&quot;/static/css/index.css&quot;</span> <span class="hljs-attribute">rel</span>=<span class="hljs-value">&quot;stylesheet&quot;</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-title">script</span> <span class="hljs-attribute">src</span>=<span class="hljs-value">&quot;/static/js/jquery.min.js&quot;</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-title">script</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">script</span> <span class="hljs-attribute">src</span>=<span class="hljs-value">&quot;/static/plugins/bootstrap/js/bootstrap.min.js&quot;</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-title">script</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">script</span> <span class="hljs-attribute">src</span>=<span class="hljs-value">&quot;/static/js/index.js&quot;</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-title">script</span>&gt;</span>
+</code></pre>
+<h2 id="staticfilehandler">StaticFileHandler</h2>
+<p>&#x6211;&#x4EEC;&#x518D;&#x770B;&#x521A;&#x521A;&#x8BBF;&#x95EE;&#x9875;&#x9762;&#x65F6;&#x4F7F;&#x7528;&#x7684;&#x8DEF;&#x5F84;<code>http://127.0.0.1/static/html/index.html</code>&#xFF0C;&#x8FD9;&#x4E2D;url&#x663E;&#x7136;&#x5BF9;&#x7528;&#x6237;&#x662F;&#x4E0D;&#x53CB;&#x597D;&#x7684;&#xFF0C;&#x8BBF;&#x95EE;&#x5F88;&#x4E0D;&#x65B9;&#x4FBF;&#x3002;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;<strong>tornado.web.StaticFileHandler</strong>&#x6765;&#x81EA;&#x7531;&#x6620;&#x5C04;&#x9759;&#x6001;&#x6587;&#x4EF6;&#x4E0E;&#x5176;&#x8BBF;&#x95EE;&#x8DEF;&#x5F84;url&#x3002;</p>
+<p>tornado.web.StaticFileHandler&#x662F;tornado&#x9884;&#x7F6E;&#x7684;&#x7528;&#x6765;&#x63D0;&#x4F9B;&#x9759;&#x6001;&#x8D44;&#x6E90;&#x6587;&#x4EF6;&#x7684;handler&#x3002;</p>
+<pre><code class="lang-python"><span class="hljs-keyword">import</span> os
+
+current_path = os.path.dirname(__file__)
+app = tornado.web.Application(
+    [
+        (<span class="hljs-string">r&apos;^/()$&apos;</span>, StaticFileHandler, {<span class="hljs-string">&quot;path&quot;</span>:os.path.join(current_path, <span class="hljs-string">&quot;statics/html&quot;</span>), <span class="hljs-string">&quot;default_filename&quot;</span>:<span class="hljs-string">&quot;index.html&quot;</span>}),
+        (<span class="hljs-string">r&apos;^/view/(.*)$&apos;</span>, StaticFileHandler, {<span class="hljs-string">&quot;path&quot;</span>:os.path.join(current_path, <span class="hljs-string">&quot;statics/html&quot;</span>)}),
+    ],
+    static_path=os.path.join(current_path, <span class="hljs-string">&quot;statics&quot;</span>),
+)
+</code></pre>
+<ul>
+<li><strong>path</strong> &#x7528;&#x6765;&#x6307;&#x660E;&#x63D0;&#x4F9B;&#x9759;&#x6001;&#x6587;&#x4EF6;&#x7684;&#x6839;&#x8DEF;&#x5F84;&#xFF0C;&#x5E76;&#x5728;&#x6B64;&#x76EE;&#x5F55;&#x4E2D;&#x5BFB;&#x627E;&#x5728;&#x8DEF;&#x7531;&#x4E2D;&#x7528;&#x6B63;&#x5219;&#x8868;&#x8FBE;&#x5F0F;&#x63D0;&#x53D6;&#x7684;&#x6587;&#x4EF6;&#x540D;&#x3002;</li>
+<li><strong>default_filename</strong> &#x7528;&#x6765;&#x6307;&#x5B9A;&#x8BBF;&#x95EE;&#x8DEF;&#x7531;&#x4E2D;&#x672A;&#x6307;&#x660E;&#x6587;&#x4EF6;&#x540D;&#x65F6;&#xFF0C;&#x9ED8;&#x8BA4;&#x63D0;&#x4F9B;&#x7684;&#x6587;&#x4EF6;&#x3002;</li>
+</ul>
+<p>&#x73B0;&#x5728;&#xFF0C;&#x5BF9;&#x4E8E;&#x9759;&#x6001;&#x6587;&#x4EF6;statics/html/index.html&#xFF0C;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x4E09;&#x79CD;&#x65B9;&#x5F0F;&#x8FDB;&#x884C;&#x8BBF;&#x95EE;&#xFF1A;</p>
+<ol>
+<li><a href="http://127.0.0.1/static/html/index.html" target="_blank">http://127.0.0.1/static/html/index.html</a></li>
+<li><a href="http://127.0.0.1/" target="_blank">http://127.0.0.1/</a></li>
+<li><a href="http://127.0.0.1/view/index.html" target="_blank">http://127.0.0.1/view/index.html</a></li>
+</ol>
+
+                    
+                    </section>
+                
+                
+                </div>
+            </div>
+        </div>
+
+        
+        <a href="../c04/index.html" class="navigation navigation-prev " aria-label="Previous page: 4 模板"><i class="fa fa-angle-left"></i></a>
+        
+        
+        <a href="../c04/s02.html" class="navigation navigation-next " aria-label="Next page: 4.2 使用模板"><i class="fa fa-angle-right"></i></a>
+        
+    </div>
+</div>
+
+        
+<script src="../gitbook/app.js"></script>
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-search/lunr.min.js"></script>
+    
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-search/search.js"></script>
+    
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-sharing/buttons.js"></script>
+    
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-fontsettings/buttons.js"></script>
+    
+
+<script>
+require(["gitbook"], function(gitbook) {
+    var config = {"highlight":{},"search":{"maxIndexSize":1000000},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2}};
+    gitbook.start(config);
+});
+</script>
+
+        
+    </body>
+    
+</html>

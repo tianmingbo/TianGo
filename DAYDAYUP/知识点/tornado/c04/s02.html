@@ -1,0 +1,1107 @@
+<!DOCTYPE HTML>
+<html lang="en" >
+    
+    <head>
+        
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <title>4.2 使用模板 | 引言</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 2.6.7">
+        
+        
+        <meta name="HandheldFriendly" content="true"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+        <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+        
+    <link rel="stylesheet" href="../gitbook/style.css">
+    
+        
+        <link rel="stylesheet" href="../gitbook/plugins/gitbook-plugin-highlight/website.css">
+        
+    
+        
+        <link rel="stylesheet" href="../gitbook/plugins/gitbook-plugin-search/search.css">
+        
+    
+        
+        <link rel="stylesheet" href="../gitbook/plugins/gitbook-plugin-fontsettings/website.css">
+        
+    
+    
+
+        
+    
+    
+    <link rel="next" href="../c04/s03.html" />
+    
+    
+    <link rel="prev" href="../c04/s01.html" />
+    
+
+        
+    </head>
+    <body>
+        
+        
+    <div class="book"
+        data-level="4.2"
+        data-chapter-title="4.2 使用模板"
+        data-filepath="c04/s02.md"
+        data-basepath=".."
+        data-revision="Fri Feb 10 2017 17:36:30 GMT+0800 (CST)"
+        data-innerlanguage="">
+    
+
+<div class="book-summary">
+    <nav role="navigation">
+        <ul class="summary">
+            
+            
+            
+            
+
+            
+
+            
+    
+        <li class="chapter " data-level="0" data-path="index.html">
+            
+                
+                    <a href="../index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                        引言
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1" data-path="c01/index.html">
+            
+                
+                    <a href="../c01/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.</b>
+                        
+                        1 关于Tornado
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.1" data-path="c01/s01.html">
+            
+                
+                    <a href="../c01/s01.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.1.</b>
+                        
+                        1.1 Tornado是为何物
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="c01/s02.html">
+            
+                
+                    <a href="../c01/s02.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.2.</b>
+                        
+                        1.2 Tornado与Django
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2" data-path="c02/index.html">
+            
+                
+                    <a href="../c02/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.</b>
+                        
+                        2 初识Tornado
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.1" data-path="c02/s01.html">
+            
+                
+                    <a href="../c02/s01.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.1.</b>
+                        
+                        2.1 安装
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2" data-path="c02/s02.html">
+            
+                
+                    <a href="../c02/s02.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.2.</b>
+                        
+                        2.2 Hello Itcast
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.3" data-path="c02/s03.html">
+            
+                
+                    <a href="../c02/s03.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.3.</b>
+                        
+                        2.3 httpserver
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.4" data-path="c02/s04.html">
+            
+                
+                    <a href="../c02/s04.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.4.</b>
+                        
+                        2.4 options
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.5" data-path="c02/s05.html">
+            
+                
+                    <a href="../c02/s05.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.5.</b>
+                        
+                        2.5 练习
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="3" data-path="c03/index.html">
+            
+                
+                    <a href="../c03/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.</b>
+                        
+                        3 深入Tornado
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="3.1" data-path="c03/s01.html">
+            
+                
+                    <a href="../c03/s01.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.1.</b>
+                        
+                        3.1 Application
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2" data-path="c03/s02.html">
+            
+                
+                    <a href="../c03/s02.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.2.</b>
+                        
+                        3.2 输入
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.3" data-path="c03/s03.html">
+            
+                
+                    <a href="../c03/s03.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.3.</b>
+                        
+                        3.3 输出
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.4" data-path="c03/s04.html">
+            
+                
+                    <a href="../c03/s04.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.4.</b>
+                        
+                        3.4 接口与调用顺序
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.5" data-path="c03/s05.html">
+            
+                
+                    <a href="../c03/s05.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.5.</b>
+                        
+                        3.5 练习
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="4" data-path="c04/index.html">
+            
+                
+                    <a href="../c04/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.</b>
+                        
+                        4 模板
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="4.1" data-path="c04/s01.html">
+            
+                
+                    <a href="../c04/s01.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.1.</b>
+                        
+                        4.1 静态文件
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter active" data-level="4.2" data-path="c04/s02.html">
+            
+                
+                    <a href="../c04/s02.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.2.</b>
+                        
+                        4.2 使用模板
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.3" data-path="c04/s03.html">
+            
+                
+                    <a href="../c04/s03.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.3.</b>
+                        
+                        4.3 练习
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="5" data-path="c05/index.html">
+            
+                
+                    <a href="../c05/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.</b>
+                        
+                        5 数据库
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="5.1" data-path="c05/s01.html">
+            
+                
+                    <a href="../c05/s01.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.1.</b>
+                        
+                        5.1 数据库
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.2" data-path="c05/s02.html">
+            
+                
+                    <a href="../c05/s02.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.2.</b>
+                        
+                        5.2 练习
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="6" data-path="c06/index.html">
+            
+                
+                    <a href="../c06/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.</b>
+                        
+                        6 安全应用
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="6.1" data-path="c06/s01.html">
+            
+                
+                    <a href="../c06/s01.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.1.</b>
+                        
+                        6.1 Cookie
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6.2" data-path="c06/s02.html">
+            
+                
+                    <a href="../c06/s02.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.2.</b>
+                        
+                        6.2 XSRF
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6.3" data-path="c06/s03.html">
+            
+                
+                    <a href="../c06/s03.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.3.</b>
+                        
+                        6.3 用户验证
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6.4" data-path="c06/s04.html">
+            
+                
+                    <a href="../c06/s04.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.4.</b>
+                        
+                        6.4 练习
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="7" data-path="c07/index.html">
+            
+                
+                    <a href="../c07/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>7.</b>
+                        
+                        7 异步与WebSocket
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="7.1" data-path="c07/s01.html">
+            
+                
+                    <a href="../c07/s01.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>7.1.</b>
+                        
+                        7.1 认识异步
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="7.2" data-path="c07/s02.html">
+            
+                
+                    <a href="../c07/s02.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>7.2.</b>
+                        
+                        7.2 Tornado异步
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="7.3" data-path="c07/s03.html">
+            
+                
+                    <a href="../c07/s03.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>7.3.</b>
+                        
+                        7.3 WebSocket
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="7.4" data-path="c07/s04.html">
+            
+                
+                    <a href="../c07/s04.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>7.4.</b>
+                        
+                        7.4 练习
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="8" data-path="c08/index.html">
+            
+                
+                    <a href="../c08/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.</b>
+                        
+                        8 部署
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="8.1" data-path="c08/s01.html">
+            
+                
+                    <a href="../c08/s01.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.1.</b>
+                        
+                        8.1 部署Tornado
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+
+            
+            <li class="divider"></li>
+            <li>
+                <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+                    Published with GitBook
+                </a>
+            </li>
+            
+        </ul>
+    </nav>
+</div>
+
+    <div class="book-body">
+        <div class="body-inner">
+            <div class="book-header" role="navigation">
+    <!-- Actions Left -->
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../" >引言</a>
+    </h1>
+</div>
+
+            <div class="page-wrapper" tabindex="-1" role="main">
+                <div class="page-inner">
+                
+                
+                    <section class="normal" id="section-">
+                    
+                        <h1 id="42-&#x4F7F;&#x7528;&#x6A21;&#x677F;">4.2 &#x4F7F;&#x7528;&#x6A21;&#x677F;</h1>
+<h2 id="1-&#x8DEF;&#x5F84;&#x4E0E;&#x6E32;&#x67D3;">1. &#x8DEF;&#x5F84;&#x4E0E;&#x6E32;&#x67D3;</h2>
+<p>&#x4F7F;&#x7528;&#x6A21;&#x677F;&#xFF0C;&#x9700;&#x8981;&#x4EFF;&#x7167;&#x9759;&#x6001;&#x6587;&#x4EF6;&#x8DEF;&#x5F84;&#x8BBE;&#x7F6E;&#x4E00;&#x6837;&#xFF0C;&#x5411;web.Application&#x7C7B;&#x7684;&#x6784;&#x9020;&#x51FD;&#x6570;&#x4F20;&#x9012;&#x4E00;&#x4E2A;&#x540D;&#x4E3A;<strong>template_path</strong>&#x7684;&#x53C2;&#x6570;&#x6765;&#x544A;&#x8BC9;Tornado&#x4ECE;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#x7684;&#x4E00;&#x4E2A;&#x7279;&#x5B9A;&#x4F4D;&#x7F6E;&#x63D0;&#x4F9B;&#x6A21;&#x677F;&#x6587;&#x4EF6;&#xFF0C;&#x5982;&#xFF1A;</p>
+<pre><code class="lang-python">app = tornado.web.Application(
+    [(<span class="hljs-string">r&apos;/&apos;</span>, IndexHandler)],
+    static_path=os.path.join(os.path.dirname(__file__), <span class="hljs-string">&quot;statics&quot;</span>),
+    template_path=os.path.join(os.path.dirname(__file__), <span class="hljs-string">&quot;templates&quot;</span>),
+)
+</code></pre>
+<p>&#x5728;&#x8FD9;&#x91CC;&#xFF0C;&#x6211;&#x4EEC;&#x8BBE;&#x7F6E;&#x4E86;&#x4E00;&#x4E2A;&#x5F53;&#x524D;&#x5E94;&#x7528;&#x76EE;&#x5F55;&#x4E0B;&#x540D;&#x4E3A;templates&#x7684;&#x5B50;&#x76EE;&#x5F55;&#x4F5C;&#x4E3A;template_path&#x7684;&#x53C2;&#x6570;&#x3002;&#x5728;handler&#x4E2D;&#x4F7F;&#x7528;&#x7684;&#x6A21;&#x677F;&#x5C06;&#x5728;&#x6B64;&#x76EE;&#x5F55;&#x4E2D;&#x5BFB;&#x627E;&#x3002;</p>
+<p>&#x73B0;&#x5728;&#x6211;&#x4EEC;&#x5C06;&#x9759;&#x6001;&#x6587;&#x4EF6;&#x76EE;&#x5F55;statics/html&#x4E2D;&#x7684;index.html&#x590D;&#x5236;&#x4E00;&#x4EFD;&#x5230;templates&#x76EE;&#x5F55;&#x4E2D;&#xFF0C;&#x6B64;&#x65F6;&#x6587;&#x4EF6;&#x76EE;&#x5F55;&#x7ED3;&#x6784;&#x4E3A;&#xFF1A;</p>
+<pre><code class="lang-bash">.
+&#x251C;&#x2500;&#x2500; statics
+&#x2502;   &#x251C;&#x2500;&#x2500; css
+&#x2502;   &#x2502;   &#x251C;&#x2500;&#x2500; index.css
+&#x2502;   &#x2502;   &#x251C;&#x2500;&#x2500; main.css
+&#x2502;   &#x2502;   &#x2514;&#x2500;&#x2500; reset.css
+&#x2502;   &#x251C;&#x2500;&#x2500; html
+&#x2502;   &#x2502;   &#x2514;&#x2500;&#x2500; index.html
+&#x2502;   &#x251C;&#x2500;&#x2500; images
+&#x2502;   &#x2502;   &#x251C;&#x2500;&#x2500; home01.jpg
+&#x2502;   &#x2502;   &#x251C;&#x2500;&#x2500; home02.jpg
+&#x2502;   &#x2502;   &#x251C;&#x2500;&#x2500; home03.jpg
+&#x2502;   &#x2502;   &#x2514;&#x2500;&#x2500; landlord01.jpg
+&#x2502;   &#x251C;&#x2500;&#x2500; js
+&#x2502;   &#x2502;   &#x251C;&#x2500;&#x2500; index.js
+&#x2502;   &#x2502;   &#x2514;&#x2500;&#x2500; jquery.min.js
+&#x2502;   &#x2514;&#x2500;&#x2500; plugins
+&#x2502;       &#x251C;&#x2500;&#x2500; bootstrap
+&#x2502;       &#x2502;   &#x2514;&#x2500;...
+&#x2502;       &#x2514;&#x2500;&#x2500; font-awesome
+&#x2502;           &#x2514;&#x2500;...
+&#x251C;&#x2500;&#x2500; templates
+&#x2502;   &#x2514;&#x2500;&#x2500; index.html
+&#x2514;&#x2500;&#x2500; test.py
+</code></pre>
+<p><strong>&#x5728;handler&#x4E2D;&#x4F7F;&#x7528;render()&#x65B9;&#x6CD5;&#x6765;&#x6E32;&#x67D3;&#x6A21;&#x677F;&#x5E76;&#x8FD4;&#x56DE;&#x7ED9;&#x5BA2;&#x6237;&#x7AEF;</strong>&#x3002;</p>
+<pre><code class="lang-python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">IndexHandler</span><span class="hljs-params">(RequestHandler)</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get</span><span class="hljs-params">(self)</span>:</span>
+        self.render(<span class="hljs-string">&quot;index.html&quot;</span>) <span class="hljs-comment"># &#x6E32;&#x67D3;&#x4E3B;&#x9875;&#x6A21;&#x677F;&#xFF0C;&#x5E76;&#x8FD4;&#x56DE;&#x7ED9;&#x5BA2;&#x6237;&#x7AEF;&#x3002;</span>
+
+
+
+current_path = os.path.dirname(__file__)
+app = tornado.web.Application(
+    [
+        (<span class="hljs-string">r&apos;^/$&apos;</span>, IndexHandler),
+        (<span class="hljs-string">r&apos;^/view/(.*)$&apos;</span>, StaticFileHandler, {<span class="hljs-string">&quot;path&quot;</span>:os.path.join(current_path, <span class="hljs-string">&quot;statics/html&quot;</span>)}),
+    ],
+    static_path=os.path.join(current_path, <span class="hljs-string">&quot;statics&quot;</span>),
+    template_path=os.path.join(os.path.dirname(__file__), <span class="hljs-string">&quot;templates&quot;</span>),
+)
+</code></pre>
+<h2 id="2-&#x6A21;&#x677F;&#x8BED;&#x6CD5;">2. &#x6A21;&#x677F;&#x8BED;&#x6CD5;</h2>
+<h3 id="21-&#x53D8;&#x91CF;&#x4E0E;&#x8868;&#x8FBE;&#x5F0F;">2-1 &#x53D8;&#x91CF;&#x4E0E;&#x8868;&#x8FBE;&#x5F0F;</h3>
+<p>&#x5728;tornado&#x7684;&#x6A21;&#x677F;&#x4E2D;&#x4F7F;&#x7528;{{}}&#x4F5C;&#x4E3A;&#x53D8;&#x91CF;&#x6216;&#x8868;&#x8FBE;&#x5F0F;&#x7684;&#x5360;&#x4F4D;&#x7B26;&#xFF0C;&#x4F7F;&#x7528;render&#x6E32;&#x67D3;&#x540E;&#x5360;&#x4F4D;&#x7B26;{{}}&#x4F1A;&#x88AB;&#x66FF;&#x6362;&#x4E3A;&#x76F8;&#x5E94;&#x7684;&#x7ED3;&#x679C;&#x503C;&#x3002;</p>
+<p>&#x6211;&#x4EEC;&#x5C06;index.html&#x4E2D;&#x7684;&#x4E00;&#x6761;&#x623F;&#x6E90;&#x4FE1;&#x606F;&#x8BB0;&#x5F55;</p>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-title">li</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">&quot;house-item&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">a</span> <span class="hljs-attribute">href</span>=<span class="hljs-value">&quot;&quot;</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-title">img</span> <span class="hljs-attribute">src</span>=<span class="hljs-value">&quot;/static/images/home01.jpg&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">a</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">&quot;house-desc&quot;</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">&quot;landlord-pic&quot;</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-title">img</span> <span class="hljs-attribute">src</span>=<span class="hljs-value">&quot;/static/images/landlord01.jpg&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">&quot;house-price&quot;</span>&gt;</span>&#xFFE5;<span class="hljs-tag">&lt;<span class="hljs-title">span</span>&gt;</span>398<span class="hljs-tag">&lt;/<span class="hljs-title">span</span>&gt;</span>/&#x665A;<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">&quot;house-intro&quot;</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-title">span</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">&quot;house-title&quot;</span>&gt;</span>&#x5BBD;&#x7A84;&#x5DF7;&#x5B50;+160&#x5E73;&#x5927;&#x7A7A;&#x95F4;+&#x6587;&#x5316;&#x4FDD;&#x62A4;&#x533A;&#x53CC;&#x5730;&#x94C1;<span class="hljs-tag">&lt;/<span class="hljs-title">span</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-title">em</span>&gt;</span>&#x6574;&#x5957;&#x51FA;&#x79DF; - 5&#x5206;/6&#x70B9;&#x8BC4; - &#x5317;&#x4EAC;&#x5E02;&#x4E30;&#x53F0;&#x533A;&#x516D;&#x91CC;&#x6865;&#x5730;&#x94C1;<span class="hljs-tag">&lt;/<span class="hljs-title">em</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">li</span>&gt;</span>
+</code></pre>
+<p>&#x6539;&#x4E3A;&#x6A21;&#x677F;&#xFF1A;</p>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-title">li</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">&quot;house-item&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">a</span> <span class="hljs-attribute">href</span>=<span class="hljs-value">&quot;&quot;</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-title">img</span> <span class="hljs-attribute">src</span>=<span class="hljs-value">&quot;/static/images/home01.jpg&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">a</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">&quot;house-desc&quot;</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">&quot;landlord-pic&quot;</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-title">img</span> <span class="hljs-attribute">src</span>=<span class="hljs-value">&quot;/static/images/landlord01.jpg&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">&quot;house-price&quot;</span>&gt;</span>&#xFFE5;<span class="hljs-tag">&lt;<span class="hljs-title">span</span>&gt;</span>{{price}}<span class="hljs-tag">&lt;/<span class="hljs-title">span</span>&gt;</span>/&#x665A;<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">&quot;house-intro&quot;</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-title">span</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">&quot;house-title&quot;</span>&gt;</span>{{title}}<span class="hljs-tag">&lt;/<span class="hljs-title">span</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-title">em</span>&gt;</span>&#x6574;&#x5957;&#x51FA;&#x79DF; - {{score}}&#x5206;/{{comments}}&#x70B9;&#x8BC4; - {{position}}<span class="hljs-tag">&lt;/<span class="hljs-title">em</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">li</span>&gt;</span>
+</code></pre>
+<p>&#x6E32;&#x67D3;&#x65B9;&#x5F0F;&#x5982;&#x4E0B;&#xFF1A;</p>
+<pre><code class="lang-python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">IndexHandler</span><span class="hljs-params">(RequestHandler)</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get</span><span class="hljs-params">(self)</span>:</span>
+        house_info = {
+            <span class="hljs-string">&quot;price&quot;</span>: <span class="hljs-number">398</span>,
+            <span class="hljs-string">&quot;title&quot;</span>: <span class="hljs-string">&quot;&#x5BBD;&#x7A84;&#x5DF7;&#x5B50;+160&#x5E73;&#x5927;&#x7A7A;&#x95F4;+&#x6587;&#x5316;&#x4FDD;&#x62A4;&#x533A;&#x53CC;&#x5730;&#x94C1;&quot;</span>,
+            <span class="hljs-string">&quot;score&quot;</span>: <span class="hljs-number">5</span>,
+            <span class="hljs-string">&quot;comments&quot;</span>: <span class="hljs-number">6</span>,
+            <span class="hljs-string">&quot;position&quot;</span>: <span class="hljs-string">&quot;&#x5317;&#x4EAC;&#x5E02;&#x4E30;&#x53F0;&#x533A;&#x516D;&#x91CC;&#x6865;&#x5730;&#x94C1;&quot;</span>
+        }
+        self.render(<span class="hljs-string">&quot;index.html&quot;</span>, **house_info)
+</code></pre>
+<p>{{}}&#x4E0D;&#x4EC5;&#x53EF;&#x4EE5;&#x5305;&#x542B;&#x53D8;&#x91CF;&#xFF0C;&#x8FD8;&#x53EF;&#x4EE5;&#x662F;&#x8868;&#x8FBE;&#x5F0F;&#xFF0C;&#x5982;&#xFF1A;</p>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-title">li</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">&quot;house-item&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">a</span> <span class="hljs-attribute">href</span>=<span class="hljs-value">&quot;&quot;</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-title">img</span> <span class="hljs-attribute">src</span>=<span class="hljs-value">&quot;/static/images/home01.jpg&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">a</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">&quot;house-desc&quot;</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">&quot;landlord-pic&quot;</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-title">img</span> <span class="hljs-attribute">src</span>=<span class="hljs-value">&quot;/static/images/landlord01.jpg&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">&quot;house-price&quot;</span>&gt;</span>&#xFFE5;<span class="hljs-tag">&lt;<span class="hljs-title">span</span>&gt;</span>{{p1 + p2}}<span class="hljs-tag">&lt;/<span class="hljs-title">span</span>&gt;</span>/&#x665A;<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">&quot;house-intro&quot;</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-title">span</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">&quot;house-title&quot;</span>&gt;</span>{{&quot;+&quot;.join(titles)}}<span class="hljs-tag">&lt;/<span class="hljs-title">span</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-title">em</span>&gt;</span>&#x6574;&#x5957;&#x51FA;&#x79DF; - {{score}}&#x5206;/{{comments}}&#x70B9;&#x8BC4; - {{position}}<span class="hljs-tag">&lt;/<span class="hljs-title">em</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">li</span>&gt;</span>
+</code></pre>
+<pre><code class="lang-python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">IndexHandler</span><span class="hljs-params">(RequestHandler)</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get</span><span class="hljs-params">(self)</span>:</span>
+        house_info = {
+            <span class="hljs-string">&quot;p1&quot;</span>: <span class="hljs-number">198</span>,
+            <span class="hljs-string">&quot;p2&quot;</span>: <span class="hljs-number">200</span>,
+            <span class="hljs-string">&quot;titles&quot;</span>: [<span class="hljs-string">&quot;&#x5BBD;&#x7A84;&#x5DF7;&#x5B50;&quot;</span>, <span class="hljs-string">&quot;160&#x5E73;&#x5927;&#x7A7A;&#x95F4;&quot;</span>, <span class="hljs-string">&quot;&#x6587;&#x5316;&#x4FDD;&#x62A4;&#x533A;&#x53CC;&#x5730;&#x94C1;&quot;</span>],
+            <span class="hljs-string">&quot;score&quot;</span>: <span class="hljs-number">5</span>,
+            <span class="hljs-string">&quot;comments&quot;</span>: <span class="hljs-number">6</span>,
+            <span class="hljs-string">&quot;position&quot;</span>: <span class="hljs-string">&quot;&#x5317;&#x4EAC;&#x5E02;&#x4E30;&#x53F0;&#x533A;&#x516D;&#x91CC;&#x6865;&#x5730;&#x94C1;&quot;</span>
+        }
+        self.render(<span class="hljs-string">&quot;index.html&quot;</span>, **house_info)
+</code></pre>
+<h3 id="22-&#x63A7;&#x5236;&#x8BED;&#x53E5;">2-2 &#x63A7;&#x5236;&#x8BED;&#x53E5;</h3>
+<p>&#x53EF;&#x4EE5;&#x5728;Tornado&#x6A21;&#x677F;&#x4E2D;&#x4F7F;&#x7528;Python&#x6761;&#x4EF6;&#x548C;&#x5FAA;&#x73AF;&#x8BED;&#x53E5;&#x3002;&#x63A7;&#x5236;&#x8BED;&#x53E5;&#x4EE5;{\%&#x548C;\%}&#x5305;&#x56F4;&#xFF0C;&#x5E76;&#x4EE5;&#x7C7B;&#x4F3C;&#x4E0B;&#x9762;&#x7684;&#x5F62;&#x5F0F;&#x88AB;&#x4F7F;&#x7528;&#xFF1A;</p>
+<pre><code class="lang-python">{% <span class="hljs-keyword">if</span> page <span class="hljs-keyword">is</span> <span class="hljs-keyword">None</span> %}
+</code></pre>
+<p>&#x6216;</p>
+<pre><code class="lang-python">{% <span class="hljs-keyword">if</span> len(entries) == <span class="hljs-number">3</span> %}
+</code></pre>
+<p>&#x63A7;&#x5236;&#x8BED;&#x53E5;&#x7684;&#x5927;&#x90E8;&#x5206;&#x5C31;&#x50CF;&#x5BF9;&#x5E94;&#x7684;Python&#x8BED;&#x53E5;&#x4E00;&#x6837;&#x5DE5;&#x4F5C;&#xFF0C;&#x652F;&#x6301;if&#x3001;for&#x3001;while&#xFF0C;<strong>&#x6CE8;&#x610F;end</strong>:</p>
+<pre><code class="lang-python">{% <span class="hljs-keyword">if</span> ... %} ... {% <span class="hljs-keyword">elif</span> ... %} ... {% <span class="hljs-keyword">else</span> ... %} ... {% end %}
+{% <span class="hljs-keyword">for</span> ... <span class="hljs-keyword">in</span> ... %} ... {% end %}
+{% <span class="hljs-keyword">while</span> ... %} ... {% end %}
+</code></pre>
+<p>&#x518D;&#x6B21;&#x4FEE;&#x6539;index.html:</p>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-title">ul</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">&quot;house-list&quot;</span>&gt;</span>
+    {% if len(houses) &gt; 0 %}
+        {% for house in houses %}
+        <span class="hljs-tag">&lt;<span class="hljs-title">li</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">&quot;house-item&quot;</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-title">a</span> <span class="hljs-attribute">href</span>=<span class="hljs-value">&quot;&quot;</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-title">img</span> <span class="hljs-attribute">src</span>=<span class="hljs-value">&quot;/static/images/home01.jpg&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">a</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">&quot;house-desc&quot;</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">&quot;landlord-pic&quot;</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-title">img</span> <span class="hljs-attribute">src</span>=<span class="hljs-value">&quot;/static/images/landlord01.jpg&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">&quot;house-price&quot;</span>&gt;</span>&#xFFE5;<span class="hljs-tag">&lt;<span class="hljs-title">span</span>&gt;</span>{{house[&quot;price&quot;]}}<span class="hljs-tag">&lt;/<span class="hljs-title">span</span>&gt;</span>/&#x665A;<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">&quot;house-intro&quot;</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-title">span</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">&quot;house-title&quot;</span>&gt;</span>{{house[&quot;title&quot;]}}<span class="hljs-tag">&lt;/<span class="hljs-title">span</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-title">em</span>&gt;</span>&#x6574;&#x5957;&#x51FA;&#x79DF; - {{house[&quot;score&quot;]}}&#x5206;/{{house[&quot;comments&quot;]}}&#x70B9;&#x8BC4; - {{house[&quot;position&quot;]}}<span class="hljs-tag">&lt;/<span class="hljs-title">em</span>&gt;</span>
+                <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+            <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-title">li</span>&gt;</span>
+        {% end %}
+    {% else %}
+        &#x5BF9;&#x4E0D;&#x8D77;&#xFF0C;&#x6682;&#x65F6;&#x6CA1;&#x6709;&#x623F;&#x6E90;&#x3002;
+    {% end %}
+<span class="hljs-tag">&lt;/<span class="hljs-title">ul</span>&gt;</span>
+</code></pre>
+<p>python&#x4E2D;&#x6E32;&#x67D3;&#x8BED;&#x53E5;&#x4E3A;&#xFF1A;</p>
+<pre><code class="lang-python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">IndexHandler</span><span class="hljs-params">(RequestHandler)</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get</span><span class="hljs-params">(self)</span>:</span>
+        houses = [
+        {
+            <span class="hljs-string">&quot;price&quot;</span>: <span class="hljs-number">398</span>,
+            <span class="hljs-string">&quot;title&quot;</span>: <span class="hljs-string">&quot;&#x5BBD;&#x7A84;&#x5DF7;&#x5B50;+160&#x5E73;&#x5927;&#x7A7A;&#x95F4;+&#x6587;&#x5316;&#x4FDD;&#x62A4;&#x533A;&#x53CC;&#x5730;&#x94C1;&quot;</span>,
+            <span class="hljs-string">&quot;score&quot;</span>: <span class="hljs-number">5</span>,
+            <span class="hljs-string">&quot;comments&quot;</span>: <span class="hljs-number">6</span>,
+            <span class="hljs-string">&quot;position&quot;</span>: <span class="hljs-string">&quot;&#x5317;&#x4EAC;&#x5E02;&#x4E30;&#x53F0;&#x533A;&#x516D;&#x91CC;&#x6865;&#x5730;&#x94C1;&quot;</span>
+        },
+        {
+            <span class="hljs-string">&quot;price&quot;</span>: <span class="hljs-number">398</span>,
+            <span class="hljs-string">&quot;title&quot;</span>: <span class="hljs-string">&quot;&#x5BBD;&#x7A84;&#x5DF7;&#x5B50;+160&#x5E73;&#x5927;&#x7A7A;&#x95F4;+&#x6587;&#x5316;&#x4FDD;&#x62A4;&#x533A;&#x53CC;&#x5730;&#x94C1;&quot;</span>,
+            <span class="hljs-string">&quot;score&quot;</span>: <span class="hljs-number">5</span>,
+            <span class="hljs-string">&quot;comments&quot;</span>: <span class="hljs-number">6</span>,
+            <span class="hljs-string">&quot;position&quot;</span>: <span class="hljs-string">&quot;&#x5317;&#x4EAC;&#x5E02;&#x4E30;&#x53F0;&#x533A;&#x516D;&#x91CC;&#x6865;&#x5730;&#x94C1;&quot;</span>
+        },
+        {
+            <span class="hljs-string">&quot;price&quot;</span>: <span class="hljs-number">398</span>,
+            <span class="hljs-string">&quot;title&quot;</span>: <span class="hljs-string">&quot;&#x5BBD;&#x7A84;&#x5DF7;&#x5B50;+160&#x5E73;&#x5927;&#x7A7A;&#x95F4;+&#x6587;&#x5316;&#x4FDD;&#x62A4;&#x533A;&#x53CC;&#x5730;&#x94C1;&quot;</span>,
+            <span class="hljs-string">&quot;score&quot;</span>: <span class="hljs-number">5</span>,
+            <span class="hljs-string">&quot;comments&quot;</span>: <span class="hljs-number">6</span>,
+            <span class="hljs-string">&quot;position&quot;</span>: <span class="hljs-string">&quot;&#x5317;&#x4EAC;&#x5E02;&#x4E30;&#x53F0;&#x533A;&#x516D;&#x91CC;&#x6865;&#x5730;&#x94C1;&quot;</span>
+        },
+        {
+            <span class="hljs-string">&quot;price&quot;</span>: <span class="hljs-number">398</span>,
+            <span class="hljs-string">&quot;title&quot;</span>: <span class="hljs-string">&quot;&#x5BBD;&#x7A84;&#x5DF7;&#x5B50;+160&#x5E73;&#x5927;&#x7A7A;&#x95F4;+&#x6587;&#x5316;&#x4FDD;&#x62A4;&#x533A;&#x53CC;&#x5730;&#x94C1;&quot;</span>,
+            <span class="hljs-string">&quot;score&quot;</span>: <span class="hljs-number">5</span>,
+            <span class="hljs-string">&quot;comments&quot;</span>: <span class="hljs-number">6</span>,
+            <span class="hljs-string">&quot;position&quot;</span>: <span class="hljs-string">&quot;&#x5317;&#x4EAC;&#x5E02;&#x4E30;&#x53F0;&#x533A;&#x516D;&#x91CC;&#x6865;&#x5730;&#x94C1;&quot;</span>
+        },
+        {
+            <span class="hljs-string">&quot;price&quot;</span>: <span class="hljs-number">398</span>,
+            <span class="hljs-string">&quot;title&quot;</span>: <span class="hljs-string">&quot;&#x5BBD;&#x7A84;&#x5DF7;&#x5B50;+160&#x5E73;&#x5927;&#x7A7A;&#x95F4;+&#x6587;&#x5316;&#x4FDD;&#x62A4;&#x533A;&#x53CC;&#x5730;&#x94C1;&quot;</span>,
+            <span class="hljs-string">&quot;score&quot;</span>: <span class="hljs-number">5</span>,
+            <span class="hljs-string">&quot;comments&quot;</span>: <span class="hljs-number">6</span>,
+            <span class="hljs-string">&quot;position&quot;</span>: <span class="hljs-string">&quot;&#x5317;&#x4EAC;&#x5E02;&#x4E30;&#x53F0;&#x533A;&#x516D;&#x91CC;&#x6865;&#x5730;&#x94C1;&quot;</span>
+        }]
+        self.render(<span class="hljs-string">&quot;index.html&quot;</span>, houses=houses)
+</code></pre>
+<h3 id="23-&#x51FD;&#x6570;">2-3 &#x51FD;&#x6570;</h3>
+<h4 id="staticurl">static_url()</h4>
+<p>Tornado&#x6A21;&#x677F;&#x6A21;&#x5757;&#x63D0;&#x4F9B;&#x4E86;&#x4E00;&#x4E2A;&#x53EB;&#x4F5C;static_url&#x7684;&#x51FD;&#x6570;&#x6765;&#x751F;&#x6210;&#x9759;&#x6001;&#x6587;&#x4EF6;&#x76EE;&#x5F55;&#x4E0B;&#x6587;&#x4EF6;&#x7684;URL&#x3002;&#x5982;&#x4E0B;&#x9762;&#x7684;&#x793A;&#x4F8B;&#x4EE3;&#x7801;&#xFF1A;</p>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-title">link</span> <span class="hljs-attribute">rel</span>=<span class="hljs-value">&quot;stylesheet&quot;</span> <span class="hljs-attribute">href</span>=<span class="hljs-value">&quot;{{ static_url(&quot;</span><span class="hljs-value">style.css&quot;)</span> }}&quot;&gt;</span>
+</code></pre>
+<p>&#x8FD9;&#x4E2A;&#x5BF9;static_url&#x7684;&#x8C03;&#x7528;&#x751F;&#x6210;&#x4E86;URL&#x7684;&#x503C;&#xFF0C;&#x5E76;&#x6E32;&#x67D3;&#x8F93;&#x51FA;&#x7C7B;&#x4F3C;&#x4E0B;&#x9762;&#x7684;&#x4EE3;&#x7801;&#xFF1A;</p>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-title">link</span> <span class="hljs-attribute">rel</span>=<span class="hljs-value">&quot;stylesheet&quot;</span> <span class="hljs-attribute">href</span>=<span class="hljs-value">&quot;/static/style.css?v=ab12&quot;</span>&gt;</span>
+</code></pre>
+<p><strong>&#x4F18;&#x70B9;&#xFF1A;</strong></p>
+<ul>
+<li>static_url&#x51FD;&#x6570;&#x521B;&#x5EFA;&#x4E86;&#x4E00;&#x4E2A;&#x57FA;&#x4E8E;&#x6587;&#x4EF6;&#x5185;&#x5BB9;&#x7684;hash&#x503C;&#xFF0C;&#x5E76;&#x5C06;&#x5176;&#x6DFB;&#x52A0;&#x5230;URL&#x672B;&#x5C3E;&#xFF08;&#x67E5;&#x8BE2;&#x5B57;&#x7B26;&#x4E32;&#x7684;&#x53C2;&#x6570;v&#xFF09;&#x3002;&#x8FD9;&#x4E2A;hash&#x503C;&#x786E;&#x4FDD;&#x6D4F;&#x89C8;&#x5668;&#x603B;&#x662F;&#x52A0;&#x8F7D;&#x4E00;&#x4E2A;&#x6587;&#x4EF6;&#x7684;&#x6700;&#x65B0;&#x7248;&#x800C;&#x4E0D;&#x662F;&#x4E4B;&#x524D;&#x7684;&#x7F13;&#x5B58;&#x7248;&#x672C;&#x3002;&#x65E0;&#x8BBA;&#x662F;&#x5728;&#x4F60;&#x5E94;&#x7528;&#x7684;&#x5F00;&#x53D1;&#x9636;&#x6BB5;&#xFF0C;&#x8FD8;&#x662F;&#x5728;&#x90E8;&#x7F72;&#x5230;&#x751F;&#x4EA7;&#x73AF;&#x5883;&#x4F7F;&#x7528;&#x65F6;&#xFF0C;&#x90FD;&#x975E;&#x5E38;&#x6709;&#x7528;&#xFF0C;&#x56E0;&#x4E3A;&#x4F60;&#x7684;&#x7528;&#x6237;&#x4E0D;&#x5FC5;&#x518D;&#x4E3A;&#x4E86;&#x770B;&#x5230;&#x4F60;&#x7684;&#x9759;&#x6001;&#x5185;&#x5BB9;&#x800C;&#x6E05;&#x9664;&#x6D4F;&#x89C8;&#x5668;&#x7F13;&#x5B58;&#x4E86;&#x3002;</li>
+<li>&#x53E6;&#x4E00;&#x4E2A;&#x597D;&#x5904;&#x662F;&#x4F60;&#x53EF;&#x4EE5;&#x6539;&#x53D8;&#x4F60;&#x5E94;&#x7528;URL&#x7684;&#x7ED3;&#x6784;&#xFF0C;&#x800C;&#x4E0D;&#x9700;&#x8981;&#x6539;&#x53D8;&#x6A21;&#x677F;&#x4E2D;&#x7684;&#x4EE3;&#x7801;&#x3002;&#x4F8B;&#x5982;&#xFF0C;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x8BBE;&#x7F6E;<strong>static_url_prefix</strong>&#x6765;&#x66F4;&#x6539;Tornado&#x7684;&#x9ED8;&#x8BA4;&#x9759;&#x6001;&#x8DEF;&#x5F84;&#x524D;&#x7F00;/static&#x3002;&#x5982;&#x679C;&#x4F7F;&#x7528;static_url&#x800C;&#x4E0D;&#x662F;&#x786C;&#x7F16;&#x7801;&#x7684;&#x8BDD;&#xFF0C;&#x4EE3;&#x7801;&#x4E0D;&#x9700;&#x8981;&#x6539;&#x53D8;&#x3002;</li>
+</ul>
+<h4 id="&#x8F6C;&#x4E49;">&#x8F6C;&#x4E49;</h4>
+<p>&#x6211;&#x4EEC;&#x65B0;&#x5EFA;&#x4E00;&#x4E2A;&#x8868;&#x5355;&#x9875;&#x9762;new.html</p>
+<pre><code class="lang-html"><span class="hljs-doctype">&lt;!DOCTYPE html&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">html</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">head</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">title</span>&gt;</span>&#x65B0;&#x5EFA;&#x623F;&#x6E90;<span class="hljs-tag">&lt;/<span class="hljs-title">title</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-title">head</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">body</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">form</span> <span class="hljs-attribute">method</span>=<span class="hljs-value">&quot;post&quot;</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-title">textarea</span> <span class="hljs-attribute">name</span>=<span class="hljs-value">&quot;text&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">textarea</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-title">input</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">&quot;submit&quot;</span> <span class="hljs-attribute">value</span>=<span class="hljs-value">&quot;&#x63D0;&#x4EA4;&quot;</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-title">form</span>&gt;</span>
+        {{text}}
+    <span class="hljs-tag">&lt;/<span class="hljs-title">body</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">html</span>&gt;</span>
+</code></pre>
+<p>&#x5BF9;&#x5E94;&#x7684;handler&#x4E3A;&#xFF1A;</p>
+<pre><code class="lang-python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">NewHandler</span><span class="hljs-params">(RequestHandler)</span>:</span>
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get</span><span class="hljs-params">(self)</span>:</span>
+        self.render(<span class="hljs-string">&quot;new.html&quot;</span>, text=<span class="hljs-string">&quot;&quot;</span>)
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">post</span><span class="hljs-params">(self)</span>:</span>
+        text = self.get_argument(<span class="hljs-string">&quot;text&quot;</span>, <span class="hljs-string">&quot;&quot;</span>) 
+        <span class="hljs-keyword">print</span> text
+        self.render(<span class="hljs-string">&quot;new.html&quot;</span>, text=text)
+</code></pre>
+<p>&#x5F53;&#x6211;&#x4EEC;&#x5728;&#x8868;&#x5355;&#x4E2D;&#x586B;&#x5165;&#x5982;&#x4E0B;&#x5185;&#x5BB9;&#x65F6;&#xFF1A;</p>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-title">script</span>&gt;</span><span class="actionscript">alert(<span class="hljs-string">&quot;hello!&quot;</span>);</span><span class="hljs-tag">&lt;/<span class="hljs-title">script</span>&gt;</span>
+</code></pre>
+<p><img src="../images/form_input_js.png" alt="&#x6CE8;&#x5165;js"></p>
+<p>&#x5199;&#x5165;&#x7684;js&#x7A0B;&#x5E8F;&#x5E76;&#x6CA1;&#x6709;&#x8FD0;&#x884C;&#xFF0C;&#x800C;&#x662F;&#x663E;&#x793A;&#x51FA;&#x6765;&#x4E86;&#xFF1A;</p>
+<p><img src="../images/display_js_code.png" alt="&#x663E;&#x793A;&#x4E86;js&#x4EE3;&#x7801;"></p>
+<p>&#x6211;&#x4EEC;&#x67E5;&#x770B;&#x9875;&#x9762;&#x6E90;&#x4EE3;&#x7801;&#xFF0C;&#x53D1;&#x73B0;&lt;&#x3001;&gt;&#x3001;&quot;&#x7B49;&#x88AB;&#x8F6C;&#x6362;&#x4E3A;&#x5BF9;&#x5E94;&#x7684;html&#x5B57;&#x7B26;&#x3002;</p>
+<pre><code class="lang-html">&amp;lt;script&amp;gt;alert(&amp;quot;hello!&amp;quot;);&amp;lt;/script&amp;gt;
+</code></pre>
+<p>&#x8FD9;&#x662F;&#x56E0;&#x4E3A;tornado&#x4E2D;&#x9ED8;&#x8BA4;&#x5F00;&#x542F;&#x4E86;&#x6A21;&#x677F;&#x81EA;&#x52A8;&#x8F6C;&#x4E49;&#x529F;&#x80FD;&#xFF0C;&#x9632;&#x6B62;&#x7F51;&#x7AD9;&#x53D7;&#x5230;&#x6076;&#x610F;&#x653B;&#x51FB;&#x3002;</p>
+<p>&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;raw&#x8BED;&#x53E5;&#x6765;&#x8F93;&#x51FA;&#x4E0D;&#x88AB;&#x8F6C;&#x4E49;&#x7684;&#x539F;&#x59CB;&#x683C;&#x5F0F;&#xFF0C;&#x5982;&#xFF1A;</p>
+<pre><code class="lang-python">{% raw text %}
+</code></pre>
+<blockquote>
+<p>&#x6CE8;&#x610F;&#xFF1A;&#x5728;Firefox&#x6D4F;&#x89C8;&#x5668;&#x4E2D;&#x4F1A;&#x76F4;&#x63A5;&#x5F39;&#x51FA;alert&#x7A97;&#x53E3;&#xFF0C;&#x800C;&#x5728;Chrome&#x6D4F;&#x89C8;&#x5668;&#x4E2D;&#xFF0C;&#x9700;&#x8981;set_header(&quot;X-XSS-Protection&quot;, 0)</p>
+</blockquote>
+<p>&#x82E5;&#x8981;&#x5173;&#x95ED;&#x81EA;&#x52A8;&#x8F6C;&#x4E49;&#xFF0C;&#x4E00;&#x79CD;&#x65B9;&#x6CD5;&#x662F;&#x5728;Application&#x6784;&#x9020;&#x51FD;&#x6570;&#x4E2D;&#x4F20;&#x9012;<strong>autoescape=None</strong>&#xFF0C;&#x53E6;&#x4E00;&#x79CD;&#x65B9;&#x6CD5;&#x662F;&#x5728;&#x6BCF;&#x9875;&#x6A21;&#x677F;&#x4E2D;&#x4FEE;&#x6539;&#x81EA;&#x52A8;&#x8F6C;&#x4E49;&#x884C;&#x4E3A;&#xFF0C;&#x6DFB;&#x52A0;&#x5982;&#x4E0B;&#x8BED;&#x53E5;&#xFF1A;</p>
+<pre><code class="lang-python">{% autoescape <span class="hljs-keyword">None</span> %}
+</code></pre>
+<p><strong>escape()</strong></p>
+<p>&#x5173;&#x95ED;&#x81EA;&#x52A8;&#x8F6C;&#x4E49;&#x540E;&#xFF0C;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;escape()&#x51FD;&#x6570;&#x6765;&#x5BF9;&#x7279;&#x5B9A;&#x53D8;&#x91CF;&#x8FDB;&#x884C;&#x8F6C;&#x4E49;&#xFF0C;&#x5982;&#xFF1A;</p>
+<pre><code class="lang-python">{{ escape(text) }}
+</code></pre>
+<h4 id="&#x81EA;&#x5B9A;&#x4E49;&#x51FD;&#x6570;">&#x81EA;&#x5B9A;&#x4E49;&#x51FD;&#x6570;</h4>
+<p>&#x5728;&#x6A21;&#x677F;&#x4E2D;&#x8FD8;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x4E00;&#x4E2A;&#x81EA;&#x5DF1;&#x7F16;&#x5199;&#x7684;&#x51FD;&#x6570;&#xFF0C;&#x53EA;&#x9700;&#x8981;&#x5C06;&#x51FD;&#x6570;&#x540D;&#x4F5C;&#x4E3A;&#x6A21;&#x677F;&#x7684;&#x53C2;&#x6570;&#x4F20;&#x9012;&#x5373;&#x53EF;&#xFF0C;&#x5C31;&#x50CF;&#x5176;&#x4ED6;&#x53D8;&#x91CF;&#x4E00;&#x6837;&#x3002;</p>
+<p>&#x6211;&#x4EEC;&#x4FEE;&#x6539;&#x540E;&#x7AEF;&#x5982;&#x4E0B;&#xFF1A;</p>
+<pre><code class="lang-python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">house_title_join</span><span class="hljs-params">(titles)</span>:</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;+&quot;</span>.join(titles)
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">IndexHandler</span><span class="hljs-params">(RequestHandler)</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get</span><span class="hljs-params">(self)</span>:</span>
+        house_list = [
+        {
+            <span class="hljs-string">&quot;price&quot;</span>: <span class="hljs-number">398</span>,
+            <span class="hljs-string">&quot;titles&quot;</span>: [<span class="hljs-string">&quot;&#x5BBD;&#x7A84;&#x5DF7;&#x5B50;&quot;</span>, <span class="hljs-string">&quot;160&#x5E73;&#x5927;&#x7A7A;&#x95F4;&quot;</span>, <span class="hljs-string">&quot;&#x6587;&#x5316;&#x4FDD;&#x62A4;&#x533A;&#x53CC;&#x5730;&#x94C1;&quot;</span>],
+            <span class="hljs-string">&quot;score&quot;</span>: <span class="hljs-number">5</span>,
+            <span class="hljs-string">&quot;comments&quot;</span>: <span class="hljs-number">6</span>,
+            <span class="hljs-string">&quot;position&quot;</span>: <span class="hljs-string">&quot;&#x5317;&#x4EAC;&#x5E02;&#x4E30;&#x53F0;&#x533A;&#x516D;&#x91CC;&#x6865;&#x5730;&#x94C1;&quot;</span>
+        },
+        {
+            <span class="hljs-string">&quot;price&quot;</span>: <span class="hljs-number">398</span>,
+            <span class="hljs-string">&quot;titles&quot;</span>: [<span class="hljs-string">&quot;&#x5BBD;&#x7A84;&#x5DF7;&#x5B50;&quot;</span>, <span class="hljs-string">&quot;160&#x5E73;&#x5927;&#x7A7A;&#x95F4;&quot;</span>, <span class="hljs-string">&quot;&#x6587;&#x5316;&#x4FDD;&#x62A4;&#x533A;&#x53CC;&#x5730;&#x94C1;&quot;</span>],
+            <span class="hljs-string">&quot;score&quot;</span>: <span class="hljs-number">5</span>,
+            <span class="hljs-string">&quot;comments&quot;</span>: <span class="hljs-number">6</span>,
+            <span class="hljs-string">&quot;position&quot;</span>: <span class="hljs-string">&quot;&#x5317;&#x4EAC;&#x5E02;&#x4E30;&#x53F0;&#x533A;&#x516D;&#x91CC;&#x6865;&#x5730;&#x94C1;&quot;</span>
+        }]
+        self.render(<span class="hljs-string">&quot;index.html&quot;</span>, houses=house_list, title_join = house_title_join)
+</code></pre>
+<p>&#x524D;&#x6BB5;&#x6A21;&#x677F;&#x6211;&#x4EEC;&#x4FEE;&#x6539;&#x4E3A;&#xFF1A;</p>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-title">ul</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">&quot;house-list&quot;</span>&gt;</span>
+    {% if len(houses) &gt; 0 %}
+        {% for house in houses %}
+        <span class="hljs-tag">&lt;<span class="hljs-title">li</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">&quot;house-item&quot;</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-title">a</span> <span class="hljs-attribute">href</span>=<span class="hljs-value">&quot;&quot;</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-title">img</span> <span class="hljs-attribute">src</span>=<span class="hljs-value">&quot;/static/images/home01.jpg&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">a</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">&quot;house-desc&quot;</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">&quot;landlord-pic&quot;</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-title">img</span> <span class="hljs-attribute">src</span>=<span class="hljs-value">&quot;/static/images/landlord01.jpg&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">&quot;house-price&quot;</span>&gt;</span>&#xFFE5;<span class="hljs-tag">&lt;<span class="hljs-title">span</span>&gt;</span>{{house[&quot;price&quot;]}}<span class="hljs-tag">&lt;/<span class="hljs-title">span</span>&gt;</span>/&#x665A;<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">&quot;house-intro&quot;</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-title">span</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">&quot;house-title&quot;</span>&gt;</span>{{title_join(house[&quot;titles&quot;])}}<span class="hljs-tag">&lt;/<span class="hljs-title">span</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-title">em</span>&gt;</span>&#x6574;&#x5957;&#x51FA;&#x79DF; - {{house[&quot;score&quot;]}}&#x5206;/{{house[&quot;comments&quot;]}}&#x70B9;&#x8BC4; - {{house[&quot;position&quot;]}}<span class="hljs-tag">&lt;/<span class="hljs-title">em</span>&gt;</span>
+                <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+            <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-title">li</span>&gt;</span>
+        {% end %}
+    {% else %}
+        &#x5BF9;&#x4E0D;&#x8D77;&#xFF0C;&#x6682;&#x65F6;&#x6CA1;&#x6709;&#x623F;&#x6E90;&#x3002;
+    {% end %}
+<span class="hljs-tag">&lt;/<span class="hljs-title">ul</span>&gt;</span>
+</code></pre>
+<h3 id="24-&#x5757;">2-4 &#x5757;</h3>
+<p>&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x5757;&#x6765;&#x590D;&#x7528;&#x6A21;&#x677F;&#xFF0C;&#x5757;&#x8BED;&#x6CD5;&#x5982;&#x4E0B;&#xFF1A;</p>
+<pre><code class="lang-python">{% block block_name %} {% end %}
+</code></pre>
+<p>&#x73B0;&#x5728;&#xFF0C;&#x6211;&#x4EEC;&#x5BF9;&#x6A21;&#x677F;index.html&#x8FDB;&#x884C;&#x62BD;&#x8C61;&#xFF0C;&#x62BD;&#x79BB;&#x51FA;&#x7236;&#x6A21;&#x677F;base.html&#x5982;&#x4E0B;&#xFF1A;</p>
+<pre><code class="lang-html"><span class="hljs-doctype">&lt;!DOCTYPE html&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">html</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">head</span>&gt;</span> 
+    <span class="hljs-tag">&lt;<span class="hljs-title">meta</span> <span class="hljs-attribute">charset</span>=<span class="hljs-value">&quot;utf-8&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">meta</span> <span class="hljs-attribute">http-equiv</span>=<span class="hljs-value">&quot;X-UA-Compatible&quot;</span> <span class="hljs-attribute">content</span>=<span class="hljs-value">&quot;IE=edge&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">meta</span> <span class="hljs-attribute">name</span>=<span class="hljs-value">&quot;viewport&quot;</span> <span class="hljs-attribute">content</span>=<span class="hljs-value">&quot;width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no&quot;</span>&gt;</span>
+    {% block page_title %}{% end %}
+    <span class="hljs-tag">&lt;<span class="hljs-title">link</span> <span class="hljs-attribute">href</span>=<span class="hljs-value">&quot;{{static_url(&apos;plugins/bootstrap/css/bootstrap.min.css&apos;)}}&quot;</span> <span class="hljs-attribute">rel</span>=<span class="hljs-value">&quot;stylesheet&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">link</span> <span class="hljs-attribute">href</span>=<span class="hljs-value">&quot;{{static_url(&apos;plugins/font-awesome/css/font-awesome.min.css&apos;)}}&quot;</span> <span class="hljs-attribute">rel</span>=<span class="hljs-value">&quot;stylesheet&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">link</span> <span class="hljs-attribute">href</span>=<span class="hljs-value">&quot;{{static_url(&apos;css/reset.css&apos;)}}&quot;</span> <span class="hljs-attribute">rel</span>=<span class="hljs-value">&quot;stylesheet&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">link</span> <span class="hljs-attribute">href</span>=<span class="hljs-value">&quot;{{static_url(&apos;css/main.css&apos;)}}&quot;</span> <span class="hljs-attribute">rel</span>=<span class="hljs-value">&quot;stylesheet&quot;</span>&gt;</span>
+    {% block css_files %}{% end %}
+<span class="hljs-tag">&lt;/<span class="hljs-title">head</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">body</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">&quot;container&quot;</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">&quot;top-bar&quot;</span>&gt;</span>
+            {% block header %}{% end %}
+        <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+        {% block body %}{% end %}
+        <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">&quot;footer&quot;</span>&gt;</span>
+            {% block footer %}{% end %}
+        <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-title">script</span> <span class="hljs-attribute">src</span>=<span class="hljs-value">&quot;{{static_url(&apos;js/jquery.min.js&apos;)}}&quot;</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-title">script</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">script</span> <span class="hljs-attribute">src</span>=<span class="hljs-value">&quot;{{static_url(&apos;plugins/bootstrap/js/bootstrap.min.js&apos;)}}&quot;</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-title">script</span>&gt;</span>
+    {% block js_files %}{% end %}
+<span class="hljs-tag">&lt;/<span class="hljs-title">body</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">html</span>&gt;</span>
+</code></pre>
+<p>&#x800C;&#x5B50;&#x6A21;&#x677F;index.html&#x4F7F;&#x7528;extends&#x6765;&#x4F7F;&#x7528;&#x7236;&#x6A21;&#x677F;base.html&#xFF0C;&#x5982;&#x4E0B;&#xFF1A;</p>
+<pre><code class="lang-html">{% extends &quot;base.html&quot; %}
+
+{% block page_title %}
+    <span class="hljs-tag">&lt;<span class="hljs-title">title</span>&gt;</span>&#x7231;&#x5BB6;-&#x623F;&#x6E90;<span class="hljs-tag">&lt;/<span class="hljs-title">title</span>&gt;</span>
+{% end %}
+
+{% block css_files %}
+    <span class="hljs-tag">&lt;<span class="hljs-title">link</span> <span class="hljs-attribute">href</span>=<span class="hljs-value">&quot;{{static_url(&apos;css/index.css&apos;)}}&quot;</span> <span class="hljs-attribute">rel</span>=<span class="hljs-value">&quot;stylesheet&quot;</span>&gt;</span>
+{% end %} 
+
+{% block js_files %}
+    <span class="hljs-tag">&lt;<span class="hljs-title">script</span> <span class="hljs-attribute">src</span>=<span class="hljs-value">&quot;{{static_url(&apos;js/index.js&apos;)}}&quot;</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-title">script</span>&gt;</span>
+{% end %}
+
+{% block header %}
+    <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">&quot;nav-bar&quot;</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">h3</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">&quot;page-title&quot;</span>&gt;</span>&#x623F; &#x6E90;<span class="hljs-tag">&lt;/<span class="hljs-title">h3</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+{% end %}
+
+{% block body %}
+    <span class="hljs-tag">&lt;<span class="hljs-title">ul</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">&quot;house-list&quot;</span>&gt;</span>
+    {% if len(houses) &gt; 0 %}
+        {% for house in houses %}
+        <span class="hljs-tag">&lt;<span class="hljs-title">li</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">&quot;house-item&quot;</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-title">a</span> <span class="hljs-attribute">href</span>=<span class="hljs-value">&quot;&quot;</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-title">img</span> <span class="hljs-attribute">src</span>=<span class="hljs-value">&quot;/static/images/home01.jpg&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">a</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">&quot;house-desc&quot;</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">&quot;landlord-pic&quot;</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-title">img</span> <span class="hljs-attribute">src</span>=<span class="hljs-value">&quot;/static/images/landlord01.jpg&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">&quot;house-price&quot;</span>&gt;</span>&#xFFE5;<span class="hljs-tag">&lt;<span class="hljs-title">span</span>&gt;</span>{{house[&quot;price&quot;]}}<span class="hljs-tag">&lt;/<span class="hljs-title">span</span>&gt;</span>/&#x665A;<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">&quot;house-intro&quot;</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-title">span</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">&quot;house-title&quot;</span>&gt;</span>{{title_join(house[&quot;titles&quot;])}}<span class="hljs-tag">&lt;/<span class="hljs-title">span</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-title">em</span>&gt;</span>&#x6574;&#x5957;&#x51FA;&#x79DF; - {{house[&quot;score&quot;]}}&#x5206;/{{house[&quot;comments&quot;]}}&#x70B9;&#x8BC4; - {{house[&quot;position&quot;]}}<span class="hljs-tag">&lt;/<span class="hljs-title">em</span>&gt;</span>
+                <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+            <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-title">li</span>&gt;</span>
+        {% end %}
+    {% else %}
+        &#x5BF9;&#x4E0D;&#x8D77;&#xFF0C;&#x6682;&#x65F6;&#x6CA1;&#x6709;&#x623F;&#x6E90;&#x3002;
+    {% end %}
+    <span class="hljs-tag">&lt;/<span class="hljs-title">ul</span>&gt;</span>
+{% end %}
+
+{% block footer %}
+    <span class="hljs-tag">&lt;<span class="hljs-title">p</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-title">span</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-title">i</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">&quot;fa fa-copyright&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">i</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">span</span>&gt;</span>&#x7231;&#x5BB6;&#x79DF;&#x623F;&amp;nbsp;&amp;nbsp;&#x4EAB;&#x53D7;&#x5BB6;&#x7684;&#x6E29;&#x99A8;<span class="hljs-tag">&lt;/<span class="hljs-title">p</span>&gt;</span>
+{% end %}
+</code></pre>
+
+                    
+                    </section>
+                
+                
+                </div>
+            </div>
+        </div>
+
+        
+        <a href="../c04/s01.html" class="navigation navigation-prev " aria-label="Previous page: 4.1 静态文件"><i class="fa fa-angle-left"></i></a>
+        
+        
+        <a href="../c04/s03.html" class="navigation navigation-next " aria-label="Next page: 4.3 练习"><i class="fa fa-angle-right"></i></a>
+        
+    </div>
+</div>
+
+        
+<script src="../gitbook/app.js"></script>
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-search/lunr.min.js"></script>
+    
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-search/search.js"></script>
+    
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-sharing/buttons.js"></script>
+    
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-fontsettings/buttons.js"></script>
+    
+
+<script>
+require(["gitbook"], function(gitbook) {
+    var config = {"highlight":{},"search":{"maxIndexSize":1000000},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2}};
+    gitbook.start(config);
+});
+</script>
+
+        
+    </body>
+    
+</html>

@@ -1,0 +1,671 @@
+<!DOCTYPE HTML>
+<html lang="zh-tw" >
+    <!-- Start book Flask框架 -->
+    <head>
+        <!-- head:start -->
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <title>宏、继承、包含 | Flask框架</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 2.6.7">
+        
+        
+        <meta name="HandheldFriendly" content="true"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+        <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+        
+    <link rel="stylesheet" href="../gitbook/style.css">
+    
+        
+        <link rel="stylesheet" href="../gitbook/plugins/gitbook-plugin-toggle-chapters/toggle.css">
+        
+    
+        
+        <link rel="stylesheet" href="../gitbook/plugins/gitbook-plugin-splitter/splitter.css">
+        
+    
+        
+        <link rel="stylesheet" href="../gitbook/plugins/gitbook-plugin-emphasize/plugin.css">
+        
+    
+        
+        <link rel="stylesheet" href="../gitbook/plugins/gitbook-plugin-highlight/website.css">
+        
+    
+        
+        <link rel="stylesheet" href="../gitbook/plugins/gitbook-plugin-fontsettings/website.css">
+        
+    
+    
+
+        
+    
+    
+    <link rel="next" href="../c03/s06.html" />
+    
+    
+    <link rel="prev" href="../c03/s04.html" />
+    
+
+        <!-- head:end -->
+    </head>
+    <body>
+        <!-- body:start -->
+        
+    <div class="book"
+        data-level="3.5"
+        data-chapter-title="宏、继承、包含"
+        data-filepath="c03/s05.md"
+        data-basepath=".."
+        data-revision="Sat Oct 28 2017 17:13:14 GMT+0800 (中国标准时间)"
+        data-innerlanguage="">
+    
+
+<div class="book-summary">
+    <nav role="navigation">
+        <ul class="summary">
+            
+            
+            
+            
+
+            
+
+            
+    
+        <li class="chapter " data-level="0" data-path="index.html">
+            
+                
+                    <a href="../index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                        引言
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1" data-path="c01/index.html">
+            
+                
+                    <a href="../c01/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.</b>
+                        
+                        关于Flask
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.1" data-path="c01/s01.html">
+            
+                
+                    <a href="../c01/s01.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.1.</b>
+                        
+                        了解框架
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="c01/s02.html">
+            
+                
+                    <a href="../c01/s02.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.2.</b>
+                        
+                        安装环境
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2" data-path="c02/index.html">
+            
+                
+                    <a href="../c02/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.</b>
+                        
+                        视图
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.1" data-path="c02/s01.html">
+            
+                
+                    <a href="../c02/s01.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.1.</b>
+                        
+                        从Hello World开始
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2" data-path="c02/s02.html">
+            
+                
+                    <a href="../c02/s02.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.2.</b>
+                        
+                        扩展
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="3" data-path="c03/index.html">
+            
+                
+                    <a href="../c03/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.</b>
+                        
+                        模板
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="3.1" data-path="c03/s01.html">
+            
+                
+                    <a href="../c03/s01.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.1.</b>
+                        
+                        变量
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2" data-path="c03/s02.html">
+            
+                
+                    <a href="../c03/s02.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.2.</b>
+                        
+                        过滤器
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.3" data-path="c03/s03.html">
+            
+                
+                    <a href="../c03/s03.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.3.</b>
+                        
+                        web表单
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.4" data-path="c03/s04.html">
+            
+                
+                    <a href="../c03/s04.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.4.</b>
+                        
+                        控制语句
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter active" data-level="3.5" data-path="c03/s05.html">
+            
+                
+                    <a href="../c03/s05.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.5.</b>
+                        
+                        宏、继承、包含
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.6" data-path="c03/s06.html">
+            
+                
+                    <a href="../c03/s06.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.6.</b>
+                        
+                        Flask的特殊变量和方法
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="4" data-path="c04/index.html">
+            
+                
+                    <a href="../c04/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.</b>
+                        
+                        数据库
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="4.1" data-path="c04/s01.html">
+            
+                
+                    <a href="../c04/s01.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.1.</b>
+                        
+                        数据库的设置
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2" data-path="c04/s02.html">
+            
+                
+                    <a href="../c04/s02.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.2.</b>
+                        
+                        数据库的基本操作
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.3" data-path="c04/s03.html">
+            
+                
+                    <a href="../c04/s03.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.3.</b>
+                        
+                        自定义模型类
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.4" data-path="c04/s04.html">
+            
+                
+                    <a href="../c04/s04.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.4.</b>
+                        
+                        数据库迁移
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.5" data-path="c04/s05.html">
+            
+                
+                    <a href="../c04/s05.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.5.</b>
+                        
+                        邮件扩展
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="5" data-path="c05/index.html">
+            
+                
+                    <a href="../c05/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.</b>
+                        
+                        测试与部署
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="5.1" data-path="c05/s01.html">
+            
+                
+                    <a href="../c05/s01.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.1.</b>
+                        
+                        蓝图
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.2" data-path="c05/s02.html">
+            
+                
+                    <a href="../c05/s02.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.2.</b>
+                        
+                        单元测试
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.3" data-path="c05/s03.html">
+            
+                
+                    <a href="../c05/s03.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.3.</b>
+                        
+                        部署
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.4" data-path="c05/s04.html">
+            
+                
+                    <a href="../c05/s04.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.4.</b>
+                        
+                        RESTful
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.5" data-path="c05/s05.html">
+            
+                
+                    <a href="../c05/s05.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.5.</b>
+                        
+                        性能
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+
+            
+            <li class="divider"></li>
+            <li>
+                <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+                    本書使用 GitBook 釋出
+                </a>
+            </li>
+            
+        </ul>
+    </nav>
+</div>
+
+    <div class="book-body">
+        <div class="body-inner">
+            <div class="book-header" role="navigation">
+    <!-- Actions Left -->
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../" >Flask框架</a>
+    </h1>
+</div>
+
+            <div class="page-wrapper" tabindex="-1" role="main">
+                <div class="page-inner">
+                
+                
+                    <section class="normal" id="section-">
+                    
+                        <h2 id="35-&#x5B8F;&#x3001;&#x7EE7;&#x627F;&#x3001;&#x5305;&#x542B;">3.5 &#x5B8F;&#x3001;&#x7EE7;&#x627F;&#x3001;&#x5305;&#x542B;</h2>
+<p>&#x7C7B;&#x4F3C;&#x4E8E;python&#x4E2D;&#x7684;&#x51FD;&#x6570;&#xFF0C;&#x5B8F;&#x7684;&#x4F5C;&#x7528;&#x5C31;&#x662F;&#x5728;&#x6A21;&#x677F;&#x4E2D;&#x91CD;&#x590D;&#x5229;&#x7528;&#x4EE3;&#x7801;&#xFF0C;&#x907F;&#x514D;&#x4EE3;&#x7801;&#x5197;&#x4F59;&#x3002;</p>
+<p>Jinja2&#x652F;&#x6301;&#x5B8F;&#xFF0C;&#x8FD8;&#x53EF;&#x4EE5;&#x5BFC;&#x5165;&#x5B8F;&#xFF0C;&#x9700;&#x8981;&#x5728;&#x591A;&#x5904;&#x91CD;&#x590D;&#x4F7F;&#x7528;&#x7684;&#x6A21;&#x677F;&#x4EE3;&#x7801;&#x7247;&#x6BB5;&#x53EF;&#x4EE5;&#x5199;&#x5165;&#x5355;&#x72EC;&#x7684;&#x6587;&#x4EF6;&#xFF0C;&#x518D;&#x5305;&#x542B;&#x5728;&#x6240;&#x6709;&#x6A21;&#x677F;&#x4E2D;&#xFF0C;&#x4EE5;&#x907F;&#x514D;&#x91CD;&#x590D;&#x3002;</p>
+<h3 id="&#x5B9A;&#x4E49;&#x5B8F;">&#x5B9A;&#x4E49;&#x5B8F;</h3>
+<pre><code class="lang-html">
+{% macro input() %}
+  <span class="hljs-tag">&lt;<span class="hljs-title">input</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">&quot;text&quot;</span>
+         <span class="hljs-attribute">name</span>=<span class="hljs-value">&quot;username&quot;</span>
+         <span class="hljs-attribute">value</span>=<span class="hljs-value">&quot;&quot;</span>
+         <span class="hljs-attribute">size</span>=<span class="hljs-value">&quot;30&quot;</span>/&gt;</span>
+{% endmacro %}
+</code></pre>
+<h3 id="&#x8C03;&#x7528;&#x5B8F;">&#x8C03;&#x7528;&#x5B8F;</h3>
+<pre><code class="lang-html">{{ input() }}
+</code></pre>
+<h3 id="&#x5B9A;&#x4E49;&#x5E26;&#x53C2;&#x6570;&#x7684;&#x5B8F;">&#x5B9A;&#x4E49;&#x5E26;&#x53C2;&#x6570;&#x7684;&#x5B8F;</h3>
+<pre><code class="lang-python">
+{% macro input(name,value=<span class="hljs-string">&apos;&apos;</span>,type=<span class="hljs-string">&apos;text&apos;</span>,size=<span class="hljs-number">20</span>) %}
+    &lt;input type=<span class="hljs-string">&quot;{{ type }}&quot;</span>
+           name=<span class="hljs-string">&quot;{{ name }}&quot;</span>
+           value=<span class="hljs-string">&quot;{{ value }}&quot;</span>
+           size=<span class="hljs-string">&quot;{{ size }}&quot;</span>/&gt;
+{% endmacro %}
+</code></pre>
+<h3 id="&#x8C03;&#x7528;&#x5B8F;&#xFF0C;&#x5E76;&#x4F20;&#x9012;&#x53C2;&#x6570;">&#x8C03;&#x7528;&#x5B8F;&#xFF0C;&#x5E76;&#x4F20;&#x9012;&#x53C2;&#x6570;</h3>
+<pre><code class="lang-python">{{ input(value=<span class="hljs-string">&apos;name&apos;</span>,type=<span class="hljs-string">&apos;password&apos;</span>,size=<span class="hljs-number">40</span>)}}
+</code></pre>
+<h3 id="&#x628A;&#x5B8F;&#x5355;&#x72EC;&#x62BD;&#x53D6;&#x51FA;&#x6765;&#xFF0C;&#x5C01;&#x88C5;&#x6210;html&#x6587;&#x4EF6;&#xFF0C;&#x5176;&#x5B83;&#x6A21;&#x677F;&#x4E2D;&#x5BFC;&#x5165;&#x4F7F;&#x7528;">&#x628A;&#x5B8F;&#x5355;&#x72EC;&#x62BD;&#x53D6;&#x51FA;&#x6765;&#xFF0C;&#x5C01;&#x88C5;&#x6210;html&#x6587;&#x4EF6;&#xFF0C;&#x5176;&#x5B83;&#x6A21;&#x677F;&#x4E2D;&#x5BFC;&#x5165;&#x4F7F;&#x7528;</h3>
+<p>&#x6587;&#x4EF6;&#x540D;&#x53EF;&#x4EE5;&#x81EA;&#x5B9A;&#x4E49;macro.html</p>
+<pre><code class="lang-html">{% macro function() %}
+
+    <span class="hljs-tag">&lt;<span class="hljs-title">input</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">&quot;text&quot;</span> <span class="hljs-attribute">name</span>=<span class="hljs-value">&quot;username&quot;</span> <span class="hljs-attribute">placeholde</span>=<span class="hljs-value">&quot;Username&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">input</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">&quot;password&quot;</span> <span class="hljs-attribute">name</span>=<span class="hljs-value">&quot;password&quot;</span> <span class="hljs-attribute">placeholde</span>=<span class="hljs-value">&quot;Password&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">input</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">&quot;submit&quot;</span>&gt;</span>
+{% endmacro %}
+</code></pre>
+<p>&#x5728;&#x5176;&#x5B83;&#x6A21;&#x677F;&#x6587;&#x4EF6;&#x4E2D;&#x5148;&#x5BFC;&#x5165;&#xFF0C;&#x518D;&#x8C03;&#x7528;</p>
+<pre><code class="lang-html">{% import &apos;macro.html&apos; as func %}
+{% func.function() %}
+</code></pre>
+<h2 id="&#x6A21;&#x677F;&#x7EE7;&#x627F;&#xFF1A;">&#x6A21;&#x677F;&#x7EE7;&#x627F;&#xFF1A;</h2>
+<p> &#x6A21;&#x677F;&#x7EE7;&#x627F;&#x662F;&#x4E3A;&#x4E86;&#x91CD;&#x7528;&#x6A21;&#x677F;&#x4E2D;&#x7684;&#x516C;&#x5171;&#x5185;&#x5BB9;&#x3002;&#x4E00;&#x822C;Web&#x5F00;&#x53D1;&#x4E2D;&#xFF0C;&#x7EE7;&#x627F;&#x4E3B;&#x8981;&#x4F7F;&#x7528;&#x5728;&#x7F51;&#x7AD9;&#x7684;&#x9876;&#x90E8;&#x83DC;&#x5355;&#x3001;&#x5E95;&#x90E8;&#x3002;&#x8FD9;&#x4E9B;&#x5185;&#x5BB9;&#x53EF;&#x4EE5;&#x5B9A;&#x4E49;&#x5728;&#x7236;&#x6A21;&#x677F;&#x4E2D;&#xFF0C;&#x5B50;&#x6A21;&#x677F;&#x76F4;&#x63A5;&#x7EE7;&#x627F;&#xFF0C;&#x800C;&#x4E0D;&#x9700;&#x8981;&#x91CD;&#x590D;&#x4E66;&#x5199;&#x3002;</p>
+<p> <code>{% block top %}``{% endblock %}</code>&#x6807;&#x7B7E;&#x5B9A;&#x4E49;&#x7684;&#x5185;&#x5BB9;&#xFF0C;&#x76F8;&#x5F53;&#x4E8E;&#x5728;&#x7236;&#x6A21;&#x677F;&#x4E2D;&#x6316;&#x4E2A;&#x5751;&#xFF0C;&#x5F53;&#x5B50;&#x6A21;&#x677F;&#x7EE7;&#x627F;&#x7236;&#x6A21;&#x677F;&#x65F6;&#xFF0C;&#x53EF;&#x4EE5;&#x8FDB;&#x884C;&#x586B;&#x5145;&#x3002;</p>
+<p> &#x5B50;&#x6A21;&#x677F;&#x4F7F;&#x7528;extends&#x6307;&#x4EE4;&#x58F0;&#x660E;&#x8FD9;&#x4E2A;&#x6A21;&#x677F;&#x7EE7;&#x627F;&#x81EA;&#x54EA;&#xFF1F;&#x7236;&#x6A21;&#x677F;&#x4E2D;&#x5B9A;&#x4E49;&#x7684;&#x5757;&#x5728;&#x5B50;&#x6A21;&#x677F;&#x4E2D;&#x88AB;&#x91CD;&#x65B0;&#x5B9A;&#x4E49;&#xFF0C;&#x5728;&#x5B50;&#x6A21;&#x677F;&#x4E2D;&#x8C03;&#x7528;&#x7236;&#x6A21;&#x677F;&#x7684;&#x5185;&#x5BB9;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;super()&#x3002;</p>
+<h3 id="&#x7236;&#x6A21;&#x677F;&#xFF1A;basehtml">&#x7236;&#x6A21;&#x677F;&#xFF1A;base.html</h3>
+<pre><code class="lang-html">  {% block top %}
+    &#x9876;&#x90E8;&#x83DC;&#x5355;
+  {% endblock top %}
+
+  {% block content %}
+  {% endblock content %}
+
+  {% block bottom %}
+    &#x5E95;&#x90E8;
+  {% endblock bottom %}
+</code></pre>
+<h3 id="&#x5B50;&#x6A21;&#x677F;&#xFF1A;">&#x5B50;&#x6A21;&#x677F;&#xFF1A;</h3>
+<pre><code class="lang-html">  {% extends &apos;base.html&apos; %}
+  {% block content %}
+   &#x9700;&#x8981;&#x586B;&#x5145;&#x7684;&#x5185;&#x5BB9;
+  {% endblock content %}
+</code></pre>
+<ul>
+<li>&#x6A21;&#x677F;&#x7EE7;&#x627F;&#x4F7F;&#x7528;&#x65F6;&#x6CE8;&#x610F;&#x70B9;&#xFF1A;<ul>
+<li>&#x4E0D;&#x652F;&#x6301;&#x591A;&#x7EE7;&#x627F;&#x3002;</li>
+<li>&#x4E3A;&#x4E86;&#x4FBF;&#x4E8E;&#x9605;&#x8BFB;&#xFF0C;&#x5728;&#x5B50;&#x6A21;&#x677F;&#x4E2D;&#x4F7F;&#x7528;extends&#x65F6;&#xFF0C;&#x5C3D;&#x91CF;&#x5199;&#x5728;&#x6A21;&#x677F;&#x7684;&#x7B2C;&#x4E00;&#x884C;&#x3002;</li>
+<li>&#x4E0D;&#x80FD;&#x5728;&#x4E00;&#x4E2A;&#x6A21;&#x677F;&#x6587;&#x4EF6;&#x4E2D;&#x5B9A;&#x4E49;&#x591A;&#x4E2A;&#x76F8;&#x540C;&#x540D;&#x5B57;&#x7684;block&#x6807;&#x7B7E;&#x3002;</li>
+<li>&#x5F53;&#x5728;&#x9875;&#x9762;&#x4E2D;&#x4F7F;&#x7528;&#x591A;&#x4E2A;block&#x6807;&#x7B7E;&#x65F6;&#xFF0C;&#x5EFA;&#x8BAE;&#x7ED9;&#x7ED3;&#x675F;&#x6807;&#x7B7E;&#x8D77;&#x4E2A;&#x540D;&#x5B57;&#xFF0C;&#x5F53;&#x591A;&#x4E2A;block&#x5D4C;&#x5957;&#x65F6;&#xFF0C;&#x9605;&#x8BFB;&#x6027;&#x66F4;&#x597D;&#x3002;</li>
+</ul>
+</li>
+</ul>
+<h2 id="&#x5305;&#x542B;include">&#x5305;&#x542B;(Include)</h2>
+<p>Jinja2&#x6A21;&#x677F;&#x4E2D;&#xFF0C;&#x9664;&#x4E86;&#x5B8F;&#x548C;&#x7EE7;&#x627F;&#xFF0C;&#x8FD8;&#x652F;&#x6301;&#x4E00;&#x79CD;&#x4EE3;&#x7801;&#x91CD;&#x7528;&#x7684;&#x529F;&#x80FD;&#xFF0C;&#x53EB;&#x5305;&#x542B;(Include)&#x3002;&#x5B83;&#x7684;&#x529F;&#x80FD;&#x662F;&#x5C06;&#x53E6;&#x4E00;&#x4E2A;&#x6A21;&#x677F;&#x6574;&#x4E2A;&#x52A0;&#x8F7D;&#x5230;&#x5F53;&#x524D;&#x6A21;&#x677F;&#x4E2D;&#xFF0C;&#x5E76;&#x76F4;&#x63A5;&#x6E32;&#x67D3;&#x3002;</p>
+<p>&#x793A;&#x4F8B;&#xFF1A;</p>
+<p>include&#x7684;&#x4F7F;&#x7528;</p>
+<p>{\% include &apos;hello.html&apos; %}</p>
+<p>&#x5305;&#x542B;&#x5728;&#x4F7F;&#x7528;&#x65F6;&#xFF0C;&#x5982;&#x679C;&#x5305;&#x542B;&#x7684;&#x6A21;&#x677F;&#x6587;&#x4EF6;&#x4E0D;&#x5B58;&#x5728;&#x65F6;&#xFF0C;&#x7A0B;&#x5E8F;&#x4F1A;&#x629B;&#x51FA;TemplateNotFound&#x5F02;&#x5E38;&#xFF0C;&#x53EF;&#x4EE5;&#x52A0;&#x4E0A;ignore missing&#x5173;&#x952E;&#x5B57;&#x3002;&#x5982;&#x679C;&#x5305;&#x542B;&#x7684;&#x6A21;&#x677F;&#x6587;&#x4EF6;&#x4E0D;&#x5B58;&#x5728;&#xFF0C;&#x4F1A;&#x5FFD;&#x7565;&#x8FD9;&#x6761;include&#x8BED;&#x53E5;&#x3002;</p>
+<p>&#x793A;&#x4F8B;&#xFF1A;</p>
+<p>include&#x7684;&#x4F7F;&#x7528;&#x52A0;&#x4E0A;&#x5173;&#x952E;&#x5B57;ignore missing</p>
+<p>{\% include &apos;hello.html&apos; ignore missing %}</p>
+<ul>
+<li>&#x5B8F;&#x3001;&#x7EE7;&#x627F;&#x3001;&#x5305;&#x542B;&#xFF1A;<ul>
+<li>&#x5B8F;(Macro)&#x3001;&#x7EE7;&#x627F;(Block)&#x3001;&#x5305;&#x542B;(include)&#x5747;&#x80FD;&#x5B9E;&#x73B0;&#x4EE3;&#x7801;&#x7684;&#x590D;&#x7528;&#x3002;</li>
+<li>&#x7EE7;&#x627F;(Block)&#x7684;&#x672C;&#x8D28;&#x662F;&#x4EE3;&#x7801;&#x66FF;&#x6362;&#xFF0C;&#x4E00;&#x822C;&#x7528;&#x6765;&#x5B9E;&#x73B0;&#x591A;&#x4E2A;&#x9875;&#x9762;&#x4E2D;&#x91CD;&#x590D;&#x4E0D;&#x53D8;&#x7684;&#x533A;&#x57DF;&#x3002;</li>
+<li>&#x5B8F;(Macro)&#x7684;&#x529F;&#x80FD;&#x7C7B;&#x4F3C;&#x51FD;&#x6570;&#xFF0C;&#x53EF;&#x4EE5;&#x4F20;&#x5165;&#x53C2;&#x6570;&#xFF0C;&#x9700;&#x8981;&#x5B9A;&#x4E49;&#x3001;&#x8C03;&#x7528;&#x3002;</li>
+<li>&#x5305;&#x542B;(include)&#x662F;&#x76F4;&#x63A5;&#x5C06;&#x76EE;&#x6807;&#x6A21;&#x677F;&#x6587;&#x4EF6;&#x6574;&#x4E2A;&#x6E32;&#x67D3;&#x51FA;&#x6765;&#x3002;</li>
+</ul>
+</li>
+</ul>
+
+                    
+                    </section>
+                
+                
+                </div>
+            </div>
+        </div>
+
+        
+        <a href="../c03/s04.html" class="navigation navigation-prev " aria-label="Previous page: 控制语句"><i class="fa fa-angle-left"></i></a>
+        
+        
+        <a href="../c03/s06.html" class="navigation navigation-next " aria-label="Next page: Flask的特殊变量和方法"><i class="fa fa-angle-right"></i></a>
+        
+    </div>
+</div>
+
+        
+<script src="../gitbook/app.js"></script>
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-toggle-chapters/toggle.js"></script>
+    
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-splitter/splitter.js"></script>
+    
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-sharing/buttons.js"></script>
+    
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-fontsettings/buttons.js"></script>
+    
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-livereload/plugin.js"></script>
+    
+
+<script>
+require(["gitbook"], function(gitbook) {
+    var config = {"toggle-chapters":{},"splitter":{},"emphasize":{},"highlight":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"livereload":{}};
+    gitbook.start(config);
+});
+</script>
+
+        <!-- body:end -->
+    </body>
+    <!-- End of book Flask框架 -->
+</html>

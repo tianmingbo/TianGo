@@ -1,0 +1,738 @@
+<!DOCTYPE HTML>
+<html lang="zh-tw" >
+    <!-- Start book Flask框架 -->
+    <head>
+        <!-- head:start -->
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <title>自定义模型类 | Flask框架</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 2.6.7">
+        
+        
+        <meta name="HandheldFriendly" content="true"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+        <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+        
+    <link rel="stylesheet" href="../gitbook/style.css">
+    
+        
+        <link rel="stylesheet" href="../gitbook/plugins/gitbook-plugin-toggle-chapters/toggle.css">
+        
+    
+        
+        <link rel="stylesheet" href="../gitbook/plugins/gitbook-plugin-splitter/splitter.css">
+        
+    
+        
+        <link rel="stylesheet" href="../gitbook/plugins/gitbook-plugin-emphasize/plugin.css">
+        
+    
+        
+        <link rel="stylesheet" href="../gitbook/plugins/gitbook-plugin-highlight/website.css">
+        
+    
+        
+        <link rel="stylesheet" href="../gitbook/plugins/gitbook-plugin-fontsettings/website.css">
+        
+    
+    
+
+        
+    
+    
+    <link rel="next" href="../c04/s04.html" />
+    
+    
+    <link rel="prev" href="../c04/s02.html" />
+    
+
+        <!-- head:end -->
+    </head>
+    <body>
+        <!-- body:start -->
+        
+    <div class="book"
+        data-level="4.3"
+        data-chapter-title="自定义模型类"
+        data-filepath="c04/s03.md"
+        data-basepath=".."
+        data-revision="Sat Oct 28 2017 17:13:14 GMT+0800 (中国标准时间)"
+        data-innerlanguage="">
+    
+
+<div class="book-summary">
+    <nav role="navigation">
+        <ul class="summary">
+            
+            
+            
+            
+
+            
+
+            
+    
+        <li class="chapter " data-level="0" data-path="index.html">
+            
+                
+                    <a href="../index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                        引言
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1" data-path="c01/index.html">
+            
+                
+                    <a href="../c01/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.</b>
+                        
+                        关于Flask
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.1" data-path="c01/s01.html">
+            
+                
+                    <a href="../c01/s01.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.1.</b>
+                        
+                        了解框架
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="c01/s02.html">
+            
+                
+                    <a href="../c01/s02.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.2.</b>
+                        
+                        安装环境
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2" data-path="c02/index.html">
+            
+                
+                    <a href="../c02/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.</b>
+                        
+                        视图
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.1" data-path="c02/s01.html">
+            
+                
+                    <a href="../c02/s01.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.1.</b>
+                        
+                        从Hello World开始
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2" data-path="c02/s02.html">
+            
+                
+                    <a href="../c02/s02.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.2.</b>
+                        
+                        扩展
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="3" data-path="c03/index.html">
+            
+                
+                    <a href="../c03/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.</b>
+                        
+                        模板
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="3.1" data-path="c03/s01.html">
+            
+                
+                    <a href="../c03/s01.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.1.</b>
+                        
+                        变量
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2" data-path="c03/s02.html">
+            
+                
+                    <a href="../c03/s02.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.2.</b>
+                        
+                        过滤器
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.3" data-path="c03/s03.html">
+            
+                
+                    <a href="../c03/s03.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.3.</b>
+                        
+                        web表单
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.4" data-path="c03/s04.html">
+            
+                
+                    <a href="../c03/s04.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.4.</b>
+                        
+                        控制语句
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.5" data-path="c03/s05.html">
+            
+                
+                    <a href="../c03/s05.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.5.</b>
+                        
+                        宏、继承、包含
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.6" data-path="c03/s06.html">
+            
+                
+                    <a href="../c03/s06.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.6.</b>
+                        
+                        Flask的特殊变量和方法
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="4" data-path="c04/index.html">
+            
+                
+                    <a href="../c04/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.</b>
+                        
+                        数据库
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="4.1" data-path="c04/s01.html">
+            
+                
+                    <a href="../c04/s01.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.1.</b>
+                        
+                        数据库的设置
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2" data-path="c04/s02.html">
+            
+                
+                    <a href="../c04/s02.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.2.</b>
+                        
+                        数据库的基本操作
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter active" data-level="4.3" data-path="c04/s03.html">
+            
+                
+                    <a href="../c04/s03.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.3.</b>
+                        
+                        自定义模型类
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.4" data-path="c04/s04.html">
+            
+                
+                    <a href="../c04/s04.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.4.</b>
+                        
+                        数据库迁移
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.5" data-path="c04/s05.html">
+            
+                
+                    <a href="../c04/s05.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.5.</b>
+                        
+                        邮件扩展
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="5" data-path="c05/index.html">
+            
+                
+                    <a href="../c05/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.</b>
+                        
+                        测试与部署
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="5.1" data-path="c05/s01.html">
+            
+                
+                    <a href="../c05/s01.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.1.</b>
+                        
+                        蓝图
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.2" data-path="c05/s02.html">
+            
+                
+                    <a href="../c05/s02.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.2.</b>
+                        
+                        单元测试
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.3" data-path="c05/s03.html">
+            
+                
+                    <a href="../c05/s03.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.3.</b>
+                        
+                        部署
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.4" data-path="c05/s04.html">
+            
+                
+                    <a href="../c05/s04.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.4.</b>
+                        
+                        RESTful
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.5" data-path="c05/s05.html">
+            
+                
+                    <a href="../c05/s05.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.5.</b>
+                        
+                        性能
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+
+            
+            <li class="divider"></li>
+            <li>
+                <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+                    本書使用 GitBook 釋出
+                </a>
+            </li>
+            
+        </ul>
+    </nav>
+</div>
+
+    <div class="book-body">
+        <div class="body-inner">
+            <div class="book-header" role="navigation">
+    <!-- Actions Left -->
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../" >Flask框架</a>
+    </h1>
+</div>
+
+            <div class="page-wrapper" tabindex="-1" role="main">
+                <div class="page-inner">
+                
+                
+                    <section class="normal" id="section-">
+                    
+                        <h1 id="43&#x81EA;&#x5B9A;&#x4E49;&#x6A21;&#x578B;&#x7C7B;">4.3&#x81EA;&#x5B9A;&#x4E49;&#x6A21;&#x578B;&#x7C7B;</h1>
+<h3 id="&#x5B9A;&#x4E49;&#x6A21;&#x578B;">&#x5B9A;&#x4E49;&#x6A21;&#x578B;</h3>
+<p> &#x6A21;&#x578B;&#x8868;&#x793A;&#x7A0B;&#x5E8F;&#x4F7F;&#x7528;&#x7684;&#x6570;&#x636E;&#x5B9E;&#x4F53;&#xFF0C;&#x5728;Flask-SQLAlchemy&#x4E2D;&#xFF0C;&#x6A21;&#x578B;&#x4E00;&#x822C;&#x662F;Python&#x7C7B;&#xFF0C;&#x7EE7;&#x627F;&#x81EA;db.Model&#xFF0C;db&#x662F;SQLAlchemy&#x7C7B;&#x7684;&#x5B9E;&#x4F8B;&#xFF0C;&#x4EE3;&#x8868;&#x7A0B;&#x5E8F;&#x4F7F;&#x7528;&#x7684;&#x6570;&#x636E;&#x5E93;&#x3002;</p>
+<p> &#x7C7B;&#x4E2D;&#x7684;&#x5C5E;&#x6027;&#x5BF9;&#x5E94;&#x6570;&#x636E;&#x5E93;&#x8868;&#x4E2D;&#x7684;&#x5217;&#x3002;id&#x4E3A;&#x4E3B;&#x952E;&#xFF0C;&#x662F;&#x7531;Flask-SQLAlchemy&#x7BA1;&#x7406;&#x3002;db.Column&#x7C7B;&#x6784;&#x9020;&#x51FD;&#x6570;&#x7684;&#x7B2C;&#x4E00;&#x4E2A;&#x53C2;&#x6570;&#x662F;&#x6570;&#x636E;&#x5E93;&#x5217;&#x548C;&#x6A21;&#x578B;&#x5C5E;&#x6027;&#x7C7B;&#x578B;&#x3002;</p>
+<h4 id="&#x5982;&#x4E0B;&#x793A;&#x4F8B;&#xFF1A;&#x5B9A;&#x4E49;&#x4E86;&#x4E24;&#x4E2A;&#x6A21;&#x578B;&#x7C7B;&#xFF0C;&#x4F5C;&#x8005;&#x548C;&#x4E66;&#x540D;&#x3002;">&#x5982;&#x4E0B;&#x793A;&#x4F8B;&#xFF1A;&#x5B9A;&#x4E49;&#x4E86;&#x4E24;&#x4E2A;&#x6A21;&#x578B;&#x7C7B;&#xFF0C;&#x4F5C;&#x8005;&#x548C;&#x4E66;&#x540D;&#x3002;</h4>
+<pre><code>#coding=utf-8
+from flask import Flask,render_template,redirect,url_for
+from flask_sqlalchemy import SQLAlchemy
+
+app = Flask(__name__)
+
+#&#x8BBE;&#x7F6E;&#x8FDE;&#x63A5;&#x6570;&#x636E;
+app.config[&apos;SQLALCHEMY_DATABASE_URI&apos;] = &apos;mysql://root:mysql@127.0.0.1:3306/test1&apos;
+
+#&#x8BBE;&#x7F6E;&#x6BCF;&#x6B21;&#x8BF7;&#x6C42;&#x7ED3;&#x675F;&#x540E;&#x4F1A;&#x81EA;&#x52A8;&#x63D0;&#x4EA4;&#x6570;&#x636E;&#x5E93;&#x4E2D;&#x7684;&#x6539;&#x52A8;
+app.config[&apos;SQLALCHEMY_COMMIT_ON_TEARDOWN&apos;] = True
+#&#x8BBE;&#x7F6E;&#x6210; True&#xFF0C;SQLAlchemy &#x5C06;&#x4F1A;&#x8FFD;&#x8E2A;&#x5BF9;&#x8C61;&#x7684;&#x4FEE;&#x6539;&#x5E76;&#x4E14;&#x53D1;&#x9001;&#x4FE1;&#x53F7;&#x3002;&#x8FD9;&#x9700;&#x8981;&#x989D;&#x5916;&#x7684;&#x5185;&#x5B58;&#xFF0C; &#x5982;&#x679C;&#x4E0D;&#x5FC5;&#x8981;&#x7684;&#x53EF;&#x4EE5;&#x7981;&#x7528;&#x5B83;&#x3002;
+app.config[&apos;SQLALCHEMY_TRACK_MODIFICATIONS&apos;] = True
+
+#&#x5B9E;&#x4F8B;&#x5316;SQLAlchemy&#x5BF9;&#x8C61;
+db = SQLAlchemy(app)
+
+#&#x5B9A;&#x4E49;&#x6A21;&#x578B;&#x7C7B;-&#x4F5C;&#x8005;
+class Author(db.Model):
+    __tablename__ = &apos;author&apos;
+    id = db.Column(db.Integer,primary_key=True)
+    name = db.Column(db.String(32),unique=True)
+    email = db.Column(db.String(64))
+    au_book = db.relationship(&apos;Book&apos;,backref=&apos;author&apos;)
+    def __str__(self):
+        return &apos;Author:%s&apos; %self.name
+
+#&#x5B9A;&#x4E49;&#x6A21;&#x578B;&#x7C7B;-&#x4E66;&#x540D;
+class Book(db.Model):
+    __tablename__ = &apos;books&apos;
+    id = db.Column(db.Integer,primary_key=True)
+    info = db.Column(db.String(32),unique=True)
+    leader = db.Column(db.String(32))
+    au_book = db.Column(db.Integer,db.ForeignKey(&apos;author.id&apos;))
+    def __str__(self):
+        return &apos;Book:%s,%s&apos;%(self.info,self.lead)
+</code></pre><h3 id="&#x521B;&#x5EFA;&#x8868;-dbcreateall">&#x521B;&#x5EFA;&#x8868; db.create_all()</h3>
+<p><img src="../images/model.png" alt="&#x751F;&#x6210;&#x8868;"></p>
+<h4 id="&#x67E5;&#x770B;author&#x8868;&#x7ED3;&#x6784;-desc-author">&#x67E5;&#x770B;author&#x8868;&#x7ED3;&#x6784; desc author</h4>
+<p><img src="../images/author.png" alt="&#x67E5;&#x770B;author"></p>
+<h4 id="&#x67E5;&#x770B;books&#x8868;&#x7ED3;&#x6784;-desc-books">&#x67E5;&#x770B;books&#x8868;&#x7ED3;&#x6784; desc books</h4>
+<p><img src="../images/books.png" alt="&#x67E5;&#x770B;books"></p>
+<pre><code>#coding=utf-8
+from flask import Flask,render_template,url_for,redirect,request
+from flask_sqlalchemy import SQLAlchemy
+from flask_wtf import FlaskForm
+from wtforms.validators import DataRequired
+from wtforms import StringField,SubmitField
+
+app = Flask(__name__)
+
+app.config[&apos;SQLALCHEMY_DATABASE_URI&apos;] = &apos;mysql://root:mysql@localhost/test1&apos;
+app.config[&apos;SQLALCHEMY_COMMIT_ON_TEARDOWN&apos;] = True
+app.config[&apos;SQLALCHEMY_TRACK_MODIFICATIONS&apos;] = True
+app.config[&apos;SECRET_KEY&apos;]=&apos;s&apos;
+
+db = SQLAlchemy(app)
+
+#&#x521B;&#x5EFA;&#x8868;&#x5355;&#x7C7B;&#xFF0C;&#x7528;&#x6765;&#x6DFB;&#x52A0;&#x4FE1;&#x606F;
+class Append(Form):
+    au_info = StringField(validators=[DataRequired()])
+    bk_info = StringField(validators=[DataRequired()])
+    submit = SubmitField(u&apos;&#x6DFB;&#x52A0;&apos;)
+
+
+@app.route(&apos;/&apos;,methods=[&apos;GET&apos;,&apos;POST&apos;])
+def index():
+    #&#x67E5;&#x8BE2;&#x6240;&#x6709;&#x4F5C;&#x8005;&#x548C;&#x4E66;&#x540D;&#x4FE1;&#x606F;
+    author = Author.query.all()
+    book = Book.query.all()
+    #&#x521B;&#x5EFA;&#x8868;&#x5355;&#x5BF9;&#x8C61;
+    form = Append()
+    if form.validate_on_submit():
+        #&#x83B7;&#x53D6;&#x8868;&#x5355;&#x8F93;&#x5165;&#x6570;&#x636E;
+        wtf_au = form.au_info.data
+        wtf_bk = form.bk_info.data
+        #&#x628A;&#x8868;&#x5355;&#x6570;&#x636E;&#x5B58;&#x5165;&#x6A21;&#x578B;&#x7C7B;
+        db_au = Author(name=wtf_au)
+        db_bk = Book(info=wtf_bk)
+        #&#x63D0;&#x4EA4;&#x4F1A;&#x8BDD;
+        db.session.add_all([db_au,db_bk])
+        db.session.commit()
+        #&#x6DFB;&#x52A0;&#x6570;&#x636E;&#x540E;&#xFF0C;&#x518D;&#x6B21;&#x67E5;&#x8BE2;&#x6240;&#x6709;&#x4F5C;&#x8005;&#x548C;&#x4E66;&#x540D;&#x4FE1;&#x606F;
+        author = Author.query.all()
+        book = Book.query.all()
+        return render_template(&apos;index.html&apos;,author=author,book=book,form=form)
+    else:
+        if request.method==&apos;GET&apos;:
+            render_template(&apos;index.html&apos;, author=author, book=book,form=form)
+    return render_template(&apos;index.html&apos;,author=author,book=book,form=form)
+
+#&#x5220;&#x9664;&#x4F5C;&#x8005;
+@app.route(&apos;/delete_author&lt;id&gt;&apos;)
+def delete_author(id):
+    #&#x7CBE;&#x786E;&#x67E5;&#x8BE2;&#x9700;&#x8981;&#x5220;&#x9664;&#x7684;&#x4F5C;&#x8005;id
+    au = Author.query.filter_by(id=id).first()
+    db.session.delete(au)
+    #&#x76F4;&#x63A5;&#x91CD;&#x5B9A;&#x5411;&#x5230;index&#x89C6;&#x56FE;&#x51FD;&#x6570;
+    return redirect(url_for(&apos;index&apos;))
+
+#&#x5220;&#x9664;&#x4E66;&#x540D;
+@app.route(&apos;/delete_book&lt;id&gt;&apos;)
+def delete_book(id):
+    #&#x7CBE;&#x786E;&#x67E5;&#x8BE2;&#x9700;&#x8981;&#x5220;&#x9664;&#x7684;&#x4E66;&#x540D;id
+    bk = Book.query.filter_by(id=id).first()
+    db.session.delete(bk)
+    #&#x76F4;&#x63A5;&#x91CD;&#x5B9A;&#x5411;&#x5230;index&#x89C6;&#x56FE;&#x51FD;&#x6570;
+    return redirect(url_for(&apos;index&apos;))
+
+
+if __name__ == &apos;__main__&apos;:
+    db.drop_all()
+    db.create_all()
+    #&#x751F;&#x6210;&#x6570;&#x636E;
+    au_xi = Author(name=&apos;&#x6211;&#x5403;&#x897F;&#x7EA2;&#x67FF;&apos;,email=&apos;xihongshi@163.com&apos;)
+    au_qian = Author(name=&apos;&#x8427;&#x6F5C;&apos;,email=&apos;xiaoqian@126.com&apos;)
+    au_san = Author(name=&apos;&#x5510;&#x5BB6;&#x4E09;&#x5C11;&apos;,email=&apos;sanshao@163.com&apos;)
+    bk_xi = Book(info=&apos;&#x541E;&#x566C;&#x661F;&#x7A7A;&apos;,lead=&apos;&#x7F57;&#x5CF0;&apos;)
+    bk_xi2 = Book(info=&apos;&#x5BF8;&#x8292;&apos;,lead=&apos;&#x674E;&#x6768;&apos;)
+    bk_qian = Book(info=&apos;&#x98D8;&#x6E3A;&#x4E4B;&#x65C5;&apos;,lead=&apos;&#x674E;&#x5F3A;&apos;)
+    bk_san = Book(info=&apos;&#x51B0;&#x706B;&#x9B54;&#x53A8;&apos;,lead=&apos;&#x878D;&#x5FF5;&#x51B0;&apos;)
+    #&#x628A;&#x6570;&#x636E;&#x63D0;&#x4EA4;&#x7ED9;&#x7528;&#x6237;&#x4F1A;&#x8BDD;
+    db.session.add_all([au_xi,au_qian,au_san,bk_xi,bk_xi2,bk_qian,bk_san])
+    #&#x63D0;&#x4EA4;&#x4F1A;&#x8BDD;
+    db.session.commit()
+    app.run(debug=True)
+</code></pre><h4 id="&#x751F;&#x6210;&#x6570;&#x636E;&#x540E;&#xFF0C;&#x67E5;&#x770B;&#x6570;&#x636E;&#xFF1A;">&#x751F;&#x6210;&#x6570;&#x636E;&#x540E;&#xFF0C;&#x67E5;&#x770B;&#x6570;&#x636E;&#xFF1A;</h4>
+<p><img src="../images/&#x751F;&#x6210;&#x6570;&#x636E;.png" alt="&#x751F;&#x6210;&#x6570;&#x636E;"></p>
+<h3 id="&#x6A21;&#x677F;&#x9875;&#x9762;&#x793A;&#x4F8B;&#xFF1A;">&#x6A21;&#x677F;&#x9875;&#x9762;&#x793A;&#x4F8B;&#xFF1A;</h3>
+<pre><code class="lang-python">
+   &lt;h1&gt;&#x7384;&#x5E7B;&#x7CFB;&#x5217;&lt;/h1&gt;
+    &lt;form method=&quot;post&quot;&gt;
+        {{ form.csrf_token }}
+        &lt;p&gt;&#x4F5C;&#x8005;&#xFF1A;{{ form.au_info }}&lt;/p&gt;
+        &lt;p&gt;&#x4E66;&#x540D;&#xFF1A;{{ form.bk_info }}&lt;/p&gt;
+        &lt;p&gt;{{ form.submit }}&lt;/p&gt;
+    &lt;/form&gt;
+    &lt;ul&gt;
+        &lt;li&gt;{% for x in author %}&lt;/li&gt;
+        &lt;li&gt;{{ x }}&lt;/li&gt;&lt;a href=&apos;/delete_author{{ x.id }}&apos;&gt;&#x5220;&#x9664;&lt;/a&gt;
+        &lt;li&gt;{% endfor %}&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;hr&gt;
+    &lt;ul&gt;
+        &lt;li&gt;{% for x in book %}&lt;/li&gt;
+        &lt;li&gt;{{ x }}&lt;/li&gt;&lt;a href=&apos;/delete_book{{ x.id }}&apos;&gt;&#x5220;&#x9664;&lt;/a&gt;
+        &lt;li&gt;{% endfor %}&lt;/li&gt;
+    &lt;/ul&gt;
+</code></pre>
+<h4 id="&#x6DFB;&#x52A0;&#x6570;&#x636E;&#x540E;&#xFF0C;&#x67E5;&#x770B;&#x6570;&#x636E;&#xFF1A;">&#x6DFB;&#x52A0;&#x6570;&#x636E;&#x540E;&#xFF0C;&#x67E5;&#x770B;&#x6570;&#x636E;&#xFF1A;</h4>
+<p><img src="../images/&#x6DFB;&#x52A0;&#x6570;&#x636E;.png" alt="&#x6DFB;&#x52A0;&#x6570;&#x636E;"></p>
+
+                    
+                    </section>
+                
+                
+                </div>
+            </div>
+        </div>
+
+        
+        <a href="../c04/s02.html" class="navigation navigation-prev " aria-label="Previous page: 数据库的基本操作"><i class="fa fa-angle-left"></i></a>
+        
+        
+        <a href="../c04/s04.html" class="navigation navigation-next " aria-label="Next page: 数据库迁移"><i class="fa fa-angle-right"></i></a>
+        
+    </div>
+</div>
+
+        
+<script src="../gitbook/app.js"></script>
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-toggle-chapters/toggle.js"></script>
+    
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-splitter/splitter.js"></script>
+    
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-sharing/buttons.js"></script>
+    
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-fontsettings/buttons.js"></script>
+    
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-livereload/plugin.js"></script>
+    
+
+<script>
+require(["gitbook"], function(gitbook) {
+    var config = {"toggle-chapters":{},"splitter":{},"emphasize":{},"highlight":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"livereload":{}};
+    gitbook.start(config);
+});
+</script>
+
+        <!-- body:end -->
+    </body>
+    <!-- End of book Flask框架 -->
+</html>

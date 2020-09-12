@@ -1,0 +1,1321 @@
+<!DOCTYPE HTML>
+<html lang="zh-tw" >
+    <!-- Start book 前端开发课程 -->
+    <head>
+        <!-- head:start -->
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <title>变量、数据类型及基本语法规范 | 前端开发课程</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 2.6.7">
+        
+        
+        <meta name="HandheldFriendly" content="true"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+        <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+        
+    <link rel="stylesheet" href="../gitbook/style.css">
+    
+        
+        <link rel="stylesheet" href="../gitbook/plugins/gitbook-plugin-toggle-chapters/toggle.css">
+        
+    
+        
+        <link rel="stylesheet" href="../gitbook/plugins/gitbook-plugin-splitter/splitter.css">
+        
+    
+        
+        <link rel="stylesheet" href="../gitbook/plugins/gitbook-plugin-emphasize/plugin.css">
+        
+    
+        
+        <link rel="stylesheet" href="../gitbook/plugins/gitbook-plugin-fontsettings/website.css">
+        
+    
+        
+        <link rel="stylesheet" href="../gitbook/plugins/gitbook-plugin-highlight/website.css">
+        
+    
+    
+
+        
+    
+    
+    <link rel="next" href="../005day/section04.html" />
+    
+    
+    <link rel="prev" href="../005day/section02.html" />
+    
+
+        <!-- head:end -->
+    </head>
+    <body>
+        <!-- body:start -->
+        
+    <div class="book"
+        data-level="5.3"
+        data-chapter-title="变量、数据类型及基本语法规范"
+        data-filepath="005day/section03.md"
+        data-basepath=".."
+        data-revision="Sun Oct 08 2017 06:10:29 GMT+0800 (北亚夏令时)"
+        data-innerlanguage="">
+    
+
+<div class="book-summary">
+    <nav role="navigation">
+        <ul class="summary">
+            
+            
+            
+            
+
+            
+
+            
+    
+        <li class="chapter " data-level="0" data-path="index.html">
+            
+                
+                    <a href="../index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                        课程介绍
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1" data-path="001day/index.html">
+            
+                
+                    <a href="../001day/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.</b>
+                        
+                        html、css入门
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.1" data-path="001day/section02.html">
+            
+                
+                    <a href="../001day/section02.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.1.</b>
+                        
+                        html概述及基本结构
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="001day/section03.html">
+            
+                
+                    <a href="../001day/section03.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.2.</b>
+                        
+                        html标签入门
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="001day/section04.html">
+            
+                
+                    <a href="../001day/section04.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.3.</b>
+                        
+                        html布局入门
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="001day/section05.html">
+            
+                
+                    <a href="../001day/section05.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.4.</b>
+                        
+                        css介绍
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="001day/section06.html">
+            
+                
+                    <a href="../001day/section06.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.5.</b>
+                        
+                        css载入方式
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="001day/section07.html">
+            
+                
+                    <a href="../001day/section07.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.6.</b>
+                        
+                        css常用选择器一
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="001day/section08.html">
+            
+                
+                    <a href="../001day/section08.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.7.</b>
+                        
+                        css属性入门
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="001day/section09.html">
+            
+                
+                    <a href="../001day/section09.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.8.</b>
+                        
+                        css基本布局演示
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2" data-path="002day/index.html">
+            
+                
+                    <a href="../002day/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.</b>
+                        
+                        html和css进阶
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.1" data-path="002day/section01.html">
+            
+                
+                    <a href="../002day/section01.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.1.</b>
+                        
+                        相对地址与绝对地址
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2" data-path="002day/section02.html">
+            
+                
+                    <a href="../002day/section02.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.2.</b>
+                        
+                        html标签提高
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.3" data-path="002day/section03.html">
+            
+                
+                    <a href="../002day/section03.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.3.</b>
+                        
+                        css常用选择器二
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.4" data-path="002day/section04.html">
+            
+                
+                    <a href="../002day/section04.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.4.</b>
+                        
+                        css属性提高
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.5" data-path="002day/section05.html">
+            
+                
+                    <a href="../002day/section05.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.5.</b>
+                        
+                        css盒子模型
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.6" data-path="002day/section06.html">
+            
+                
+                    <a href="../002day/section06.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.6.</b>
+                        
+                        盒模型使用技巧及相关问题
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.7" data-path="002day/section07.html">
+            
+                
+                    <a href="../002day/section07.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.7.</b>
+                        
+                        常用图片格式
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.8" data-path="002day/section08.html">
+            
+                
+                    <a href="../002day/section08.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.8.</b>
+                        
+                        Photoshop辅助测量与取色
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="3" data-path="003day/index.html">
+            
+                
+                    <a href="../003day/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.</b>
+                        
+                        html和css进阶
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="3.1" data-path="003day/section01.html">
+            
+                
+                    <a href="../003day/section01.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.1.</b>
+                        
+                        表单
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2" data-path="003day/section02.html">
+            
+                
+                    <a href="../003day/section02.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.2.</b>
+                        
+                        块元素类型及特性
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.3" data-path="003day/section03.html">
+            
+                
+                    <a href="../003day/section03.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.3.</b>
+                        
+                        行内元素类型及特性
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.4" data-path="003day/section04.html">
+            
+                
+                    <a href="../003day/section04.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.4.</b>
+                        
+                        内联块元素类型及特性、元素转换
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.5" data-path="003day/section05.html">
+            
+                
+                    <a href="../003day/section05.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.5.</b>
+                        
+                        浮动
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.6" data-path="003day/section06.html">
+            
+                
+                    <a href="../003day/section06.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.6.</b>
+                        
+                        定位
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="4" data-path="004day/index.html">
+            
+                
+                    <a href="../004day/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.</b>
+                        
+                        html和css高级
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="4.1" data-path="004day/section01.html">
+            
+                
+                    <a href="../004day/section01.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.1.</b>
+                        
+                        background属性
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2" data-path="004day/section02.html">
+            
+                
+                    <a href="../004day/section02.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.2.</b>
+                        
+                        css权重
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.3" data-path="004day/section03.html">
+            
+                
+                    <a href="../004day/section03.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.3.</b>
+                        
+                        表格
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.4" data-path="004day/section04.html">
+            
+                
+                    <a href="../004day/section04.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.4.</b>
+                        
+                        页面开发流程演示
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="5" data-path="005day/index.html">
+            
+                
+                    <a href="../005day/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.</b>
+                        
+                        javascript入门及进阶
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="5.1" data-path="005day/section01.html">
+            
+                
+                    <a href="../005day/section01.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.1.</b>
+                        
+                        JavaScript介绍
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.2" data-path="005day/section02.html">
+            
+                
+                    <a href="../005day/section02.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.2.</b>
+                        
+                        JavaScript嵌入页面的方式
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter active" data-level="5.3" data-path="005day/section03.html">
+            
+                
+                    <a href="../005day/section03.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.3.</b>
+                        
+                        变量、数据类型及基本语法规范
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.4" data-path="005day/section04.html">
+            
+                
+                    <a href="../005day/section04.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.4.</b>
+                        
+                        函数
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.5" data-path="005day/section05.html">
+            
+                
+                    <a href="../005day/section05.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.5.</b>
+                        
+                        条件语句
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.6" data-path="005day/section06.html">
+            
+                
+                    <a href="../005day/section06.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.6.</b>
+                        
+                        获取元素方法
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.7" data-path="005day/section07.html">
+            
+                
+                    <a href="../005day/section07.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.7.</b>
+                        
+                        操作元素
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.8" data-path="005day/section08.html">
+            
+                
+                    <a href="../005day/section08.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.8.</b>
+                        
+                        事件属性及匿名函数
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.9" data-path="005day/section09.html">
+            
+                
+                    <a href="../005day/section09.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.9.</b>
+                        
+                        综合实例
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="6" data-path="006day/index.html">
+            
+                
+                    <a href="../006day/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.</b>
+                        
+                        javascript高级
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="6.1" data-path="006day/section01.html">
+            
+                
+                    <a href="../006day/section01.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.1.</b>
+                        
+                        数组及操作方法
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6.2" data-path="006day/section02.html">
+            
+                
+                    <a href="../006day/section02.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.2.</b>
+                        
+                        循环语句
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6.3" data-path="006day/section03.html">
+            
+                
+                    <a href="../006day/section03.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.3.</b>
+                        
+                        字符串及操作方法
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6.4" data-path="006day/section04.html">
+            
+                
+                    <a href="../006day/section04.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.4.</b>
+                        
+                        调试程序的方法
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6.5" data-path="006day/section05.html">
+            
+                
+                    <a href="../006day/section05.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.5.</b>
+                        
+                        定时器
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6.6" data-path="006day/section06.html">
+            
+                
+                    <a href="../006day/section06.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.6.</b>
+                        
+                        变量作用域
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6.7" data-path="006day/section07.html">
+            
+                
+                    <a href="../006day/section07.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.7.</b>
+                        
+                        封闭函数
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="7" data-path="007day/index.html">
+            
+                
+                    <a href="../007day/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>7.</b>
+                        
+                        JQuery入门
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="7.1" data-path="007day/section01.html">
+            
+                
+                    <a href="../007day/section01.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>7.1.</b>
+                        
+                        jquery介绍
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="7.2" data-path="007day/section02.html">
+            
+                
+                    <a href="../007day/section02.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>7.2.</b>
+                        
+                        jquery文档加载完再执行
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="7.3" data-path="007day/section03.html">
+            
+                
+                    <a href="../007day/section03.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>7.3.</b>
+                        
+                        jquery选择器
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="7.4" data-path="007day/section04.html">
+            
+                
+                    <a href="../007day/section04.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>7.4.</b>
+                        
+                        jquery样式操作
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="7.5" data-path="007day/section05.html">
+            
+                
+                    <a href="../007day/section05.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>7.5.</b>
+                        
+                        绑定click事件
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="7.6" data-path="007day/section06.html">
+            
+                
+                    <a href="../007day/section06.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>7.6.</b>
+                        
+                        jquery动画
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="8" data-path="008day/index.html">
+            
+                
+                    <a href="../008day/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.</b>
+                        
+                        JQuery进阶
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="8.1" data-path="008day/section01.html">
+            
+                
+                    <a href="../008day/section01.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.1.</b>
+                        
+                        jquery特殊效果
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.2" data-path="008day/section02.html">
+            
+                
+                    <a href="../008day/section02.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.2.</b>
+                        
+                        jquery链式调用
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.3" data-path="008day/section03.html">
+            
+                
+                    <a href="../008day/section03.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.3.</b>
+                        
+                        jquery属性操作
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.4" data-path="008day/section04.html">
+            
+                
+                    <a href="../008day/section04.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.4.</b>
+                        
+                        jquery循环
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.5" data-path="008day/section05.html">
+            
+                
+                    <a href="../008day/section05.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.5.</b>
+                        
+                        jquery事件
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="9" data-path="009day/index.html">
+            
+                
+                    <a href="../009day/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>9.</b>
+                        
+                        JQuery高级
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="9.1" data-path="009day/section01.html">
+            
+                
+                    <a href="../009day/section01.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>9.1.</b>
+                        
+                        事件冒泡
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="9.2" data-path="009day/section02.html">
+            
+                
+                    <a href="../009day/section02.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>9.2.</b>
+                        
+                        事件委托
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="9.3" data-path="009day/section03.html">
+            
+                
+                    <a href="../009day/section03.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>9.3.</b>
+                        
+                        jquery元素节点操作
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="9.4" data-path="009day/section04.html">
+            
+                
+                    <a href="../009day/section04.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>9.4.</b>
+                        
+                        天天生鲜-注册页表单验证
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="10" data-path="010day/index.html">
+            
+                
+                    <a href="../010day/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>10.</b>
+                        
+                        JQuery综合应用
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="10.1" data-path="010day/section01.html">
+            
+                
+                    <a href="../010day/section01.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>10.1.</b>
+                        
+                        天天生鲜-首页js特效
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="10.2" data-path="010day/section02.html">
+            
+                
+                    <a href="../010day/section02.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>10.2.</b>
+                        
+                        json
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="10.3" data-path="010day/section03.html">
+            
+                
+                    <a href="../010day/section03.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>10.3.</b>
+                        
+                        ajax与jsonp
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+
+            
+            <li class="divider"></li>
+            <li>
+                <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+                    本書使用 GitBook 釋出
+                </a>
+            </li>
+            
+        </ul>
+    </nav>
+</div>
+
+    <div class="book-body">
+        <div class="body-inner">
+            <div class="book-header" role="navigation">
+    <!-- Actions Left -->
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../" >前端开发课程</a>
+    </h1>
+</div>
+
+            <div class="page-wrapper" tabindex="-1" role="main">
+                <div class="page-inner">
+                
+                
+                    <section class="normal" id="section-">
+                    
+                        <h2 id="&#x53D8;&#x91CF;&#x3001;&#x6570;&#x636E;&#x7C7B;&#x578B;&#x53CA;&#x57FA;&#x672C;&#x8BED;&#x6CD5;&#x89C4;&#x8303;">&#x53D8;&#x91CF;&#x3001;&#x6570;&#x636E;&#x7C7B;&#x578B;&#x53CA;&#x57FA;&#x672C;&#x8BED;&#x6CD5;&#x89C4;&#x8303;</h2>
+<p>JavaScript &#x662F;&#x4E00;&#x79CD;&#x5F31;&#x7C7B;&#x578B;&#x8BED;&#x8A00;&#xFF0C;javascript&#x7684;&#x53D8;&#x91CF;&#x7C7B;&#x578B;&#x7531;&#x5B83;&#x7684;&#x503C;&#x6765;&#x51B3;&#x5B9A;&#x3002;
+&#x5B9A;&#x4E49;&#x53D8;&#x91CF;&#x9700;&#x8981;&#x7528;&#x5173;&#x952E;&#x5B57; &apos;var&apos;</p>
+<pre><code> var iNum = 123;
+ var sTr = &apos;asd&apos;;
+
+ //&#x540C;&#x65F6;&#x5B9A;&#x4E49;&#x591A;&#x4E2A;&#x53D8;&#x91CF;&#x53EF;&#x4EE5;&#x7528;&quot;,&quot;&#x9694;&#x5F00;&#xFF0C;&#x516C;&#x7528;&#x4E00;&#x4E2A;&#x2018;var&#x2019;&#x5173;&#x952E;&#x5B57;
+
+ var iNum = 45,sTr=&apos;qwe&apos;,sCount=&apos;68&apos;;
+</code></pre><p><strong> &#x53D8;&#x91CF;&#x7C7B;&#x578B; </strong>  </p>
+<p>5&#x79CD;&#x57FA;&#x672C;&#x6570;&#x636E;&#x7C7B;&#x578B;&#xFF1A;<br>1&#x3001;number &#x6570;&#x5B57;&#x7C7B;&#x578B;<br>2&#x3001;string &#x5B57;&#x7B26;&#x4E32;&#x7C7B;&#x578B;<br>3&#x3001;boolean &#x5E03;&#x5C14;&#x7C7B;&#x578B; true &#x6216; false<br>4&#x3001;undefined  undefined&#x7C7B;&#x578B;&#xFF0C;&#x53D8;&#x91CF;&#x58F0;&#x660E;&#x672A;&#x521D;&#x59CB;&#x5316;&#xFF0C;&#x5B83;&#x7684;&#x503C;&#x5C31;&#x662F;undefined<br>5&#x3001;null null&#x7C7B;&#x578B;&#xFF0C;&#x8868;&#x793A;&#x7A7A;&#x5BF9;&#x8C61;&#xFF0C;&#x5982;&#x679C;&#x5B9A;&#x4E49;&#x7684;&#x53D8;&#x91CF;&#x5C06;&#x6765;&#x51C6;&#x5907;&#x4FDD;&#x5B58;&#x5BF9;&#x8C61;&#xFF0C;&#x53EF;&#x4EE5;&#x5C06;&#x53D8;&#x91CF;&#x521D;&#x59CB;&#x5316;&#x4E3A;null,&#x5728;&#x9875;&#x9762;&#x4E0A;&#x83B7;&#x53D6;&#x4E0D;&#x5230;&#x5BF9;&#x8C61;&#xFF0C;&#x8FD4;&#x56DE;&#x7684;&#x503C;&#x5C31;&#x662F;null </p>
+<p>1&#x79CD;&#x590D;&#x5408;&#x7C7B;&#x578B;&#xFF1A;<br>object</p>
+<p><strong> javascript&#x8BED;&#x53E5;&#x4E0E;&#x6CE8;&#x91CA; </strong>  </p>
+<p>1&#x3001;javascript&#x8BED;&#x53E5;&#x5F00;&#x59CB;&#x53EF;&#x7F29;&#x8FDB;&#x4E5F;&#x53EF;&#x4E0D;&#x7F29;&#x8FDB;&#xFF0C;&#x7F29;&#x8FDB;&#x662F;&#x4E3A;&#x4E86;&#x65B9;&#x4FBF;&#x4EE3;&#x7801;&#x9605;&#x8BFB;&#xFF0C;&#x4E00;&#x6761;javascript&#x8BED;&#x53E5;&#x5E94;&#x8BE5;&#x4EE5;&#x201C;;&#x201D;&#x7ED3;&#x5C3E;;  </p>
+<pre><code>&lt;script type=&quot;text/javascript&quot;&gt;    
+var iNum = 123;
+var sTr = &apos;abc123&apos;;
+function fnAlert(){
+    alert(sTr);
+};
+fnAlert();
+&lt;/script&gt;
+</code></pre><p>2&#x3001;javascript&#x6CE8;&#x91CA;  </p>
+<pre><code>&lt;script type=&quot;text/javascript&quot;&gt;    
+
+// &#x5355;&#x884C;&#x6CE8;&#x91CA;
+var iNum = 123;
+/*  
+    &#x591A;&#x884C;&#x6CE8;&#x91CA;
+    1&#x3001;...
+    2&#x3001;...
+*/
+var sTr = &apos;abc123&apos;;
+&lt;/script&gt;
+</code></pre><p><strong> &#x53D8;&#x91CF;&#x3001;&#x51FD;&#x6570;&#x3001;&#x5C5E;&#x6027;&#x3001;&#x51FD;&#x6570;&#x53C2;&#x6570;&#x547D;&#x540D;&#x89C4;&#x8303; </strong></p>
+<p>1&#x3001;&#x533A;&#x5206;&#x5927;&#x5C0F;&#x5199;<br>2&#x3001;&#x7B2C;&#x4E00;&#x4E2A;&#x5B57;&#x7B26;&#x5FC5;&#x987B;&#x662F;&#x5B57;&#x6BCD;&#x3001;&#x4E0B;&#x5212;&#x7EBF;&#xFF08;_&#xFF09;&#x6216;&#x8005;&#x7F8E;&#x5143;&#x7B26;&#x53F7;&#xFF08;$&#xFF09;<br>3&#x3001;&#x5176;&#x4ED6;&#x5B57;&#x7B26;&#x53EF;&#x4EE5;&#x662F;&#x5B57;&#x6BCD;&#x3001;&#x4E0B;&#x5212;&#x7EBF;&#x3001;&#x7F8E;&#x5143;&#x7B26;&#x6216;&#x6570;&#x5B57;   </p>
+<p><strong> &#x5308;&#x7259;&#x5229;&#x547D;&#x540D;&#x98CE;&#x683C;&#xFF1A;</strong> </p>
+<p>&#x5BF9;&#x8C61;o        Object    &#x6BD4;&#x5982;&#xFF1A;oDiv<br>&#x6570;&#x7EC4;a        Array    &#x6BD4;&#x5982;&#xFF1A;aItems<br>&#x5B57;&#x7B26;&#x4E32;s        String    &#x6BD4;&#x5982;&#xFF1A;sUserName<br>&#x6574;&#x6570;i        Integer    &#x6BD4;&#x5982;&#xFF1A;iItemCount<br>&#x5E03;&#x5C14;&#x503C;b        Boolean    &#x6BD4;&#x5982;&#xFF1A;bIsComplete<br>&#x6D6E;&#x70B9;&#x6570;f        Float                 &#x6BD4;&#x5982;&#xFF1A;fPrice<br>&#x51FD;&#x6570;fn        Function    &#x6BD4;&#x5982;&#xFF1A;fnHandler<br>&#x6B63;&#x5219;&#x8868;&#x8FBE;&#x5F0F;re    RegExp    &#x6BD4;&#x5982;&#xFF1A;reEmailCheck  </p>
+
+                    
+                    </section>
+                
+                
+                </div>
+            </div>
+        </div>
+
+        
+        <a href="../005day/section02.html" class="navigation navigation-prev " aria-label="Previous page: JavaScript嵌入页面的方式"><i class="fa fa-angle-left"></i></a>
+        
+        
+        <a href="../005day/section04.html" class="navigation navigation-next " aria-label="Next page: 函数"><i class="fa fa-angle-right"></i></a>
+        
+    </div>
+</div>
+
+        
+<script src="../gitbook/app.js"></script>
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-toggle-chapters/toggle.js"></script>
+    
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-splitter/splitter.js"></script>
+    
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-fontsettings/fontsettings.js"></script>
+    
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-sharing/buttons.js"></script>
+    
+
+<script>
+require(["gitbook"], function(gitbook) {
+    var config = {"fontsettings":{"family":"sans","size":2,"theme":"white"},"toggle-chapters":{},"splitter":{},"emphasize":{},"highlight":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]}};
+    gitbook.start(config);
+});
+</script>
+
+        <!-- body:end -->
+    </body>
+    <!-- End of book 前端开发课程 -->
+</html>

@@ -1,0 +1,654 @@
+<!DOCTYPE HTML>
+<html lang="en" >
+    <!-- Start book Git简介 -->
+    <head>
+        <!-- head:start -->
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <title>本地与服务器 | Git简介</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 2.6.7">
+        
+        
+        <meta name="HandheldFriendly" content="true"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+        <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+        
+    <link rel="stylesheet" href="../gitbook/style.css">
+    
+        
+        <link rel="stylesheet" href="../gitbook/plugins/gitbook-plugin-toggle-chapters/toggle.css">
+        
+    
+        
+        <link rel="stylesheet" href="../gitbook/plugins/gitbook-plugin-highlight/website.css">
+        
+    
+        
+        <link rel="stylesheet" href="../gitbook/plugins/gitbook-plugin-search/search.css">
+        
+    
+        
+        <link rel="stylesheet" href="../gitbook/plugins/gitbook-plugin-fontsettings/website.css">
+        
+    
+    
+
+        
+    
+    
+    <link rel="next" href="../part3/9.html" />
+    
+    
+    <link rel="prev" href="../part3/7.html" />
+    
+
+        <!-- head:end -->
+    </head>
+    <body>
+        <!-- body:start -->
+        
+    <div class="book"
+        data-level="3.7"
+        data-chapter-title="本地与服务器"
+        data-filepath="part3/8.md"
+        data-basepath=".."
+        data-revision="Fri Sep 08 2017 10:45:34 GMT+0800 (CST)"
+        data-innerlanguage="">
+    
+
+<div class="book-summary">
+    <nav role="navigation">
+        <ul class="summary">
+            
+            
+            
+            
+
+            
+
+            
+    
+        <li class="chapter " data-level="0" data-path="index.html">
+            
+                
+                    <a href="../index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                        GIT简介
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1" data-path="1.html">
+            
+                
+                    <a href="../1.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.</b>
+                        
+                        安装配置
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2" data-path="part2/1.html">
+            
+                
+                    <a href="../part2/1.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.</b>
+                        
+                        经理-创建
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.1" data-path="part2/2.html">
+            
+                
+                    <a href="../part2/2.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.1.</b>
+                        
+                        创建仓库
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2" data-path="part2/3.html">
+            
+                
+                    <a href="../part2/3.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.2.</b>
+                        
+                        添加ssh账户
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.3" data-path="part2/4.html">
+            
+                
+                    <a href="../part2/4.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.3.</b>
+                        
+                        克隆项目
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.4" data-path="part2/5.html">
+            
+                
+                    <a href="../part2/5.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.4.</b>
+                        
+                        创建项目分支
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.5" data-path="part2/6.html">
+            
+                
+                    <a href="../part2/6.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.5.</b>
+                        
+                        搭建项目框架
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.6" data-path="part2/7.html">
+            
+                
+                    <a href="../part2/7.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.6.</b>
+                        
+                        上传分支
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="3" data-path="part3/1.html">
+            
+                
+                    <a href="../part3/1.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.</b>
+                        
+                        员工-开发
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="3.1" data-path="part3/2.html">
+            
+                
+                    <a href="../part3/2.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.1.</b>
+                        
+                        添加ssh账户
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2" data-path="part3/3.html">
+            
+                
+                    <a href="../part3/3.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.2.</b>
+                        
+                        本地克隆
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.3" data-path="part3/4.html">
+            
+                
+                    <a href="../part3/4.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.3.</b>
+                        
+                        同步分支
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.4" data-path="part3/5.html">
+            
+                
+                    <a href="../part3/5.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.4.</b>
+                        
+                        开发管理
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.5" data-path="part3/6.html">
+            
+                
+                    <a href="../part3/6.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.5.</b>
+                        
+                        工作区与暂存区
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.6" data-path="part3/7.html">
+            
+                
+                    <a href="../part3/7.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.6.</b>
+                        
+                        暂存区与仓库区
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter active" data-level="3.7" data-path="part3/8.html">
+            
+                
+                    <a href="../part3/8.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.7.</b>
+                        
+                        本地与服务器
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.8" data-path="part3/9.html">
+            
+                
+                    <a href="../part3/9.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.8.</b>
+                        
+                        历史
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.9" data-path="part3/10.html">
+            
+                
+                    <a href="../part3/10.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.9.</b>
+                        
+                        删除
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.10" data-path="part3/11.html">
+            
+                
+                    <a href="../part3/11.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.10.</b>
+                        
+                        Debug分支
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="4" data-path="4.html">
+            
+                
+                    <a href="../4.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.</b>
+                        
+                        经理-发布
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5" data-path="5.html">
+            
+                
+                    <a href="../5.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.</b>
+                        
+                        总结与作业
+                    </a>
+            
+            
+        </li>
+    
+
+
+            
+            <li class="divider"></li>
+            <li>
+                <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+                    Published with GitBook
+                </a>
+            </li>
+            
+        </ul>
+    </nav>
+</div>
+
+    <div class="book-body">
+        <div class="body-inner">
+            <div class="book-header" role="navigation">
+    <!-- Actions Left -->
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../" >Git简介</a>
+    </h1>
+</div>
+
+            <div class="page-wrapper" tabindex="-1" role="main">
+                <div class="page-inner">
+                
+                
+                    <section class="normal" id="section-">
+                    
+                        <h1 id="&#x672C;&#x5730;&#x4E0E;&#x670D;&#x52A1;&#x5668;">&#x672C;&#x5730;&#x4E0E;&#x670D;&#x52A1;&#x5668;</h1>
+<ul>
+<li>&#x672C;&#x5730;&#x4E0E;&#x670D;&#x52A1;&#x5668;&#x4EA4;&#x4E92;&#x7684;&#x65B9;&#x5F0F;&#x53CA;&#x547D;&#x4EE4;&#x5982;&#x4E0B;</li>
+</ul>
+<p><img src="images/part2_9_1.png" alt="&#x672C;&#x5730;&#x4E0E;&#x670D;&#x52A1;&#x5668;"></p>
+<ul>
+<li>&#x63A8;&#x9001;&#x6307;&#x5C06;&#x7279;&#x5B9A;&#x5206;&#x652F;&#x5728;&#x672C;&#x5730;&#x4ED3;&#x5E93;&#x533A;&#x7684;&#x8BB0;&#x5F55;&#x53D1;&#x9001;&#x5230;&#x670D;&#x52A1;&#x5668;&#x4E0A;</li>
+<li>&#x83B7;&#x53D6;&#x6307;&#x5C06;&#x670D;&#x52A1;&#x5668;&#x7279;&#x5B9A;&#x5206;&#x652F;&#x5411;&#x672C;&#x5730;&#x5DE5;&#x4F5C;&#x533A;&#x540C;&#x6B65;</li>
+</ul>
+<h4 id="&#x83B7;&#x53D6;">&#x83B7;&#x53D6;</h4>
+<ul>
+<li>&#x5EFA;&#x8BAE;&#xFF1A;&#x5728;&#x6BCF;&#x5929;&#x5F00;&#x59CB;&#x7F16;&#x5199;&#x4EE3;&#x7801;&#x524D;&#xFF0C;&#x5148;&#x4E0E;&#x670D;&#x52A1;&#x5668;&#x540C;&#x6B65;&#x4E00;&#x6B21;&#xFF1B;&#x6216;&#x8005;&#x5728;&#x516C;&#x7528;&#x5206;&#x652F;&#x5982;dev&#x4E0A;&#x5F00;&#x53D1;&#x65F6;&#xFF0C;&#x5EFA;&#x8BAE;&#x5148;&#x540C;&#x6B65;&#x540E;&#x5F00;&#x53D1;</li>
+<li>&#x4EC0;&#x4E48;&#x65F6;&#x5019;&#x4F1A;&#x7528;&#x5230;dev&#x5206;&#x652F;&#x5462;&#xFF1F;&#x7B54;&#xFF1A;&#x5408;&#x5E76;&#x9636;&#x6BB5;&#x4EE3;&#x7801;&#x5230;dev&#x5206;&#x652F;&#xFF0C;&#x7F16;&#x8F91;&#x516C;&#x7528;&#x6587;&#x4EF6;&#x5982;dailyfresh/urls.py</li>
+<li>1.&#x5207;&#x6362;&#x5230;dev&#x5206;&#x652F;</li>
+</ul>
+<pre><code>git checkout dev
+</code></pre><ul>
+<li>2.&#x83B7;&#x53D6;&#x4EE3;&#x7801;&#xFF0C;&#x5982;&#x679C;dev&#x5206;&#x652F;&#x4E0A;&#x6709;&#x66F4;&#x65B0;&#x7684;&#x8BB0;&#x5F55;&#x5219;&#x4F1A;&#x540C;&#x6B65;&#x5230;&#x672C;&#x5730;</li>
+</ul>
+<pre><code>git pull
+</code></pre><ul>
+<li>3.&#x5207;&#x6362;&#x56DE;&#x81EA;&#x5DF1;&#x7684;&#x5206;&#x652F;&#x7EE7;&#x7EED;&#x5F00;&#x53D1;</li>
+</ul>
+<pre><code>git checkout zhujiao
+</code></pre><h4 id="&#x63A8;&#x9001;">&#x63A8;&#x9001;</h4>
+<ul>
+<li>&#x5EFA;&#x8BAE;&#xFF1A;&#x5728;&#x6BCF;&#x5929;&#x4E0B;&#x73ED;&#x524D;&#x5C06;&#x5F53;&#x5929;&#x5F00;&#x53D1;&#x63A8;&#x9001;&#x5230;&#x670D;&#x52A1;&#x5668;&#xFF0C;&#x8FD9;&#x6837;&#x53EF;&#x4EE5;&#x5728;&#x670D;&#x52A1;&#x5668;&#x4E2D;&#x5B58;&#x50A8;&#x4E00;&#x4E2A;&#x5907;&#x4EFD;&#xFF0C;&#x5373;&#x4F7F;&#x672C;&#x673A;&#x51FA;&#x95EE;&#x9898;&#xFF0C;&#x5728;&#x670D;&#x52A1;&#x5668;&#x4E0A;&#x8FD8;&#x80FD;&#x5B58;&#x5728;&#x4EE3;&#x7801;&#x5907;&#x4EFD;</li>
+<li>&#x6CE8;&#x610F;&#xFF1A;&#x53EA;&#x4F1A;&#x5C06;&#x4ED3;&#x5E93;&#x533A;&#x7684;&#x8BB0;&#x5F55;&#x63D0;&#x4EA4;&#x5230;&#x670D;&#x52A1;&#x5668;&#x7684;&#x5BF9;&#x5E94;&#x5206;&#x652F;&#x4E0B;</li>
+<li>&#x63A8;&#x9001;&#x524D;&#x8981;&#x5C06;&#x6B64;&#x5206;&#x652F;&#x8DDF;&#x8E2A;&#x670D;&#x52A1;&#x5668;&#x4E0A;&#x7684;&#x540C;&#x540D;&#x5206;&#x652F;&#xFF0C;&#x63A8;&#x8350;&#x5728;&#x521B;&#x5EFA;&#x5206;&#x652F;&#x65F6;&#x5C31;&#x5B8C;&#x6210;&#x8DDF;&#x8E2A;</li>
+<li>&#x5982;&#x679C;&#x8981;&#x63A8;&#x9001;&#x81EA;&#x5DF1;&#x5206;&#x652F;&#x4EE5;&#x5916;&#x7684;&#x5206;&#x652F;&#xFF0C;&#x9700;&#x8981;&#x5148;&#x83B7;&#x53D6;&#xFF0C;&#x518D;&#x89E3;&#x51B3;&#x51B2;&#x7A81;&#xFF0C;&#x7136;&#x540E;&#x518D;&#x63A8;&#x9001;</li>
+</ul>
+<pre><code>git push origin zhujiao
+</code></pre><h4 id="&#x5408;&#x5E76;&#x5206;&#x652F;">&#x5408;&#x5E76;&#x5206;&#x652F;</h4>
+<ul>
+<li>&#x4E00;&#x4E2A;&#x529F;&#x80FD;&#x6A21;&#x5757;&#x5F00;&#x53D1;&#x5B8C;&#x4E86;&#xFF0C;&#x5408;&#x5E76;&#x5230;dev&#x5206;&#x652F;</li>
+<li>1.&#x5207;&#x6362;&#x5230;dev&#x5206;&#x652F;</li>
+</ul>
+<pre><code>git checkout dev
+</code></pre><ul>
+<li>2.&#x83B7;&#x53D6;&#x4EE3;&#x7801;&#xFF0C;&#x5982;&#x679C;dev&#x5206;&#x652F;&#x4E0A;&#x6709;&#x66F4;&#x65B0;&#x7684;&#x8BB0;&#x5F55;&#x5219;&#x4F1A;&#x540C;&#x6B65;&#x5230;&#x672C;&#x5730;</li>
+</ul>
+<pre><code>git pull
+</code></pre><ul>
+<li>3.&#x5408;&#x5E76;</li>
+</ul>
+<pre><code>git merge zhujiao
+</code></pre><ul>
+<li>4.&#x6DFB;&#x52A0;&#x3001;&#x63D0;&#x4EA4;&#x5E76;&#x63A8;&#x9001;</li>
+</ul>
+<pre><code>git push origin dev
+</code></pre><ul>
+<li>5.&#x5207;&#x6362;&#x56DE;&#x5DE5;&#x4F5C;&#x5206;&#x652F;</li>
+</ul>
+<pre><code>git checkout zhujiao
+</code></pre><ul>
+<li>6.&#x5728;&#x6700;&#x65B0;&#x4EE3;&#x7801;&#x4E0A;&#x7EE7;&#x7EED;&#x5F00;&#x53D1;&#xFF0C;&#x6240;&#x4EE5;&#x5C06;dev&#x5206;&#x652F;&#x5408;&#x5E76;&#x5230;zhujiao&#x5206;&#x652F;</li>
+</ul>
+<pre><code>git merge dev
+</code></pre><h4 id="&#x89E3;&#x51B3;&#x51B2;&#x7A81;">&#x89E3;&#x51B3;&#x51B2;&#x7A81;</h4>
+<ul>
+<li>&#x5EFA;&#x8BAE;&#xFF1A;&#x5728;&#x66F4;&#x6539;&#x516C;&#x7528;&#x6587;&#x4EF6;&#x5982;dailyfresh/urls.py&#x65F6;&#x9700;&#x8981;&#x64CD;&#x4F5C;dev&#x5206;&#x652F;&#xFF0C;&#x56E0;&#x4E3A;&#x5927;&#x5BB6;&#x90FD;&#x53EF;&#x4EE5;&#x64CD;&#x4F5C;dev&#x5206;&#x652F;&#xFF0C;&#x6240;&#x4EE5;&#x5728;&#x5408;&#x5E76;&#x65F6;&#x53EF;&#x80FD;&#x51FA;&#x73B0;&#x51B2;&#x7A81;</li>
+<li>&#x51B2;&#x7A81;&#x7684;&#x793A;&#x4F8B;&#x5982;&#x4E0B;&#xFF0C;&#x4FEE;&#x6539;dailyfresh/urls.py&#x6587;&#x4EF6;</li>
+</ul>
+<h6 id="&#x9879;&#x76EE;&#x7ECF;&#x7406;&#x7684;&#x64CD;&#x4F5C;">&#x9879;&#x76EE;&#x7ECF;&#x7406;&#x7684;&#x64CD;&#x4F5C;</h6>
+<ul>
+<li>1.&#x9879;&#x76EE;&#x7ECF;&#x7406;&#x8D1F;&#x8D23;&#x524D;&#x53F0;&#x7684;&#x5F00;&#x53D1;&#xFF0C;&#x9700;&#x8981;&#x4FEE;&#x6539;dailyfresh/urls.py&#x6587;&#x4EF6;</li>
+</ul>
+<pre><code>git checkout dev
+</code></pre><ul>
+<li>2.&#x5728;dailyfresh/urls.py&#x6587;&#x4EF6;&#x4E2D;&#x6DFB;&#x52A0;&#x4E00;&#x6761;url</li>
+</ul>
+<pre><code>from django.conf.urls import include, url
+from django.contrib import admin
+
+urlpatterns = [
+    url(r&apos;^admin/&apos;, include(admin.site.urls)),
+    url(r&apos;^&apos;,include(&apos;df_goods.urls&apos;)),
+]
+</code></pre><ul>
+<li>3.&#x6DFB;&#x52A0;&#x5E76;&#x63D0;&#x4EA4;</li>
+</ul>
+<pre><code>git add dailyfresh/urls.py
+git commit -m &apos;&#x914D;&#x7F6E;&#x524D;&#x53F0;url&apos;
+</code></pre><ul>
+<li>4.&#x540C;&#x6B65;&#x5230;&#x670D;&#x52A1;&#x5668;</li>
+</ul>
+<pre><code>git push origin dev
+</code></pre><h6 id="&#x5458;&#x5DE5;&#x52A9;&#x6559;&#x7684;&#x64CD;&#x4F5C;">&#x5458;&#x5DE5;&#x52A9;&#x6559;&#x7684;&#x64CD;&#x4F5C;</h6>
+<ul>
+<li>1.&#x5458;&#x5DE5;&#x52A9;&#x6559;&#x8D1F;&#x8D23;&#x7528;&#x6237;&#x6A21;&#x5757;&#x7684;&#x5F00;&#x53D1;&#xFF0C;&#x9700;&#x8981;&#x4FEE;&#x6539;dailyfresh/urls.py&#x6587;&#x4EF6;</li>
+</ul>
+<pre><code>git checkout dev
+</code></pre><ul>
+<li>2.&#x5728;dailyfresh/urls.py&#x6587;&#x4EF6;&#x4E2D;&#x6DFB;&#x52A0;&#x4E00;&#x6761;url</li>
+</ul>
+<pre><code>from django.conf.urls import include, url
+from django.contrib import admin
+
+urlpatterns = [
+    url(r&apos;^admin/&apos;, include(admin.site.urls)),
+    url(r&apos;^user/&apos;,include(&apos;df_user.urls&apos;)),
+]
+</code></pre><ul>
+<li>3.&#x6DFB;&#x52A0;&#x5E76;&#x63D0;&#x4EA4;</li>
+</ul>
+<pre><code>git add dailyfresh/urls.py
+git commit -m &apos;&#x914D;&#x7F6E;&#x7528;&#x6237;&#x6A21;&#x5757;url&apos;
+</code></pre><ul>
+<li>4.&#x5411;&#x670D;&#x52A1;&#x5668;&#x63A8;&#x9001;</li>
+</ul>
+<pre><code>git push origin dev
+</code></pre><ul>
+<li>5.&#x63A8;&#x9001;&#x65F6;&#x53D1;&#x73B0;&#x51FA;&#x9519;&#x8BEF;&#x4E86;&#xFF0C;&#x9519;&#x8BEF;&#x4FE1;&#x606F;&#x5982;&#x4E0B;&#x56FE;</li>
+</ul>
+<p><img src="images/part2_9_2.png" alt="&#x63A8;&#x9001;&#x5931;&#x8D25;"></p>
+<ul>
+<li>&#x6839;&#x636E;&#x63D0;&#x793A;&#xFF0C;&#x9700;&#x8981;&#x5148;&#x83B7;&#x53D6;&#x670D;&#x52A1;&#x5668;&#x7684;&#x53D8;&#x66F4;</li>
+</ul>
+<pre><code>git pull
+</code></pre><ul>
+<li>&#x53D1;&#x73B0;&#x6709;&#x51B2;&#x7A81;&#xFF0C;&#x800C;&#x4E14;&#x81EA;&#x52A8;&#x5408;&#x5E76;&#x51B2;&#x7A81;&#x5931;&#x8D25;&#xFF0C;&#x9700;&#x8981;&#x624B;&#x52A8;&#x5408;&#x5E76;&#x51B2;&#x7A81;&#xFF0C;&#x6307;&#x5411;dailyfresh/urls.py&#x6587;&#x4EF6;</li>
+</ul>
+<p><img src="images/part2_9_3.png" alt="&#x5408;&#x5E76;&#x51B2;&#x7A81;"></p>
+<ul>
+<li>&#x5F53;&#x524D;dailyfresh/urls.py&#x6587;&#x4EF6;&#x5185;&#x5BB9;&#x5982;&#x4E0B;</li>
+</ul>
+<pre><code>from django.conf.urls import include, url
+from django.contrib import admin
+
+urlpatterns = [
+    url(r&apos;^admin/&apos;, include(admin.site.urls)),
+&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
+    url(r&apos;^user/&apos;,include(&apos;df_user.urls&apos;)),
+=======
+        url(r&apos;^&apos;,include(&apos;df_goods.urls&apos;)),
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; ae79e1fd93d0d9e7f8ca36481c611a2b4a38a9db
+]
+</code></pre><ul>
+<li>&#x5176;&#x4E2D;&#xFF0C;&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD&#x8868;&#x793A;&#x5F53;&#x524D;&#x7248;&#x672C;&#x7684;&#x5185;&#x5BB9;&#xFF0C;=======&#x540E;&#x9762;&#xFF0C;&#x8868;&#x793A;&gt;&gt;&gt;&gt;&gt;&gt;&gt; ae79e1fd93d0d9e7f8ca36481c611a2b4a38a9db&#x7248;&#x672C;&#x7684;&#x5185;&#x5BB9;&#xFF0C;&#x53D1;&#x73B0;&#x4E24;&#x53E5;&#x4EE3;&#x7801;&#x5E76;&#x4E0D;&#x51B2;&#x7A81;&#xFF0C;&#x90FD;&#x9700;&#x8981;&#x4FDD;&#x7559;&#xFF0C;&#x5982;&#x679C;&#x4E0D;&#x80FD;&#x786E;&#x5B9A;&#x662F;&#x5426;&#x4FDD;&#x7559;&#xFF0C;&#x53EF;&#x4EE5;&#x4E0E;&#x7F16;&#x5199;&#x8BE5;&#x8BED;&#x53E5;&#x7684;&#x4EBA;&#x5458;&#x6C9F;&#x901A;&#xFF0C;&#x5F53;&#x524D;&#x4EE3;&#x7801;&#x66F4;&#x6539;&#x540E;&#x5982;&#x4E0B;</li>
+</ul>
+<pre><code>from django.conf.urls import include, url
+from django.contrib import admin
+
+urlpatterns = [
+    url(r&apos;^admin/&apos;, include(admin.site.urls)),
+    url(r&apos;^user/&apos;,include(&apos;df_user.urls&apos;)),
+    url(r&apos;^&apos;,include(&apos;df_goods.urls&apos;)),
+]
+</code></pre><ul>
+<li>6.&#x51B2;&#x7A81;&#x89E3;&#x51B3;&#x5B8C;&#x6210;&#xFF0C;&#x518D;&#x6B21;&#x6DFB;&#x52A0;&#x3001;&#x63D0;&#x4EA4;&#x3001;&#x63A8;&#x9001;</li>
+</ul>
+<pre><code>git add dailyfresh/urls.py
+git commit -m &apos;&#x914D;&#x7F6E;&#x7528;&#x6237;&#x6A21;&#x5757;url-&#x89E3;&#x51B3;&#x51B2;&#x7A81;&#x540E;&apos;
+git push origin dev
+</code></pre>
+                    
+                    </section>
+                
+                
+                </div>
+            </div>
+        </div>
+
+        
+        <a href="../part3/7.html" class="navigation navigation-prev " aria-label="Previous page: 暂存区与仓库区"><i class="fa fa-angle-left"></i></a>
+        
+        
+        <a href="../part3/9.html" class="navigation navigation-next " aria-label="Next page: 历史"><i class="fa fa-angle-right"></i></a>
+        
+    </div>
+</div>
+
+        
+<script src="../gitbook/app.js"></script>
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-toggle-chapters/toggle.js"></script>
+    
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-search/lunr.min.js"></script>
+    
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-search/search.js"></script>
+    
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-sharing/buttons.js"></script>
+    
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-fontsettings/buttons.js"></script>
+    
+
+<script>
+require(["gitbook"], function(gitbook) {
+    var config = {"toggle-chapters":{},"highlight":{},"search":{"maxIndexSize":1000000},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2}};
+    gitbook.start(config);
+});
+</script>
+
+        <!-- body:end -->
+    </body>
+    <!-- End of book Git简介 -->
+</html>

@@ -1,0 +1,2708 @@
+<!DOCTYPE HTML>
+<html lang="zh-tw" >
+    <!-- Start book python基础语言 -->
+    <head>
+        <!-- head:start -->
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <title>聚合函数 | python基础语言</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 2.6.7">
+        
+        
+        <meta name="HandheldFriendly" content="true"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
+        <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
+        
+    <link rel="stylesheet" href="../../gitbook/style.css">
+    
+        
+        <link rel="stylesheet" href="../../gitbook/plugins/gitbook-plugin-toggle-chapters/toggle.css">
+        
+    
+        
+        <link rel="stylesheet" href="../../gitbook/plugins/gitbook-plugin-splitter/splitter.css">
+        
+    
+        
+        <link rel="stylesheet" href="../../gitbook/plugins/gitbook-plugin-emphasize/plugin.css">
+        
+    
+        
+        <link rel="stylesheet" href="../../gitbook/plugins/gitbook-plugin-highlight/website.css">
+        
+    
+        
+        <link rel="stylesheet" href="../../gitbook/plugins/gitbook-plugin-fontsettings/website.css">
+        
+    
+    
+
+        
+    
+    
+    <link rel="next" href="../../17day/third-chapter/分组.html" />
+    
+    
+    <link rel="prev" href="../../17day/third-chapter/排序.html" />
+    
+
+        <!-- head:end -->
+    </head>
+    <body>
+        <!-- body:start -->
+        
+    <div class="book"
+        data-level="14.4"
+        data-chapter-title="聚合函数"
+        data-filepath="17day/third-chapter/聚合函数.md"
+        data-basepath="../.."
+        data-revision="Sun Aug 20 2017 07:30:33 GMT+0800 (CST)"
+        data-innerlanguage="">
+    
+
+<div class="book-summary">
+    <nav role="navigation">
+        <ul class="summary">
+            
+            
+            
+            
+
+            
+
+            
+    
+        <li class="chapter " data-level="0" data-path="index.html">
+            
+                
+                    <a href="../../index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                        课程介绍
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1" data-path="04day/index.html">
+            
+                
+                    <a href="../../04day/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.</b>
+                        
+                        网络-udp
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.1" data-path="04day/01-网络通信概述.html">
+            
+                
+                    <a href="../../04day/01-网络通信概述.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.1.</b>
+                        
+                        网络通信概述
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="04day/02-ip地址.html">
+            
+                
+                    <a href="../../04day/02-ip地址.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.2.</b>
+                        
+                        ip地址(重点)
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="04day/03-Linux命令（ping、ifconfig）.html">
+            
+                
+                    <a href="../../04day/03-Linux命令（ping、ifconfig）.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.3.</b>
+                        
+                        Linux命令(ping、ifconfig等)
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="04day/04-端口.html">
+            
+                
+                    <a href="../../04day/04-端口.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.4.</b>
+                        
+                        端口(重点)
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="04day/05-socket简介.html">
+            
+                
+                    <a href="../../04day/05-socket简介.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.5.</b>
+                        
+                        socket简介
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="04day/06-udp网络程序-发送、接收数据.html">
+            
+                
+                    <a href="../../04day/06-udp网络程序-发送、接收数据.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.6.</b>
+                        
+                        udp网络程序-发送、接收数据(重点)
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="04day/python3编码转换.html">
+            
+                
+                    <a href="../../04day/python3编码转换.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.7.</b>
+                        
+                        python3编码转换
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="04day/07-udp绑定信息.html">
+            
+                
+                    <a href="../../04day/07-udp绑定信息.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.8.</b>
+                        
+                        udp绑定端口问题(重点)
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" data-path="04day/udp网络通信过程.html">
+            
+                
+                    <a href="../../04day/udp网络通信过程.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.9.</b>
+                        
+                        udp网络通信过程
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10" data-path="04day/飞鸽传书协议介绍.html">
+            
+                
+                    <a href="../../04day/飞鸽传书协议介绍.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.10.</b>
+                        
+                        飞鸽传书介绍
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11" data-path="04day/飞鸽传书-上线.html">
+            
+                
+                    <a href="../../04day/飞鸽传书-上线.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.11.</b>
+                        
+                        飞鸽传书-上线
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12" data-path="04day/飞鸽传书-上线-代码.html">
+            
+                
+                    <a href="../../04day/飞鸽传书-上线-代码.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.12.</b>
+                        
+                        飞鸽传书-上线-代码
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13" data-path="04day/飞鸽传书-下线.html">
+            
+                
+                    <a href="../../04day/飞鸽传书-下线.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.13.</b>
+                        
+                        飞鸽传书-下线
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14" data-path="04day/飞鸽传书-下线-代码.html">
+            
+                
+                    <a href="../../04day/飞鸽传书-下线-代码.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.14.</b>
+                        
+                        飞鸽传书-下线-代码
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15" data-path="04day/飞鸽传书-上下线-命令版.html">
+            
+                
+                    <a href="../../04day/飞鸽传书-上下线-命令版.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.15.</b>
+                        
+                        飞鸽传书-上下线-命令版
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2" data-path="05day/index.html">
+            
+                
+                    <a href="../../05day/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.</b>
+                        
+                        多任务-线程
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.1" data-path="05day/飞鸽传书-命令列表.html">
+            
+                
+                    <a href="../../05day/飞鸽传书-命令列表.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.1.</b>
+                        
+                        [附录]飞鸽传书-命令列表
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2" data-path="05day/飞鸽传书-发送消息.html">
+            
+                
+                    <a href="../../05day/飞鸽传书-发送消息.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.2.</b>
+                        
+                        飞鸽传书-发送消息
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.3" data-path="05day/飞鸽传书-接收消息.html">
+            
+                
+                    <a href="../../05day/飞鸽传书-接收消息.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.3.</b>
+                        
+                        飞鸽传书-接收消息
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.4" data-path="05day/多任务的介绍.html">
+            
+                
+                    <a href="../../05day/多任务的介绍.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.4.</b>
+                        
+                        多任务的介绍
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.5" data-path="05day/多任务的概念.html">
+            
+                
+                    <a href="../../05day/多任务的概念.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.5.</b>
+                        
+                        多任务的概念
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.6" data-path="05day/01-线程创建-threading.html">
+            
+                
+                    <a href="../../05day/01-线程创建-threading.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.6.</b>
+                        
+                        线程
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.7" data-path="05day/02-线程创建-注意点.html">
+            
+                
+                    <a href="../../05day/02-线程创建-注意点.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.7.</b>
+                        
+                        线程-注意点
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.8" data-path="05day/飞鸽传书-分模块.html">
+            
+                
+                    <a href="../../05day/飞鸽传书-分模块.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.8.</b>
+                        
+                        飞鸽传书-代码优化-分模块
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.9" data-path="05day/飞鸽传书-收发数据同时进行.html">
+            
+                
+                    <a href="../../05day/飞鸽传书-收发数据同时进行.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.9.</b>
+                        
+                        飞鸽传书-收发数据同时进行
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.10" data-path="05day/飞鸽传书-多任务聊天.html">
+            
+                
+                    <a href="../../05day/飞鸽传书-多任务聊天.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.10.</b>
+                        
+                        飞鸽传书-多任务聊天
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="3" data-path="07day/index.html">
+            
+                
+                    <a href="../../07day/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.</b>
+                        
+                        多任务-线程、进程
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="3.1" data-path="07day/飞鸽传书-保存在线用户列表.html">
+            
+                
+                    <a href="../../07day/飞鸽传书-保存在线用户列表.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.1.</b>
+                        
+                        飞鸽传书-保存在线用户列表
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2" data-path="07day/飞鸽传书-升级输入对方ip功能.html">
+            
+                
+                    <a href="../../07day/飞鸽传书-升级输入对方ip功能.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.2.</b>
+                        
+                        飞鸽传书-升级输入对方ip功能
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.3" data-path="07day/多线程-共享全局变量.html">
+            
+                
+                    <a href="../../07day/多线程-共享全局变量.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.3.</b>
+                        
+                        多线程-共享全局变量
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.4" data-path="07day/多线程-共享全局变量问题.html">
+            
+                
+                    <a href="../../07day/多线程-共享全局变量问题.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.4.</b>
+                        
+                        多线程-共享全局变量-问题
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.5" data-path="07day/同步.html">
+            
+                
+                    <a href="../../07day/同步.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.5.</b>
+                        
+                        同步
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.6" data-path="07day/互斥锁.html">
+            
+                
+                    <a href="../../07day/互斥锁.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.6.</b>
+                        
+                        互斥锁
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.7" data-path="07day/死锁.html">
+            
+                
+                    <a href="../../07day/死锁.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.7.</b>
+                        
+                        死锁
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.8" data-path="07day/02-进程状态.html">
+            
+                
+                    <a href="../../07day/02-进程状态.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.8.</b>
+                        
+                        进程以及状态
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.9" data-path="07day/进程的创建-multiprocessing.html">
+            
+                
+                    <a href="../../07day/进程的创建-multiprocessing.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.9.</b>
+                        
+                        进程的创建-multiprocessing
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.10" data-path="07day/进程、线程对比.html">
+            
+                
+                    <a href="../../07day/进程、线程对比.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.10.</b>
+                        
+                        进程、线程对比
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.11" data-path="07day/程间通信-Queue.html">
+            
+                
+                    <a href="../../07day/程间通信-Queue.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.11.</b>
+                        
+                        进程间通信-Queue
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.12" data-path="07day/进程的创建-进程池.html">
+            
+                
+                    <a href="../../07day/进程的创建-进程池.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.12.</b>
+                        
+                        进程的创建-进程池Pool
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.13" data-path="07day/05-应用：文件夹copy器（多进程版）.html">
+            
+                
+                    <a href="../../07day/05-应用：文件夹copy器（多进程版）.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.13.</b>
+                        
+                        应用：文件夹copy器（多进程版）
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="4" data-path="06day/index.html">
+            
+                
+                    <a href="../../06day/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.</b>
+                        
+                        网络-tcp
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="4.1" data-path="06day/tcp简介.html">
+            
+                
+                    <a href="../../06day/tcp简介.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.1.</b>
+                        
+                        tcp简介
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2" data-path="06day/tcp网络程序-客户端.html">
+            
+                
+                    <a href="../../06day/tcp网络程序-客户端.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.2.</b>
+                        
+                        tcp网络程序-客户端(重点)
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.3" data-path="06day/tcp网络程序-服务器.html">
+            
+                
+                    <a href="../../06day/tcp网络程序-服务器.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.3.</b>
+                        
+                        tcp网络程序-服务器(重点)
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.4" data-path="06day/tcp注意点.html">
+            
+                
+                    <a href="../../06day/tcp注意点.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.4.</b>
+                        
+                        tcp注意点(重点)
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.5" data-path="06day/飞鸽传书-发送文件流程.html">
+            
+                
+                    <a href="../../06day/飞鸽传书-发送文件流程.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.5.</b>
+                        
+                        飞鸽传书-发送文件流程
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.6" data-path="06day/飞鸽传书-发送文件-1.html">
+            
+                
+                    <a href="../../06day/飞鸽传书-发送文件-1.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.6.</b>
+                        
+                        飞鸽传书-发送文件-udp消息
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.7" data-path="06day/飞鸽传书-发送文件-3.html">
+            
+                
+                    <a href="../../06day/飞鸽传书-发送文件-3.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.7.</b>
+                        
+                        飞鸽传书-发送文件-创建tcp服务器
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.8" data-path="06day/飞鸽传书-架构分析.html">
+            
+                
+                    <a href="../../06day/飞鸽传书-架构分析.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.8.</b>
+                        
+                        飞鸽传书-架构分析(理解)
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.9" data-path="06day/飞鸽传书-发送文件-2.html">
+            
+                
+                    <a href="../../06day/飞鸽传书-发送文件-2.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.9.</b>
+                        
+                        飞鸽传书-发送文件
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="5" data-path="08day/index.html">
+            
+                
+                    <a href="../../08day/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.</b>
+                        
+                        飞鸽传书-完善
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="5.1" data-path="08day/飞鸽传书-存储下载文件.html">
+            
+                
+                    <a href="../../08day/飞鸽传书-存储下载文件.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.1.</b>
+                        
+                        飞鸽传书-下载文件-存储文件信息new
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.2" data-path="08day/飞鸽传书-架构.html">
+            
+                
+                    <a href="../../08day/飞鸽传书-架构.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.2.</b>
+                        
+                        飞鸽传书-架构
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.3" data-path="08day/飞鸽传书-发送下载、接收文件到Queue.html">
+            
+                
+                    <a href="../../08day/飞鸽传书-发送下载、接收文件到Queue.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.3.</b>
+                        
+                        飞鸽传书-发送下载、接收文件到Queue
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.4" data-path="08day/飞鸽传书-下载文件.html">
+            
+                
+                    <a href="../../08day/飞鸽传书-下载文件.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.4.</b>
+                        
+                        飞鸽传书-下载文件
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.5" data-path="08day/飞鸽传书-完整版.html">
+            
+                
+                    <a href="../../08day/飞鸽传书-完整版.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.5.</b>
+                        
+                        飞鸽传书-完整版
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.6" data-path="08day/tcp的3次握手.html">
+            
+                
+                    <a href="../../08day/tcp的3次握手.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.6.</b>
+                        
+                        tcp的3次握手
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.7" data-path="08day/tcp的4次挥手.html">
+            
+                
+                    <a href="../../08day/tcp的4次挥手.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.7.</b>
+                        
+                        tcp的4次挥手
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.8" data-path="08day/wireshark的使用.html">
+            
+                
+                    <a href="../../08day/wireshark的使用.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.8.</b>
+                        
+                        wireshark的使用
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="6" data-path="09day/index.html">
+            
+                
+                    <a href="../../09day/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.</b>
+                        
+                        多任务-协程
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="6.1" data-path="09day/迭代器.html">
+            
+                
+                    <a href="../../09day/迭代器.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.1.</b>
+                        
+                        迭代器
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6.2" data-path="09day/生成器.html">
+            
+                
+                    <a href="../../09day/生成器.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.2.</b>
+                        
+                        生成器
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6.3" data-path="09day/协程-yield.html">
+            
+                
+                    <a href="../../09day/协程-yield.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.3.</b>
+                        
+                        协程-yield
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6.4" data-path="09day/协程-greenlet.html">
+            
+                
+                    <a href="../../09day/协程-greenlet.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.4.</b>
+                        
+                        协程-greenlet
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6.5" data-path="09day/协程-gevent.html">
+            
+                
+                    <a href="../../09day/协程-gevent.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.5.</b>
+                        
+                        协程-gevent
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6.6" data-path="09day/并发下载器.html">
+            
+                
+                    <a href="../../09day/并发下载器.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.6.</b>
+                        
+                        应用:并发下载器
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="7" data-path="10day/index.html">
+            
+                
+                    <a href="../../10day/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>7.</b>
+                        
+                        正则表达式
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="7.1" data-path="10day/正则/section.1.html">
+            
+                
+                    <a href="../../10day/正则/section.1.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>7.1.</b>
+                        
+                        正则表达式概述
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="7.2" data-path="10day/正则/section.3.html">
+            
+                
+                    <a href="../../10day/正则/section.3.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>7.2.</b>
+                        
+                        re模块操作
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="7.3" data-path="10day/正则/section.4.html">
+            
+                
+                    <a href="../../10day/正则/section.4.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>7.3.</b>
+                        
+                        匹配单个字符
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="7.4" data-path="10day/正则/section.5.html">
+            
+                
+                    <a href="../../10day/正则/section.5.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>7.4.</b>
+                        
+                        匹配多个字符
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="7.5" data-path="10day/正则/section.6.html">
+            
+                
+                    <a href="../../10day/正则/section.6.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>7.5.</b>
+                        
+                        匹配开头结尾
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="7.6" data-path="10day/正则/section.7.html">
+            
+                
+                    <a href="../../10day/正则/section.7.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>7.6.</b>
+                        
+                        匹配分组
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="7.7" data-path="10day/正则/section.8.html">
+            
+                
+                    <a href="../../10day/正则/section.8.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>7.7.</b>
+                        
+                        re模块的高级用法
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="7.8" data-path="10day/正则/section.9.html">
+            
+                
+                    <a href="../../10day/正则/section.9.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>7.8.</b>
+                        
+                        贪婪和非贪婪
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="7.9" data-path="10day/正则/section.10.html">
+            
+                
+                    <a href="../../10day/正则/section.10.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>7.9.</b>
+                        
+                        r的作用
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="8" data-path="12day/index.html">
+            
+                
+                    <a href="../../12day/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.</b>
+                        
+                        网络通信过程、http协议
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="8.1" data-path="12day/tcp-ip简介.html">
+            
+                
+                    <a href="../../12day/tcp-ip简介.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.1.</b>
+                        
+                        tcp/ip简介
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.2" data-path="12day/网络通信过程.html">
+            
+                
+                    <a href="../../12day/网络通信过程.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.2.</b>
+                        
+                        网络通信过程
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.3" data-path="12day/NAT.html">
+            
+                
+                    <a href="../../12day/NAT.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.3.</b>
+                        
+                        NAT
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.4" data-path="12day/tcp长连接和短连接.html">
+            
+                
+                    <a href="../../12day/tcp长连接和短连接.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.4.</b>
+                        
+                        tcp长连接和短连接
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.5" data-path="13day/http协议.html">
+            
+                
+                    <a href="../../13day/http协议.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.5.</b>
+                        
+                        http协议
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="9" data-path="13day/index.html">
+            
+                
+                    <a href="../../13day/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>9.</b>
+                        
+                        web服务器-静态页面版、并发服务器1
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="9.1" data-path="13day/Web静态服务器-1-显示固定的页面.html">
+            
+                
+                    <a href="../../13day/Web静态服务器-1-显示固定的页面.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>9.1.</b>
+                        
+                        Web静态服务器-1-显示固定的页面
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="9.2" data-path="13day/Web静态服务器-2-显示需要的页面.html">
+            
+                
+                    <a href="../../13day/Web静态服务器-2-显示需要的页面.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>9.2.</b>
+                        
+                        Web静态服务器-2-显示需要的页面
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="9.3" data-path="13day/Web静态服务器-3-使用类.html">
+            
+                
+                    <a href="../../13day/Web静态服务器-3-使用类.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>9.3.</b>
+                        
+                        Web静态服务器-3-使用类
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="9.4" data-path="13day/Web并发服务器-1-多进程.html">
+            
+                
+                    <a href="../../13day/Web并发服务器-1-多进程.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>9.4.</b>
+                        
+                        Web静态服务器-4-多进程
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="9.5" data-path="13day/Web并发服务器-2-多线程.html">
+            
+                
+                    <a href="../../13day/Web并发服务器-2-多线程.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>9.5.</b>
+                        
+                        Web静态服务器-5-多线程
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="10" data-path="11day/index.html">
+            
+                
+                    <a href="../../11day/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>10.</b>
+                        
+                        web服务器-并发服务器2
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="10.1" data-path="11day/单进程服务器-非堵塞模式.html">
+            
+                
+                    <a href="../../11day/单进程服务器-非堵塞模式.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>10.1.</b>
+                        
+                        Web静态服务器-6-非堵塞模式
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="10.2" data-path="11day/单进程服务器-epool.html">
+            
+                
+                    <a href="../../11day/单进程服务器-epool.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>10.2.</b>
+                        
+                        Web静态服务器-7-epoll
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="10.3" data-path="11day/单进程服务器-gevent版.html">
+            
+                
+                    <a href="../../11day/单进程服务器-gevent版.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>10.3.</b>
+                        
+                        Web静态服务器-8-gevent版
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="10.4" data-path="11day/知识扩展-C10K问题.html">
+            
+                
+                    <a href="../../11day/知识扩展-C10K问题.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>10.4.</b>
+                        
+                        知识扩展-C10K问题
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="11" data-path="15day/index.html">
+            
+                
+                    <a href="../../15day/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>11.</b>
+                        
+                        WSGI、mini web框架
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="11.1" data-path="15day/服务器动态资源请求.html">
+            
+                
+                    <a href="../../15day/服务器动态资源请求.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>11.1.</b>
+                        
+                        服务器动态资源请求
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="11.2" data-path="15day/应用程序示例.html">
+            
+                
+                    <a href="../../15day/应用程序示例.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>11.2.</b>
+                        
+                        应用程序示例
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="11.3" data-path="15day/Web动态服务器-1-基本实现.html">
+            
+                
+                    <a href="../../15day/Web动态服务器-1-基本实现.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>11.3.</b>
+                        
+                        Web动态服务器-基本实现
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="11.4" data-path="15day/mini web框架-1-文件结构.html">
+            
+                
+                    <a href="../../15day/mini web框架-1-文件结构.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>11.4.</b>
+                        
+                        mini web框架-1-文件结构
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="11.5" data-path="15day/mini web框架-2-显示页面.html">
+            
+                
+                    <a href="../../15day/mini web框架-2-显示页面.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>11.5.</b>
+                        
+                        mini web框架-2-显示页面
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="11.6" data-path="15day/mini web框架-3-替换模板.html">
+            
+                
+                    <a href="../../15day/mini web框架-3-替换模板.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>11.6.</b>
+                        
+                        mini web框架-3-替换模板
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="12" data-path="14day/index.html">
+            
+                
+                    <a href="../../14day/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>12.</b>
+                        
+                        装饰器、mini web框架-路由
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="12.1" data-path="14day/01-闭包.html">
+            
+                
+                    <a href="../../14day/01-闭包.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>12.1.</b>
+                        
+                        闭包
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="12.2" data-path="14day/02-装饰器.html">
+            
+                
+                    <a href="../../14day/02-装饰器.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>12.2.</b>
+                        
+                        装饰器
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="12.3" data-path="14day/mini web框架-4-路由.html">
+            
+                
+                    <a href="../../14day/mini web框架-4-路由.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>12.3.</b>
+                        
+                        mini web框架-4-路由
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="13" data-path="16day/index.html">
+            
+                
+                    <a href="../../16day/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>13.</b>
+                        
+                        MySQL-基本使用
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="13.1" data-path="16day/README2.html">
+            
+                
+                    <a href="../../16day/README2.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>13.1.</b>
+                        
+                        数据库简介
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="13.1.1" data-path="16day/数据存储.html">
+            
+                
+                    <a href="../../16day/数据存储.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>13.1.1.</b>
+                        
+                        数据存储
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="13.1.2" data-path="16day/数据库.html">
+            
+                
+                    <a href="../../16day/数据库.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>13.1.2.</b>
+                        
+                        数据库
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="13.1.3" data-path="16day/rdbms.html">
+            
+                
+                    <a href="../../16day/rdbms.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>13.1.3.</b>
+                        
+                        RDBMS
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="13.1.4" data-path="16day/RDBMS和数据库的关系.html">
+            
+                
+                    <a href="../../16day/RDBMS和数据库的关系.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>13.1.4.</b>
+                        
+                        RDBMS和数据库的关系
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="13.1.5" data-path="16day/sql.html">
+            
+                
+                    <a href="../../16day/sql.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>13.1.5.</b>
+                        
+                        SQL
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="13.1.6" data-path="16day/mysql.html">
+            
+                
+                    <a href="../../16day/mysql.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>13.1.6.</b>
+                        
+                        MySQL
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="13.2" data-path="16day/chapter1/MySQL安装.html">
+            
+                
+                    <a href="../../16day/chapter1/MySQL安装.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>13.2.</b>
+                        
+                        MySQL安装
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="13.3" data-path="16day/chapter1/filedtype.html">
+            
+                
+                    <a href="../../16day/chapter1/filedtype.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>13.3.</b>
+                        
+                        数据完整性
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="13.4" data-path="16day/chapter1/Navicat图形界面工具操作/Navicat图形界面工具操作.html">
+            
+                
+                    <a href="../../16day/chapter1/Navicat图形界面工具操作/Navicat图形界面工具操作.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>13.4.</b>
+                        
+                        Navicat图形界面工具操作
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="13.4.1" data-path="16day/chapter1/Navicat图形界面工具操作/数据库操作.html">
+            
+                
+                    <a href="../../16day/chapter1/Navicat图形界面工具操作/数据库操作.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>13.4.1.</b>
+                        
+                        数据库操作
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="13.4.2" data-path="16day/chapter1/Navicat图形界面工具操作/数据表操作.html">
+            
+                
+                    <a href="../../16day/chapter1/Navicat图形界面工具操作/数据表操作.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>13.4.2.</b>
+                        
+                        数据表操作
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="13.4.3" data-path="16day/chapter1/Navicat图形界面工具操作/数据操作.html">
+            
+                
+                    <a href="../../16day/chapter1/Navicat图形界面工具操作/数据操作.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>13.4.3.</b>
+                        
+                        数据操作
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="13.5" data-path="16day/chapter1/shell-mysql/shell-mysql.html">
+            
+                
+                    <a href="../../16day/chapter1/shell-mysql/shell-mysql.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>13.5.</b>
+                        
+                        命令行脚本(重点)
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="13.5.1" data-path="16day/chapter1/shell-mysql/数据库操作.html">
+            
+                
+                    <a href="../../16day/chapter1/shell-mysql/数据库操作.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>13.5.1.</b>
+                        
+                        数据库操作
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="13.5.2" data-path="16day/chapter1/shell-mysql/数据表操作.html">
+            
+                
+                    <a href="../../16day/chapter1/shell-mysql/数据表操作.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>13.5.2.</b>
+                        
+                        数据表操作
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="13.5.3" data-path="16day/chapter1/shell-mysql/数据增删改查.html">
+            
+                
+                    <a href="../../16day/chapter1/shell-mysql/数据增删改查.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>13.5.3.</b>
+                        
+                        数据增删改查
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="13.5.4" data-path="16day/chapter1/shell-mysql/数据备份&amp;恢复.html">
+            
+                
+                    <a href="../../16day/chapter1/shell-mysql/数据备份&amp;恢复.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>13.5.4.</b>
+                        
+                        数据备份&amp;恢复
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="13.6" data-path="16day/chapter1/数据库的设计.html">
+            
+                
+                    <a href="../../16day/chapter1/数据库的设计.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>13.6.</b>
+                        
+                        数据库的设计
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="14" data-path="17day/index.html">
+            
+                
+                    <a href="../../17day/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>14.</b>
+                        
+                        MySQL-查询
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="14.1" data-path="17day/MySQL 查询.html">
+            
+                
+                    <a href="../../17day/MySQL 查询.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>14.1.</b>
+                        
+                        MySQL查询
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="14.2" data-path="17day/third-chapter/条件.html">
+            
+                
+                    <a href="../../17day/third-chapter/条件.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>14.2.</b>
+                        
+                        条件
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="14.3" data-path="17day/third-chapter/排序.html">
+            
+                
+                    <a href="../../17day/third-chapter/排序.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>14.3.</b>
+                        
+                        排序
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter active" data-level="14.4" data-path="17day/third-chapter/聚合函数.html">
+            
+                
+                    <a href="../../17day/third-chapter/聚合函数.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>14.4.</b>
+                        
+                        聚合函数
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="14.5" data-path="17day/third-chapter/分组.html">
+            
+                
+                    <a href="../../17day/third-chapter/分组.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>14.5.</b>
+                        
+                        分组
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="14.6" data-path="17day/third-chapter/分页.html">
+            
+                
+                    <a href="../../17day/third-chapter/分页.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>14.6.</b>
+                        
+                        分页
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="14.7" data-path="17day/third-chapter/连接查询.html">
+            
+                
+                    <a href="../../17day/third-chapter/连接查询.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>14.7.</b>
+                        
+                        连接查询
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="14.8" data-path="17day/third-chapter/自关联.html">
+            
+                
+                    <a href="../../17day/third-chapter/自关联.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>14.8.</b>
+                        
+                        自关联
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="14.9" data-path="17day/third-chapter/子查询.html">
+            
+                
+                    <a href="../../17day/third-chapter/子查询.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>14.9.</b>
+                        
+                        子查询
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="14.10" data-path="17day/third-chapter/总结.html">
+            
+                
+                    <a href="../../17day/third-chapter/总结.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>14.10.</b>
+                        
+                        总结
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="15" data-path="18day/index.html">
+            
+                
+                    <a href="../../18day/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>15.</b>
+                        
+                        MySQL与Python交互
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="15.1" data-path="18day/准备数据.html">
+            
+                
+                    <a href="../../18day/准备数据.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>15.1.</b>
+                        
+                        准备数据
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="15.2" data-path="18day/SQL演练.html">
+            
+                
+                    <a href="../../18day/SQL演练.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>15.2.</b>
+                        
+                        SQL演练
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="15.3" data-path="18day/数据库设计.html">
+            
+                
+                    <a href="../../18day/数据库设计.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>15.3.</b>
+                        
+                        数据库设计
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="15.4" data-path="18day/Python操作MySQL步骤.html">
+            
+                
+                    <a href="../../18day/Python操作MySQL步骤.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>15.4.</b>
+                        
+                        Python操作MySQL步骤
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="15.5" data-path="18day/增删改查.html">
+            
+                
+                    <a href="../../18day/增删改查.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>15.5.</b>
+                        
+                        增删改查
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="15.6" data-path="18day/参数化.html">
+            
+                
+                    <a href="../../18day/参数化.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>15.6.</b>
+                        
+                        参数化
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="16" data-path="19day/index.html">
+            
+                
+                    <a href="../../19day/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>16.</b>
+                        
+                        mini web框架-添加MySQL功能
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="16.1" data-path="19day/准备数据.html">
+            
+                
+                    <a href="../../19day/准备数据.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>16.1.</b>
+                        
+                        准备数据
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="16.2" data-path="19day/伪静态、静态和动态的区别.html">
+            
+                
+                    <a href="../../19day/伪静态、静态和动态的区别.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>16.2.</b>
+                        
+                        伪静态、静态和动态的区别
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="16.3" data-path="19day/mini-web框架-实现伪静态url.html">
+            
+                
+                    <a href="../../19day/mini-web框架-实现伪静态url.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>16.3.</b>
+                        
+                        mini-web框架-实现伪静态url
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="16.4" data-path="19day/mini-web框架-从mysql中查询数据.html">
+            
+                
+                    <a href="../../19day/mini-web框架-从mysql中查询数据.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>16.4.</b>
+                        
+                        mini-web框架-从mysql中查询数据
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="16.5" data-path="19day/mini-web框架-组装数据为html格式.html">
+            
+                
+                    <a href="../../19day/mini-web框架-组装数据为html格式.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>16.5.</b>
+                        
+                        mini-web框架-组装数据为html格式
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="16.6" data-path="19day/mini-web框架-路由支持正则.html">
+            
+                
+                    <a href="../../19day/mini-web框架-路由支持正则.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>16.6.</b>
+                        
+                        mini-web框架-路由支持正则
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="16.7" data-path="19day/mini-web框架-mysql-改.html">
+            
+                
+                    <a href="../../19day/mini-web框架-mysql-改.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>16.7.</b>
+                        
+                        mini-web框架-mysql-改
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="16.8" data-path="19day/mini-web框架-url编码.html">
+            
+                
+                    <a href="../../19day/mini-web框架-url编码.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>16.8.</b>
+                        
+                        mini-web框架-url编码
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="16.9" data-path="19day/mini-web框架-mysql-增.html">
+            
+                
+                    <a href="../../19day/mini-web框架-mysql-增.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>16.9.</b>
+                        
+                        mini-web框架-mysql-增
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="16.10" data-path="19day/mini-web框架-mysql-删.html">
+            
+                
+                    <a href="../../19day/mini-web框架-mysql-删.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>16.10.</b>
+                        
+                        mini-web框架-mysql-删
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="17" data-path="20day/index.html">
+            
+                
+                    <a href="../../20day/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>17.</b>
+                        
+                        其它知识
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="17.1" data-path="20day/进制-位运算.html">
+            
+                
+                    <a href="../../20day/进制-位运算.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>17.1.</b>
+                        
+                        进制-位运算
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="17.2" data-path="20day/元类.html">
+            
+                
+                    <a href="../../20day/元类.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>17.2.</b>
+                        
+                        元类
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="17.3" data-path="20day/GIL.html">
+            
+                
+                    <a href="../../20day/GIL.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>17.3.</b>
+                        
+                        GIL
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+
+            
+            <li class="divider"></li>
+            <li>
+                <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+                    本書使用 GitBook 釋出
+                </a>
+            </li>
+            
+        </ul>
+    </nav>
+</div>
+
+    <div class="book-body">
+        <div class="body-inner">
+            <div class="book-header" role="navigation">
+    <!-- Actions Left -->
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../../" >python基础语言</a>
+    </h1>
+</div>
+
+            <div class="page-wrapper" tabindex="-1" role="main">
+                <div class="page-inner">
+                
+                
+                    <section class="normal" id="section-">
+                    
+                        <h2 id="&#x805A;&#x5408;&#x51FD;&#x6570;">&#x805A;&#x5408;&#x51FD;&#x6570;</h2>
+<p>&#x4E3A;&#x4E86;&#x5FEB;&#x901F;&#x5F97;&#x5230;&#x7EDF;&#x8BA1;&#x6570;&#x636E;&#xFF0C;&#x7ECF;&#x5E38;&#x4F1A;&#x7528;&#x5230;&#x5982;&#x4E0B;5&#x4E2A;&#x805A;&#x5408;&#x51FD;&#x6570;</p>
+<h4 id="&#x603B;&#x6570;">&#x603B;&#x6570;</h4>
+<ul>
+<li>count(*)&#x8868;&#x793A;&#x8BA1;&#x7B97;&#x603B;&#x884C;&#x6570;&#xFF0C;&#x62EC;&#x53F7;&#x4E2D;&#x5199;&#x661F;&#x4E0E;&#x5217;&#x540D;&#xFF0C;&#x7ED3;&#x679C;&#x662F;&#x76F8;&#x540C;&#x7684;</li>
+<li>&#x805A;&#x5408;&#x51FD;&#x6570;&#x4E0D;&#x80FD;&#x5728; where &#x4E2D;&#x4F7F;&#x7528;</li>
+</ul>
+<p>&#x4F8B;1&#xFF1A;&#x67E5;&#x8BE2;&#x5B66;&#x751F;&#x603B;&#x6570;</p>
+<pre><code class="lang-sql"><span class="hljs-operator"><span class="hljs-keyword">select</span> <span class="hljs-keyword">count</span>(*) <span class="hljs-keyword">from</span> students;</span>
+</code></pre>
+<h4 id="&#x6700;&#x5927;&#x503C;">&#x6700;&#x5927;&#x503C;</h4>
+<ul>
+<li>max(&#x5217;)&#x8868;&#x793A;&#x6C42;&#x6B64;&#x5217;&#x7684;&#x6700;&#x5927;&#x503C;</li>
+</ul>
+<p>&#x4F8B;2&#xFF1A;&#x67E5;&#x8BE2;&#x5973;&#x751F;&#x7684;&#x7F16;&#x53F7;&#x6700;&#x5927;&#x503C;</p>
+<pre><code class="lang-sql"><span class="hljs-operator"><span class="hljs-keyword">select</span> <span class="hljs-keyword">max</span>(<span class="hljs-keyword">id</span>) <span class="hljs-keyword">from</span> students <span class="hljs-keyword">where</span> gender=<span class="hljs-number">2</span>;</span>
+</code></pre>
+<h4 id="&#x6700;&#x5C0F;&#x503C;">&#x6700;&#x5C0F;&#x503C;</h4>
+<ul>
+<li>min(&#x5217;)&#x8868;&#x793A;&#x6C42;&#x6B64;&#x5217;&#x7684;&#x6700;&#x5C0F;&#x503C;</li>
+</ul>
+<p>&#x4F8B;3&#xFF1A;&#x67E5;&#x8BE2;&#x672A;&#x5220;&#x9664;&#x7684;&#x5B66;&#x751F;&#x6700;&#x5C0F;&#x7F16;&#x53F7;</p>
+<pre><code class="lang-sql"><span class="hljs-operator"><span class="hljs-keyword">select</span> <span class="hljs-keyword">min</span>(<span class="hljs-keyword">id</span>) <span class="hljs-keyword">from</span> students <span class="hljs-keyword">where</span> is_delete=<span class="hljs-number">0</span>;</span>
+</code></pre>
+<h4 id="&#x6C42;&#x548C;">&#x6C42;&#x548C;</h4>
+<ul>
+<li>sum(&#x5217;)&#x8868;&#x793A;&#x6C42;&#x6B64;&#x5217;&#x7684;&#x548C;</li>
+</ul>
+<p>&#x4F8B;4&#xFF1A;&#x67E5;&#x8BE2;&#x7537;&#x751F;&#x7684;&#x603B;&#x5E74;&#x9F84;</p>
+<pre><code class="lang-sql"><span class="hljs-operator"><span class="hljs-keyword">select</span> <span class="hljs-keyword">sum</span>(age) <span class="hljs-keyword">from</span> students <span class="hljs-keyword">where</span> gender=<span class="hljs-number">1</span>;</span>
+
+<span class="hljs-comment">-- &#x5E73;&#x5747;&#x5E74;&#x9F84;</span>
+<span class="hljs-operator"><span class="hljs-keyword">select</span> <span class="hljs-keyword">sum</span>(age)/<span class="hljs-keyword">count</span>(*) <span class="hljs-keyword">from</span> students <span class="hljs-keyword">where</span> gender=<span class="hljs-number">1</span>;</span>
+</code></pre>
+<h4 id="&#x5E73;&#x5747;&#x503C;">&#x5E73;&#x5747;&#x503C;</h4>
+<ul>
+<li>avg(&#x5217;)&#x8868;&#x793A;&#x6C42;&#x6B64;&#x5217;&#x7684;&#x5E73;&#x5747;&#x503C;</li>
+</ul>
+<p>&#x4F8B;5&#xFF1A;&#x67E5;&#x8BE2;&#x672A;&#x5220;&#x9664;&#x5973;&#x751F;&#x7684;&#x7F16;&#x53F7;&#x5E73;&#x5747;&#x503C;</p>
+<pre><code class="lang-sql"><span class="hljs-operator"><span class="hljs-keyword">select</span> <span class="hljs-keyword">avg</span>(<span class="hljs-keyword">id</span>) <span class="hljs-keyword">from</span> students <span class="hljs-keyword">where</span> is_delete=<span class="hljs-number">0</span> <span class="hljs-keyword">and</span> gender=<span class="hljs-number">2</span>;</span>
+</code></pre>
+
+                    
+                    </section>
+                
+                
+                </div>
+            </div>
+        </div>
+
+        
+        <a href="../../17day/third-chapter/排序.html" class="navigation navigation-prev " aria-label="Previous page: 排序"><i class="fa fa-angle-left"></i></a>
+        
+        
+        <a href="../../17day/third-chapter/分组.html" class="navigation navigation-next " aria-label="Next page: 分组"><i class="fa fa-angle-right"></i></a>
+        
+    </div>
+</div>
+
+        
+<script src="../../gitbook/app.js"></script>
+
+    
+    <script src="../../gitbook/plugins/gitbook-plugin-toggle-chapters/toggle.js"></script>
+    
+
+    
+    <script src="../../gitbook/plugins/gitbook-plugin-splitter/splitter.js"></script>
+    
+
+    
+    <script src="../../gitbook/plugins/gitbook-plugin-sharing/buttons.js"></script>
+    
+
+    
+    <script src="../../gitbook/plugins/gitbook-plugin-fontsettings/buttons.js"></script>
+    
+
+    
+    <script src="../../gitbook/plugins/gitbook-plugin-livereload/plugin.js"></script>
+    
+
+<script>
+require(["gitbook"], function(gitbook) {
+    var config = {"toggle-chapters":{},"splitter":{},"emphasize":{},"highlight":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"livereload":{}};
+    gitbook.start(config);
+});
+</script>
+
+        <!-- body:end -->
+    </body>
+    <!-- End of book python基础语言 -->
+</html>

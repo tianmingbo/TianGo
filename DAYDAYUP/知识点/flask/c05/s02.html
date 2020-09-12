@@ -1,0 +1,705 @@
+<!DOCTYPE HTML>
+<html lang="zh-tw" >
+    <!-- Start book Flask框架 -->
+    <head>
+        <!-- head:start -->
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <title>单元测试 | Flask框架</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 2.6.7">
+        
+        
+        <meta name="HandheldFriendly" content="true"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+        <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+        
+    <link rel="stylesheet" href="../gitbook/style.css">
+    
+        
+        <link rel="stylesheet" href="../gitbook/plugins/gitbook-plugin-toggle-chapters/toggle.css">
+        
+    
+        
+        <link rel="stylesheet" href="../gitbook/plugins/gitbook-plugin-splitter/splitter.css">
+        
+    
+        
+        <link rel="stylesheet" href="../gitbook/plugins/gitbook-plugin-emphasize/plugin.css">
+        
+    
+        
+        <link rel="stylesheet" href="../gitbook/plugins/gitbook-plugin-highlight/website.css">
+        
+    
+        
+        <link rel="stylesheet" href="../gitbook/plugins/gitbook-plugin-fontsettings/website.css">
+        
+    
+    
+
+        
+    
+    
+    <link rel="next" href="../c05/s03.html" />
+    
+    
+    <link rel="prev" href="../c05/s01.html" />
+    
+
+        <!-- head:end -->
+    </head>
+    <body>
+        <!-- body:start -->
+        
+    <div class="book"
+        data-level="5.2"
+        data-chapter-title="单元测试"
+        data-filepath="c05/s02.md"
+        data-basepath=".."
+        data-revision="Sat Oct 28 2017 17:13:14 GMT+0800 (中国标准时间)"
+        data-innerlanguage="">
+    
+
+<div class="book-summary">
+    <nav role="navigation">
+        <ul class="summary">
+            
+            
+            
+            
+
+            
+
+            
+    
+        <li class="chapter " data-level="0" data-path="index.html">
+            
+                
+                    <a href="../index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                        引言
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1" data-path="c01/index.html">
+            
+                
+                    <a href="../c01/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.</b>
+                        
+                        关于Flask
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.1" data-path="c01/s01.html">
+            
+                
+                    <a href="../c01/s01.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.1.</b>
+                        
+                        了解框架
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="c01/s02.html">
+            
+                
+                    <a href="../c01/s02.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.2.</b>
+                        
+                        安装环境
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2" data-path="c02/index.html">
+            
+                
+                    <a href="../c02/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.</b>
+                        
+                        视图
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.1" data-path="c02/s01.html">
+            
+                
+                    <a href="../c02/s01.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.1.</b>
+                        
+                        从Hello World开始
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2" data-path="c02/s02.html">
+            
+                
+                    <a href="../c02/s02.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.2.</b>
+                        
+                        扩展
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="3" data-path="c03/index.html">
+            
+                
+                    <a href="../c03/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.</b>
+                        
+                        模板
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="3.1" data-path="c03/s01.html">
+            
+                
+                    <a href="../c03/s01.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.1.</b>
+                        
+                        变量
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2" data-path="c03/s02.html">
+            
+                
+                    <a href="../c03/s02.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.2.</b>
+                        
+                        过滤器
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.3" data-path="c03/s03.html">
+            
+                
+                    <a href="../c03/s03.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.3.</b>
+                        
+                        web表单
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.4" data-path="c03/s04.html">
+            
+                
+                    <a href="../c03/s04.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.4.</b>
+                        
+                        控制语句
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.5" data-path="c03/s05.html">
+            
+                
+                    <a href="../c03/s05.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.5.</b>
+                        
+                        宏、继承、包含
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.6" data-path="c03/s06.html">
+            
+                
+                    <a href="../c03/s06.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.6.</b>
+                        
+                        Flask的特殊变量和方法
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="4" data-path="c04/index.html">
+            
+                
+                    <a href="../c04/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.</b>
+                        
+                        数据库
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="4.1" data-path="c04/s01.html">
+            
+                
+                    <a href="../c04/s01.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.1.</b>
+                        
+                        数据库的设置
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2" data-path="c04/s02.html">
+            
+                
+                    <a href="../c04/s02.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.2.</b>
+                        
+                        数据库的基本操作
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.3" data-path="c04/s03.html">
+            
+                
+                    <a href="../c04/s03.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.3.</b>
+                        
+                        自定义模型类
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.4" data-path="c04/s04.html">
+            
+                
+                    <a href="../c04/s04.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.4.</b>
+                        
+                        数据库迁移
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.5" data-path="c04/s05.html">
+            
+                
+                    <a href="../c04/s05.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.5.</b>
+                        
+                        邮件扩展
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="5" data-path="c05/index.html">
+            
+                
+                    <a href="../c05/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.</b>
+                        
+                        测试与部署
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="5.1" data-path="c05/s01.html">
+            
+                
+                    <a href="../c05/s01.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.1.</b>
+                        
+                        蓝图
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter active" data-level="5.2" data-path="c05/s02.html">
+            
+                
+                    <a href="../c05/s02.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.2.</b>
+                        
+                        单元测试
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.3" data-path="c05/s03.html">
+            
+                
+                    <a href="../c05/s03.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.3.</b>
+                        
+                        部署
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.4" data-path="c05/s04.html">
+            
+                
+                    <a href="../c05/s04.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.4.</b>
+                        
+                        RESTful
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.5" data-path="c05/s05.html">
+            
+                
+                    <a href="../c05/s05.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.5.</b>
+                        
+                        性能
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+
+            
+            <li class="divider"></li>
+            <li>
+                <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+                    本書使用 GitBook 釋出
+                </a>
+            </li>
+            
+        </ul>
+    </nav>
+</div>
+
+    <div class="book-body">
+        <div class="body-inner">
+            <div class="book-header" role="navigation">
+    <!-- Actions Left -->
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../" >Flask框架</a>
+    </h1>
+</div>
+
+            <div class="page-wrapper" tabindex="-1" role="main">
+                <div class="page-inner">
+                
+                
+                    <section class="normal" id="section-">
+                    
+                        <h1 id="52&#x5355;&#x5143;&#x6D4B;&#x8BD5;">5.2&#x5355;&#x5143;&#x6D4B;&#x8BD5;</h1>
+<h3 id="&#x4E3A;&#x4EC0;&#x4E48;&#x8981;&#x6D4B;&#x8BD5;&#xFF1F;">&#x4E3A;&#x4EC0;&#x4E48;&#x8981;&#x6D4B;&#x8BD5;&#xFF1F;</h3>
+<p>Web&#x7A0B;&#x5E8F;&#x5F00;&#x53D1;&#x8FC7;&#x7A0B;&#x4E00;&#x822C;&#x5305;&#x62EC;&#x4EE5;&#x4E0B;&#x51E0;&#x4E2A;&#x9636;&#x6BB5;&#xFF1A;[&#x9700;&#x6C42;&#x5206;&#x6790;&#xFF0C;&#x8BBE;&#x8BA1;&#x9636;&#x6BB5;&#xFF0C;&#x5B9E;&#x73B0;&#x9636;&#x6BB5;&#xFF0C;&#x6D4B;&#x8BD5;&#x9636;&#x6BB5;]&#x3002;&#x5176;&#x4E2D;&#x6D4B;&#x8BD5;&#x9636;&#x6BB5;&#x901A;&#x8FC7;&#x4EBA;&#x5DE5;&#x6216;&#x81EA;&#x52A8;&#x6765;&#x8FD0;&#x884C;&#x6D4B;&#x8BD5;&#x67D0;&#x4E2A;&#x7CFB;&#x7EDF;&#x7684;&#x529F;&#x80FD;&#x3002;&#x76EE;&#x7684;&#x662F;&#x68C0;&#x9A8C;&#x5176;&#x662F;&#x5426;&#x6EE1;&#x8DB3;&#x9700;&#x6C42;&#xFF0C;&#x5E76;&#x5F97;&#x51FA;&#x7279;&#x5B9A;&#x7684;&#x7ED3;&#x679C;&#xFF0C;&#x4EE5;&#x8FBE;&#x5230;&#x5F04;&#x6E05;&#x695A;&#x9884;&#x671F;&#x7ED3;&#x679C;&#x548C;&#x5B9E;&#x9645;&#x7ED3;&#x679C;&#x4E4B;&#x95F4;&#x7684;&#x5DEE;&#x522B;&#x7684;&#x6700;&#x7EC8;&#x76EE;&#x7684;&#x3002;</p>
+<h4 id="&#x6D4B;&#x8BD5;&#x7684;&#x5206;&#x7C7B;&#xFF1A;">&#x6D4B;&#x8BD5;&#x7684;&#x5206;&#x7C7B;&#xFF1A;</h4>
+<p>&#x6D4B;&#x8BD5;&#x4ECE;&#x8F6F;&#x4EF6;&#x5F00;&#x53D1;&#x8FC7;&#x7A0B;&#x53EF;&#x4EE5;&#x5206;&#x4E3A;&#xFF1A;&#x5355;&#x5143;&#x6D4B;&#x8BD5;&#x3001;&#x96C6;&#x6210;&#x6D4B;&#x8BD5;&#x3001;&#x7CFB;&#x7EDF;&#x6D4B;&#x8BD5;&#x7B49;&#x3002;&#x5728;&#x4F17;&#x591A;&#x7684;&#x6D4B;&#x8BD5;&#x4E2D;&#xFF0C;&#x4E0E;&#x7A0B;&#x5E8F;&#x5F00;&#x53D1;&#x4EBA;&#x5458;&#x6700;&#x5BC6;&#x5207;&#x7684;&#x5C31;&#x662F;&#x5355;&#x5143;&#x6D4B;&#x8BD5;&#xFF0C;&#x56E0;&#x4E3A;&#x5355;&#x5143;&#x6D4B;&#x8BD5;&#x662F;&#x7531;&#x5F00;&#x53D1;&#x4EBA;&#x5458;&#x8FDB;&#x884C;&#x7684;&#xFF0C;&#x800C;&#x5176;&#x4ED6;&#x6D4B;&#x8BD5;&#x90FD;&#x7531;&#x4E13;&#x4E1A;&#x7684;&#x6D4B;&#x8BD5;&#x4EBA;&#x5458;&#x6765;&#x5B8C;&#x6210;&#x3002;&#x6240;&#x4EE5;&#x6211;&#x4EEC;&#x4E3B;&#x8981;&#x5B66;&#x4E60;&#x5355;&#x5143;&#x6D4B;&#x8BD5;&#x3002;</p>
+<h3 id="&#x4EC0;&#x4E48;&#x662F;&#x5355;&#x5143;&#x6D4B;&#x8BD5;&#xFF1F;">&#x4EC0;&#x4E48;&#x662F;&#x5355;&#x5143;&#x6D4B;&#x8BD5;&#xFF1F;</h3>
+<p>&#x7A0B;&#x5E8F;&#x5F00;&#x53D1;&#x8FC7;&#x7A0B;&#x4E2D;&#xFF0C;&#x5199;&#x4EE3;&#x7801;&#x662F;&#x4E3A;&#x4E86;&#x5B9E;&#x73B0;&#x9700;&#x6C42;&#x3002;&#x5F53;&#x6211;&#x4EEC;&#x7684;&#x4EE3;&#x7801;&#x901A;&#x8FC7;&#x4E86;&#x7F16;&#x8BD1;&#xFF0C;&#x53EA;&#x662F;&#x8BF4;&#x660E;&#x5B83;&#x7684;&#x8BED;&#x6CD5;&#x6B63;&#x786E;&#xFF0C;&#x529F;&#x80FD;&#x80FD;&#x5426;&#x5B9E;&#x73B0;&#x5219;&#x4E0D;&#x80FD;&#x4FDD;&#x8BC1;&#x3002;
+&#x56E0;&#x6B64;&#xFF0C;&#x5F53;&#x6211;&#x4EEC;&#x7684;&#x67D0;&#x4E9B;&#x529F;&#x80FD;&#x4EE3;&#x7801;&#x5B8C;&#x6210;&#x540E;&#xFF0C;&#x4E3A;&#x4E86;&#x68C0;&#x9A8C;&#x5176;&#x662F;&#x5426;&#x6EE1;&#x8DB3;&#x7A0B;&#x5E8F;&#x7684;&#x9700;&#x6C42;&#x3002;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x7F16;&#x5199;&#x6D4B;&#x8BD5;&#x4EE3;&#x7801;&#xFF0C;&#x6A21;&#x62DF;&#x7A0B;&#x5E8F;&#x8FD0;&#x884C;&#x7684;&#x8FC7;&#x7A0B;&#xFF0C;&#x68C0;&#x9A8C;&#x529F;&#x80FD;&#x4EE3;&#x7801;&#x662F;&#x5426;&#x7B26;&#x5408;&#x9884;&#x671F;&#x3002;</p>
+<p>&#x5355;&#x5143;&#x6D4B;&#x8BD5;&#x5C31;&#x662F;&#x5F00;&#x53D1;&#x8005;&#x7F16;&#x5199;&#x4E00;&#x5C0F;&#x6BB5;&#x4EE3;&#x7801;&#xFF0C;&#x68C0;&#x9A8C;&#x76EE;&#x6807;&#x4EE3;&#x7801;&#x7684;&#x529F;&#x80FD;&#x662F;&#x5426;&#x7B26;&#x5408;&#x9884;&#x671F;&#x3002;&#x901A;&#x5E38;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x5355;&#x5143;&#x6D4B;&#x8BD5;&#x4E3B;&#x8981;&#x9762;&#x5411;&#x4E00;&#x4E9B;&#x529F;&#x80FD;&#x5355;&#x4E00;&#x7684;&#x6A21;&#x5757;&#x8FDB;&#x884C;&#x3002;</p>
+<p>&#x4E3E;&#x4E2A;&#x4F8B;&#x5B50;&#xFF1A;&#x4E00;&#x90E8;&#x624B;&#x673A;&#x6709;&#x8BB8;&#x591A;&#x96F6;&#x90E8;&#x4EF6;&#x7EC4;&#x6210;&#xFF0C;&#x5728;&#x6B63;&#x5F0F;&#x7EC4;&#x88C5;&#x4E00;&#x90E8;&#x624B;&#x673A;&#x524D;&#xFF0C;&#x624B;&#x673A;&#x5185;&#x90E8;&#x7684;&#x5404;&#x4E2A;&#x96F6;&#x90E8;&#x4EF6;&#xFF0C;CPU&#x3001;&#x5185;&#x5B58;&#x3001;&#x7535;&#x6C60;&#x3001;&#x6444;&#x50CF;&#x5934;&#x7B49;&#xFF0C;&#x90FD;&#x8981;&#x8FDB;&#x884C;&#x6D4B;&#x8BD5;&#xFF0C;&#x8FD9;&#x5C31;&#x662F;&#x5355;&#x5143;&#x6D4B;&#x8BD5;&#x3002;</p>
+<p>&#x5728;Web&#x5F00;&#x53D1;&#x8FC7;&#x7A0B;&#x4E2D;&#xFF0C;&#x5355;&#x5143;&#x6D4B;&#x8BD5;&#x5B9E;&#x9645;&#x4E0A;&#x5C31;&#x662F;&#x4E00;&#x4E9B;&#x201C;&#x65AD;&#x8A00;&#x201D;&#xFF08;assert&#xFF09;&#x4EE3;&#x7801;&#x3002;</p>
+<p>&#x65AD;&#x8A00;&#x5C31;&#x662F;&#x5224;&#x65AD;&#x4E00;&#x4E2A;&#x51FD;&#x6570;&#x6216;&#x5BF9;&#x8C61;&#x7684;&#x4E00;&#x4E2A;&#x65B9;&#x6CD5;&#x6240;&#x4EA7;&#x751F;&#x7684;&#x7ED3;&#x679C;&#x662F;&#x5426;&#x7B26;&#x5408;&#x4F60;&#x671F;&#x671B;&#x7684;&#x90A3;&#x4E2A;&#x7ED3;&#x679C;&#x3002;
+python&#x4E2D;assert&#x65AD;&#x8A00;&#x662F;&#x58F0;&#x660E;&#x5E03;&#x5C14;&#x503C;&#x4E3A;&#x771F;&#x7684;&#x5224;&#x5B9A;&#xFF0C;&#x5982;&#x679C;&#x8868;&#x8FBE;&#x5F0F;&#x4E3A;&#x5047;&#x4F1A;&#x53D1;&#x751F;&#x5F02;&#x5E38;&#x3002;&#x5355;&#x5143;&#x6D4B;&#x8BD5;&#x4E2D;&#xFF0C;&#x4E00;&#x822C;&#x4F7F;&#x7528;assert&#x6765;&#x65AD;&#x8A00;&#x7ED3;&#x679C;&#x3002;</p>
+<h4 id="&#x65AD;&#x8A00;&#x65B9;&#x6CD5;&#x7684;&#x4F7F;&#x7528;&#xFF1A;">&#x65AD;&#x8A00;&#x65B9;&#x6CD5;&#x7684;&#x4F7F;&#x7528;&#xFF1A;</h4>
+<p><img src="../images/&#x65AD;&#x8A00;.png" alt="&#x65AD;&#x8A00;"></p>
+<p>&#x65AD;&#x8A00;&#x8BED;&#x53E5;&#x7C7B;&#x4F3C;&#x4E8E;&#xFF1A;</p>
+<pre><code class="lang-python"><span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> expression:
+    <span class="hljs-keyword">raise</span> AssertionError
+</code></pre>
+<p><strong> &#x5E38;&#x7528;&#x7684;&#x65AD;&#x8A00;&#x65B9;&#x6CD5;&#xFF1A;</strong></p>
+<pre><code class="lang-bash">assertEqual     &#x5982;&#x679C;&#x4E24;&#x4E2A;&#x503C;&#x76F8;&#x7B49;&#xFF0C;&#x5219;pass
+assertNotEqual  &#x5982;&#x679C;&#x4E24;&#x4E2A;&#x503C;&#x4E0D;&#x76F8;&#x7B49;&#xFF0C;&#x5219;pass
+assertTrue      &#x5224;&#x65AD;bool&#x503C;&#x4E3A;True&#xFF0C;&#x5219;pass
+assertFalse     &#x5224;&#x65AD;bool&#x503C;&#x4E3A;False&#xFF0C;&#x5219;pass
+assertIsNone    &#x4E0D;&#x5B58;&#x5728;&#xFF0C;&#x5219;pass
+assertIsNotNone &#x5B58;&#x5728;&#xFF0C;&#x5219;pass
+</code></pre>
+<h3 id="&#x5982;&#x4F55;&#x6D4B;&#x8BD5;&#xFF1F;">&#x5982;&#x4F55;&#x6D4B;&#x8BD5;&#xFF1F;</h3>
+<p>&#x7B80;&#x5355;&#x7684;&#x6D4B;&#x8BD5;&#x7528;&#x4F8B;&#xFF1A;1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233&#xFF0C;377&#xFF0C;610&#xFF0C;987&#xFF0C;1597&#xFF0C;2584&#xFF0C;4181&#xFF0C;6765&#xFF0C;</p>
+<pre><code class="lang-python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">fibo</span><span class="hljs-params">(x)</span>:</span>
+    <span class="hljs-keyword">if</span> x == <span class="hljs-number">0</span>:
+        resp = <span class="hljs-number">0</span>
+    <span class="hljs-keyword">elif</span> x == <span class="hljs-number">1</span>:
+        resp = <span class="hljs-number">1</span>
+    <span class="hljs-keyword">else</span>:
+        <span class="hljs-keyword">return</span> fibo(x-<span class="hljs-number">1</span>) + fibo(x-<span class="hljs-number">2</span>)
+    <span class="hljs-keyword">return</span> resp
+<span class="hljs-keyword">assert</span> fibo(<span class="hljs-number">5</span>) == <span class="hljs-number">5</span>
+</code></pre>
+<p><img src="../images/fibo.png" alt="fibo"></p>
+<h3 id="&#x5355;&#x5143;&#x6D4B;&#x8BD5;&#x7684;&#x57FA;&#x672C;&#x5199;&#x6CD5;&#xFF1A;">&#x5355;&#x5143;&#x6D4B;&#x8BD5;&#x7684;&#x57FA;&#x672C;&#x5199;&#x6CD5;&#xFF1A;</h3>
+<p><strong>&#x9996;&#x5148;</strong>&#xFF0C;&#x5B9A;&#x4E49;&#x4E00;&#x4E2A;&#x7C7B;&#xFF0C;&#x7EE7;&#x627F;&#x81EA;unittest.TestCase</p>
+<pre><code class="lang-python"><span class="hljs-keyword">import</span> unittest
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TestClass</span><span class="hljs-params">(unitest.TestCase)</span>:</span>
+    <span class="hljs-keyword">pass</span>
+</code></pre>
+<p><strong>&#x5176;&#x6B21;</strong>&#xFF0C;&#x5728;&#x6D4B;&#x8BD5;&#x7C7B;&#x4E2D;&#xFF0C;&#x5B9A;&#x4E49;&#x4E24;&#x4E2A;&#x6D4B;&#x8BD5;&#x65B9;&#x6CD5;</p>
+<pre><code class="lang-python"><span class="hljs-keyword">import</span> unittest
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TestClass</span><span class="hljs-params">(unittest.TestCase)</span>:</span>
+
+    <span class="hljs-comment">#&#x8BE5;&#x65B9;&#x6CD5;&#x4F1A;&#x9996;&#x5148;&#x6267;&#x884C;&#xFF0C;&#x65B9;&#x6CD5;&#x540D;&#x4E3A;&#x56FA;&#x5B9A;&#x5199;&#x6CD5;</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">setUp</span><span class="hljs-params">(self)</span>:</span>
+        <span class="hljs-keyword">pass</span>
+
+    <span class="hljs-comment">#&#x8BE5;&#x65B9;&#x6CD5;&#x4F1A;&#x5728;&#x6D4B;&#x8BD5;&#x4EE3;&#x7801;&#x6267;&#x884C;&#x5B8C;&#x540E;&#x6267;&#x884C;&#xFF0C;&#x65B9;&#x6CD5;&#x540D;&#x4E3A;&#x56FA;&#x5B9A;&#x5199;&#x6CD5;</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">tearDown</span><span class="hljs-params">(self)</span>:</span>
+        <span class="hljs-keyword">pass</span>
+</code></pre>
+<p><strong>&#x6700;&#x540E;</strong>&#xFF0C;&#x5728;&#x6D4B;&#x8BD5;&#x7C7B;&#x4E2D;&#xFF0C;&#x7F16;&#x5199;&#x6D4B;&#x8BD5;&#x4EE3;&#x7801;</p>
+<pre><code class="lang-python"><span class="hljs-keyword">import</span> unittest
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TestClass</span><span class="hljs-params">(unittest.TestCase)</span>:</span>
+
+    <span class="hljs-comment">#&#x8BE5;&#x65B9;&#x6CD5;&#x4F1A;&#x9996;&#x5148;&#x6267;&#x884C;&#xFF0C;&#x76F8;&#x5F53;&#x4E8E;&#x505A;&#x6D4B;&#x8BD5;&#x524D;&#x7684;&#x51C6;&#x5907;&#x5DE5;&#x4F5C;</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">setUp</span><span class="hljs-params">(self)</span>:</span>
+        <span class="hljs-keyword">pass</span>
+
+    <span class="hljs-comment">#&#x8BE5;&#x65B9;&#x6CD5;&#x4F1A;&#x5728;&#x6D4B;&#x8BD5;&#x4EE3;&#x7801;&#x6267;&#x884C;&#x5B8C;&#x540E;&#x6267;&#x884C;&#xFF0C;&#x76F8;&#x5F53;&#x4E8E;&#x505A;&#x6D4B;&#x8BD5;&#x540E;&#x7684;&#x626B;&#x5C3E;&#x5DE5;&#x4F5C;</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">tearDown</span><span class="hljs-params">(self)</span>:</span>
+        <span class="hljs-keyword">pass</span>
+    <span class="hljs-comment">#&#x6D4B;&#x8BD5;&#x4EE3;&#x7801;</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">test_app_exists</span><span class="hljs-params">(self)</span>:</span>
+        <span class="hljs-keyword">pass</span>
+</code></pre>
+<h3 id="&#x53D1;&#x9001;&#x90AE;&#x4EF6;&#x6D4B;&#x8BD5;&#xFF1A;">&#x53D1;&#x9001;&#x90AE;&#x4EF6;&#x6D4B;&#x8BD5;&#xFF1A;</h3>
+<pre><code>#coding=utf-8
+import unittest
+from Flask_day04 import app
+class TestCase(unittest.TestCase):
+    # &#x521B;&#x5EFA;&#x6D4B;&#x8BD5;&#x73AF;&#x5883;&#xFF0C;&#x5728;&#x6D4B;&#x8BD5;&#x4EE3;&#x7801;&#x6267;&#x884C;&#x524D;&#x6267;&#x884C;
+    def setUp(self):
+        self.app = app
+        # &#x6FC0;&#x6D3B;&#x6D4B;&#x8BD5;&#x6807;&#x5FD7;
+        app.config[&apos;TESTING&apos;] = True
+        self.client = self.app.test_client()
+
+    # &#x5728;&#x6D4B;&#x8BD5;&#x4EE3;&#x7801;&#x6267;&#x884C;&#x5B8C;&#x6210;&#x540E;&#x6267;&#x884C;
+    def tearDown(self):
+        pass
+
+    # &#x6D4B;&#x8BD5;&#x4EE3;&#x7801;
+    def test_email(self):
+        resp = self.client.get(&apos;/&apos;)
+        print resp.data
+        self.assertEqual(resp.data,&apos;Sent&#x3000;Succeed&apos;)
+</code></pre><h3 id="&#x6570;&#x636E;&#x5E93;&#x6D4B;&#x8BD5;&#xFF1A;">&#x6570;&#x636E;&#x5E93;&#x6D4B;&#x8BD5;&#xFF1A;</h3>
+<pre><code>#coding=utf-8
+import unittest
+from author_book import *
+
+#&#x81EA;&#x5B9A;&#x4E49;&#x6D4B;&#x8BD5;&#x7C7B;&#xFF0C;setUp&#x65B9;&#x6CD5;&#x548C;tearDown&#x65B9;&#x6CD5;&#x4F1A;&#x5206;&#x522B;&#x5728;&#x6D4B;&#x8BD5;&#x524D;&#x540E;&#x6267;&#x884C;&#x3002;&#x4EE5;test_&#x5F00;&#x5934;&#x7684;&#x51FD;&#x6570;&#x5C31;&#x662F;&#x5177;&#x4F53;&#x7684;&#x6D4B;&#x8BD5;&#x4EE3;&#x7801;&#x3002;
+
+class DatabaseTest(unittest.TestCase):
+    def setUp(self):
+        app.config[&apos;TESTING&apos;] = True
+        app.config[&apos;SQLALCHEMY_DATABASE_URI&apos;] = &apos;mysql://root:mysql@localhost/test0&apos;
+        self.app = app
+        db.create_all()
+
+    def tearDown(self):
+        db.session.remove()
+        db.drop_all()
+
+    #&#x6D4B;&#x8BD5;&#x4EE3;&#x7801;
+    def test_append_data(self):
+        au = Author(name=&apos;itcast&apos;)
+        bk = Book(info=&apos;python&apos;)
+        db.session.add_all([au,bk])
+        db.session.commit()
+        author = Author.query.filter_by(name=&apos;itcast&apos;).first()
+        book = Book.query.filter_by(info=&apos;python&apos;).first()
+        #&#x65AD;&#x8A00;&#x6570;&#x636E;&#x5B58;&#x5728;
+        self.assertIsNotNone(author)
+        self.assertIsNotNone(book)
+</code></pre>
+                    
+                    </section>
+                
+                
+                </div>
+            </div>
+        </div>
+
+        
+        <a href="../c05/s01.html" class="navigation navigation-prev " aria-label="Previous page: 蓝图"><i class="fa fa-angle-left"></i></a>
+        
+        
+        <a href="../c05/s03.html" class="navigation navigation-next " aria-label="Next page: 部署"><i class="fa fa-angle-right"></i></a>
+        
+    </div>
+</div>
+
+        
+<script src="../gitbook/app.js"></script>
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-toggle-chapters/toggle.js"></script>
+    
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-splitter/splitter.js"></script>
+    
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-sharing/buttons.js"></script>
+    
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-fontsettings/buttons.js"></script>
+    
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-livereload/plugin.js"></script>
+    
+
+<script>
+require(["gitbook"], function(gitbook) {
+    var config = {"toggle-chapters":{},"splitter":{},"emphasize":{},"highlight":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"livereload":{}};
+    gitbook.start(config);
+});
+</script>
+
+        <!-- body:end -->
+    </body>
+    <!-- End of book Flask框架 -->
+</html>

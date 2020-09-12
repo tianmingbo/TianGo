@@ -1,0 +1,650 @@
+<!DOCTYPE HTML>
+<html lang="zh-tw" >
+    <!-- Start book Flask框架 -->
+    <head>
+        <!-- head:start -->
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <title>数据库迁移 | Flask框架</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 2.6.7">
+        
+        
+        <meta name="HandheldFriendly" content="true"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+        <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+        
+    <link rel="stylesheet" href="../gitbook/style.css">
+    
+        
+        <link rel="stylesheet" href="../gitbook/plugins/gitbook-plugin-toggle-chapters/toggle.css">
+        
+    
+        
+        <link rel="stylesheet" href="../gitbook/plugins/gitbook-plugin-splitter/splitter.css">
+        
+    
+        
+        <link rel="stylesheet" href="../gitbook/plugins/gitbook-plugin-emphasize/plugin.css">
+        
+    
+        
+        <link rel="stylesheet" href="../gitbook/plugins/gitbook-plugin-highlight/website.css">
+        
+    
+        
+        <link rel="stylesheet" href="../gitbook/plugins/gitbook-plugin-fontsettings/website.css">
+        
+    
+    
+
+        
+    
+    
+    <link rel="next" href="../c04/s05.html" />
+    
+    
+    <link rel="prev" href="../c04/s03.html" />
+    
+
+        <!-- head:end -->
+    </head>
+    <body>
+        <!-- body:start -->
+        
+    <div class="book"
+        data-level="4.4"
+        data-chapter-title="数据库迁移"
+        data-filepath="c04/s04.md"
+        data-basepath=".."
+        data-revision="Sat Oct 28 2017 17:13:14 GMT+0800 (中国标准时间)"
+        data-innerlanguage="">
+    
+
+<div class="book-summary">
+    <nav role="navigation">
+        <ul class="summary">
+            
+            
+            
+            
+
+            
+
+            
+    
+        <li class="chapter " data-level="0" data-path="index.html">
+            
+                
+                    <a href="../index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                        引言
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1" data-path="c01/index.html">
+            
+                
+                    <a href="../c01/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.</b>
+                        
+                        关于Flask
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.1" data-path="c01/s01.html">
+            
+                
+                    <a href="../c01/s01.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.1.</b>
+                        
+                        了解框架
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="c01/s02.html">
+            
+                
+                    <a href="../c01/s02.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.2.</b>
+                        
+                        安装环境
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2" data-path="c02/index.html">
+            
+                
+                    <a href="../c02/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.</b>
+                        
+                        视图
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.1" data-path="c02/s01.html">
+            
+                
+                    <a href="../c02/s01.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.1.</b>
+                        
+                        从Hello World开始
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2" data-path="c02/s02.html">
+            
+                
+                    <a href="../c02/s02.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.2.</b>
+                        
+                        扩展
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="3" data-path="c03/index.html">
+            
+                
+                    <a href="../c03/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.</b>
+                        
+                        模板
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="3.1" data-path="c03/s01.html">
+            
+                
+                    <a href="../c03/s01.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.1.</b>
+                        
+                        变量
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2" data-path="c03/s02.html">
+            
+                
+                    <a href="../c03/s02.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.2.</b>
+                        
+                        过滤器
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.3" data-path="c03/s03.html">
+            
+                
+                    <a href="../c03/s03.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.3.</b>
+                        
+                        web表单
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.4" data-path="c03/s04.html">
+            
+                
+                    <a href="../c03/s04.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.4.</b>
+                        
+                        控制语句
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.5" data-path="c03/s05.html">
+            
+                
+                    <a href="../c03/s05.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.5.</b>
+                        
+                        宏、继承、包含
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.6" data-path="c03/s06.html">
+            
+                
+                    <a href="../c03/s06.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.6.</b>
+                        
+                        Flask的特殊变量和方法
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="4" data-path="c04/index.html">
+            
+                
+                    <a href="../c04/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.</b>
+                        
+                        数据库
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="4.1" data-path="c04/s01.html">
+            
+                
+                    <a href="../c04/s01.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.1.</b>
+                        
+                        数据库的设置
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2" data-path="c04/s02.html">
+            
+                
+                    <a href="../c04/s02.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.2.</b>
+                        
+                        数据库的基本操作
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.3" data-path="c04/s03.html">
+            
+                
+                    <a href="../c04/s03.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.3.</b>
+                        
+                        自定义模型类
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter active" data-level="4.4" data-path="c04/s04.html">
+            
+                
+                    <a href="../c04/s04.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.4.</b>
+                        
+                        数据库迁移
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.5" data-path="c04/s05.html">
+            
+                
+                    <a href="../c04/s05.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.5.</b>
+                        
+                        邮件扩展
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="5" data-path="c05/index.html">
+            
+                
+                    <a href="../c05/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.</b>
+                        
+                        测试与部署
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="5.1" data-path="c05/s01.html">
+            
+                
+                    <a href="../c05/s01.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.1.</b>
+                        
+                        蓝图
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.2" data-path="c05/s02.html">
+            
+                
+                    <a href="../c05/s02.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.2.</b>
+                        
+                        单元测试
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.3" data-path="c05/s03.html">
+            
+                
+                    <a href="../c05/s03.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.3.</b>
+                        
+                        部署
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.4" data-path="c05/s04.html">
+            
+                
+                    <a href="../c05/s04.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.4.</b>
+                        
+                        RESTful
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.5" data-path="c05/s05.html">
+            
+                
+                    <a href="../c05/s05.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.5.</b>
+                        
+                        性能
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+
+            
+            <li class="divider"></li>
+            <li>
+                <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+                    本書使用 GitBook 釋出
+                </a>
+            </li>
+            
+        </ul>
+    </nav>
+</div>
+
+    <div class="book-body">
+        <div class="body-inner">
+            <div class="book-header" role="navigation">
+    <!-- Actions Left -->
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../" >Flask框架</a>
+    </h1>
+</div>
+
+            <div class="page-wrapper" tabindex="-1" role="main">
+                <div class="page-inner">
+                
+                
+                    <section class="normal" id="section-">
+                    
+                        <h1 id="43-&#x6570;&#x636E;&#x5E93;&#x8FC1;&#x79FB;">4.3 &#x6570;&#x636E;&#x5E93;&#x8FC1;&#x79FB;</h1>
+<p>&#x5728;&#x5F00;&#x53D1;&#x8FC7;&#x7A0B;&#x4E2D;&#xFF0C;&#x9700;&#x8981;&#x4FEE;&#x6539;&#x6570;&#x636E;&#x5E93;&#x6A21;&#x578B;&#xFF0C;&#x800C;&#x4E14;&#x8FD8;&#x8981;&#x5728;&#x4FEE;&#x6539;&#x4E4B;&#x540E;&#x66F4;&#x65B0;&#x6570;&#x636E;&#x5E93;&#x3002;&#x6700;&#x76F4;&#x63A5;&#x7684;&#x65B9;&#x5F0F;&#x5C31;&#x662F;&#x5220;&#x9664;&#x65E7;&#x8868;&#xFF0C;&#x4F46;&#x8FD9;&#x6837;&#x4F1A;&#x4E22;&#x5931;&#x6570;&#x636E;&#x3002;</p>
+<p>&#x66F4;&#x597D;&#x7684;&#x89E3;&#x51B3;&#x529E;&#x6CD5;&#x662F;&#x4F7F;&#x7528;&#x6570;&#x636E;&#x5E93;&#x8FC1;&#x79FB;&#x6846;&#x67B6;&#xFF0C;&#x5B83;&#x53EF;&#x4EE5;&#x8FFD;&#x8E2A;&#x6570;&#x636E;&#x5E93;&#x6A21;&#x5F0F;&#x7684;&#x53D8;&#x5316;&#xFF0C;&#x7136;&#x540E;&#x628A;&#x53D8;&#x52A8;&#x5E94;&#x7528;&#x5230;&#x6570;&#x636E;&#x5E93;&#x4E2D;&#x3002;</p>
+<p>&#x5728;Flask&#x4E2D;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;Flask-Migrate&#x6269;&#x5C55;&#xFF0C;&#x6765;&#x5B9E;&#x73B0;&#x6570;&#x636E;&#x8FC1;&#x79FB;&#x3002;&#x5E76;&#x4E14;&#x96C6;&#x6210;&#x5230;Flask-Script&#x4E2D;&#xFF0C;&#x6240;&#x6709;&#x64CD;&#x4F5C;&#x901A;&#x8FC7;&#x547D;&#x4EE4;&#x5C31;&#x80FD;&#x5B8C;&#x6210;&#x3002;</p>
+<p>&#x4E3A;&#x4E86;&#x5BFC;&#x51FA;&#x6570;&#x636E;&#x5E93;&#x8FC1;&#x79FB;&#x547D;&#x4EE4;&#xFF0C;Flask-Migrate&#x63D0;&#x4F9B;&#x4E86;&#x4E00;&#x4E2A;MigrateCommand&#x7C7B;&#xFF0C;&#x53EF;&#x4EE5;&#x9644;&#x52A0;&#x5230;flask-script&#x7684;manager&#x5BF9;&#x8C61;&#x4E0A;&#x3002;</p>
+<p>&#x9996;&#x5148;&#x8981;&#x5728;&#x865A;&#x62DF;&#x73AF;&#x5883;&#x4E2D;&#x5B89;&#x88C5;Flask-Migrate&#x3002;</p>
+<pre><code class="lang-python">pip install flask-migrate
+</code></pre>
+<p><strong> &#x6587;&#x4EF6;&#xFF1A;database.py</strong></p>
+<pre><code class="lang-python"><span class="hljs-comment">#coding=utf-8</span>
+<span class="hljs-keyword">from</span> flask <span class="hljs-keyword">import</span> Flask
+<span class="hljs-keyword">from</span> flask_sqlalchemy <span class="hljs-keyword">import</span> SQLAlchemy
+<span class="hljs-keyword">from</span> flask_migrate <span class="hljs-keyword">import</span> Migrate,MigrateCommand
+<span class="hljs-keyword">from</span> flask_script <span class="hljs-keyword">import</span> Shell,Manager
+
+app = Flask(__name__)
+manager = Manager(app)
+
+app.config[<span class="hljs-string">&apos;SQLALCHEMY_DATABASE_URI&apos;</span>] = <span class="hljs-string">&apos;mysql://root:mysql@127.0.0.1:3306/Flask_test&apos;</span>
+app.config[<span class="hljs-string">&apos;SQLALCHEMY_COMMIT_ON_TEARDOWN&apos;</span>] = <span class="hljs-keyword">True</span>
+app.config[<span class="hljs-string">&apos;SQLALCHEMY_TRACK_MODIFICATIONS&apos;</span>] = <span class="hljs-keyword">True</span>
+db = SQLAlchemy(app)
+
+<span class="hljs-comment">#&#x7B2C;&#x4E00;&#x4E2A;&#x53C2;&#x6570;&#x662F;Flask&#x7684;&#x5B9E;&#x4F8B;&#xFF0C;&#x7B2C;&#x4E8C;&#x4E2A;&#x53C2;&#x6570;&#x662F;Sqlalchemy&#x6570;&#x636E;&#x5E93;&#x5B9E;&#x4F8B;</span>
+migrate = Migrate(app,db) 
+
+<span class="hljs-comment">#manager&#x662F;Flask-Script&#x7684;&#x5B9E;&#x4F8B;&#xFF0C;&#x8FD9;&#x6761;&#x8BED;&#x53E5;&#x5728;flask-Script&#x4E2D;&#x6DFB;&#x52A0;&#x4E00;&#x4E2A;db&#x547D;&#x4EE4;</span>
+manager.add_command(<span class="hljs-string">&apos;db&apos;</span>,MigrateCommand)
+
+<span class="hljs-comment">#&#x5B9A;&#x4E49;&#x6A21;&#x578B;Role</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Role</span><span class="hljs-params">(db.Model)</span>:</span>
+    <span class="hljs-comment"># &#x5B9A;&#x4E49;&#x8868;&#x540D;</span>
+    __tablename__ = <span class="hljs-string">&apos;roles&apos;</span>
+    <span class="hljs-comment"># &#x5B9A;&#x4E49;&#x5217;&#x5BF9;&#x8C61;</span>
+    id = db.Column(db.Integer, primary_key=<span class="hljs-keyword">True</span>)
+    name = db.Column(db.String(<span class="hljs-number">64</span>), unique=<span class="hljs-keyword">True</span>)
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__repr__</span><span class="hljs-params">(self)</span>:</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-string">&apos;Role:&apos;</span>.format(self.name)
+
+<span class="hljs-comment">#&#x5B9A;&#x4E49;&#x7528;&#x6237;</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">User</span><span class="hljs-params">(db.Model)</span>:</span>
+    __tablename__ = <span class="hljs-string">&apos;users&apos;</span>
+    id = db.Column(db.Integer, primary_key=<span class="hljs-keyword">True</span>)
+    username = db.Column(db.String(<span class="hljs-number">64</span>), unique=<span class="hljs-keyword">True</span>, index=<span class="hljs-keyword">True</span>)
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__repr__</span><span class="hljs-params">(self)</span>:</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-string">&apos;User:&apos;</span>.format(self.username)
+<span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&apos;__main__&apos;</span>:
+    manager.run()
+</code></pre>
+<h3 id="&#x521B;&#x5EFA;&#x8FC1;&#x79FB;&#x4ED3;&#x5E93;">&#x521B;&#x5EFA;&#x8FC1;&#x79FB;&#x4ED3;&#x5E93;</h3>
+<pre><code class="lang-base">#&#x8FD9;&#x4E2A;&#x547D;&#x4EE4;&#x4F1A;&#x521B;&#x5EFA;migrations&#x6587;&#x4EF6;&#x5939;&#xFF0C;&#x6240;&#x6709;&#x8FC1;&#x79FB;&#x6587;&#x4EF6;&#x90FD;&#x653E;&#x5728;&#x91CC;&#x9762;&#x3002;
+python database.py db init
+</code></pre>
+<p> <img src="../images/&#x6570;&#x636E;&#x8FC1;&#x79FB;.png" alt="&#x6570;&#x636E;&#x8FC1;&#x79FB;"></p>
+<h3 id="&#x521B;&#x5EFA;&#x8FC1;&#x79FB;&#x811A;&#x672C;">&#x521B;&#x5EFA;&#x8FC1;&#x79FB;&#x811A;&#x672C;</h3>
+<p>&#x81EA;&#x52A8;&#x521B;&#x5EFA;&#x8FC1;&#x79FB;&#x811A;&#x672C;&#x6709;&#x4E24;&#x4E2A;&#x51FD;&#x6570;&#xFF0C;upgrade()&#x51FD;&#x6570;&#x628A;&#x8FC1;&#x79FB;&#x4E2D;&#x7684;&#x6539;&#x52A8;&#x5E94;&#x7528;&#x5230;&#x6570;&#x636E;&#x5E93;&#x4E2D;&#x3002;downgrade()&#x51FD;&#x6570;&#x5219;&#x5C06;&#x6539;&#x52A8;&#x5220;&#x9664;&#x3002;&#x81EA;&#x52A8;&#x521B;&#x5EFA;&#x7684;&#x8FC1;&#x79FB;&#x811A;&#x672C;&#x4F1A;&#x6839;&#x636E;&#x6A21;&#x578B;&#x5B9A;&#x4E49;&#x548C;&#x6570;&#x636E;&#x5E93;&#x5F53;&#x524D;&#x72B6;&#x6001;&#x7684;&#x5DEE;&#x5F02;&#xFF0C;&#x751F;&#x6210;upgrade()&#x548C;downgrade()&#x51FD;&#x6570;&#x7684;&#x5185;&#x5BB9;&#x3002;&#x5BF9;&#x6BD4;&#x4E0D;&#x4E00;&#x5B9A;&#x5B8C;&#x5168;&#x6B63;&#x786E;&#xFF0C;&#x6709;&#x53EF;&#x80FD;&#x4F1A;&#x9057;&#x6F0F;&#x4E00;&#x4E9B;&#x7EC6;&#x8282;&#xFF0C;&#x9700;&#x8981;&#x8FDB;&#x884C;&#x68C0;&#x67E5;</p>
+<pre><code class="lang-base">#&#x521B;&#x5EFA;&#x81EA;&#x52A8;&#x8FC1;&#x79FB;&#x811A;&#x672C;
+python database.py db migrate -m &apos;initial migration&apos;
+</code></pre>
+<p><img src="../images/&#x8FC1;&#x79FB;&#x811A;&#x672C;.png" alt="&#x8FC1;&#x79FB;&#x811A;&#x672C;"></p>
+<h3 id="&#x66F4;&#x65B0;&#x6570;&#x636E;&#x5E93;">&#x66F4;&#x65B0;&#x6570;&#x636E;&#x5E93;</h3>
+<pre><code class="lang-base">python database.py db upgrade
+</code></pre>
+<h3 id="&#x56DE;&#x9000;&#x6570;&#x636E;&#x5E93;">&#x56DE;&#x9000;&#x6570;&#x636E;&#x5E93;</h3>
+<p>&#x56DE;&#x9000;&#x6570;&#x636E;&#x5E93;&#x65F6;&#xFF0C;&#x9700;&#x8981;&#x6307;&#x5B9A;&#x56DE;&#x9000;&#x7248;&#x672C;&#x53F7;&#xFF0C;&#x7531;&#x4E8E;&#x7248;&#x672C;&#x53F7;&#x662F;&#x968F;&#x673A;&#x5B57;&#x7B26;&#x4E32;&#xFF0C;&#x4E3A;&#x907F;&#x514D;&#x51FA;&#x9519;&#xFF0C;&#x5EFA;&#x8BAE;&#x5148;&#x4F7F;&#x7528;<strong>python database.py db history</strong>&#x547D;&#x4EE4;&#x67E5;&#x770B;&#x5386;&#x53F2;&#x7248;&#x672C;&#x7684;&#x5177;&#x4F53;&#x7248;&#x672C;&#x53F7;&#xFF0C;&#x7136;&#x540E;&#x590D;&#x5236;&#x5177;&#x4F53;&#x7248;&#x672C;&#x53F7;&#x6267;&#x884C;&#x56DE;&#x9000;&#x3002;</p>
+<pre><code class="lang-base">python database.py db downgrade &#x7248;&#x672C;&#x53F7;
+</code></pre>
+<p><img src="../images/&#x56DE;&#x9000;&#x811A;&#x672C;.png" alt="&#x56DE;&#x9000;&#x811A;&#x672C;"></p>
+
+                    
+                    </section>
+                
+                
+                </div>
+            </div>
+        </div>
+
+        
+        <a href="../c04/s03.html" class="navigation navigation-prev " aria-label="Previous page: 自定义模型类"><i class="fa fa-angle-left"></i></a>
+        
+        
+        <a href="../c04/s05.html" class="navigation navigation-next " aria-label="Next page: 邮件扩展"><i class="fa fa-angle-right"></i></a>
+        
+    </div>
+</div>
+
+        
+<script src="../gitbook/app.js"></script>
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-toggle-chapters/toggle.js"></script>
+    
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-splitter/splitter.js"></script>
+    
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-sharing/buttons.js"></script>
+    
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-fontsettings/buttons.js"></script>
+    
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-livereload/plugin.js"></script>
+    
+
+<script>
+require(["gitbook"], function(gitbook) {
+    var config = {"toggle-chapters":{},"splitter":{},"emphasize":{},"highlight":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"livereload":{}};
+    gitbook.start(config);
+});
+</script>
+
+        <!-- body:end -->
+    </body>
+    <!-- End of book Flask框架 -->
+</html>

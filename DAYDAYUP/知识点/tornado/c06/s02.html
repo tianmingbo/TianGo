@@ -1,0 +1,903 @@
+<!DOCTYPE HTML>
+<html lang="en" >
+    
+    <head>
+        
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <title>6.2 XSRF | 引言</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 2.6.7">
+        
+        
+        <meta name="HandheldFriendly" content="true"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+        <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+        
+    <link rel="stylesheet" href="../gitbook/style.css">
+    
+        
+        <link rel="stylesheet" href="../gitbook/plugins/gitbook-plugin-highlight/website.css">
+        
+    
+        
+        <link rel="stylesheet" href="../gitbook/plugins/gitbook-plugin-search/search.css">
+        
+    
+        
+        <link rel="stylesheet" href="../gitbook/plugins/gitbook-plugin-fontsettings/website.css">
+        
+    
+    
+
+        
+    
+    
+    <link rel="next" href="../c06/s03.html" />
+    
+    
+    <link rel="prev" href="../c06/s01.html" />
+    
+
+        
+    </head>
+    <body>
+        
+        
+    <div class="book"
+        data-level="6.2"
+        data-chapter-title="6.2 XSRF"
+        data-filepath="c06/s02.md"
+        data-basepath=".."
+        data-revision="Fri Feb 10 2017 17:36:30 GMT+0800 (CST)"
+        data-innerlanguage="">
+    
+
+<div class="book-summary">
+    <nav role="navigation">
+        <ul class="summary">
+            
+            
+            
+            
+
+            
+
+            
+    
+        <li class="chapter " data-level="0" data-path="index.html">
+            
+                
+                    <a href="../index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                        引言
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1" data-path="c01/index.html">
+            
+                
+                    <a href="../c01/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.</b>
+                        
+                        1 关于Tornado
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.1" data-path="c01/s01.html">
+            
+                
+                    <a href="../c01/s01.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.1.</b>
+                        
+                        1.1 Tornado是为何物
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="c01/s02.html">
+            
+                
+                    <a href="../c01/s02.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.2.</b>
+                        
+                        1.2 Tornado与Django
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2" data-path="c02/index.html">
+            
+                
+                    <a href="../c02/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.</b>
+                        
+                        2 初识Tornado
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.1" data-path="c02/s01.html">
+            
+                
+                    <a href="../c02/s01.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.1.</b>
+                        
+                        2.1 安装
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2" data-path="c02/s02.html">
+            
+                
+                    <a href="../c02/s02.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.2.</b>
+                        
+                        2.2 Hello Itcast
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.3" data-path="c02/s03.html">
+            
+                
+                    <a href="../c02/s03.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.3.</b>
+                        
+                        2.3 httpserver
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.4" data-path="c02/s04.html">
+            
+                
+                    <a href="../c02/s04.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.4.</b>
+                        
+                        2.4 options
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.5" data-path="c02/s05.html">
+            
+                
+                    <a href="../c02/s05.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.5.</b>
+                        
+                        2.5 练习
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="3" data-path="c03/index.html">
+            
+                
+                    <a href="../c03/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.</b>
+                        
+                        3 深入Tornado
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="3.1" data-path="c03/s01.html">
+            
+                
+                    <a href="../c03/s01.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.1.</b>
+                        
+                        3.1 Application
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2" data-path="c03/s02.html">
+            
+                
+                    <a href="../c03/s02.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.2.</b>
+                        
+                        3.2 输入
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.3" data-path="c03/s03.html">
+            
+                
+                    <a href="../c03/s03.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.3.</b>
+                        
+                        3.3 输出
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.4" data-path="c03/s04.html">
+            
+                
+                    <a href="../c03/s04.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.4.</b>
+                        
+                        3.4 接口与调用顺序
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.5" data-path="c03/s05.html">
+            
+                
+                    <a href="../c03/s05.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.5.</b>
+                        
+                        3.5 练习
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="4" data-path="c04/index.html">
+            
+                
+                    <a href="../c04/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.</b>
+                        
+                        4 模板
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="4.1" data-path="c04/s01.html">
+            
+                
+                    <a href="../c04/s01.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.1.</b>
+                        
+                        4.1 静态文件
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2" data-path="c04/s02.html">
+            
+                
+                    <a href="../c04/s02.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.2.</b>
+                        
+                        4.2 使用模板
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.3" data-path="c04/s03.html">
+            
+                
+                    <a href="../c04/s03.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.3.</b>
+                        
+                        4.3 练习
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="5" data-path="c05/index.html">
+            
+                
+                    <a href="../c05/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.</b>
+                        
+                        5 数据库
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="5.1" data-path="c05/s01.html">
+            
+                
+                    <a href="../c05/s01.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.1.</b>
+                        
+                        5.1 数据库
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.2" data-path="c05/s02.html">
+            
+                
+                    <a href="../c05/s02.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.2.</b>
+                        
+                        5.2 练习
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="6" data-path="c06/index.html">
+            
+                
+                    <a href="../c06/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.</b>
+                        
+                        6 安全应用
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="6.1" data-path="c06/s01.html">
+            
+                
+                    <a href="../c06/s01.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.1.</b>
+                        
+                        6.1 Cookie
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter active" data-level="6.2" data-path="c06/s02.html">
+            
+                
+                    <a href="../c06/s02.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.2.</b>
+                        
+                        6.2 XSRF
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6.3" data-path="c06/s03.html">
+            
+                
+                    <a href="../c06/s03.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.3.</b>
+                        
+                        6.3 用户验证
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6.4" data-path="c06/s04.html">
+            
+                
+                    <a href="../c06/s04.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.4.</b>
+                        
+                        6.4 练习
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="7" data-path="c07/index.html">
+            
+                
+                    <a href="../c07/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>7.</b>
+                        
+                        7 异步与WebSocket
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="7.1" data-path="c07/s01.html">
+            
+                
+                    <a href="../c07/s01.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>7.1.</b>
+                        
+                        7.1 认识异步
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="7.2" data-path="c07/s02.html">
+            
+                
+                    <a href="../c07/s02.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>7.2.</b>
+                        
+                        7.2 Tornado异步
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="7.3" data-path="c07/s03.html">
+            
+                
+                    <a href="../c07/s03.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>7.3.</b>
+                        
+                        7.3 WebSocket
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="7.4" data-path="c07/s04.html">
+            
+                
+                    <a href="../c07/s04.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>7.4.</b>
+                        
+                        7.4 练习
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="8" data-path="c08/index.html">
+            
+                
+                    <a href="../c08/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.</b>
+                        
+                        8 部署
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="8.1" data-path="c08/s01.html">
+            
+                
+                    <a href="../c08/s01.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.1.</b>
+                        
+                        8.1 部署Tornado
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+
+            
+            <li class="divider"></li>
+            <li>
+                <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+                    Published with GitBook
+                </a>
+            </li>
+            
+        </ul>
+    </nav>
+</div>
+
+    <div class="book-body">
+        <div class="body-inner">
+            <div class="book-header" role="navigation">
+    <!-- Actions Left -->
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../" >引言</a>
+    </h1>
+</div>
+
+            <div class="page-wrapper" tabindex="-1" role="main">
+                <div class="page-inner">
+                
+                
+                    <section class="normal" id="section-">
+                    
+                        <h1 id="62-xsrf">6.2 XSRF</h1>
+<h2 id="&#x8DE8;&#x7AD9;&#x8BF7;&#x6C42;&#x4F2A;&#x9020;">&#x8DE8;&#x7AD9;&#x8BF7;&#x6C42;&#x4F2A;&#x9020;</h2>
+<p>&#x5148;&#x5EFA;&#x7ACB;&#x4E00;&#x4E2A;&#x7F51;&#x7AD9;127.0.0.1:8000&#xFF0C;&#x4F7F;&#x7528;&#x4E0A;&#x4E00;&#x8282;&#x4E2D;&#x7684;Cookie&#x8BA1;&#x6570;&#x5668;&#xFF1A;</p>
+<pre><code class="lang-python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">IndexHandler</span><span class="hljs-params">(RequestHandler)</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get</span><span class="hljs-params">(self)</span>:</span>
+        cookie = self.get_secure_cookie(<span class="hljs-string">&quot;count&quot;</span>)
+        count = int(cookie) + <span class="hljs-number">1</span> <span class="hljs-keyword">if</span> cookie <span class="hljs-keyword">else</span> <span class="hljs-number">1</span>
+        self.set_secure_cookie(<span class="hljs-string">&quot;count&quot;</span>, str(count))
+        self.write(
+            <span class="hljs-string">&apos;&lt;html&gt;&lt;head&gt;&lt;title&gt;Cookie&#x8BA1;&#x6570;&#x5668;&lt;/title&gt;&lt;/head&gt;&apos;</span>
+            <span class="hljs-string">&apos;&lt;body&gt;&lt;h1&gt;&#x60A8;&#x5DF2;&#x8BBF;&#x95EE;&#x672C;&#x9875;%d&#x6B21;&#x3002;&lt;/h1&gt;&apos;</span> % count +
+            <span class="hljs-string">&apos;&lt;/body&gt;&lt;/html&gt;&apos;</span>
+        )
+</code></pre>
+<p>&#x518D;&#x5EFA;&#x7ACB;&#x4E00;&#x4E2A;&#x7F51;&#x7AD9;127.0.0.1:9000&#xFF0C;</p>
+<pre><code class="lang-python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">IndexHandler</span><span class="hljs-params">(RequestHandler)</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get</span><span class="hljs-params">(self)</span>:</span>
+        self.write(<span class="hljs-string">&apos;&lt;html&gt;&lt;head&gt;&lt;title&gt;&#x88AB;&#x653B;&#x51FB;&#x7684;&#x7F51;&#x7AD9;&lt;/title&gt;&lt;/head&gt;&apos;</span>
+        <span class="hljs-string">&apos;&lt;body&gt;&lt;h1&gt;&#x6B64;&#x7F51;&#x7AD9;&#x7684;&#x56FE;&#x7247;&#x94FE;&#x63A5;&#x88AB;&#x4FEE;&#x6539;&#x4E86;&lt;/h1&gt;&apos;</span>
+        <span class="hljs-string">&apos;&lt;img alt=&quot;&#x8FD9;&#x5E94;&#x8BE5;&#x662F;&#x56FE;&#x7247;&quot; src=&quot;http://127.0.0.1:8000/?f=9000/&quot;&gt;&apos;</span>
+        <span class="hljs-string">&apos;&lt;/body&gt;&lt;/html&gt;&apos;</span>
+        )
+</code></pre>
+<p>&#x5728;9000&#x7F51;&#x7AD9;&#x6211;&#x4EEC;&#x6A21;&#x62DF;&#x653B;&#x51FB;&#x8005;&#x4FEE;&#x6539;&#x4E86;&#x6211;&#x4EEC;&#x7684;&#x56FE;&#x7247;&#x6E90;&#x5730;&#x5740;&#x4E3A;8000&#x7F51;&#x7AD9;&#x7684;Cookie&#x8BA1;&#x6570;&#x5668;&#x9875;&#x9762;&#x7F51;&#x5740;&#x3002;&#x5F53;&#x6211;&#x4EEC;&#x8BBF;&#x95EE;9000&#x7F51;&#x7AD9;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x5728;&#x6211;&#x4EEC;&#x4E0D;&#x77E5;&#x9053;&#x3001;&#x672A;&#x6388;&#x6743;&#x7684;&#x60C5;&#x51B5;&#x4E0B;8000&#x7F51;&#x7AD9;&#x7684;Cookie&#x88AB;&#x4F7F;&#x7528;&#x4E86;&#xFF0C;&#x4EE5;&#x81F3;&#x4E8E;&#x8BA9;8000&#x7F51;&#x5740;&#x8BA4;&#x4E3A;&#x662F;&#x6211;&#x4EEC;&#x81EA;&#x5DF1;&#x8C03;&#x7528;&#x4E86;8000&#x7F51;&#x7AD9;&#x7684;&#x903B;&#x8F91;&#x3002;&#x8FD9;&#x5C31;&#x662F;CSRF&#xFF08;Cross-site request forgery&#xFF09;&#x8DE8;&#x7AD9;&#x8BF7;&#x6C42;&#x4F2A;&#x9020;&#xFF08;&#x8DE8;&#x7AD9;&#x653B;&#x51FB;&#x6216;&#x8DE8;&#x57DF;&#x653B;&#x51FB;&#x7684;&#x4E00;&#x79CD;&#xFF09;&#xFF0C;&#x901A;&#x5E38;&#x7F29;&#x5199;&#x4E3A;CSRF&#x6216;&#x8005;XSRF&#x3002;</p>
+<p>&#x6211;&#x4EEC;&#x521A;&#x521A;&#x4F7F;&#x7528;&#x7684;&#x662F;GET&#x65B9;&#x5F0F;&#x6A21;&#x62DF;&#x7684;&#x653B;&#x51FB;&#xFF0C;&#x4E3A;&#x4E86;&#x9632;&#x8303;&#x8FD9;&#x79CD;&#x65B9;&#x5F0F;&#x7684;&#x653B;&#x51FB;&#xFF0C;&#x4EFB;&#x4F55;&#x4F1A;&#x4EA7;&#x751F;&#x526F;&#x4F5C;&#x7528;&#x7684;HTTP&#x8BF7;&#x6C42;&#xFF0C;&#x6BD4;&#x5982;&#x70B9;&#x51FB;&#x8D2D;&#x4E70;&#x6309;&#x94AE;&#x3001;&#x7F16;&#x8F91;&#x8D26;&#x6237;&#x8BBE;&#x7F6E;&#x3001;&#x6539;&#x53D8;&#x5BC6;&#x7801;&#x6216;&#x5220;&#x9664;&#x6587;&#x6863;&#xFF0C;&#x90FD;&#x5E94;&#x8BE5;&#x4F7F;&#x7528;HTTP POST&#x65B9;&#x6CD5;&#xFF08;&#x6216;PUT&#x3001;DELETE&#xFF09;&#x3002;&#x4F46;&#x662F;&#xFF0C;&#x8FD9;&#x5E76;&#x4E0D;&#x8DB3;&#x591F;&#xFF1A;&#x4E00;&#x4E2A;&#x6076;&#x610F;&#x7AD9;&#x70B9;&#x53EF;&#x80FD;&#x4F1A;&#x901A;&#x8FC7;&#x5176;&#x4ED6;&#x624B;&#x6BB5;&#x6765;&#x6A21;&#x62DF;&#x53D1;&#x9001;POST&#x8BF7;&#x6C42;&#xFF0C;&#x4FDD;&#x62A4;POST&#x8BF7;&#x6C42;&#x9700;&#x8981;&#x989D;&#x5916;&#x7684;&#x7B56;&#x7565;&#x3002;</p>
+<h2 id="xsrf&#x4FDD;&#x62A4;">XSRF&#x4FDD;&#x62A4;</h2>
+<blockquote>
+<p>&#x6D4F;&#x89C8;&#x5668;&#x6709;&#x4E00;&#x4E2A;&#x5F88;&#x91CD;&#x8981;&#x7684;&#x6982;&#x5FF5;&#x2014;&#x2014;<strong>&#x540C;&#x6E90;&#x7B56;&#x7565;</strong>(Same-Origin Policy)&#x3002; &#x6240;&#x8C13;&#x540C;&#x6E90;&#x662F;&#x6307;&#xFF0C;&#x57DF;&#x540D;&#xFF0C;&#x534F;&#x8BAE;&#xFF0C;&#x7AEF;&#x53E3;&#x76F8;&#x540C;&#x3002; &#x4E0D;&#x540C;&#x6E90;&#x7684;&#x5BA2;&#x6237;&#x7AEF;&#x811A;&#x672C;(javascript&#x3001;ActionScript)&#x5728;&#x6CA1;&#x660E;&#x786E;&#x6388;&#x6743;&#x7684;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x4E0D;&#x80FD;&#x8BFB;&#x5199;&#x5BF9;&#x65B9;&#x7684;&#x8D44;&#x6E90;&#x3002;</p>
+</blockquote>
+<p>&#x7531;&#x4E8E;&#x7B2C;&#x4E09;&#x65B9;&#x7AD9;&#x70B9;&#x6CA1;&#x6709;&#x8BBF;&#x95EE;cookie&#x6570;&#x636E;&#x7684;&#x6743;&#x9650;&#xFF08;&#x540C;&#x6E90;&#x7B56;&#x7565;&#xFF09;&#xFF0C;&#x6240;&#x4EE5;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x8981;&#x6C42;&#x6BCF;&#x4E2A;&#x8BF7;&#x6C42;&#x5305;&#x62EC;&#x4E00;&#x4E2A;&#x7279;&#x5B9A;&#x7684;&#x53C2;&#x6570;&#x503C;&#x4F5C;&#x4E3A;&#x4EE4;&#x724C;&#x6765;&#x5339;&#x914D;&#x5B58;&#x50A8;&#x5728;cookie&#x4E2D;&#x7684;&#x5BF9;&#x5E94;&#x503C;&#xFF0C;&#x5982;&#x679C;&#x4E24;&#x8005;&#x5339;&#x914D;&#xFF0C;&#x6211;&#x4EEC;&#x7684;&#x5E94;&#x7528;&#x8BA4;&#x5B9A;&#x8BF7;&#x6C42;&#x6709;&#x6548;&#x3002;&#x800C;&#x7B2C;&#x4E09;&#x65B9;&#x7AD9;&#x70B9;&#x65E0;&#x6CD5;&#x5728;&#x8BF7;&#x6C42;&#x4E2D;&#x5305;&#x542B;&#x4EE4;&#x724C;cookie&#x503C;&#xFF0C;&#x8FD9;&#x5C31;&#x6709;&#x6548;&#x5730;&#x9632;&#x6B62;&#x4E86;&#x4E0D;&#x53EF;&#x4FE1;&#x7F51;&#x7AD9;&#x53D1;&#x9001;&#x672A;&#x6388;&#x6743;&#x7684;&#x8BF7;&#x6C42;&#x3002;</p>
+<h3 id="&#x5F00;&#x542F;xsrf&#x4FDD;&#x62A4;">&#x5F00;&#x542F;XSRF&#x4FDD;&#x62A4;</h3>
+<p>&#x8981;&#x5F00;&#x542F;XSRF&#x4FDD;&#x62A4;&#xFF0C;&#x9700;&#x8981;&#x5728;Application&#x7684;&#x6784;&#x9020;&#x51FD;&#x6570;&#x4E2D;&#x6DFB;&#x52A0;xsrf_cookies&#x53C2;&#x6570;&#xFF1A;</p>
+<pre><code class="lang-python">app = tornado.web.Application(
+    [(<span class="hljs-string">r&quot;/&quot;</span>, IndexHandler),],
+    cookie_secret = <span class="hljs-string">&quot;2hcicVu+TqShDpfsjMWQLZ0Mkq5NPEWSk9fi0zsSt3A=&quot;</span>,
+    xsrf_cookies = <span class="hljs-keyword">True</span>
+)
+</code></pre>
+<p>&#x5F53;&#x8FD9;&#x4E2A;&#x53C2;&#x6570;&#x88AB;&#x8BBE;&#x7F6E;&#x65F6;&#xFF0C;Tornado&#x5C06;&#x62D2;&#x7EDD;&#x8BF7;&#x6C42;&#x53C2;&#x6570;&#x4E2D;&#x4E0D;&#x5305;&#x542B;&#x6B63;&#x786E;&#x7684;_xsrf&#x503C;&#x7684;POST&#x3001;PUT&#x548C;DELETE&#x8BF7;&#x6C42;&#x3002;</p>
+<pre><code class="lang-python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">IndexHandler</span><span class="hljs-params">(RequestHandler)</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">post</span><span class="hljs-params">(self)</span>:</span>
+        self.write(<span class="hljs-string">&quot;hello itcast&quot;</span>)
+</code></pre>
+<p>&#x7528;&#x4E0D;&#x5E26;_xsrf&#x7684;post&#x8BF7;&#x6C42;&#x65F6;&#xFF0C;&#x62A5;&#x51FA;&#x4E86;<code>HTTP 403: Forbidden (&apos;_xsrf&apos; argument missing from POST)</code>&#x7684;&#x9519;&#x8BEF;&#x3002;</p>
+<h3 id="&#x6A21;&#x677F;&#x5E94;&#x7528;">&#x6A21;&#x677F;&#x5E94;&#x7528;</h3>
+<p>&#x5728;&#x6A21;&#x677F;&#x4E2D;&#x4F7F;&#x7528;XSRF&#x4FDD;&#x62A4;&#xFF0C;&#x53EA;&#x9700;&#x5728;&#x6A21;&#x677F;&#x4E2D;&#x6DFB;&#x52A0;</p>
+<pre><code class="lang-python">{% module xsrf_form_html() %}
+</code></pre>
+<p>&#x5982;&#x65B0;&#x5EFA;&#x4E00;&#x4E2A;&#x6A21;&#x677F;index.html</p>
+<pre><code class="lang-html"><span class="hljs-doctype">&lt;!DOCTYPE html&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">html</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">head</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">title</span>&gt;</span>&#x6D4B;&#x8BD5;XSRF<span class="hljs-tag">&lt;/<span class="hljs-title">title</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">head</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">body</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">form</span> <span class="hljs-attribute">method</span>=<span class="hljs-value">&quot;post&quot;</span>&gt;</span>
+      {% module xsrf_form_html() %}
+      <span class="hljs-tag">&lt;<span class="hljs-title">input</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">&quot;text&quot;</span> <span class="hljs-attribute">name</span>=<span class="hljs-value">&quot;message&quot;</span>/&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-title">input</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">&quot;submit&quot;</span> <span class="hljs-attribute">value</span>=<span class="hljs-value">&quot;Post&quot;</span>/&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-title">form</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">body</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">html</span>&gt;</span>
+</code></pre>
+<p>&#x540E;&#x7AEF;</p>
+<pre><code class="lang-python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">IndexHandler</span><span class="hljs-params">(RequestHandler)</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get</span><span class="hljs-params">(self)</span>:</span>
+        self.render(<span class="hljs-string">&quot;index.html&quot;</span>)
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">post</span><span class="hljs-params">(self)</span>:</span>
+        self.write(<span class="hljs-string">&quot;hello itcast&quot;</span>)
+</code></pre>
+<p>&#x6A21;&#x677F;&#x4E2D;&#x6DFB;&#x52A0;&#x7684;&#x8BED;&#x53E5;&#x5E2E;&#x6211;&#x4EEC;&#x505A;&#x4E86;&#x4E24;&#x4EF6;&#x4E8B;&#xFF1A;</p>
+<ul>
+<li>&#x4E3A;&#x6D4F;&#x89C8;&#x5668;&#x8BBE;&#x7F6E;&#x4E86;_xsrf&#x7684;Cookie&#xFF08;&#x6CE8;&#x610F;&#x6B64;Cookie&#x6D4F;&#x89C8;&#x5668;&#x5173;&#x95ED;&#x65F6;&#x5C31;&#x4F1A;&#x5931;&#x6548;&#xFF09;</li>
+<li>&#x4E3A;&#x6A21;&#x677F;&#x7684;&#x8868;&#x5355;&#x4E2D;&#x6DFB;&#x52A0;&#x4E86;&#x4E00;&#x4E2A;&#x9690;&#x85CF;&#x7684;&#x8F93;&#x5165;&#x540D;&#x4E3A;_xsrf&#xFF0C;&#x5176;&#x503C;&#x4E3A;_xsrf&#x7684;Cookie&#x503C;</li>
+</ul>
+<p>&#x6E32;&#x67D3;&#x540E;&#x7684;&#x9875;&#x9762;&#x539F;&#x7801;&#x5982;&#x4E0B;&#xFF1A;</p>
+<pre><code class="lang-html"><span class="hljs-doctype">&lt;!DOCTYPE html&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">html</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">head</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">title</span>&gt;</span>&#x6D4B;&#x8BD5;XSRF<span class="hljs-tag">&lt;/<span class="hljs-title">title</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-title">head</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">body</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">form</span> <span class="hljs-attribute">method</span>=<span class="hljs-value">&quot;post&quot;</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-title">input</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">&quot;hidden&quot;</span> <span class="hljs-attribute">name</span>=<span class="hljs-value">&quot;_xsrf&quot;</span> <span class="hljs-attribute">value</span>=<span class="hljs-value">&quot;2|543c2206|a056ff9e49df23eaffde0a694cde2b02|1476443353&quot;</span>/&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-title">input</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">&quot;text&quot;</span> <span class="hljs-attribute">name</span>=<span class="hljs-value">&quot;message&quot;</span>/&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-title">input</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">&quot;submit&quot;</span> <span class="hljs-attribute">value</span>=<span class="hljs-value">&quot;Post&quot;</span>/&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-title">form</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-title">body</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">html</span>&gt;</span>
+</code></pre>
+<h3 id="&#x975E;&#x6A21;&#x677F;&#x5E94;&#x7528;">&#x975E;&#x6A21;&#x677F;&#x5E94;&#x7528;</h3>
+<p>&#x5BF9;&#x4E8E;&#x4E0D;&#x4F7F;&#x7528;&#x6A21;&#x677F;&#x7684;&#x5E94;&#x7528;&#x6765;&#x8BF4;&#xFF0C;&#x9996;&#x5148;&#x8981;&#x8BBE;&#x7F6E;_xsrf&#x7684;Cookie&#x503C;&#xFF0C;&#x53EF;&#x4EE5;&#x5728;&#x4EFB;&#x610F;&#x7684;Handler&#x4E2D;&#x901A;&#x8FC7;&#x83B7;&#x53D6;<strong>self.xsrf_token</strong>&#x7684;&#x503C;&#x6765;&#x751F;&#x6210;_xsrf&#x5E76;&#x8BBE;&#x7F6E;Cookie&#x3002;</p>
+<p>&#x4E0B;&#x9762;&#x4E24;&#x79CD;&#x65B9;&#x5F0F;&#x90FD;&#x53EF;&#x4EE5;&#x8D77;&#x5230;&#x8BBE;&#x7F6E;_xsrf Cookie&#x7684;&#x4F5C;&#x7528;&#x3002;</p>
+<pre><code class="lang-python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">XSRFTokenHandler</span><span class="hljs-params">(RequestHandler)</span>:</span>
+    <span class="hljs-string">&quot;&quot;&quot;&#x4E13;&#x95E8;&#x7528;&#x6765;&#x8BBE;&#x7F6E;_xsrf Cookie&#x7684;&#x63A5;&#x53E3;&quot;&quot;&quot;</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get</span><span class="hljs-params">(self)</span>:</span>
+        self.xsrf_token
+        self.write(<span class="hljs-string">&quot;Ok&quot;</span>)
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">StaticFileHandler</span><span class="hljs-params">(tornado.web.StaticFileHandler)</span>:</span>
+    <span class="hljs-string">&quot;&quot;&quot;&#x91CD;&#x5199;StaticFileHandler&#xFF0C;&#x6784;&#x9020;&#x65F6;&#x89E6;&#x53D1;&#x8BBE;&#x7F6E;_xsrf Cookie&quot;&quot;&quot;</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(self, *args, **kwargs)</span>:</span>
+        super(StaticFileHandler, self).__init__(*args, **kwargs)
+        self.xsrf_token
+</code></pre>
+<p>&#x5BF9;&#x4E8E;&#x8BF7;&#x6C42;&#x643A;&#x5E26;_xsrf&#x53C2;&#x6570;&#xFF0C;&#x6709;&#x4E24;&#x79CD;&#x65B9;&#x5F0F;&#xFF1A;</p>
+<ul>
+<li>&#x82E5;&#x8BF7;&#x6C42;&#x4F53;&#x662F;&#x8868;&#x5355;&#x7F16;&#x7801;&#x683C;&#x5F0F;&#x7684;&#xFF0C;&#x53EF;&#x4EE5;&#x5728;&#x8BF7;&#x6C42;&#x4F53;&#x4E2D;&#x6DFB;&#x52A0;_xsrf&#x53C2;&#x6570;</li>
+<li>&#x82E5;&#x8BF7;&#x6C42;&#x4F53;&#x662F;&#x5176;&#x4ED6;&#x683C;&#x5F0F;&#x7684;&#xFF08;&#x5982;json&#x6216;xml&#x7B49;&#xFF09;&#xFF0C;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x8BBE;&#x7F6E;HTTP&#x5934;X-XSRFToken&#x6765;&#x4F20;&#x9012;_xsrf&#x503C;</li>
+</ul>
+<h4 id="1-&#x8BF7;&#x6C42;&#x4F53;&#x643A;&#x5E26;xsrf&#x53C2;&#x6570;">1. &#x8BF7;&#x6C42;&#x4F53;&#x643A;&#x5E26;_xsrf&#x53C2;&#x6570;</h4>
+<p>&#x65B0;&#x5EFA;&#x4E00;&#x4E2A;&#x9875;&#x9762;xsrf.html&#xFF1A;</p>
+<pre><code class="lang-html"><span class="hljs-doctype">&lt;!DOCTYPE html&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">html</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">head</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">meta</span> <span class="hljs-attribute">charset</span>=<span class="hljs-value">&quot;utf-8&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">title</span>&gt;</span>&#x6D4B;&#x8BD5;XSRF<span class="hljs-tag">&lt;/<span class="hljs-title">title</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">head</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">body</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">a</span> <span class="hljs-attribute">href</span>=<span class="hljs-value">&quot;javascript:;&quot;</span> <span class="hljs-attribute">onclick</span>=<span class="hljs-value">&quot;xsrfPost()&quot;</span>&gt;</span>&#x53D1;&#x9001;POST&#x8BF7;&#x6C42;<span class="hljs-tag">&lt;/<span class="hljs-title">a</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">script</span> <span class="hljs-attribute">src</span>=<span class="hljs-value">&quot;http://cdn.bootcss.com/jquery/3.1.1/jquery.min.js&quot;</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-title">script</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">script</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">&quot;text/javascript&quot;</span>&gt;</span><span class="javascript">
+        <span class="hljs-comment">//&#x83B7;&#x53D6;&#x6307;&#x5B9A;Cookie&#x7684;&#x51FD;&#x6570;</span>
+        <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getCookie</span>(<span class="hljs-params">name</span>) </span>{
+            <span class="hljs-keyword">var</span> r = <span class="hljs-built_in">document</span>.cookie.match(<span class="hljs-string">&quot;\\b&quot;</span> + name + <span class="hljs-string">&quot;=([^;]*)\\b&quot;</span>);
+            <span class="hljs-keyword">return</span> r ? r[<span class="hljs-number">1</span>] : <span class="hljs-literal">undefined</span>;
+        }
+        <span class="hljs-comment">//AJAX&#x53D1;&#x9001;post&#x8BF7;&#x6C42;&#xFF0C;&#x8868;&#x5355;&#x683C;&#x5F0F;&#x6570;&#x636E;</span>
+        <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">xsrfPost</span>(<span class="hljs-params"></span>) </span>{
+            <span class="hljs-keyword">var</span> xsrf = getCookie(<span class="hljs-string">&quot;_xsrf&quot;</span>);
+            $.post(<span class="hljs-string">&quot;/new&quot;</span>, <span class="hljs-string">&quot;_xsrf=&quot;</span>+xsrf+<span class="hljs-string">&quot;&amp;key1=value1&quot;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data</span>) </span>{
+                alert(<span class="hljs-string">&quot;OK&quot;</span>);
+            });
+        }
+    </span><span class="hljs-tag">&lt;/<span class="hljs-title">script</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">body</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">html</span>&gt;</span>
+</code></pre>
+<h4 id="2-http&#x5934;xxsrftoken">2. HTTP&#x5934;X-XSRFToken</h4>
+<p>&#x65B0;&#x5EFA;&#x4E00;&#x4E2A;&#x9875;&#x9762;json.html&#xFF1A;</p>
+<pre><code class="lang-html"><span class="hljs-doctype">&lt;!DOCTYPE html&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">html</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">head</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">meta</span> <span class="hljs-attribute">charset</span>=<span class="hljs-value">&quot;utf-8&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">title</span>&gt;</span>&#x6D4B;&#x8BD5;XSRF<span class="hljs-tag">&lt;/<span class="hljs-title">title</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">head</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">body</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">a</span> <span class="hljs-attribute">href</span>=<span class="hljs-value">&quot;javascript:;&quot;</span> <span class="hljs-attribute">onclick</span>=<span class="hljs-value">&quot;xsrfPost()&quot;</span>&gt;</span>&#x53D1;&#x9001;POST&#x8BF7;&#x6C42;<span class="hljs-tag">&lt;/<span class="hljs-title">a</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">script</span> <span class="hljs-attribute">src</span>=<span class="hljs-value">&quot;http://cdn.bootcss.com/jquery/3.1.1/jquery.min.js&quot;</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-title">script</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">script</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">&quot;text/javascript&quot;</span>&gt;</span><span class="javascript">
+        <span class="hljs-comment">//&#x83B7;&#x53D6;&#x6307;&#x5B9A;Cookie&#x7684;&#x51FD;&#x6570;</span>
+        <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getCookie</span>(<span class="hljs-params">name</span>) </span>{
+            <span class="hljs-keyword">var</span> r = <span class="hljs-built_in">document</span>.cookie.match(<span class="hljs-string">&quot;\\b&quot;</span> + name + <span class="hljs-string">&quot;=([^;]*)\\b&quot;</span>);
+            <span class="hljs-keyword">return</span> r ? r[<span class="hljs-number">1</span>] : <span class="hljs-literal">undefined</span>;
+        }
+        <span class="hljs-comment">//AJAX&#x53D1;&#x9001;post&#x8BF7;&#x6C42;&#xFF0C;json&#x683C;&#x5F0F;&#x6570;&#x636E;</span>
+        <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">xsrfPost</span>(<span class="hljs-params"></span>) </span>{
+            <span class="hljs-keyword">var</span> xsrf = getCookie(<span class="hljs-string">&quot;_xsrf&quot;</span>);
+            <span class="hljs-keyword">var</span> data = {
+                key1:<span class="hljs-number">1</span>,
+                key1:<span class="hljs-number">2</span>
+            };
+            <span class="hljs-keyword">var</span> json_data = <span class="hljs-built_in">JSON</span>.stringify(data);
+            $.ajax({
+                url: <span class="hljs-string">&quot;/new&quot;</span>,
+                method: <span class="hljs-string">&quot;POST&quot;</span>,
+                headers: {
+                    <span class="hljs-string">&quot;X-XSRFToken&quot;</span>:xsrf,
+                },
+                data:json_data,
+                success:<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data</span>) </span>{
+                    alert(<span class="hljs-string">&quot;OK&quot;</span>);
+                }
+            })
+        }
+    </span><span class="hljs-tag">&lt;/<span class="hljs-title">script</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">body</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">html</span>&gt;</span>
+</code></pre>
+
+                    
+                    </section>
+                
+                
+                </div>
+            </div>
+        </div>
+
+        
+        <a href="../c06/s01.html" class="navigation navigation-prev " aria-label="Previous page: 6.1 Cookie"><i class="fa fa-angle-left"></i></a>
+        
+        
+        <a href="../c06/s03.html" class="navigation navigation-next " aria-label="Next page: 6.3 用户验证"><i class="fa fa-angle-right"></i></a>
+        
+    </div>
+</div>
+
+        
+<script src="../gitbook/app.js"></script>
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-search/lunr.min.js"></script>
+    
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-search/search.js"></script>
+    
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-sharing/buttons.js"></script>
+    
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-fontsettings/buttons.js"></script>
+    
+
+<script>
+require(["gitbook"], function(gitbook) {
+    var config = {"highlight":{},"search":{"maxIndexSize":1000000},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2}};
+    gitbook.start(config);
+});
+</script>
+
+        
+    </body>
+    
+</html>

@@ -1,0 +1,814 @@
+<!DOCTYPE HTML>
+<html lang="zh-tw" >
+    <!-- Start book Flask框架 -->
+    <head>
+        <!-- head:start -->
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <title>数据库的基本操作 | Flask框架</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 2.6.7">
+        
+        
+        <meta name="HandheldFriendly" content="true"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+        <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+        
+    <link rel="stylesheet" href="../gitbook/style.css">
+    
+        
+        <link rel="stylesheet" href="../gitbook/plugins/gitbook-plugin-toggle-chapters/toggle.css">
+        
+    
+        
+        <link rel="stylesheet" href="../gitbook/plugins/gitbook-plugin-splitter/splitter.css">
+        
+    
+        
+        <link rel="stylesheet" href="../gitbook/plugins/gitbook-plugin-emphasize/plugin.css">
+        
+    
+        
+        <link rel="stylesheet" href="../gitbook/plugins/gitbook-plugin-highlight/website.css">
+        
+    
+        
+        <link rel="stylesheet" href="../gitbook/plugins/gitbook-plugin-fontsettings/website.css">
+        
+    
+    
+
+        
+    
+    
+    <link rel="next" href="../c04/s03.html" />
+    
+    
+    <link rel="prev" href="../c04/s01.html" />
+    
+
+        <!-- head:end -->
+    </head>
+    <body>
+        <!-- body:start -->
+        
+    <div class="book"
+        data-level="4.2"
+        data-chapter-title="数据库的基本操作"
+        data-filepath="c04/s02.md"
+        data-basepath=".."
+        data-revision="Sat Oct 28 2017 17:13:14 GMT+0800 (中国标准时间)"
+        data-innerlanguage="">
+    
+
+<div class="book-summary">
+    <nav role="navigation">
+        <ul class="summary">
+            
+            
+            
+            
+
+            
+
+            
+    
+        <li class="chapter " data-level="0" data-path="index.html">
+            
+                
+                    <a href="../index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                        引言
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1" data-path="c01/index.html">
+            
+                
+                    <a href="../c01/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.</b>
+                        
+                        关于Flask
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.1" data-path="c01/s01.html">
+            
+                
+                    <a href="../c01/s01.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.1.</b>
+                        
+                        了解框架
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="c01/s02.html">
+            
+                
+                    <a href="../c01/s02.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.2.</b>
+                        
+                        安装环境
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2" data-path="c02/index.html">
+            
+                
+                    <a href="../c02/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.</b>
+                        
+                        视图
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.1" data-path="c02/s01.html">
+            
+                
+                    <a href="../c02/s01.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.1.</b>
+                        
+                        从Hello World开始
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2" data-path="c02/s02.html">
+            
+                
+                    <a href="../c02/s02.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.2.</b>
+                        
+                        扩展
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="3" data-path="c03/index.html">
+            
+                
+                    <a href="../c03/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.</b>
+                        
+                        模板
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="3.1" data-path="c03/s01.html">
+            
+                
+                    <a href="../c03/s01.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.1.</b>
+                        
+                        变量
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2" data-path="c03/s02.html">
+            
+                
+                    <a href="../c03/s02.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.2.</b>
+                        
+                        过滤器
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.3" data-path="c03/s03.html">
+            
+                
+                    <a href="../c03/s03.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.3.</b>
+                        
+                        web表单
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.4" data-path="c03/s04.html">
+            
+                
+                    <a href="../c03/s04.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.4.</b>
+                        
+                        控制语句
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.5" data-path="c03/s05.html">
+            
+                
+                    <a href="../c03/s05.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.5.</b>
+                        
+                        宏、继承、包含
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.6" data-path="c03/s06.html">
+            
+                
+                    <a href="../c03/s06.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.6.</b>
+                        
+                        Flask的特殊变量和方法
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="4" data-path="c04/index.html">
+            
+                
+                    <a href="../c04/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.</b>
+                        
+                        数据库
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="4.1" data-path="c04/s01.html">
+            
+                
+                    <a href="../c04/s01.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.1.</b>
+                        
+                        数据库的设置
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter active" data-level="4.2" data-path="c04/s02.html">
+            
+                
+                    <a href="../c04/s02.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.2.</b>
+                        
+                        数据库的基本操作
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.3" data-path="c04/s03.html">
+            
+                
+                    <a href="../c04/s03.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.3.</b>
+                        
+                        自定义模型类
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.4" data-path="c04/s04.html">
+            
+                
+                    <a href="../c04/s04.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.4.</b>
+                        
+                        数据库迁移
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.5" data-path="c04/s05.html">
+            
+                
+                    <a href="../c04/s05.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.5.</b>
+                        
+                        邮件扩展
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="5" data-path="c05/index.html">
+            
+                
+                    <a href="../c05/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.</b>
+                        
+                        测试与部署
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="5.1" data-path="c05/s01.html">
+            
+                
+                    <a href="../c05/s01.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.1.</b>
+                        
+                        蓝图
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.2" data-path="c05/s02.html">
+            
+                
+                    <a href="../c05/s02.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.2.</b>
+                        
+                        单元测试
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.3" data-path="c05/s03.html">
+            
+                
+                    <a href="../c05/s03.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.3.</b>
+                        
+                        部署
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.4" data-path="c05/s04.html">
+            
+                
+                    <a href="../c05/s04.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.4.</b>
+                        
+                        RESTful
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.5" data-path="c05/s05.html">
+            
+                
+                    <a href="../c05/s05.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.5.</b>
+                        
+                        性能
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+
+            
+            <li class="divider"></li>
+            <li>
+                <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+                    本書使用 GitBook 釋出
+                </a>
+            </li>
+            
+        </ul>
+    </nav>
+</div>
+
+    <div class="book-body">
+        <div class="body-inner">
+            <div class="book-header" role="navigation">
+    <!-- Actions Left -->
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../" >Flask框架</a>
+    </h1>
+</div>
+
+            <div class="page-wrapper" tabindex="-1" role="main">
+                <div class="page-inner">
+                
+                
+                    <section class="normal" id="section-">
+                    
+                        <h1 id="42-&#x6570;&#x636E;&#x5E93;&#x57FA;&#x672C;&#x64CD;&#x4F5C;">4.2 &#x6570;&#x636E;&#x5E93;&#x57FA;&#x672C;&#x64CD;&#x4F5C;</h1>
+<p>&#x5728;Flask-SQLAlchemy&#x4E2D;&#xFF0C;&#x63D2;&#x5165;&#x3001;&#x4FEE;&#x6539;&#x3001;&#x5220;&#x9664;&#x64CD;&#x4F5C;&#xFF0C;&#x5747;&#x7531;&#x6570;&#x636E;&#x5E93;&#x4F1A;&#x8BDD;&#x7BA1;&#x7406;&#x3002;&#x4F1A;&#x8BDD;&#x7528;db.session&#x8868;&#x793A;&#x3002;&#x5728;&#x51C6;&#x5907;&#x628A;&#x6570;&#x636E;&#x5199;&#x5165;&#x6570;&#x636E;&#x5E93;&#x524D;&#xFF0C;&#x8981;&#x5148;&#x5C06;&#x6570;&#x636E;&#x6DFB;&#x52A0;&#x5230;&#x4F1A;&#x8BDD;&#x4E2D;&#x7136;&#x540E;&#x8C03;&#x7528;commit()&#x65B9;&#x6CD5;&#x63D0;&#x4EA4;&#x4F1A;&#x8BDD;&#x3002;</p>
+<p>&#x6570;&#x636E;&#x5E93;&#x4F1A;&#x8BDD;&#x662F;&#x4E3A;&#x4E86;&#x4FDD;&#x8BC1;&#x6570;&#x636E;&#x7684;&#x4E00;&#x81F4;&#x6027;&#xFF0C;&#x907F;&#x514D;&#x56E0;&#x90E8;&#x5206;&#x66F4;&#x65B0;&#x5BFC;&#x81F4;&#x6570;&#x636E;&#x4E0D;&#x4E00;&#x81F4;&#x3002;&#x63D0;&#x4EA4;&#x64CD;&#x4F5C;&#x628A;&#x4F1A;&#x8BDD;&#x5BF9;&#x8C61;&#x5168;&#x90E8;&#x5199;&#x5165;&#x6570;&#x636E;&#x5E93;&#xFF0C;&#x5982;&#x679C;&#x5199;&#x5165;&#x8FC7;&#x7A0B;&#x53D1;&#x751F;&#x9519;&#x8BEF;&#xFF0C;&#x6574;&#x4E2A;&#x4F1A;&#x8BDD;&#x90FD;&#x4F1A;&#x5931;&#x6548;&#x3002;</p>
+<p>&#x6570;&#x636E;&#x5E93;&#x4F1A;&#x8BDD;&#x4E5F;&#x53EF;&#x4EE5;&#x56DE;&#x6EDA;&#xFF0C;&#x901A;&#x8FC7;db.session.rollback()&#x65B9;&#x6CD5;&#xFF0C;&#x5B9E;&#x73B0;&#x4F1A;&#x8BDD;&#x63D0;&#x4EA4;&#x6570;&#x636E;&#x524D;&#x7684;&#x72B6;&#x6001;&#x3002;</p>
+<p>&#x5728;Flask-SQLAlchemy&#x4E2D;&#xFF0C;&#x67E5;&#x8BE2;&#x64CD;&#x4F5C;&#x662F;&#x901A;&#x8FC7;query&#x5BF9;&#x8C61;&#x64CD;&#x4F5C;&#x6570;&#x636E;&#x3002;&#x6700;&#x57FA;&#x672C;&#x7684;&#x67E5;&#x8BE2;&#x662F;&#x8FD4;&#x56DE;&#x8868;&#x4E2D;&#x6240;&#x6709;&#x6570;&#x636E;&#xFF0C;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x8FC7;&#x6EE4;&#x5668;&#x8FDB;&#x884C;&#x66F4;&#x7CBE;&#x786E;&#x7684;&#x6570;&#x636E;&#x5E93;&#x67E5;&#x8BE2;&#x3002;</p>
+<h3 id="&#x5C06;&#x6570;&#x636E;&#x6DFB;&#x52A0;&#x5230;&#x4F1A;&#x8BDD;&#x4E2D;&#x793A;&#x4F8B;&#xFF1A;">&#x5C06;&#x6570;&#x636E;&#x6DFB;&#x52A0;&#x5230;&#x4F1A;&#x8BDD;&#x4E2D;&#x793A;&#x4F8B;&#xFF1A;</h3>
+<pre><code class="lang-base">user = User(name=&apos;python&apos;)
+db.session.add(user)
+db.session.commit()
+</code></pre>
+<h3 id="&#x5728;&#x89C6;&#x56FE;&#x51FD;&#x6570;&#x4E2D;&#x5B9A;&#x4E49;&#x6A21;&#x578B;&#x7C7B;">&#x5728;&#x89C6;&#x56FE;&#x51FD;&#x6570;&#x4E2D;&#x5B9A;&#x4E49;&#x6A21;&#x578B;&#x7C7B;</h3>
+<pre><code class="lang-python"><span class="hljs-keyword">from</span> flask <span class="hljs-keyword">import</span> Flask
+<span class="hljs-keyword">from</span> flask_sqlalchemy <span class="hljs-keyword">import</span> SQLAlchemy
+
+
+app = Flask(__name__)
+
+<span class="hljs-comment">#&#x8BBE;&#x7F6E;&#x8FDE;&#x63A5;&#x6570;&#x636E;&#x5E93;&#x7684;URL</span>
+app.config[<span class="hljs-string">&apos;SQLALCHEMY_DATABASE_URI&apos;</span>] = <span class="hljs-string">&apos;mysql://root:mysql@127.0.0.1:3306/Flask_test&apos;</span>
+
+<span class="hljs-comment">#&#x8BBE;&#x7F6E;&#x6BCF;&#x6B21;&#x8BF7;&#x6C42;&#x7ED3;&#x675F;&#x540E;&#x4F1A;&#x81EA;&#x52A8;&#x63D0;&#x4EA4;&#x6570;&#x636E;&#x5E93;&#x4E2D;&#x7684;&#x6539;&#x52A8;</span>
+app.config[<span class="hljs-string">&apos;SQLALCHEMY_COMMIT_ON_TEARDOWN&apos;</span>] = <span class="hljs-keyword">True</span>
+
+app.config[<span class="hljs-string">&apos;SQLALCHEMY_TRACK_MODIFICATIONS&apos;</span>] = <span class="hljs-keyword">True</span>
+<span class="hljs-comment">#&#x67E5;&#x8BE2;&#x65F6;&#x4F1A;&#x663E;&#x793A;&#x539F;&#x59CB;SQL&#x8BED;&#x53E5;</span>
+app.config[<span class="hljs-string">&apos;SQLALCHEMY_ECHO&apos;</span>] = <span class="hljs-keyword">True</span>
+db = SQLAlchemy(app)
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Role</span><span class="hljs-params">(db.Model)</span>:</span>
+    <span class="hljs-comment"># &#x5B9A;&#x4E49;&#x8868;&#x540D;</span>
+    __tablename__ = <span class="hljs-string">&apos;roles&apos;</span>
+    <span class="hljs-comment"># &#x5B9A;&#x4E49;&#x5217;&#x5BF9;&#x8C61;</span>
+    id = db.Column(db.Integer, primary_key=<span class="hljs-keyword">True</span>)
+    name = db.Column(db.String(<span class="hljs-number">64</span>), unique=<span class="hljs-keyword">True</span>)
+    us = db.relationship(<span class="hljs-string">&apos;User&apos;</span>, backref=<span class="hljs-string">&apos;role&apos;</span>)
+
+    <span class="hljs-comment">#repr()&#x65B9;&#x6CD5;&#x663E;&#x793A;&#x4E00;&#x4E2A;&#x53EF;&#x8BFB;&#x5B57;&#x7B26;&#x4E32;</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__repr__</span><span class="hljs-params">(self)</span>:</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-string">&apos;Role:%s&apos;</span>% self.name
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">User</span><span class="hljs-params">(db.Model)</span>:</span>
+    __tablename__ = <span class="hljs-string">&apos;users&apos;</span>
+    id = db.Column(db.Integer, primary_key=<span class="hljs-keyword">True</span>)
+    name = db.Column(db.String(<span class="hljs-number">64</span>), unique=<span class="hljs-keyword">True</span>, index=<span class="hljs-keyword">True</span>)
+    email = db.Column(db.String(<span class="hljs-number">64</span>),unique=<span class="hljs-keyword">True</span>)
+    pswd = db.Column(db.String(<span class="hljs-number">64</span>))
+    role_id = db.Column(db.Integer, db.ForeignKey(<span class="hljs-string">&apos;roles.id&apos;</span>))
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__repr__</span><span class="hljs-params">(self)</span>:</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-string">&apos;User:%s&apos;</span>%self.name
+<span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&apos;__main__&apos;</span>:
+    db.drop_all()
+    db.create_all()
+    ro1 = Role(name=<span class="hljs-string">&apos;admin&apos;</span>)
+    ro2 = Role(name=<span class="hljs-string">&apos;user&apos;</span>)
+    db.session.add_all([ro1,ro2])
+    db.session.commit()
+    us1 = User(name=<span class="hljs-string">&apos;wang&apos;</span>,email=<span class="hljs-string">&apos;wang@163.com&apos;</span>,pswd=<span class="hljs-string">&apos;123456&apos;</span>,role_id=ro1.id)
+    us2 = User(name=<span class="hljs-string">&apos;zhang&apos;</span>,email=<span class="hljs-string">&apos;zhang@189.com&apos;</span>,pswd=<span class="hljs-string">&apos;201512&apos;</span>,role_id=ro2.id)
+    us3 = User(name=<span class="hljs-string">&apos;chen&apos;</span>,email=<span class="hljs-string">&apos;chen@126.com&apos;</span>,pswd=<span class="hljs-string">&apos;987654&apos;</span>,role_id=ro2.id)
+    us4 = User(name=<span class="hljs-string">&apos;zhou&apos;</span>,email=<span class="hljs-string">&apos;zhou@163.com&apos;</span>,pswd=<span class="hljs-string">&apos;456789&apos;</span>,role_id=ro1.id)
+    db.session.add_all([us1,us2,us3,us4])
+    db.session.commit()
+    app.run(debug=<span class="hljs-keyword">True</span>)
+</code></pre>
+<h3 id="&#x5E38;&#x7528;&#x7684;sqlalchemy&#x67E5;&#x8BE2;&#x8FC7;&#x6EE4;&#x5668;">&#x5E38;&#x7528;&#x7684;SQLAlchemy&#x67E5;&#x8BE2;&#x8FC7;&#x6EE4;&#x5668;</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">&#x8FC7;&#x6EE4;&#x5668;</th>
+<th style="text-align:center">&#x8BF4;&#x660E;</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">filter()</td>
+<td style="text-align:center">&#x628A;&#x8FC7;&#x6EE4;&#x5668;&#x6DFB;&#x52A0;&#x5230;&#x539F;&#x67E5;&#x8BE2;&#x4E0A;&#xFF0C;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x65B0;&#x67E5;&#x8BE2;</td>
+</tr>
+<tr>
+<td style="text-align:center">filter_by()</td>
+<td style="text-align:center">&#x628A;&#x7B49;&#x503C;&#x8FC7;&#x6EE4;&#x5668;&#x6DFB;&#x52A0;&#x5230;&#x539F;&#x67E5;&#x8BE2;&#x4E0A;&#xFF0C;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x65B0;&#x67E5;&#x8BE2;</td>
+</tr>
+<tr>
+<td style="text-align:center">limit</td>
+<td style="text-align:center">&#x4F7F;&#x7528;&#x6307;&#x5B9A;&#x7684;&#x503C;&#x9650;&#x5B9A;&#x539F;&#x67E5;&#x8BE2;&#x8FD4;&#x56DE;&#x7684;&#x7ED3;&#x679C;</td>
+</tr>
+<tr>
+<td style="text-align:center">offset()</td>
+<td style="text-align:center">&#x504F;&#x79FB;&#x539F;&#x67E5;&#x8BE2;&#x8FD4;&#x56DE;&#x7684;&#x7ED3;&#x679C;&#xFF0C;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x65B0;&#x67E5;&#x8BE2;</td>
+</tr>
+<tr>
+<td style="text-align:center">order_by()</td>
+<td style="text-align:center">&#x6839;&#x636E;&#x6307;&#x5B9A;&#x6761;&#x4EF6;&#x5BF9;&#x539F;&#x67E5;&#x8BE2;&#x7ED3;&#x679C;&#x8FDB;&#x884C;&#x6392;&#x5E8F;&#xFF0C;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x65B0;&#x67E5;&#x8BE2;</td>
+</tr>
+<tr>
+<td style="text-align:center">group_by()</td>
+<td style="text-align:center">&#x6839;&#x636E;&#x6307;&#x5B9A;&#x6761;&#x4EF6;&#x5BF9;&#x539F;&#x67E5;&#x8BE2;&#x7ED3;&#x679C;&#x8FDB;&#x884C;&#x5206;&#x7EC4;&#xFF0C;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x65B0;&#x67E5;&#x8BE2;</td>
+</tr>
+</tbody>
+</table>
+<h3 id="&#x5E38;&#x7528;&#x7684;sqlalchemy&#x67E5;&#x8BE2;&#x6267;&#x884C;&#x5668;">&#x5E38;&#x7528;&#x7684;SQLAlchemy&#x67E5;&#x8BE2;&#x6267;&#x884C;&#x5668;</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">&#x65B9;&#x6CD5;</th>
+<th style="text-align:center">&#x8BF4;&#x660E;</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">all()</td>
+<td style="text-align:center">&#x4EE5;&#x5217;&#x8868;&#x5F62;&#x5F0F;&#x8FD4;&#x56DE;&#x67E5;&#x8BE2;&#x7684;&#x6240;&#x6709;&#x7ED3;&#x679C;</td>
+</tr>
+<tr>
+<td style="text-align:center">first()</td>
+<td style="text-align:center">&#x8FD4;&#x56DE;&#x67E5;&#x8BE2;&#x7684;&#x7B2C;&#x4E00;&#x4E2A;&#x7ED3;&#x679C;&#xFF0C;&#x5982;&#x679C;&#x672A;&#x67E5;&#x5230;&#xFF0C;&#x8FD4;&#x56DE;None</td>
+</tr>
+<tr>
+<td style="text-align:center">first_or_404()</td>
+<td style="text-align:center">&#x8FD4;&#x56DE;&#x67E5;&#x8BE2;&#x7684;&#x7B2C;&#x4E00;&#x4E2A;&#x7ED3;&#x679C;&#xFF0C;&#x5982;&#x679C;&#x672A;&#x67E5;&#x5230;&#xFF0C;&#x8FD4;&#x56DE;404</td>
+</tr>
+<tr>
+<td style="text-align:center">get()</td>
+<td style="text-align:center">&#x8FD4;&#x56DE;&#x6307;&#x5B9A;&#x4E3B;&#x952E;&#x5BF9;&#x5E94;&#x7684;&#x884C;&#xFF0C;&#x5982;&#x4E0D;&#x5B58;&#x5728;&#xFF0C;&#x8FD4;&#x56DE;None</td>
+</tr>
+<tr>
+<td style="text-align:center">get_or_404()</td>
+<td style="text-align:center">&#x8FD4;&#x56DE;&#x6307;&#x5B9A;&#x4E3B;&#x952E;&#x5BF9;&#x5E94;&#x7684;&#x884C;&#xFF0C;&#x5982;&#x4E0D;&#x5B58;&#x5728;&#xFF0C;&#x8FD4;&#x56DE;404</td>
+</tr>
+<tr>
+<td style="text-align:center">count()</td>
+<td style="text-align:center">&#x8FD4;&#x56DE;&#x67E5;&#x8BE2;&#x7ED3;&#x679C;&#x7684;&#x6570;&#x91CF;</td>
+</tr>
+<tr>
+<td style="text-align:center">paginate()</td>
+<td style="text-align:center">&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;Paginate&#x5BF9;&#x8C61;&#xFF0C;&#x5B83;&#x5305;&#x542B;&#x6307;&#x5B9A;&#x8303;&#x56F4;&#x5185;&#x7684;&#x7ED3;&#x679C;</td>
+</tr>
+</tbody>
+</table>
+<h3 id="&#x521B;&#x5EFA;&#x8868;&#xFF1A;">&#x521B;&#x5EFA;&#x8868;&#xFF1A;</h3>
+<pre><code class="lang-python">db.create_all()
+</code></pre>
+<h3 id="&#x5220;&#x9664;&#x8868;">&#x5220;&#x9664;&#x8868;</h3>
+<pre><code class="lang-python">db.drop_all()
+</code></pre>
+<h3 id="&#x63D2;&#x5165;&#x4E00;&#x6761;&#x6570;&#x636E;">&#x63D2;&#x5165;&#x4E00;&#x6761;&#x6570;&#x636E;</h3>
+<pre><code class="lang-python">ro1 = Role(name=<span class="hljs-string">&apos;admin&apos;</span>)
+db.session.add(ro1)
+db.session.commit()
+<span class="hljs-comment">#&#x518D;&#x6B21;&#x63D2;&#x5165;&#x4E00;&#x6761;&#x6570;&#x636E;</span>
+ro2 = Role(name=<span class="hljs-string">&apos;user&apos;</span>)
+db.session.add(ro2)
+db.session.commit()
+</code></pre>
+<h3 id="&#x4E00;&#x6B21;&#x63D2;&#x5165;&#x591A;&#x6761;&#x6570;&#x636E;">&#x4E00;&#x6B21;&#x63D2;&#x5165;&#x591A;&#x6761;&#x6570;&#x636E;</h3>
+<pre><code class="lang-python">us1 = User(name=<span class="hljs-string">&apos;wang&apos;</span>,email=<span class="hljs-string">&apos;wang@163.com&apos;</span>,pswd=<span class="hljs-string">&apos;123456&apos;</span>,role_id=ro1.id)
+us2 = User(name=<span class="hljs-string">&apos;zhang&apos;</span>,email=<span class="hljs-string">&apos;zhang@189.com&apos;</span>,pswd=<span class="hljs-string">&apos;201512&apos;</span>,role_id=ro2.id)
+us3 = User(name=<span class="hljs-string">&apos;chen&apos;</span>,email=<span class="hljs-string">&apos;chen@126.com&apos;</span>,pswd=<span class="hljs-string">&apos;987654&apos;</span>,role_id=ro2.id)
+us4 = User(name=<span class="hljs-string">&apos;zhou&apos;</span>,email=<span class="hljs-string">&apos;zhou@163.com&apos;</span>,pswd=<span class="hljs-string">&apos;456789&apos;</span>,role_id=ro1.id)
+db.session.add_all([us1,us2,us3,us4])
+db.session.commit()
+</code></pre>
+<h3 id="&#x67E5;&#x8BE2;filterby&#x7CBE;&#x786E;&#x67E5;&#x8BE2;-"><strong> &#x67E5;&#x8BE2;:filter_by&#x7CBE;&#x786E;&#x67E5;&#x8BE2; </strong></h3>
+<p>&#x8FD4;&#x56DE;&#x540D;&#x5B57;&#x7B49;&#x4E8E;wang&#x7684;&#x6240;&#x6709;&#x4EBA;</p>
+<pre><code class="lang-python">User.query.filter_by(name=<span class="hljs-string">&apos;wang&apos;</span>).all()
+</code></pre>
+<p><img src="../images/&#x7CBE;&#x786E;&#x67E5;&#x8BE2;.png" alt="&#x7CBE;&#x786E;&#x67E5;&#x8BE2;"></p>
+<h3 id="first&#x8FD4;&#x56DE;&#x67E5;&#x8BE2;&#x5230;&#x7684;&#x7B2C;&#x4E00;&#x4E2A;&#x5BF9;&#x8C61;">first()&#x8FD4;&#x56DE;&#x67E5;&#x8BE2;&#x5230;&#x7684;&#x7B2C;&#x4E00;&#x4E2A;&#x5BF9;&#x8C61;</h3>
+<pre><code class="lang-python">User.query.first()
+</code></pre>
+<h3 id="all&#x8FD4;&#x56DE;&#x67E5;&#x8BE2;&#x5230;&#x7684;&#x6240;&#x6709;&#x5BF9;&#x8C61;">all()&#x8FD4;&#x56DE;&#x67E5;&#x8BE2;&#x5230;&#x7684;&#x6240;&#x6709;&#x5BF9;&#x8C61;</h3>
+<pre><code class="lang-python">User.query.all()
+</code></pre>
+<p><img src="../images/&#x67E5;&#x8BE2;&#x6240;&#x6709;.png" alt="&#x67E5;&#x8BE2;&#x6240;&#x6709;"></p>
+<h3 id="filter&#x6A21;&#x7CCA;&#x67E5;&#x8BE2;&#xFF0C;&#x8FD4;&#x56DE;&#x540D;&#x5B57;&#x7ED3;&#x5C3E;&#x5B57;&#x7B26;&#x4E3A;g&#x7684;&#x6240;&#x6709;&#x6570;&#x636E;&#x3002;">filter&#x6A21;&#x7CCA;&#x67E5;&#x8BE2;&#xFF0C;&#x8FD4;&#x56DE;&#x540D;&#x5B57;&#x7ED3;&#x5C3E;&#x5B57;&#x7B26;&#x4E3A;g&#x7684;&#x6240;&#x6709;&#x6570;&#x636E;&#x3002;</h3>
+<pre><code class="lang-python">User.query.filter(User.name.endswith(<span class="hljs-string">&apos;g&apos;</span>)).all()
+</code></pre>
+<p><img src="../images/&#x7ED3;&#x5C3E;&#x4E3A;g.png" alt="&#x7ED3;&#x5C3E;&#x4E3A;g"></p>
+<h3 id="get&#xFF0C;&#x53C2;&#x6570;&#x4E3A;&#x4E3B;&#x952E;&#xFF0C;&#x5982;&#x679C;&#x4E3B;&#x952E;&#x4E0D;&#x5B58;&#x5728;&#x6CA1;&#x6709;&#x8FD4;&#x56DE;&#x5185;&#x5BB9;">get()&#xFF0C;&#x53C2;&#x6570;&#x4E3A;&#x4E3B;&#x952E;&#xFF0C;&#x5982;&#x679C;&#x4E3B;&#x952E;&#x4E0D;&#x5B58;&#x5728;&#x6CA1;&#x6709;&#x8FD4;&#x56DE;&#x5185;&#x5BB9;</h3>
+<pre><code class="lang-python">User.query.get()
+</code></pre>
+<h3 id="&#x903B;&#x8F91;&#x975E;&#xFF0C;&#x8FD4;&#x56DE;&#x540D;&#x5B57;&#x4E0D;&#x7B49;&#x4E8E;wang&#x7684;&#x6240;&#x6709;&#x6570;&#x636E;&#x3002;">&#x903B;&#x8F91;&#x975E;&#xFF0C;&#x8FD4;&#x56DE;&#x540D;&#x5B57;&#x4E0D;&#x7B49;&#x4E8E;wang&#x7684;&#x6240;&#x6709;&#x6570;&#x636E;&#x3002;</h3>
+<pre><code class="lang-python">User.query.filter(User.name!=<span class="hljs-string">&apos;wang&apos;</span>).all()
+</code></pre>
+<p><img src="../images/&#x903B;&#x8F91;&#x975E;.png" alt="&#x903B;&#x8F91;&#x975E;"></p>
+<h3 id="&#x903B;&#x8F91;&#x4E0E;&#xFF0C;&#x9700;&#x8981;&#x5BFC;&#x5165;and&#xFF0C;&#x8FD4;&#x56DE;and&#x6761;&#x4EF6;&#x6EE1;&#x8DB3;&#x7684;&#x6240;&#x6709;&#x6570;&#x636E;&#x3002;">&#x903B;&#x8F91;&#x4E0E;&#xFF0C;&#x9700;&#x8981;&#x5BFC;&#x5165;and<em>&#xFF0C;&#x8FD4;&#x56DE;and</em>()&#x6761;&#x4EF6;&#x6EE1;&#x8DB3;&#x7684;&#x6240;&#x6709;&#x6570;&#x636E;&#x3002;</h3>
+<pre><code class="lang-python"><span class="hljs-keyword">from</span> sqlalchemy <span class="hljs-keyword">import</span> and_
+User.query.filter(and_(User.name!=<span class="hljs-string">&apos;wang&apos;</span>,User.email.endswith(<span class="hljs-string">&apos;163.com&apos;</span>))).all()
+</code></pre>
+<p><img src="../images/and_.png" alt="and_"></p>
+<h3 id="&#x903B;&#x8F91;&#x6216;&#xFF0C;&#x9700;&#x8981;&#x5BFC;&#x5165;or">&#x903B;&#x8F91;&#x6216;&#xFF0C;&#x9700;&#x8981;&#x5BFC;&#x5165;or_</h3>
+<pre><code class="lang-python"><span class="hljs-keyword">from</span> sqlalchemy <span class="hljs-keyword">import</span> or_
+User.query.filter(or_(User.name!=<span class="hljs-string">&apos;wang&apos;</span>,User.email.endswith(<span class="hljs-string">&apos;163.com&apos;</span>))).all()
+</code></pre>
+<p><img src="../images/or_.png" alt="or_"></p>
+<h3 id="not-&#x76F8;&#x5F53;&#x4E8E;&#x53D6;&#x53CD;">not_ &#x76F8;&#x5F53;&#x4E8E;&#x53D6;&#x53CD;</h3>
+<pre><code class="lang-python"><span class="hljs-keyword">from</span> sqlalchemy <span class="hljs-keyword">import</span> not_
+User.query.filter(not_(User.name==<span class="hljs-string">&apos;chen&apos;</span>)).all()
+</code></pre>
+<p><img src="../images/not_.png" alt="not_"></p>
+<h3 id="&#x67E5;&#x8BE2;&#x6570;&#x636E;&#x540E;&#x5220;&#x9664;">&#x67E5;&#x8BE2;&#x6570;&#x636E;&#x540E;&#x5220;&#x9664;</h3>
+<pre><code class="lang-python">user = User.query.first()
+db.session.delete(user)
+db.session.commit()
+User.query.all()
+</code></pre>
+<h3 id="&#x66F4;&#x65B0;&#x6570;&#x636E;">&#x66F4;&#x65B0;&#x6570;&#x636E;</h3>
+<pre><code class="lang-python">user = User.query.first()
+user.name = <span class="hljs-string">&apos;dong&apos;</span>
+db.session.commit()
+User.query.first()
+</code></pre>
+<p><img src="../images/&#x66F4;&#x65B0;&#x6570;&#x636E;.png" alt="&#x66F4;&#x65B0;&#x6570;&#x636E;"></p>
+<h3 id="&#x4F7F;&#x7528;update">&#x4F7F;&#x7528;update</h3>
+<pre><code class="lang-python">User.query.filter_by(name=<span class="hljs-string">&apos;zhang&apos;</span>).update({<span class="hljs-string">&apos;name&apos;</span>:<span class="hljs-string">&apos;li&apos;</span>})
+</code></pre>
+<p><img src="../images/update.png" alt="&#x66F4;&#x65B0;&#x6570;&#x636E;"></p>
+<h3 id="&#x5173;&#x8054;&#x67E5;&#x8BE2;&#x793A;&#x4F8B;&#xFF1A;&#x89D2;&#x8272;&#x548C;&#x7528;&#x6237;&#x7684;&#x5173;&#x7CFB;&#x662F;&#x4E00;&#x5BF9;&#x591A;&#x7684;&#x5173;&#x7CFB;&#xFF0C;&#x4E00;&#x4E2A;&#x89D2;&#x8272;&#x53EF;&#x4EE5;&#x6709;&#x591A;&#x4E2A;&#x7528;&#x6237;&#xFF0C;&#x4E00;&#x4E2A;&#x7528;&#x6237;&#x53EA;&#x80FD;&#x5C5E;&#x4E8E;&#x4E00;&#x4E2A;&#x89D2;&#x8272;&#x3002;">&#x5173;&#x8054;&#x67E5;&#x8BE2;&#x793A;&#x4F8B;&#xFF1A;&#x89D2;&#x8272;&#x548C;&#x7528;&#x6237;&#x7684;&#x5173;&#x7CFB;&#x662F;&#x4E00;&#x5BF9;&#x591A;&#x7684;&#x5173;&#x7CFB;&#xFF0C;&#x4E00;&#x4E2A;&#x89D2;&#x8272;&#x53EF;&#x4EE5;&#x6709;&#x591A;&#x4E2A;&#x7528;&#x6237;&#xFF0C;&#x4E00;&#x4E2A;&#x7528;&#x6237;&#x53EA;&#x80FD;&#x5C5E;&#x4E8E;&#x4E00;&#x4E2A;&#x89D2;&#x8272;&#x3002;</h3>
+<h4 id="&#x67E5;&#x8BE2;&#x89D2;&#x8272;&#x7684;&#x6240;&#x6709;&#x7528;&#x6237;&#xFF1A;">&#x67E5;&#x8BE2;&#x89D2;&#x8272;&#x7684;&#x6240;&#x6709;&#x7528;&#x6237;&#xFF1A;</h4>
+<pre><code class="lang-python"><span class="hljs-comment">#&#x67E5;&#x8BE2;roles&#x8868;id&#x4E3A;1&#x7684;&#x89D2;&#x8272;</span>
+ro1 = Role.query.get(<span class="hljs-number">1</span>)
+<span class="hljs-comment">#&#x67E5;&#x8BE2;&#x8BE5;&#x89D2;&#x8272;&#x7684;&#x6240;&#x6709;&#x7528;&#x6237;</span>
+ro1.us
+</code></pre>
+<p><img src="../images/&#x67E5;&#x8BE2;admin&#x7684;&#x6240;&#x6709;user.png" alt="&#x67E5;&#x8BE2;admin&#x7684;&#x6240;&#x6709;user"></p>
+<h4 id="&#x67E5;&#x8BE2;&#x7528;&#x6237;&#x6240;&#x5C5E;&#x89D2;&#x8272;&#xFF1A;">&#x67E5;&#x8BE2;&#x7528;&#x6237;&#x6240;&#x5C5E;&#x89D2;&#x8272;&#xFF1A;</h4>
+<pre><code class="lang-python"><span class="hljs-comment">#&#x67E5;&#x8BE2;users&#x8868;id&#x4E3A;3&#x7684;&#x7528;&#x6237;</span>
+us1 = User.query.get(<span class="hljs-number">3</span>)
+<span class="hljs-comment">#&#x67E5;&#x8BE2;&#x7528;&#x6237;&#x5C5E;&#x4E8E;&#x4EC0;&#x4E48;&#x89D2;&#x8272;</span>
+us1.role
+</code></pre>
+<p><img src="../images/&#x67E5;&#x8BE2;&#x7528;&#x6237;&#x6240;&#x5C5E;&#x89D2;&#x8272;.png" alt="&#x67E5;&#x8BE2;&#x7528;&#x6237;&#x6240;&#x5C5E;&#x89D2;&#x8272;"></p>
+
+                    
+                    </section>
+                
+                
+                </div>
+            </div>
+        </div>
+
+        
+        <a href="../c04/s01.html" class="navigation navigation-prev " aria-label="Previous page: 数据库的设置"><i class="fa fa-angle-left"></i></a>
+        
+        
+        <a href="../c04/s03.html" class="navigation navigation-next " aria-label="Next page: 自定义模型类"><i class="fa fa-angle-right"></i></a>
+        
+    </div>
+</div>
+
+        
+<script src="../gitbook/app.js"></script>
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-toggle-chapters/toggle.js"></script>
+    
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-splitter/splitter.js"></script>
+    
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-sharing/buttons.js"></script>
+    
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-fontsettings/buttons.js"></script>
+    
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-livereload/plugin.js"></script>
+    
+
+<script>
+require(["gitbook"], function(gitbook) {
+    var config = {"toggle-chapters":{},"splitter":{},"emphasize":{},"highlight":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"livereload":{}};
+    gitbook.start(config);
+});
+</script>
+
+        <!-- body:end -->
+    </body>
+    <!-- End of book Flask框架 -->
+</html>

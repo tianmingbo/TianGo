@@ -1,0 +1,861 @@
+<!DOCTYPE HTML>
+<html lang="en" >
+    
+    <head>
+        
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <title>7.2 Tornado异步 | 引言</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 2.6.7">
+        
+        
+        <meta name="HandheldFriendly" content="true"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+        <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+        
+    <link rel="stylesheet" href="../gitbook/style.css">
+    
+        
+        <link rel="stylesheet" href="../gitbook/plugins/gitbook-plugin-highlight/website.css">
+        
+    
+        
+        <link rel="stylesheet" href="../gitbook/plugins/gitbook-plugin-search/search.css">
+        
+    
+        
+        <link rel="stylesheet" href="../gitbook/plugins/gitbook-plugin-fontsettings/website.css">
+        
+    
+    
+
+        
+    
+    
+    <link rel="next" href="../c07/s03.html" />
+    
+    
+    <link rel="prev" href="../c07/s01.html" />
+    
+
+        
+    </head>
+    <body>
+        
+        
+    <div class="book"
+        data-level="7.2"
+        data-chapter-title="7.2 Tornado异步"
+        data-filepath="c07/s02.md"
+        data-basepath=".."
+        data-revision="Fri Feb 10 2017 17:36:30 GMT+0800 (CST)"
+        data-innerlanguage="">
+    
+
+<div class="book-summary">
+    <nav role="navigation">
+        <ul class="summary">
+            
+            
+            
+            
+
+            
+
+            
+    
+        <li class="chapter " data-level="0" data-path="index.html">
+            
+                
+                    <a href="../index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                        引言
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1" data-path="c01/index.html">
+            
+                
+                    <a href="../c01/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.</b>
+                        
+                        1 关于Tornado
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.1" data-path="c01/s01.html">
+            
+                
+                    <a href="../c01/s01.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.1.</b>
+                        
+                        1.1 Tornado是为何物
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="c01/s02.html">
+            
+                
+                    <a href="../c01/s02.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.2.</b>
+                        
+                        1.2 Tornado与Django
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2" data-path="c02/index.html">
+            
+                
+                    <a href="../c02/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.</b>
+                        
+                        2 初识Tornado
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.1" data-path="c02/s01.html">
+            
+                
+                    <a href="../c02/s01.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.1.</b>
+                        
+                        2.1 安装
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2" data-path="c02/s02.html">
+            
+                
+                    <a href="../c02/s02.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.2.</b>
+                        
+                        2.2 Hello Itcast
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.3" data-path="c02/s03.html">
+            
+                
+                    <a href="../c02/s03.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.3.</b>
+                        
+                        2.3 httpserver
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.4" data-path="c02/s04.html">
+            
+                
+                    <a href="../c02/s04.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.4.</b>
+                        
+                        2.4 options
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.5" data-path="c02/s05.html">
+            
+                
+                    <a href="../c02/s05.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.5.</b>
+                        
+                        2.5 练习
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="3" data-path="c03/index.html">
+            
+                
+                    <a href="../c03/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.</b>
+                        
+                        3 深入Tornado
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="3.1" data-path="c03/s01.html">
+            
+                
+                    <a href="../c03/s01.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.1.</b>
+                        
+                        3.1 Application
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2" data-path="c03/s02.html">
+            
+                
+                    <a href="../c03/s02.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.2.</b>
+                        
+                        3.2 输入
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.3" data-path="c03/s03.html">
+            
+                
+                    <a href="../c03/s03.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.3.</b>
+                        
+                        3.3 输出
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.4" data-path="c03/s04.html">
+            
+                
+                    <a href="../c03/s04.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.4.</b>
+                        
+                        3.4 接口与调用顺序
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.5" data-path="c03/s05.html">
+            
+                
+                    <a href="../c03/s05.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.5.</b>
+                        
+                        3.5 练习
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="4" data-path="c04/index.html">
+            
+                
+                    <a href="../c04/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.</b>
+                        
+                        4 模板
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="4.1" data-path="c04/s01.html">
+            
+                
+                    <a href="../c04/s01.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.1.</b>
+                        
+                        4.1 静态文件
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2" data-path="c04/s02.html">
+            
+                
+                    <a href="../c04/s02.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.2.</b>
+                        
+                        4.2 使用模板
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.3" data-path="c04/s03.html">
+            
+                
+                    <a href="../c04/s03.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.3.</b>
+                        
+                        4.3 练习
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="5" data-path="c05/index.html">
+            
+                
+                    <a href="../c05/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.</b>
+                        
+                        5 数据库
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="5.1" data-path="c05/s01.html">
+            
+                
+                    <a href="../c05/s01.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.1.</b>
+                        
+                        5.1 数据库
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.2" data-path="c05/s02.html">
+            
+                
+                    <a href="../c05/s02.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.2.</b>
+                        
+                        5.2 练习
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="6" data-path="c06/index.html">
+            
+                
+                    <a href="../c06/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.</b>
+                        
+                        6 安全应用
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="6.1" data-path="c06/s01.html">
+            
+                
+                    <a href="../c06/s01.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.1.</b>
+                        
+                        6.1 Cookie
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6.2" data-path="c06/s02.html">
+            
+                
+                    <a href="../c06/s02.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.2.</b>
+                        
+                        6.2 XSRF
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6.3" data-path="c06/s03.html">
+            
+                
+                    <a href="../c06/s03.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.3.</b>
+                        
+                        6.3 用户验证
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6.4" data-path="c06/s04.html">
+            
+                
+                    <a href="../c06/s04.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.4.</b>
+                        
+                        6.4 练习
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="7" data-path="c07/index.html">
+            
+                
+                    <a href="../c07/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>7.</b>
+                        
+                        7 异步与WebSocket
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="7.1" data-path="c07/s01.html">
+            
+                
+                    <a href="../c07/s01.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>7.1.</b>
+                        
+                        7.1 认识异步
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter active" data-level="7.2" data-path="c07/s02.html">
+            
+                
+                    <a href="../c07/s02.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>7.2.</b>
+                        
+                        7.2 Tornado异步
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="7.3" data-path="c07/s03.html">
+            
+                
+                    <a href="../c07/s03.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>7.3.</b>
+                        
+                        7.3 WebSocket
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="7.4" data-path="c07/s04.html">
+            
+                
+                    <a href="../c07/s04.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>7.4.</b>
+                        
+                        7.4 练习
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="8" data-path="c08/index.html">
+            
+                
+                    <a href="../c08/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.</b>
+                        
+                        8 部署
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="8.1" data-path="c08/s01.html">
+            
+                
+                    <a href="../c08/s01.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.1.</b>
+                        
+                        8.1 部署Tornado
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+
+            
+            <li class="divider"></li>
+            <li>
+                <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+                    Published with GitBook
+                </a>
+            </li>
+            
+        </ul>
+    </nav>
+</div>
+
+    <div class="book-body">
+        <div class="body-inner">
+            <div class="book-header" role="navigation">
+    <!-- Actions Left -->
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../" >引言</a>
+    </h1>
+</div>
+
+            <div class="page-wrapper" tabindex="-1" role="main">
+                <div class="page-inner">
+                
+                
+                    <section class="normal" id="section-">
+                    
+                        <h1 id="72-tornado&#x5F02;&#x6B65;">7.2 Tornado&#x5F02;&#x6B65;</h1>
+<p>&#x56E0;&#x4E3A;epoll&#x4E3B;&#x8981;&#x662F;&#x7528;&#x6765;&#x89E3;&#x51B3;&#x7F51;&#x7EDC;IO&#x7684;&#x5E76;&#x53D1;&#x95EE;&#x9898;&#xFF0C;&#x6240;&#x4EE5;Tornado&#x7684;&#x5F02;&#x6B65;&#x7F16;&#x7A0B;&#x4E5F;&#x4E3B;&#x8981;&#x4F53;&#x73B0;&#x5728;&#x7F51;&#x7EDC;IO&#x7684;&#x5F02;&#x6B65;&#x4E0A;&#xFF0C;&#x5373;&#x5F02;&#x6B65;Web&#x8BF7;&#x6C42;&#x3002;</p>
+<h2 id="1-tornadohttpclientasynchttpclient">1. tornado.httpclient.AsyncHTTPClient</h2>
+<p>Tornado&#x63D0;&#x4F9B;&#x4E86;&#x4E00;&#x4E2A;&#x5F02;&#x6B65;Web&#x8BF7;&#x6C42;&#x5BA2;&#x6237;&#x7AEF;tornado.httpclient.AsyncHTTPClient&#x7528;&#x6765;&#x8FDB;&#x884C;&#x5F02;&#x6B65;Web&#x8BF7;&#x6C42;&#x3002;</p>
+<h3 id="fetchrequest-callbacknone">fetch(request, callback=None)</h3>
+<p>&#x7528;&#x4E8E;&#x6267;&#x884C;&#x4E00;&#x4E2A;web&#x8BF7;&#x6C42;request&#xFF0C;&#x5E76;&#x5F02;&#x6B65;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;tornado.httpclient.HTTPResponse&#x54CD;&#x5E94;&#x3002;</p>
+<p>request&#x53EF;&#x4EE5;&#x662F;&#x4E00;&#x4E2A;url&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x662F;&#x4E00;&#x4E2A;tornado.httpclient.HTTPRequest&#x5BF9;&#x8C61;&#x3002;&#x5982;&#x679C;&#x662F;url&#xFF0C;fetch&#x4F1A;&#x81EA;&#x5DF1;&#x6784;&#x9020;&#x4E00;&#x4E2A;HTTPRequest&#x5BF9;&#x8C61;&#x3002;</p>
+<h3 id="httprequest">HTTPRequest</h3>
+<p>HTTP&#x8BF7;&#x6C42;&#x7C7B;&#xFF0C;HTTPRequest&#x7684;&#x6784;&#x9020;&#x51FD;&#x6570;&#x53EF;&#x4EE5;&#x63A5;&#x6536;&#x4F17;&#x591A;&#x6784;&#x9020;&#x53C2;&#x6570;&#xFF0C;&#x6700;&#x5E38;&#x7528;&#x7684;&#x5982;&#x4E0B;&#xFF1A;</p>
+<ul>
+<li><strong>url</strong> (string) &#x2013; &#x8981;&#x8BBF;&#x95EE;&#x7684;url&#xFF0C;&#x6B64;&#x53C2;&#x6570;&#x5FC5;&#x4F20;&#xFF0C;&#x9664;&#x6B64;&#x4E4B;&#x5916;&#x5747;&#x4E3A;&#x53EF;&#x9009;&#x53C2;&#x6570;</li>
+<li><strong>method</strong> (string) &#x2013; HTTP&#x8BBF;&#x95EE;&#x65B9;&#x5F0F;&#xFF0C;&#x5982;&#x201C;GET&#x201D;&#x6216;&#x201C;POST&#x201D;&#xFF0C;&#x9ED8;&#x8BA4;&#x4E3A;GET&#x65B9;&#x5F0F;</li>
+<li><strong>headers</strong> (HTTPHeaders or dict) &#x2013; &#x9644;&#x52A0;&#x7684;HTTP&#x534F;&#x8BAE;&#x5934;</li>
+<li><strong>body</strong> &#x2013; HTTP&#x8BF7;&#x6C42;&#x7684;&#x8BF7;&#x6C42;&#x4F53;</li>
+</ul>
+<h3 id="httpresponse">HTTPResponse</h3>
+<p>HTTP&#x54CD;&#x5E94;&#x7C7B;&#xFF0C;&#x5176;&#x5E38;&#x7528;&#x5C5E;&#x6027;&#x5982;&#x4E0B;&#xFF1A;</p>
+<ul>
+<li><strong>code</strong>: HTTP&#x72B6;&#x6001;&#x7801;&#xFF0C;&#x5982; 200 &#x6216; 404</li>
+<li><strong>reason</strong>: &#x72B6;&#x6001;&#x7801;&#x63CF;&#x8FF0;&#x4FE1;&#x606F;</li>
+<li><strong>body</strong>: &#x54CD;&#x5E94;&#x4F53;&#x5B57;&#x7B26;&#x4E32;</li>
+<li><strong>error</strong>: &#x5F02;&#x5E38;&#xFF08;&#x53EF;&#x6709;&#x53EF;&#x65E0;&#xFF09;</li>
+</ul>
+<h2 id="2-&#x6D4B;&#x8BD5;&#x63A5;&#x53E3;">2. &#x6D4B;&#x8BD5;&#x63A5;&#x53E3;</h2>
+<p>&#x65B0;&#x6D6A;IP&#x5730;&#x5740;&#x5E93;</p>
+<p>&#x63A5;&#x53E3;&#x8BF4;&#x660E;</p>
+<p>1.&#x8BF7;&#x6C42;&#x63A5;&#x53E3;&#xFF08;GET&#xFF09;&#xFF1A;</p>
+<p><a href="http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=json&amp;ip=[ip&#x5730;&#x5740;&#x5B57;&#x4E32;" target="_blank">http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=json&amp;ip=[ip&#x5730;&#x5740;&#x5B57;&#x4E32;</a>]</p>
+<p>2.&#x54CD;&#x5E94;&#x4FE1;&#x606F;&#xFF1A;</p>
+<p>&#xFF08;json&#x683C;&#x5F0F;&#x7684;&#xFF09;&#x56FD;&#x5BB6; &#x3001;&#x7701;&#xFF08;&#x81EA;&#x6CBB;&#x533A;&#x6216;&#x76F4;&#x8F96;&#x5E02;&#xFF09;&#x3001;&#x5E02;&#xFF08;&#x53BF;&#xFF09;&#x3001;&#x8FD0;&#x8425;&#x5546;</p>
+<p>3.&#x8FD4;&#x56DE;&#x6570;&#x636E;&#x683C;&#x5F0F;&#xFF1A;</p>
+<pre><code class="lang-json">{<span class="hljs-string">&quot;ret&quot;</span>:<span class="hljs-number">1</span>,<span class="hljs-string">&quot;start&quot;</span>:-<span class="hljs-number">1</span>,<span class="hljs-string">&quot;end&quot;</span>:-<span class="hljs-number">1</span>,<span class="hljs-string">&quot;country&quot;</span>:<span class="hljs-string">&quot;\u4e2d\u56fd&quot;</span>,<span class="hljs-string">&quot;province&quot;</span>:<span class="hljs-string">&quot;\u5317\u4eac&quot;</span>,<span class="hljs-string">&quot;city&quot;</span>:<span class="hljs-string">&quot;\u5317\u4eac&quot;</span>,<span class="hljs-string">&quot;district&quot;</span>:<span class="hljs-string">&quot;&quot;</span>,<span class="hljs-string">&quot;isp&quot;</span>:<span class="hljs-string">&quot;&quot;</span>,<span class="hljs-string">&quot;type&quot;</span>:<span class="hljs-string">&quot;&quot;</span>,<span class="hljs-string">&quot;desc&quot;</span>:<span class="hljs-string">&quot;&quot;</span>}
+</code></pre>
+<h2 id="3-&#x56DE;&#x8C03;&#x5F02;&#x6B65;">3. &#x56DE;&#x8C03;&#x5F02;&#x6B65;</h2>
+<pre><code class="lang-python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">IndexHandler</span><span class="hljs-params">(tornado.web.RequestHandler)</span>:</span>
+<span class="hljs-decorator">    @tornado.web.asynchronous  # &#x4E0D;&#x5173;&#x95ED;&#x8FDE;&#x63A5;&#xFF0C;&#x4E5F;&#x4E0D;&#x53D1;&#x9001;&#x54CD;&#x5E94;</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get</span><span class="hljs-params">(self)</span>:</span>
+        http = tornado.httpclient.AsyncHTTPClient()
+        http.fetch(<span class="hljs-string">&quot;http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=json&amp;ip=14.130.112.24&quot;</span>,
+                   callback=self.on_response)
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">on_response</span><span class="hljs-params">(self, response)</span>:</span>
+        <span class="hljs-keyword">if</span> response.error:
+            self.send_error(<span class="hljs-number">500</span>)
+        <span class="hljs-keyword">else</span>:
+            data = json.loads(response.body)
+            <span class="hljs-keyword">if</span> <span class="hljs-number">1</span> == data[<span class="hljs-string">&quot;ret&quot;</span>]:
+                self.write(<span class="hljs-string">u&quot;&#x56FD;&#x5BB6;&#xFF1A;%s &#x7701;&#x4EFD;: %s &#x57CE;&#x5E02;: %s&quot;</span> % (data[<span class="hljs-string">&quot;country&quot;</span>], data[<span class="hljs-string">&quot;province&quot;</span>], data[<span class="hljs-string">&quot;city&quot;</span>]))
+            <span class="hljs-keyword">else</span>:
+                self.write(<span class="hljs-string">&quot;&#x67E5;&#x8BE2;IP&#x4FE1;&#x606F;&#x9519;&#x8BEF;&quot;</span>)
+        self.finish() <span class="hljs-comment"># &#x53D1;&#x9001;&#x54CD;&#x5E94;&#x4FE1;&#x606F;&#xFF0C;&#x7ED3;&#x675F;&#x8BF7;&#x6C42;&#x5904;&#x7406;</span>
+</code></pre>
+<h3 id="tornadowebasynchronous">tornado.web.asynchronous</h3>
+<p>&#x6B64;&#x88C5;&#x9970;&#x5668;&#x7528;&#x4E8E;&#x56DE;&#x8C03;&#x5F62;&#x5F0F;&#x7684;&#x5F02;&#x6B65;&#x65B9;&#x6CD5;&#xFF0C;&#x5E76;&#x4E14;&#x5E94;&#x8BE5;&#x4EC5;&#x7528;&#x4E8E;HTTP&#x7684;&#x65B9;&#x6CD5;&#x4E0A;&#xFF08;&#x5982;get&#x3001;post&#x7B49;&#xFF09;&#x3002;</p>
+<p>&#x6B64;&#x88C5;&#x9970;&#x5668;&#x4E0D;&#x4F1A;&#x8BA9;&#x88AB;&#x88C5;&#x9970;&#x7684;&#x65B9;&#x6CD5;&#x53D8;&#x4E3A;&#x5F02;&#x6B65;&#xFF0C;&#x800C;&#x53EA;&#x662F;&#x544A;&#x8BC9;&#x6846;&#x67B6;&#x88AB;&#x88C5;&#x9970;&#x7684;&#x65B9;&#x6CD5;&#x662F;&#x5F02;&#x6B65;&#x7684;&#xFF0C;&#x5F53;&#x65B9;&#x6CD5;&#x8FD4;&#x56DE;&#x65F6;&#x54CD;&#x5E94;&#x5C1A;&#x672A;&#x5B8C;&#x6210;&#x3002;&#x53EA;&#x6709;&#x5728;request handler&#x8C03;&#x7528;&#x4E86;finish&#x65B9;&#x6CD5;&#x540E;&#xFF0C;&#x624D;&#x4F1A;&#x7ED3;&#x675F;&#x672C;&#x6B21;&#x8BF7;&#x6C42;&#x5904;&#x7406;&#xFF0C;&#x53D1;&#x9001;&#x54CD;&#x5E94;&#x3002;</p>
+<p>&#x4E0D;&#x5E26;&#x6B64;&#x88C5;&#x9970;&#x5668;&#x7684;&#x8BF7;&#x6C42;&#x5728;get&#x3001;post&#x7B49;&#x65B9;&#x6CD5;&#x8FD4;&#x56DE;&#x65F6;&#x81EA;&#x52A8;&#x5B8C;&#x6210;&#x7ED3;&#x675F;&#x8BF7;&#x6C42;&#x5904;&#x7406;&#x3002;</p>
+<h2 id="4-&#x534F;&#x7A0B;&#x5F02;&#x6B65;">4. &#x534F;&#x7A0B;&#x5F02;&#x6B65;</h2>
+<p>&#x5728;&#x4E0A;&#x4E00;&#x8282;&#x4E2D;&#x6211;&#x4EEC;&#x81EA;&#x5DF1;&#x5C01;&#x88C5;&#x7684;&#x88C5;&#x9970;&#x5668;get_coroutine&#x5728;Tornado&#x4E2D;&#x5BF9;&#x5E94;&#x7684;&#x662F;tornado.gen.coroutine&#x3002;</p>
+<pre><code class="lang-python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">IndexHandler</span><span class="hljs-params">(tornado.web.RequestHandler)</span>:</span>
+<span class="hljs-decorator">    @tornado.gen.coroutine</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get</span><span class="hljs-params">(self)</span>:</span>
+        http = tornado.httpclient.AsyncHTTPClient()
+        response = <span class="hljs-keyword">yield</span> http.fetch(<span class="hljs-string">&quot;http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=json&amp;ip=14.130.112.24&quot;</span>)
+        <span class="hljs-keyword">if</span> response.error:
+            self.send_error(<span class="hljs-number">500</span>)
+        <span class="hljs-keyword">else</span>:
+            data = json.loads(response.body)
+            <span class="hljs-keyword">if</span> <span class="hljs-number">1</span> == data[<span class="hljs-string">&quot;ret&quot;</span>]:
+                self.write(<span class="hljs-string">u&quot;&#x56FD;&#x5BB6;&#xFF1A;%s &#x7701;&#x4EFD;: %s &#x57CE;&#x5E02;: %s&quot;</span> % (data[<span class="hljs-string">&quot;country&quot;</span>], data[<span class="hljs-string">&quot;province&quot;</span>], data[<span class="hljs-string">&quot;city&quot;</span>]))
+            <span class="hljs-keyword">else</span>:
+                self.write(<span class="hljs-string">&quot;&#x67E5;&#x8BE2;IP&#x4FE1;&#x606F;&#x9519;&#x8BEF;&quot;</span>)
+</code></pre>
+<p>&#x4E5F;&#x53EF;&#x4EE5;&#x5C06;&#x5F02;&#x6B65;Web&#x8BF7;&#x6C42;&#x5355;&#x72EC;&#x51FA;&#x6765;&#xFF1A;</p>
+<pre><code class="lang-python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">IndexHandler</span><span class="hljs-params">(tornado.web.RequestHandler)</span>:</span>
+<span class="hljs-decorator">    @tornado.gen.coroutine</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get</span><span class="hljs-params">(self)</span>:</span>
+        rep = <span class="hljs-keyword">yield</span> self.get_ip_info(<span class="hljs-string">&quot;14.130.112.24&quot;</span>)
+        <span class="hljs-keyword">if</span> <span class="hljs-number">1</span> == rep[<span class="hljs-string">&quot;ret&quot;</span>]:
+            self.write(<span class="hljs-string">u&quot;&#x56FD;&#x5BB6;&#xFF1A;%s &#x7701;&#x4EFD;: %s &#x57CE;&#x5E02;: %s&quot;</span> % (rep[<span class="hljs-string">&quot;country&quot;</span>], rep[<span class="hljs-string">&quot;province&quot;</span>], rep[<span class="hljs-string">&quot;city&quot;</span>]))
+        <span class="hljs-keyword">else</span>:
+            self.write(<span class="hljs-string">&quot;&#x67E5;&#x8BE2;IP&#x4FE1;&#x606F;&#x9519;&#x8BEF;&quot;</span>)
+
+<span class="hljs-decorator">    @tornado.gen.coroutine</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get_ip_info</span><span class="hljs-params">(self, ip)</span>:</span>
+        http = tornado.httpclient.AsyncHTTPClient()
+        response = <span class="hljs-keyword">yield</span> http.fetch(<span class="hljs-string">&quot;http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=json&amp;ip=&quot;</span> + ip)
+        <span class="hljs-keyword">if</span> response.error:
+            rep = {<span class="hljs-string">&quot;ret:0&quot;</span>}
+        <span class="hljs-keyword">else</span>:
+            rep = json.loads(response.body)
+        <span class="hljs-keyword">raise</span> tornado.gen.Return(rep)  <span class="hljs-comment"># &#x6B64;&#x5904;&#x9700;&#x8981;&#x6CE8;&#x610F;</span>
+</code></pre>
+<p><strong>&#x4EE3;&#x7801;&#x4E2D;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x6CE8;&#x610F;&#x7684;&#x5730;&#x65B9;&#x662F;get_ip_info&#x8FD4;&#x56DE;&#x503C;&#x7684;&#x65B9;&#x5F0F;&#xFF0C;&#x5728;python 2&#x4E2D;&#xFF0C;&#x4F7F;&#x7528;&#x4E86;yield&#x7684;&#x751F;&#x6210;&#x5668;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x4E0D;&#x8FD4;&#x56DE;&#x4EFB;&#x4F55;&#x503C;&#x7684;return&#xFF0C;&#x4F46;&#x4E0D;&#x80FD;return value&#xFF0C;&#x56E0;&#x6B64;Tornado&#x4E3A;&#x6211;&#x4EEC;&#x5C01;&#x88C5;&#x4E86;&#x7528;&#x4E8E;&#x5728;&#x751F;&#x6210;&#x5668;&#x4E2D;&#x8FD4;&#x56DE;&#x503C;&#x7684;&#x7279;&#x6B8A;&#x5F02;&#x5E38;tornado.gen.Return&#xFF0C;&#x5E76;&#x7528;raise&#x6765;&#x8FD4;&#x56DE;&#x6B64;&#x8FD4;&#x56DE;&#x503C;&#x3002;</strong></p>
+<h3 id="&#x5E76;&#x884C;&#x534F;&#x7A0B;">&#x5E76;&#x884C;&#x534F;&#x7A0B;</h3>
+<p>Tornado&#x53EF;&#x4EE5;&#x540C;&#x65F6;&#x6267;&#x884C;&#x591A;&#x4E2A;&#x5F02;&#x6B65;&#xFF0C;&#x5E76;&#x53D1;&#x7684;&#x5F02;&#x6B65;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x5217;&#x8868;&#x6216;&#x5B57;&#x5178;&#xFF0C;&#x5982;&#x4E0B;&#xFF1A;</p>
+<pre><code class="lang-python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">IndexHandler</span><span class="hljs-params">(tornado.web.RequestHandler)</span>:</span>
+<span class="hljs-decorator">    @tornado.gen.coroutine</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get</span><span class="hljs-params">(self)</span>:</span>
+        ips = [<span class="hljs-string">&quot;14.130.112.24&quot;</span>,
+            <span class="hljs-string">&quot;15.130.112.24&quot;</span>,
+            <span class="hljs-string">&quot;16.130.112.24&quot;</span>,
+            <span class="hljs-string">&quot;17.130.112.24&quot;</span>]
+        rep1, rep2 = <span class="hljs-keyword">yield</span> [self.get_ip_info(ips[<span class="hljs-number">0</span>]), self.get_ip_info(ips[<span class="hljs-number">1</span>])]
+        rep34_dict = <span class="hljs-keyword">yield</span> dict(rep3=self.get_ip_info(ips[<span class="hljs-number">2</span>]), rep4=self.get_ip_info(ips[<span class="hljs-number">3</span>]))
+        self.write_response(ips[<span class="hljs-number">0</span>], rep1) 
+        self.write_response(ips[<span class="hljs-number">1</span>], rep2) 
+        self.write_response(ips[<span class="hljs-number">2</span>], rep34_dict[<span class="hljs-string">&apos;rep3&apos;</span>]) 
+        self.write_response(ips[<span class="hljs-number">3</span>], rep34_dict[<span class="hljs-string">&apos;rep4&apos;</span>]) 
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">write_response</span><span class="hljs-params">(self, ip, response)</span>:</span>
+        self.write(ip) 
+        self.write(<span class="hljs-string">&quot;:&lt;br/&gt;&quot;</span>) 
+        <span class="hljs-keyword">if</span> <span class="hljs-number">1</span> == response[<span class="hljs-string">&quot;ret&quot;</span>]:
+            self.write(<span class="hljs-string">u&quot;&#x56FD;&#x5BB6;&#xFF1A;%s &#x7701;&#x4EFD;: %s &#x57CE;&#x5E02;: %s&lt;br/&gt;&quot;</span> % (response[<span class="hljs-string">&quot;country&quot;</span>], response[<span class="hljs-string">&quot;province&quot;</span>], response[<span class="hljs-string">&quot;city&quot;</span>]))
+        <span class="hljs-keyword">else</span>:
+            self.write(<span class="hljs-string">&quot;&#x67E5;&#x8BE2;IP&#x4FE1;&#x606F;&#x9519;&#x8BEF;&lt;br/&gt;&quot;</span>)
+
+<span class="hljs-decorator">    @tornado.gen.coroutine</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get_ip_info</span><span class="hljs-params">(self, ip)</span>:</span>
+        http = tornado.httpclient.AsyncHTTPClient()
+        response = <span class="hljs-keyword">yield</span> http.fetch(<span class="hljs-string">&quot;http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=json&amp;ip=&quot;</span> + ip)
+        <span class="hljs-keyword">if</span> response.error:
+            rep = {<span class="hljs-string">&quot;ret:1&quot;</span>}
+        <span class="hljs-keyword">else</span>:
+            rep = json.loads(response.body)
+        <span class="hljs-keyword">raise</span> tornado.gen.Return(rep)
+</code></pre>
+<h2 id="5-&#x5173;&#x4E8E;&#x6570;&#x636E;&#x5E93;&#x7684;&#x5F02;&#x6B65;&#x8BF4;&#x660E;">5. &#x5173;&#x4E8E;&#x6570;&#x636E;&#x5E93;&#x7684;&#x5F02;&#x6B65;&#x8BF4;&#x660E;</h2>
+<p>&#x7F51;&#x7AD9;&#x57FA;&#x672C;&#x90FD;&#x4F1A;&#x6709;&#x6570;&#x636E;&#x5E93;&#x64CD;&#x4F5C;&#xFF0C;&#x800C;Tornado&#x662F;&#x5355;&#x7EBF;&#x7A0B;&#x7684;&#xFF0C;&#x8FD9;&#x610F;&#x5473;&#x7740;&#x5982;&#x679C;&#x6570;&#x636E;&#x5E93;&#x67E5;&#x8BE2;&#x8FD4;&#x56DE;&#x8FC7;&#x6162;&#xFF0C;&#x6574;&#x4E2A;&#x670D;&#x52A1;&#x5668;&#x54CD;&#x5E94;&#x4F1A;&#x88AB;&#x5835;&#x585E;&#x3002;</p>
+<p>&#x6570;&#x636E;&#x5E93;&#x67E5;&#x8BE2;&#xFF0C;&#x5B9E;&#x8D28;&#x4E0A;&#x4E5F;&#x662F;&#x8FDC;&#x7A0B;&#x7684;&#x7F51;&#x7EDC;&#x8C03;&#x7528;&#xFF1B;&#x7406;&#x60F3;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x662F;&#x5C06;&#x8FD9;&#x4E9B;&#x64CD;&#x4F5C;&#x4E5F;&#x5C01;&#x88C5;&#x6210;&#x4E3A;&#x5F02;&#x6B65;&#x7684;&#xFF1B;&#x4F46;Tornado&#x5BF9;&#x6B64;&#x5E76;<strong>&#x6CA1;&#x6709;</strong>&#x63D0;&#x4F9B;&#x4EFB;&#x4F55;&#x652F;&#x6301;&#x3002;</p>
+<p>&#x8FD9;&#x662F;Tornado&#x7684;<strong>&#x8BBE;&#x8BA1;</strong>&#xFF0C;&#x800C;&#x4E0D;&#x662F;&#x7F3A;&#x9677;&#x3002;</p>
+<p>&#x4E00;&#x4E2A;&#x7CFB;&#x7EDF;&#xFF0C;&#x8981;&#x6EE1;&#x8DB3;&#x9AD8;&#x6D41;&#x91CF;&#xFF1B;&#x662F;&#x5FC5;&#x987B;&#x89E3;&#x51B3;&#x6570;&#x636E;&#x5E93;&#x67E5;&#x8BE2;&#x901F;&#x5EA6;&#x95EE;&#x9898;&#x7684;&#xFF01;</p>
+<p>&#x6570;&#x636E;&#x5E93;&#x82E5;&#x5B58;&#x5728;&#x67E5;&#x8BE2;&#x6027;&#x80FD;&#x95EE;&#x9898;&#xFF0C;&#x6574;&#x4E2A;&#x7CFB;&#x7EDF;&#x65E0;&#x8BBA;&#x5982;&#x4F55;&#x4F18;&#x5316;&#xFF0C;&#x6570;&#x636E;&#x5E93;&#x90FD;&#x4F1A;&#x662F;&#x74F6;&#x9888;&#xFF0C;&#x62D6;&#x6162;&#x6574;&#x4E2A;&#x7CFB;&#x7EDF;&#xFF01;</p>
+<p>&#x5F02;&#x6B65;&#x5E76;<strong>&#x4E0D;&#x80FD;</strong>&#x4ECE;&#x672C;&#x8D28;&#x4E0A;&#x63D0;&#x5230;&#x7CFB;&#x7EDF;&#x7684;&#x6027;&#x80FD;&#xFF1B;&#x5B83;&#x4EC5;&#x4EC5;&#x662F;&#x907F;&#x514D;&#x591A;&#x4F59;&#x7684;&#x7F51;&#x7EDC;&#x54CD;&#x5E94;&#x7B49;&#x5F85;&#xFF0C;&#x4EE5;&#x53CA;&#x5207;&#x6362;&#x7EBF;&#x7A0B;&#x7684;CPU&#x8017;&#x8D39;&#x3002;</p>
+<p>&#x5982;&#x679C;&#x6570;&#x636E;&#x5E93;&#x67E5;&#x8BE2;&#x54CD;&#x5E94;&#x592A;&#x6162;&#xFF0C;&#x9700;&#x8981;&#x89E3;&#x51B3;&#x7684;&#x662F;&#x6570;&#x636E;&#x5E93;&#x7684;&#x6027;&#x80FD;&#x95EE;&#x9898;&#xFF1B;&#x800C;&#x4E0D;&#x662F;&#x8C03;&#x7528;&#x6570;&#x636E;&#x5E93;&#x7684;&#x524D;&#x7AEF;Web&#x5E94;&#x7528;&#x3002;</p>
+<p>&#x5BF9;&#x4E8E;&#x5B9E;&#x65F6;&#x8FD4;&#x56DE;&#x7684;&#x6570;&#x636E;&#x67E5;&#x8BE2;&#xFF0C;&#x7406;&#x60F3;&#x60C5;&#x51B5;&#x4E0B;&#x9700;&#x8981;&#x786E;&#x4FDD;&#x6240;&#x6709;&#x6570;&#x636E;&#x90FD;&#x5728;&#x5185;&#x5B58;&#x4E2D;&#xFF0C;&#x6570;&#x636E;&#x5E93;&#x786C;&#x76D8;IO&#x5E94;&#x8BE5;&#x4E3A;0&#xFF1B;&#x8FD9;&#x6837;&#x7684;&#x67E5;&#x8BE2;&#x624D;&#x80FD;&#x8DB3;&#x591F;&#x5FEB;&#xFF1B;&#x800C;&#x5982;&#x679C;&#x6570;&#x636E;&#x5E93;&#x67E5;&#x8BE2;&#x8DB3;&#x591F;&#x5FEB;&#xFF0C;&#x90A3;&#x4E48;&#x524D;&#x7AEF;web&#x5E94;&#x7528;&#x4E5F;&#x5C31;&#x65E0;&#x5C06;&#x6570;&#x636E;&#x67E5;&#x8BE2;&#x5C01;&#x88C5;&#x4E3A;&#x5F02;&#x6B65;&#x7684;&#x5FC5;&#x8981;&#x3002;</p>
+<p>&#x5C31;&#x7B97;&#x662F;&#x4F7F;&#x7528;&#x534F;&#x7A0B;&#xFF0C;&#x5F02;&#x6B65;&#x7A0B;&#x5E8F;&#x5BF9;&#x4E8E;&#x540C;&#x6B65;&#x7A0B;&#x5E8F;&#x59CB;&#x7EC8;&#x8FD8;&#x662F;&#x4F1A;&#x63D0;&#x9AD8;&#x590D;&#x6742;&#x6027;&#xFF1B;&#x9700;&#x8981;&#x8861;&#x91CF;&#x7684;&#x662F;&#x5904;&#x7406;&#x8FD9;&#x4E9B;&#x989D;&#x5916;&#x590D;&#x6742;&#x6027;&#x662F;&#x5426;&#x503C;&#x5F97;&#x3002;</p>
+<p><strong>&#x5982;&#x679C;&#x540E;&#x7AEF;&#x6709;&#x67E5;&#x8BE2;&#x5B9E;&#x5728;&#x662F;&#x592A;&#x6162;&#xFF0C;&#x65E0;&#x6CD5;&#x7ED5;&#x8FC7;&#xFF0C;Tornaod&#x7684;&#x5EFA;&#x8BAE;&#x662F;&#x5C06;&#x8FD9;&#x4E9B;&#x67E5;&#x8BE2;&#x5728;&#x540E;&#x7AEF;&#x5C01;&#x88C5;&#x72EC;&#x7ACB;&#x5C01;&#x88C5;&#x6210;&#x4E3A;HTTP&#x63A5;&#x53E3;&#xFF0C;&#x7136;&#x540E;&#x4F7F;&#x7528;Tornado&#x5185;&#x7F6E;&#x7684;&#x5F02;&#x6B65;HTTP&#x5BA2;&#x6237;&#x7AEF;&#x8FDB;&#x884C;&#x8C03;&#x7528;&#x3002;</strong></p>
+
+                    
+                    </section>
+                
+                
+                </div>
+            </div>
+        </div>
+
+        
+        <a href="../c07/s01.html" class="navigation navigation-prev " aria-label="Previous page: 7.1 认识异步"><i class="fa fa-angle-left"></i></a>
+        
+        
+        <a href="../c07/s03.html" class="navigation navigation-next " aria-label="Next page: 7.3 WebSocket"><i class="fa fa-angle-right"></i></a>
+        
+    </div>
+</div>
+
+        
+<script src="../gitbook/app.js"></script>
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-search/lunr.min.js"></script>
+    
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-search/search.js"></script>
+    
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-sharing/buttons.js"></script>
+    
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-fontsettings/buttons.js"></script>
+    
+
+<script>
+require(["gitbook"], function(gitbook) {
+    var config = {"highlight":{},"search":{"maxIndexSize":1000000},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2}};
+    gitbook.start(config);
+});
+</script>
+
+        
+    </body>
+    
+</html>

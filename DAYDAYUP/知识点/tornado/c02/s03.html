@@ -1,0 +1,807 @@
+<!DOCTYPE HTML>
+<html lang="en" >
+    
+    <head>
+        
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <title>2.3 httpserver | 引言</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 2.6.7">
+        
+        
+        <meta name="HandheldFriendly" content="true"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+        <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+        
+    <link rel="stylesheet" href="../gitbook/style.css">
+    
+        
+        <link rel="stylesheet" href="../gitbook/plugins/gitbook-plugin-highlight/website.css">
+        
+    
+        
+        <link rel="stylesheet" href="../gitbook/plugins/gitbook-plugin-search/search.css">
+        
+    
+        
+        <link rel="stylesheet" href="../gitbook/plugins/gitbook-plugin-fontsettings/website.css">
+        
+    
+    
+
+        
+    
+    
+    <link rel="next" href="../c02/s04.html" />
+    
+    
+    <link rel="prev" href="../c02/s02.html" />
+    
+
+        
+    </head>
+    <body>
+        
+        
+    <div class="book"
+        data-level="2.3"
+        data-chapter-title="2.3 httpserver"
+        data-filepath="c02/s03.md"
+        data-basepath=".."
+        data-revision="Fri Feb 10 2017 17:36:30 GMT+0800 (CST)"
+        data-innerlanguage="">
+    
+
+<div class="book-summary">
+    <nav role="navigation">
+        <ul class="summary">
+            
+            
+            
+            
+
+            
+
+            
+    
+        <li class="chapter " data-level="0" data-path="index.html">
+            
+                
+                    <a href="../index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                        引言
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1" data-path="c01/index.html">
+            
+                
+                    <a href="../c01/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.</b>
+                        
+                        1 关于Tornado
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.1" data-path="c01/s01.html">
+            
+                
+                    <a href="../c01/s01.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.1.</b>
+                        
+                        1.1 Tornado是为何物
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="c01/s02.html">
+            
+                
+                    <a href="../c01/s02.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.2.</b>
+                        
+                        1.2 Tornado与Django
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2" data-path="c02/index.html">
+            
+                
+                    <a href="../c02/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.</b>
+                        
+                        2 初识Tornado
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.1" data-path="c02/s01.html">
+            
+                
+                    <a href="../c02/s01.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.1.</b>
+                        
+                        2.1 安装
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2" data-path="c02/s02.html">
+            
+                
+                    <a href="../c02/s02.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.2.</b>
+                        
+                        2.2 Hello Itcast
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter active" data-level="2.3" data-path="c02/s03.html">
+            
+                
+                    <a href="../c02/s03.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.3.</b>
+                        
+                        2.3 httpserver
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.4" data-path="c02/s04.html">
+            
+                
+                    <a href="../c02/s04.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.4.</b>
+                        
+                        2.4 options
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.5" data-path="c02/s05.html">
+            
+                
+                    <a href="../c02/s05.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.5.</b>
+                        
+                        2.5 练习
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="3" data-path="c03/index.html">
+            
+                
+                    <a href="../c03/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.</b>
+                        
+                        3 深入Tornado
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="3.1" data-path="c03/s01.html">
+            
+                
+                    <a href="../c03/s01.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.1.</b>
+                        
+                        3.1 Application
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2" data-path="c03/s02.html">
+            
+                
+                    <a href="../c03/s02.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.2.</b>
+                        
+                        3.2 输入
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.3" data-path="c03/s03.html">
+            
+                
+                    <a href="../c03/s03.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.3.</b>
+                        
+                        3.3 输出
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.4" data-path="c03/s04.html">
+            
+                
+                    <a href="../c03/s04.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.4.</b>
+                        
+                        3.4 接口与调用顺序
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.5" data-path="c03/s05.html">
+            
+                
+                    <a href="../c03/s05.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.5.</b>
+                        
+                        3.5 练习
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="4" data-path="c04/index.html">
+            
+                
+                    <a href="../c04/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.</b>
+                        
+                        4 模板
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="4.1" data-path="c04/s01.html">
+            
+                
+                    <a href="../c04/s01.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.1.</b>
+                        
+                        4.1 静态文件
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2" data-path="c04/s02.html">
+            
+                
+                    <a href="../c04/s02.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.2.</b>
+                        
+                        4.2 使用模板
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.3" data-path="c04/s03.html">
+            
+                
+                    <a href="../c04/s03.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.3.</b>
+                        
+                        4.3 练习
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="5" data-path="c05/index.html">
+            
+                
+                    <a href="../c05/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.</b>
+                        
+                        5 数据库
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="5.1" data-path="c05/s01.html">
+            
+                
+                    <a href="../c05/s01.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.1.</b>
+                        
+                        5.1 数据库
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.2" data-path="c05/s02.html">
+            
+                
+                    <a href="../c05/s02.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.2.</b>
+                        
+                        5.2 练习
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="6" data-path="c06/index.html">
+            
+                
+                    <a href="../c06/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.</b>
+                        
+                        6 安全应用
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="6.1" data-path="c06/s01.html">
+            
+                
+                    <a href="../c06/s01.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.1.</b>
+                        
+                        6.1 Cookie
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6.2" data-path="c06/s02.html">
+            
+                
+                    <a href="../c06/s02.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.2.</b>
+                        
+                        6.2 XSRF
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6.3" data-path="c06/s03.html">
+            
+                
+                    <a href="../c06/s03.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.3.</b>
+                        
+                        6.3 用户验证
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6.4" data-path="c06/s04.html">
+            
+                
+                    <a href="../c06/s04.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.4.</b>
+                        
+                        6.4 练习
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="7" data-path="c07/index.html">
+            
+                
+                    <a href="../c07/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>7.</b>
+                        
+                        7 异步与WebSocket
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="7.1" data-path="c07/s01.html">
+            
+                
+                    <a href="../c07/s01.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>7.1.</b>
+                        
+                        7.1 认识异步
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="7.2" data-path="c07/s02.html">
+            
+                
+                    <a href="../c07/s02.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>7.2.</b>
+                        
+                        7.2 Tornado异步
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="7.3" data-path="c07/s03.html">
+            
+                
+                    <a href="../c07/s03.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>7.3.</b>
+                        
+                        7.3 WebSocket
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="7.4" data-path="c07/s04.html">
+            
+                
+                    <a href="../c07/s04.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>7.4.</b>
+                        
+                        7.4 练习
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="8" data-path="c08/index.html">
+            
+                
+                    <a href="../c08/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.</b>
+                        
+                        8 部署
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="8.1" data-path="c08/s01.html">
+            
+                
+                    <a href="../c08/s01.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.1.</b>
+                        
+                        8.1 部署Tornado
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+
+            
+            <li class="divider"></li>
+            <li>
+                <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+                    Published with GitBook
+                </a>
+            </li>
+            
+        </ul>
+    </nav>
+</div>
+
+    <div class="book-body">
+        <div class="body-inner">
+            <div class="book-header" role="navigation">
+    <!-- Actions Left -->
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../" >引言</a>
+    </h1>
+</div>
+
+            <div class="page-wrapper" tabindex="-1" role="main">
+                <div class="page-inner">
+                
+                
+                    <section class="normal" id="section-">
+                    
+                        <h1 id="23-httpserver">2.3 httpserver</h1>
+<p>&#x4E0A;&#x4E00;&#x8282;&#x6211;&#x4EEC;&#x8BF4;&#x5728;tornado.web.Application.listen()&#xFF08;&#x793A;&#x4F8B;&#x4EE3;&#x7801;&#x4E2D;&#x7684;app.listen(8000)&#xFF09;&#x7684;&#x65B9;&#x6CD5;&#x4E2D;&#xFF0C;&#x521B;&#x5EFA;&#x4E86;&#x4E00;&#x4E2A;http&#x670D;&#x52A1;&#x5668;&#x793A;&#x4F8B;&#x5E76;&#x7ED1;&#x5B9A;&#x5230;&#x7ED9;&#x5B9A;&#x7AEF;&#x53E3;&#xFF0C;&#x6211;&#x4EEC;&#x80FD;&#x4E0D;&#x80FD;&#x81EA;&#x5DF1;&#x52A8;&#x624B;&#x6765;&#x5B9E;&#x73B0;&#x8FD9;&#x4E00;&#x90E8;&#x5206;&#x529F;&#x80FD;&#x5462;&#xFF1F;</p>
+<p>&#x73B0;&#x5728;&#x6211;&#x4EEC;&#x4FEE;&#x6539;&#x4E0A;&#x4E00;&#x793A;&#x4F8B;&#x4EE3;&#x7801;&#x5982;&#x4E0B;&#xFF1A;</p>
+<pre><code class="lang-python"><span class="hljs-comment"># coding:utf-8</span>
+
+<span class="hljs-keyword">import</span> tornado.web
+<span class="hljs-keyword">import</span> tornado.ioloop
+<span class="hljs-keyword">import</span> tornado.httpserver <span class="hljs-comment"># &#x65B0;&#x5F15;&#x5165;httpserver&#x6A21;&#x5757;</span>
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">IndexHandler</span><span class="hljs-params">(tornado.web.RequestHandler)</span>:</span>
+    <span class="hljs-string">&quot;&quot;&quot;&#x4E3B;&#x8DEF;&#x7531;&#x5904;&#x7406;&#x7C7B;&quot;&quot;&quot;</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get</span><span class="hljs-params">(self)</span>:</span>
+        <span class="hljs-string">&quot;&quot;&quot;&#x5BF9;&#x5E94;http&#x7684;get&#x8BF7;&#x6C42;&#x65B9;&#x5F0F;&quot;&quot;&quot;</span>
+        self.write(<span class="hljs-string">&quot;Hello Itcast!&quot;</span>)
+
+<span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:
+    app = tornado.web.Application([
+        (<span class="hljs-string">r&quot;/&quot;</span>, IndexHandler),
+    ])
+    <span class="hljs-comment"># ------------------------------</span>
+    <span class="hljs-comment"># &#x6211;&#x4EEC;&#x4FEE;&#x6539;&#x8FD9;&#x4E2A;&#x90E8;&#x5206;</span>
+    <span class="hljs-comment"># app.listen(8000)</span>
+    http_server = tornado.httpserver.HTTPServer(app) 
+    http_server.listen(<span class="hljs-number">8000</span>)
+    <span class="hljs-comment"># ------------------------------</span>
+    tornado.ioloop.IOLoop.current().start()
+</code></pre>
+<p>&#x5728;&#x8FD9;&#x4E00;&#x4FEE;&#x6539;&#x7248;&#x672C;&#x4E2D;&#xFF0C;&#x6211;&#x4EEC;&#x5F15;&#x5165;&#x4E86;tornado.httpserver&#x6A21;&#x5757;&#xFF0C;&#x987E;&#x540D;&#x601D;&#x4E49;&#xFF0C;&#x5B83;&#x5C31;&#x662F;tornado&#x7684;HTTP&#x670D;&#x52A1;&#x5668;&#x5B9E;&#x73B0;&#x3002;</p>
+<p>&#x6211;&#x4EEC;&#x521B;&#x5EFA;&#x4E86;&#x4E00;&#x4E2A;HTTP&#x670D;&#x52A1;&#x5668;&#x5B9E;&#x4F8B;http_server&#xFF0C;&#x56E0;&#x4E3A;&#x670D;&#x52A1;&#x5668;&#x8981;&#x670D;&#x52A1;&#x4E8E;&#x6211;&#x4EEC;&#x521A;&#x521A;&#x5EFA;&#x7ACB;&#x7684;web&#x5E94;&#x7528;&#xFF0C;&#x5C06;&#x63A5;&#x6536;&#x5230;&#x7684;&#x5BA2;&#x6237;&#x7AEF;&#x8BF7;&#x6C42;&#x901A;&#x8FC7;web&#x5E94;&#x7528;&#x4E2D;&#x7684;&#x8DEF;&#x7531;&#x6620;&#x5C04;&#x8868;&#x5F15;&#x5BFC;&#x5230;&#x5BF9;&#x5E94;&#x7684;handler&#x4E2D;&#xFF0C;&#x6240;&#x4EE5;&#x5728;&#x6784;&#x5EFA;http_server&#x5BF9;&#x8C61;&#x7684;&#x65F6;&#x5019;&#x9700;&#x8981;&#x4F20;&#x51FA;web&#x5E94;&#x7528;&#x5BF9;&#x8C61;app&#x3002;http_server.listen(8000)&#x5C06;&#x670D;&#x52A1;&#x5668;&#x7ED1;&#x5B9A;&#x5230;8000&#x7AEF;&#x53E3;&#x3002;</p>
+<p>&#x5B9E;&#x9645;&#x4E0A;&#x4E00;&#x7248;&#x4EE3;&#x7801;&#x4E2D;app.listen(8000)&#x6B63;&#x662F;&#x5BF9;&#x8FD9;&#x4E00;&#x8FC7;&#x7A0B;&#x7684;&#x7B80;&#x5199;&#x3002;</p>
+<h2 id="&#x5355;&#x8FDB;&#x7A0B;&#x4E0E;&#x591A;&#x8FDB;&#x7A0B;">&#x5355;&#x8FDB;&#x7A0B;&#x4E0E;&#x591A;&#x8FDB;&#x7A0B;</h2>
+<p>&#x6211;&#x4EEC;&#x521A;&#x521A;&#x5B9E;&#x73B0;&#x7684;&#x90FD;&#x662F;<strong>&#x5355;&#x8FDB;&#x7A0B;</strong>&#xFF0C;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x547D;&#x4EE4;&#x6765;&#x67E5;&#x770B;&#xFF1A;</p>
+<pre><code class="lang-bash">$ ps -ef | grep hello.py
+</code></pre>
+<p><img src="../images/single_process.png" alt="&#x67E5;&#x770B;&#x5355;&#x8FDB;&#x7A0B;"></p>
+<p>&#x6211;&#x4EEC;&#x4E5F;&#x53EF;&#x4EE5;<strong>&#x4E00;&#x6B21;&#x542F;&#x52A8;&#x591A;&#x4E2A;&#x8FDB;&#x7A0B;</strong>&#xFF0C;&#x4FEE;&#x6539;&#x4E0A;&#x9762;&#x7684;&#x4EE3;&#x7801;&#x5982;&#x4E0B;&#xFF1A;</p>
+<pre><code class="lang-python"><span class="hljs-comment"># coding:utf-8</span>
+
+<span class="hljs-keyword">import</span> tornado.web
+<span class="hljs-keyword">import</span> tornado.ioloop
+<span class="hljs-keyword">import</span> tornado.httpserver 
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">IndexHandler</span><span class="hljs-params">(tornado.web.RequestHandler)</span>:</span>
+    <span class="hljs-string">&quot;&quot;&quot;&#x4E3B;&#x8DEF;&#x7531;&#x5904;&#x7406;&#x7C7B;&quot;&quot;&quot;</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get</span><span class="hljs-params">(self)</span>:</span>
+        <span class="hljs-string">&quot;&quot;&quot;&#x5BF9;&#x5E94;http&#x7684;get&#x8BF7;&#x6C42;&#x65B9;&#x5F0F;&quot;&quot;&quot;</span>
+        self.write(<span class="hljs-string">&quot;Hello Itcast!&quot;</span>)
+
+<span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:
+    app = tornado.web.Application([
+        (<span class="hljs-string">r&quot;/&quot;</span>, IndexHandler),
+    ])
+    http_server = tornado.httpserver.HTTPServer(app) 
+    <span class="hljs-comment"># -----------&#x4FEE;&#x6539;----------------</span>
+    http_server.bind(<span class="hljs-number">8000</span>)
+    http_server.start(<span class="hljs-number">0</span>)
+    <span class="hljs-comment"># ------------------------------</span>
+    tornado.ioloop.IOLoop.current().start()
+</code></pre>
+<p>http_server.bind(port)&#x65B9;&#x6CD5;&#x662F;&#x5C06;&#x670D;&#x52A1;&#x5668;&#x7ED1;&#x5B9A;&#x5230;&#x6307;&#x5B9A;&#x7AEF;&#x53E3;&#x3002;</p>
+<p>http_server.start(num_processes=1)&#x65B9;&#x6CD5;&#x6307;&#x5B9A;&#x5F00;&#x542F;&#x51E0;&#x4E2A;&#x8FDB;&#x7A0B;&#xFF0C;&#x53C2;&#x6570;num_processes&#x9ED8;&#x8BA4;&#x503C;&#x4E3A;1&#xFF0C;&#x5373;&#x9ED8;&#x8BA4;&#x4EC5;&#x5F00;&#x542F;&#x4E00;&#x4E2A;&#x8FDB;&#x7A0B;&#xFF1B;&#x5982;&#x679C;num_processes&#x4E3A;None&#x6216;&#x8005;&lt;=0&#xFF0C;&#x5219;&#x81EA;&#x52A8;&#x6839;&#x636E;&#x673A;&#x5668;&#x786C;&#x4EF6;&#x7684;cpu&#x6838;&#x82AF;&#x6570;&#x521B;&#x5EFA;&#x540C;&#x7B49;&#x6570;&#x76EE;&#x7684;&#x5B50;&#x8FDB;&#x7A0B;&#xFF1B;&#x5982;&#x679C;num_processes&gt;0&#xFF0C;&#x5219;&#x521B;&#x5EFA;num_processes&#x4E2A;&#x5B50;&#x8FDB;&#x7A0B;&#x3002;</p>
+<p>&#x672C;&#x4F8B;&#x4E2D;&#xFF0C;&#x6211;&#x4EEC;&#x4F7F;&#x7528;http_server.start(0)&#xFF0C;&#x800C;&#x6211;&#x7684;&#x865A;&#x62DF;&#x673A;&#x8BBE;&#x5B9A;cpu&#x6838;&#x6570;&#x4E3A;2&#xFF0C;&#x6F14;&#x793A;&#x7ED3;&#x679C;&#xFF1A;
+<img src="../images/multi_processes_title.png" alt="&#x6761;&#x76EE;">
+<img src="../images/multi_processes.png" alt="&#x591A;&#x8FDB;&#x7A0B;"></p>
+<p>&#x6211;&#x4EEC;&#x5728;&#x524D;&#x9762;&#x5199;&#x7684;http_server.listen(8000)&#x5B9E;&#x9645;&#x4E0A;&#x5C31;&#x7B49;&#x540C;&#x4E8E;&#xFF1A;</p>
+<pre><code class="lang-python">http_server.bind(<span class="hljs-number">8000</span>)
+http_server.start(<span class="hljs-number">1</span>)
+</code></pre>
+<h2 id="&#x8BF4;&#x660E;">&#x8BF4;&#x660E;</h2>
+<h4 id="1&#x5173;&#x4E8E;applisten">1.&#x5173;&#x4E8E;app.listen()</h4>
+<p><strong>app.listen()&#x8FD9;&#x4E2A;&#x65B9;&#x6CD5;&#x53EA;&#x80FD;&#x5728;&#x5355;&#x8FDB;&#x7A0B;&#x6A21;&#x5F0F;&#x4E2D;&#x4F7F;&#x7528;&#x3002;</strong></p>
+<p>&#x5BF9;&#x4E8E;app.listen()&#x4E0E;&#x624B;&#x52A8;&#x521B;&#x5EFA;HTTPServer&#x5B9E;&#x4F8B;</p>
+<pre><code class="lang-python">http_server = tornado.httpserver.HTTPServer(app) 
+http_server.listen(<span class="hljs-number">8000</span>)
+</code></pre>
+<p>&#x8FD9;&#x4E24;&#x79CD;&#x65B9;&#x5F0F;&#xFF0C;&#x5EFA;&#x8BAE;&#x5927;&#x5BB6;&#x5148;&#x4F7F;&#x7528;&#x540E;&#x8005;&#x5373;&#x521B;&#x5EFA;HTTPServer&#x5B9E;&#x4F8B;&#x7684;&#x65B9;&#x5F0F;&#xFF0C;&#x56E0;&#x4E3A;&#x5176;&#x5BF9;&#x4E8E;&#x7406;&#x89E3;tornado web&#x5E94;&#x7528;&#x5DE5;&#x4F5C;&#x6D41;&#x7A0B;&#x7684;&#x5B8C;&#x6574;&#x6027;&#x6709;&#x5E2E;&#x52A9;&#xFF0C;&#x4FBF;&#x4E8E;&#x5927;&#x5BB6;&#x8BB0;&#x5FC6;tornado&#x5F00;&#x53D1;&#x7684;&#x6A21;&#x5757;&#x7EC4;&#x6210;&#x548C;&#x7A0B;&#x5E8F;&#x7ED3;&#x6784;&#xFF1B;&#x5728;&#x719F;&#x7EC3;&#x4F7F;&#x7528;&#x540E;&#xFF0C;&#x53EF;&#x4EE5;&#x6539;&#x4E3A;&#x7B80;&#x5199;&#x3002;</p>
+<h4 id="2&#x5173;&#x4E8E;&#x591A;&#x8FDB;&#x7A0B;">2.&#x5173;&#x4E8E;&#x591A;&#x8FDB;&#x7A0B;</h4>
+<p>&#x867D;&#x7136;tornado&#x7ED9;&#x6211;&#x4EEC;&#x63D0;&#x4F9B;&#x4E86;&#x4E00;&#x6B21;&#x5F00;&#x542F;&#x591A;&#x4E2A;&#x8FDB;&#x7A0B;&#x7684;&#x65B9;&#x6CD5;&#xFF0C;&#x4F46;&#x662F;&#x7531;&#x4E8E;&#xFF1A;</p>
+<ul>
+<li>&#x6BCF;&#x4E2A;&#x5B50;&#x8FDB;&#x7A0B;&#x90FD;&#x4F1A;&#x4ECE;&#x7236;&#x8FDB;&#x7A0B;&#x4E2D;&#x590D;&#x5236;&#x4E00;&#x4EFD;IOLoop&#x5B9E;&#x4F8B;&#xFF0C;&#x5982;&#x8FC7;&#x5728;&#x521B;&#x5EFA;&#x5B50;&#x8FDB;&#x7A0B;&#x524D;&#x6211;&#x4EEC;&#x7684;&#x4EE3;&#x7801;&#x52A8;&#x4E86;IOLoop&#x5B9E;&#x4F8B;&#xFF0C;&#x90A3;&#x4E48;&#x4F1A;&#x5F71;&#x54CD;&#x5230;&#x6BCF;&#x4E00;&#x4E2A;&#x5B50;&#x8FDB;&#x7A0B;&#xFF0C;&#x52BF;&#x5FC5;&#x4F1A;&#x5E72;&#x6270;&#x5230;&#x5B50;&#x8FDB;&#x7A0B;IOLoop&#x7684;&#x5DE5;&#x4F5C;&#xFF1B;</li>
+<li>&#x6240;&#x6709;&#x8FDB;&#x7A0B;&#x662F;&#x7531;&#x4E00;&#x4E2A;&#x547D;&#x4EE4;&#x4E00;&#x6B21;&#x5F00;&#x542F;&#x7684;&#xFF0C;&#x4E5F;&#x5C31;&#x65E0;&#x6CD5;&#x505A;&#x5230;&#x5728;&#x4E0D;&#x505C;&#x670D;&#x52A1;&#x7684;&#x60C5;&#x51B5;&#x4E0B;&#x66F4;&#x65B0;&#x4EE3;&#x7801;&#xFF1B; </li>
+<li>&#x6240;&#x6709;&#x8FDB;&#x7A0B;&#x5171;&#x4EAB;&#x540C;&#x4E00;&#x4E2A;&#x7AEF;&#x53E3;&#xFF0C;&#x60F3;&#x8981;&#x5206;&#x522B;&#x5355;&#x72EC;&#x76D1;&#x63A7;&#x6BCF;&#x4E00;&#x4E2A;&#x8FDB;&#x7A0B;&#x5C31;&#x5F88;&#x56F0;&#x96BE;&#x3002;</li>
+</ul>
+<p>&#x4E0D;&#x5EFA;&#x8BAE;&#x4F7F;&#x7528;&#x8FD9;&#x79CD;&#x591A;&#x8FDB;&#x7A0B;&#x7684;&#x65B9;&#x5F0F;&#xFF0C;&#x800C;&#x662F;<strong>&#x624B;&#x52A8;&#x5F00;&#x542F;&#x591A;&#x4E2A;&#x8FDB;&#x7A0B;&#xFF0C;&#x5E76;&#x4E14;&#x7ED1;&#x5B9A;&#x4E0D;&#x540C;&#x7684;&#x7AEF;&#x53E3;</strong>&#x3002;</p>
+
+                    
+                    </section>
+                
+                
+                </div>
+            </div>
+        </div>
+
+        
+        <a href="../c02/s02.html" class="navigation navigation-prev " aria-label="Previous page: 2.2 Hello Itcast"><i class="fa fa-angle-left"></i></a>
+        
+        
+        <a href="../c02/s04.html" class="navigation navigation-next " aria-label="Next page: 2.4 options"><i class="fa fa-angle-right"></i></a>
+        
+    </div>
+</div>
+
+        
+<script src="../gitbook/app.js"></script>
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-search/lunr.min.js"></script>
+    
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-search/search.js"></script>
+    
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-sharing/buttons.js"></script>
+    
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-fontsettings/buttons.js"></script>
+    
+
+<script>
+require(["gitbook"], function(gitbook) {
+    var config = {"highlight":{},"search":{"maxIndexSize":1000000},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2}};
+    gitbook.start(config);
+});
+</script>
+
+        
+    </body>
+    
+</html>

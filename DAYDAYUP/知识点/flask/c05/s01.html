@@ -1,0 +1,808 @@
+<!DOCTYPE HTML>
+<html lang="zh-tw" >
+    <!-- Start book Flask框架 -->
+    <head>
+        <!-- head:start -->
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <title>蓝图 | Flask框架</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 2.6.7">
+        
+        
+        <meta name="HandheldFriendly" content="true"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+        <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+        
+    <link rel="stylesheet" href="../gitbook/style.css">
+    
+        
+        <link rel="stylesheet" href="../gitbook/plugins/gitbook-plugin-toggle-chapters/toggle.css">
+        
+    
+        
+        <link rel="stylesheet" href="../gitbook/plugins/gitbook-plugin-splitter/splitter.css">
+        
+    
+        
+        <link rel="stylesheet" href="../gitbook/plugins/gitbook-plugin-emphasize/plugin.css">
+        
+    
+        
+        <link rel="stylesheet" href="../gitbook/plugins/gitbook-plugin-highlight/website.css">
+        
+    
+        
+        <link rel="stylesheet" href="../gitbook/plugins/gitbook-plugin-fontsettings/website.css">
+        
+    
+    
+
+        
+    
+    
+    <link rel="next" href="../c05/s02.html" />
+    
+    
+    <link rel="prev" href="../c05/index.html" />
+    
+
+        <!-- head:end -->
+    </head>
+    <body>
+        <!-- body:start -->
+        
+    <div class="book"
+        data-level="5.1"
+        data-chapter-title="蓝图"
+        data-filepath="c05/s01.md"
+        data-basepath=".."
+        data-revision="Sat Oct 28 2017 17:13:14 GMT+0800 (中国标准时间)"
+        data-innerlanguage="">
+    
+
+<div class="book-summary">
+    <nav role="navigation">
+        <ul class="summary">
+            
+            
+            
+            
+
+            
+
+            
+    
+        <li class="chapter " data-level="0" data-path="index.html">
+            
+                
+                    <a href="../index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                        引言
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1" data-path="c01/index.html">
+            
+                
+                    <a href="../c01/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.</b>
+                        
+                        关于Flask
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.1" data-path="c01/s01.html">
+            
+                
+                    <a href="../c01/s01.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.1.</b>
+                        
+                        了解框架
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="c01/s02.html">
+            
+                
+                    <a href="../c01/s02.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.2.</b>
+                        
+                        安装环境
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2" data-path="c02/index.html">
+            
+                
+                    <a href="../c02/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.</b>
+                        
+                        视图
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.1" data-path="c02/s01.html">
+            
+                
+                    <a href="../c02/s01.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.1.</b>
+                        
+                        从Hello World开始
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2" data-path="c02/s02.html">
+            
+                
+                    <a href="../c02/s02.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.2.</b>
+                        
+                        扩展
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="3" data-path="c03/index.html">
+            
+                
+                    <a href="../c03/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.</b>
+                        
+                        模板
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="3.1" data-path="c03/s01.html">
+            
+                
+                    <a href="../c03/s01.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.1.</b>
+                        
+                        变量
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2" data-path="c03/s02.html">
+            
+                
+                    <a href="../c03/s02.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.2.</b>
+                        
+                        过滤器
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.3" data-path="c03/s03.html">
+            
+                
+                    <a href="../c03/s03.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.3.</b>
+                        
+                        web表单
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.4" data-path="c03/s04.html">
+            
+                
+                    <a href="../c03/s04.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.4.</b>
+                        
+                        控制语句
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.5" data-path="c03/s05.html">
+            
+                
+                    <a href="../c03/s05.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.5.</b>
+                        
+                        宏、继承、包含
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.6" data-path="c03/s06.html">
+            
+                
+                    <a href="../c03/s06.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.6.</b>
+                        
+                        Flask的特殊变量和方法
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="4" data-path="c04/index.html">
+            
+                
+                    <a href="../c04/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.</b>
+                        
+                        数据库
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="4.1" data-path="c04/s01.html">
+            
+                
+                    <a href="../c04/s01.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.1.</b>
+                        
+                        数据库的设置
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2" data-path="c04/s02.html">
+            
+                
+                    <a href="../c04/s02.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.2.</b>
+                        
+                        数据库的基本操作
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.3" data-path="c04/s03.html">
+            
+                
+                    <a href="../c04/s03.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.3.</b>
+                        
+                        自定义模型类
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.4" data-path="c04/s04.html">
+            
+                
+                    <a href="../c04/s04.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.4.</b>
+                        
+                        数据库迁移
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.5" data-path="c04/s05.html">
+            
+                
+                    <a href="../c04/s05.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.5.</b>
+                        
+                        邮件扩展
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="5" data-path="c05/index.html">
+            
+                
+                    <a href="../c05/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.</b>
+                        
+                        测试与部署
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter active" data-level="5.1" data-path="c05/s01.html">
+            
+                
+                    <a href="../c05/s01.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.1.</b>
+                        
+                        蓝图
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.2" data-path="c05/s02.html">
+            
+                
+                    <a href="../c05/s02.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.2.</b>
+                        
+                        单元测试
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.3" data-path="c05/s03.html">
+            
+                
+                    <a href="../c05/s03.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.3.</b>
+                        
+                        部署
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.4" data-path="c05/s04.html">
+            
+                
+                    <a href="../c05/s04.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.4.</b>
+                        
+                        RESTful
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.5" data-path="c05/s05.html">
+            
+                
+                    <a href="../c05/s05.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.5.</b>
+                        
+                        性能
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+
+            
+            <li class="divider"></li>
+            <li>
+                <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+                    本書使用 GitBook 釋出
+                </a>
+            </li>
+            
+        </ul>
+    </nav>
+</div>
+
+    <div class="book-body">
+        <div class="body-inner">
+            <div class="book-header" role="navigation">
+    <!-- Actions Left -->
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../" >Flask框架</a>
+    </h1>
+</div>
+
+            <div class="page-wrapper" tabindex="-1" role="main">
+                <div class="page-inner">
+                
+                
+                    <section class="normal" id="section-">
+                    
+                        <h1 id="51-&#x84DD;&#x56FE;blueprint">5.1 &#x84DD;&#x56FE;Blueprint</h1>
+<h3 id="&#x4E3A;&#x4EC0;&#x4E48;&#x5B66;&#x4E60;&#x84DD;&#x56FE;&#xFF1F;">&#x4E3A;&#x4EC0;&#x4E48;&#x5B66;&#x4E60;&#x84DD;&#x56FE;&#xFF1F;</h3>
+<p>&#x6211;&#x4EEC;&#x5B66;&#x4E60;Flask&#x6846;&#x67B6;&#xFF0C;&#x662F;&#x4ECE;&#x5199;&#x5355;&#x4E2A;&#x6587;&#x4EF6;&#xFF0C;&#x6267;&#x884C;hello world&#x5F00;&#x59CB;&#x7684;&#x3002;&#x6211;&#x4EEC;&#x5728;&#x8FD9;&#x5355;&#x4E2A;&#x6587;&#x4EF6;&#x4E2D;&#x53EF;&#x4EE5;&#x5B9A;&#x4E49;&#x8DEF;&#x7531;&#x3001;&#x89C6;&#x56FE;&#x51FD;&#x6570;&#x3001;&#x5B9A;&#x4E49;&#x6A21;&#x578B;&#x7B49;&#x7B49;&#x3002;&#x4F46;&#x8FD9;&#x663E;&#x7136;&#x5B58;&#x5728;&#x4E00;&#x4E2A;&#x95EE;&#x9898;&#xFF1A;&#x968F;&#x7740;&#x4E1A;&#x52A1;&#x4EE3;&#x7801;&#x7684;&#x589E;&#x52A0;&#xFF0C;&#x5C06;&#x6240;&#x6709;&#x4EE3;&#x7801;&#x90FD;&#x653E;&#x5728;&#x5355;&#x4E2A;&#x7A0B;&#x5E8F;&#x6587;&#x4EF6;&#x4E2D;&#xFF0C;&#x662F;&#x975E;&#x5E38;&#x4E0D;&#x5408;&#x9002;&#x7684;&#x3002;&#x8FD9;&#x4E0D;&#x4EC5;&#x4F1A;&#x8BA9;&#x4EE3;&#x7801;&#x9605;&#x8BFB;&#x53D8;&#x5F97;&#x56F0;&#x96BE;&#xFF0C;&#x800C;&#x4E14;&#x4F1A;&#x7ED9;&#x540E;&#x671F;&#x7EF4;&#x62A4;&#x5E26;&#x6765;&#x9EBB;&#x70E6;&#x3002;</p>
+<p>&#x5982;&#x4E0B;&#x793A;&#x4F8B;&#xFF1A;&#x6211;&#x4EEC;&#x5728;&#x4E00;&#x4E2A;&#x6587;&#x4EF6;&#x4E2D;&#x5199;&#x5165;&#x591A;&#x4E2A;&#x8DEF;&#x7531;&#xFF0C;&#x8FD9;&#x4F1A;&#x4F7F;&#x4EE3;&#x7801;&#x7EF4;&#x62A4;&#x53D8;&#x5F97;&#x56F0;&#x96BE;&#x3002;</p>
+<pre><code class="lang-python">    <span class="hljs-keyword">from</span> flask <span class="hljs-keyword">import</span> Flask    
+    app = Flask(__name__)    
+<span class="hljs-decorator">    @app.route(&apos;/&apos;)</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">index</span><span class="hljs-params">()</span>:</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-string">&apos;index&apos;</span>
+
+<span class="hljs-decorator">    @app.route(&apos;/list&apos;)</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">list</span><span class="hljs-params">()</span>:</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-string">&apos;list&apos;</span>
+
+<span class="hljs-decorator">    @app.route(&apos;/detail&apos;)</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">detail</span><span class="hljs-params">()</span>:</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-string">&apos;detail&apos;</span>
+
+<span class="hljs-decorator">    @app.route(&apos;/&apos;)</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">admin_home</span><span class="hljs-params">()</span>:</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-string">&apos;admin_home&apos;</span>
+
+<span class="hljs-decorator">    @app.route(&apos;/new&apos;)</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">new</span><span class="hljs-params">()</span>:</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-string">&apos;new&apos;</span>
+
+<span class="hljs-decorator">    @app.route(&apos;/edit&apos;)</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">edit</span><span class="hljs-params">()</span>:</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-string">&apos;edit&apos;</span>
+</code></pre>
+<p><strong>&#x95EE;&#x9898;&#xFF1A;&#x4E00;&#x4E2A;&#x7A0B;&#x5E8F;&#x6267;&#x884C;&#x6587;&#x4EF6;&#x4E2D;&#xFF0C;&#x529F;&#x80FD;&#x4EE3;&#x7801;&#x8FC7;&#x591A;&#x3002;</strong>&#x5C31;&#x662F;&#x8BA9;&#x4EE3;&#x7801;&#x6A21;&#x5757;&#x5316;&#x3002;&#x6839;&#x636E;&#x5177;&#x4F53;&#x4E0D;&#x540C;&#x529F;&#x80FD;&#x6A21;&#x5757;&#x7684;&#x5B9E;&#x73B0;&#xFF0C;&#x5212;&#x5206;&#x6210;&#x4E0D;&#x540C;&#x7684;&#x5206;&#x7C7B;&#xFF0C;&#x964D;&#x4F4E;&#x5404;&#x529F;&#x80FD;&#x6A21;&#x5757;&#x4E4B;&#x95F4;&#x7684;&#x8026;&#x5408;&#x5EA6;&#x3002;python&#x4E2D;&#x7684;&#x6A21;&#x5757;&#x5236;&#x4F5C;&#x548C;&#x5BFC;&#x5165;&#x5C31;&#x662F;&#x57FA;&#x4E8E;&#x5B9E;&#x73B0;&#x529F;&#x80FD;&#x6A21;&#x5757;&#x7684;&#x5C01;&#x88C5;&#x7684;&#x9700;&#x6C42;&#x3002;</p>
+<p><strong>&#x5C1D;&#x8BD5;&#x7528;&#x6A21;&#x5757;&#x5BFC;&#x5165;&#x7684;&#x65B9;&#x5F0F;&#x89E3;&#x51B3;&#xFF1A;</strong>
+&#x6211;&#x4EEC;&#x628A;&#x4E0A;&#x8FF0;&#x4E00;&#x4E2A;py&#x6587;&#x4EF6;&#x7684;&#x591A;&#x4E2A;&#x8DEF;&#x7531;&#x89C6;&#x56FE;&#x51FD;&#x6570;&#x7ED9;&#x62C6;&#x6210;&#x4E24;&#x4E2A;&#x6587;&#x4EF6;&#xFF1A;app.py&#x548C;admin.py&#x6587;&#x4EF6;&#x3002;app.py&#x6587;&#x4EF6;&#x4F5C;&#x4E3A;&#x7A0B;&#x5E8F;&#x542F;&#x52A8;&#x6587;&#x4EF6;&#xFF0C;&#x56E0;&#x4E3A;admin&#x6587;&#x4EF6;&#x6CA1;&#x6709;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x5B9E;&#x4F8B;app&#xFF0C;&#x5728;admin&#x6587;&#x4EF6;&#x4E2D;&#x8981;&#x4F7F;&#x7528;app.route&#x8DEF;&#x7531;&#x88C5;&#x9970;&#x5668;&#xFF0C;&#x9700;&#x8981;&#x628A;app.py&#x6587;&#x4EF6;&#x7684;app&#x5BFC;&#x5165;&#x5230;admin.py&#x6587;&#x4EF6;&#x4E2D;&#x3002;</p>
+<pre><code class="lang-python"><span class="hljs-comment"># &#x6587;&#x4EF6;app.py</span>
+<span class="hljs-keyword">from</span> flask <span class="hljs-keyword">import</span> Flask
+<span class="hljs-comment"># &#x5BFC;&#x5165;admin&#x4E2D;&#x7684;&#x5185;&#x5BB9;</span>
+<span class="hljs-keyword">from</span> admin <span class="hljs-keyword">import</span> *
+app = Flask(__name__)
+
+<span class="hljs-decorator">@app.route(&apos;/&apos;)</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">index</span><span class="hljs-params">()</span>:</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-string">&apos;index&apos;</span>
+
+<span class="hljs-decorator">@app.route(&apos;/list&apos;)</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">list</span><span class="hljs-params">()</span>:</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-string">&apos;list&apos;</span>
+
+<span class="hljs-decorator">@app.route(&apos;/detail&apos;)</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">detail</span><span class="hljs-params">()</span>:</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-string">&apos;detail&apos;</span>
+
+<span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&apos;__main__&apos;</span>:
+    app.run()
+
+<span class="hljs-comment"># &#x6587;&#x4EF6;admin.py    </span>
+<span class="hljs-keyword">from</span> app <span class="hljs-keyword">import</span> app
+<span class="hljs-decorator">@app.route(&apos;/&apos;)</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">admin_home</span><span class="hljs-params">()</span>:</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-string">&apos;admin_home&apos;</span>
+
+<span class="hljs-decorator">@app.route(&apos;/new&apos;)</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">new</span><span class="hljs-params">()</span>:</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-string">&apos;new&apos;</span>
+
+<span class="hljs-decorator">@app.route(&apos;/edit&apos;)</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">edit</span><span class="hljs-params">()</span>:</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-string">&apos;edit&apos;</span>
+</code></pre>
+<p><strong>&#x542F;&#x52A8;app.py&#x6587;&#x4EF6;&#x540E;&#xFF0C;&#x6211;&#x4EEC;&#x53D1;&#x73B0;admin.py&#x6587;&#x4EF6;&#x4E2D;&#x7684;&#x8DEF;&#x7531;&#x90FD;&#x65E0;&#x6CD5;&#x8BBF;&#x95EE;&#x3002;</strong>
+&#x4E5F;&#x5C31;&#x662F;&#x8BF4;&#xFF0C;<span class="pg-emphasize pg-emphasize-yellow" style="background: #fff666;">python&#x4E2D;&#x7684;&#x6A21;&#x5757;&#x5316;&#x867D;&#x7136;&#x80FD;&#x628A;&#x4EE3;&#x7801;&#x7ED9;&#x62C6;&#x5206;&#x5F00;&#xFF0C;&#x4F46;&#x4E0D;&#x80FD;&#x89E3;&#x51B3;&#x8DEF;&#x7531;&#x6620;&#x5C04;&#x7684;&#x95EE;&#x9898;&#x3002;</span>
+<img src="../images/&#x6A21;&#x5757;&#x5BFC;&#x5165;.png" alt="&#x6A21;&#x5757;&#x5BFC;&#x5165;"></p>
+<h3 id="&#x4EC0;&#x4E48;&#x662F;&#x84DD;&#x56FE;&#xFF1F;">&#x4EC0;&#x4E48;&#x662F;&#x84DD;&#x56FE;&#xFF1F;</h3>
+<p>&#x84DD;&#x56FE;&#xFF1A;<span class="pg-emphasize pg-emphasize-yellow" style="background: #fff700;">&#x7528;&#x4E8E;&#x5B9E;&#x73B0;&#x5355;&#x4E2A;&#x5E94;&#x7528;&#x7684;&#x89C6;&#x56FE;&#x3001;&#x6A21;&#x677F;&#x3001;&#x9759;&#x6001;&#x6587;&#x4EF6;&#x7684;&#x96C6;&#x5408;&#x3002;</span></p>
+<p>&#x84DD;&#x56FE;&#x5C31;&#x662F;&#x6A21;&#x5757;&#x5316;&#x5904;&#x7406;&#x7684;&#x7C7B;&#x3002;</p>
+<p>&#x7B80;&#x5355;&#x6765;&#x8BF4;&#xFF0C;&#x84DD;&#x56FE;&#x5C31;&#x662F;&#x4E00;&#x4E2A;&#x5B58;&#x50A8;&#x64CD;&#x4F5C;&#x8DEF;&#x7531;&#x6620;&#x5C04;&#x65B9;&#x6CD5;&#x7684;&#x5BB9;&#x5668;&#xFF0C;&#x4E3B;&#x8981;&#x7528;&#x6765;&#x5B9E;&#x73B0;&#x5BA2;&#x6237;&#x7AEF;&#x8BF7;&#x6C42;&#x548C;URL&#x76F8;&#x4E92;&#x5173;&#x8054;&#x7684;&#x529F;&#x80FD;&#x3002;
+&#x5728;Flask&#x4E2D;&#xFF0C;&#x4F7F;&#x7528;&#x84DD;&#x56FE;&#x53EF;&#x4EE5;&#x5E2E;&#x52A9;&#x6211;&#x4EEC;&#x5B9E;&#x73B0;&#x6A21;&#x5757;&#x5316;&#x5E94;&#x7528;&#x7684;&#x529F;&#x80FD;&#x3002;</p>
+<h3 id="&#x84DD;&#x56FE;&#x7684;&#x8FD0;&#x884C;&#x673A;&#x5236;&#xFF1A;">&#x84DD;&#x56FE;&#x7684;&#x8FD0;&#x884C;&#x673A;&#x5236;&#xFF1A;</h3>
+<p>&#x84DD;&#x56FE;&#x662F;&#x4FDD;&#x5B58;&#x4E86;&#x4E00;&#x7EC4;&#x5C06;&#x6765;&#x53EF;&#x4EE5;&#x5728;&#x5E94;&#x7528;&#x5BF9;&#x8C61;&#x4E0A;&#x6267;&#x884C;&#x7684;&#x64CD;&#x4F5C;&#x3002;&#x6CE8;&#x518C;&#x8DEF;&#x7531;&#x5C31;&#x662F;&#x4E00;&#x79CD;&#x64CD;&#x4F5C;,&#x5F53;&#x5728;&#x7A0B;&#x5E8F;&#x5B9E;&#x4F8B;&#x4E0A;&#x8C03;&#x7528;route&#x88C5;&#x9970;&#x5668;&#x6CE8;&#x518C;&#x8DEF;&#x7531;&#x65F6;&#xFF0C;&#x8FD9;&#x4E2A;&#x64CD;&#x4F5C;&#x5C06;&#x4FEE;&#x6539;&#x5BF9;&#x8C61;&#x7684;url_map&#x8DEF;&#x7531;&#x6620;&#x5C04;&#x5217;&#x8868;&#x3002;&#x5F53;&#x6211;&#x4EEC;&#x5728;&#x84DD;&#x56FE;&#x5BF9;&#x8C61;&#x4E0A;&#x8C03;&#x7528;route&#x88C5;&#x9970;&#x5668;&#x6CE8;&#x518C;&#x8DEF;&#x7531;&#x65F6;&#xFF0C;&#x5B83;&#x53EA;&#x662F;&#x5728;&#x5185;&#x90E8;&#x7684;&#x4E00;&#x4E2A;&#x5EF6;&#x8FDF;&#x64CD;&#x4F5C;&#x8BB0;&#x5F55;&#x5217;&#x8868;defered_functions&#x4E2D;&#x6DFB;&#x52A0;&#x4E86;&#x4E00;&#x4E2A;&#x9879;&#x3002;&#x5F53;&#x6267;&#x884C;&#x5E94;&#x7528;&#x5BF9;&#x8C61;&#x7684; register_blueprint() &#x65B9;&#x6CD5;&#x65F6;&#xFF0C;&#x5E94;&#x7528;&#x5BF9;&#x8C61;&#x4ECE;&#x84DD;&#x56FE;&#x5BF9;&#x8C61;&#x7684; defered_functions &#x5217;&#x8868;&#x4E2D;&#x53D6;&#x51FA;&#x6BCF;&#x4E00;&#x9879;&#xFF0C;&#x5373;&#x8C03;&#x7528;&#x5E94;&#x7528;&#x5BF9;&#x8C61;&#x7684; add_url_rule() &#x65B9;&#x6CD5;&#xFF0C;&#x8FD9;&#x5C06;&#x4F1A;&#x4FEE;&#x6539;&#x7A0B;&#x5E8F;&#x5B9E;&#x4F8B;&#x7684;&#x8DEF;&#x7531;&#x6620;&#x5C04;&#x5217;&#x8868;&#x3002;</p>
+<h3 id="&#x84DD;&#x56FE;&#x7684;&#x4F7F;&#x7528;&#xFF1A;">&#x84DD;&#x56FE;&#x7684;&#x4F7F;&#x7528;&#xFF1A;</h3>
+<p>&#x4E00;&#x3001;&#x521B;&#x5EFA;&#x84DD;&#x56FE;&#x5BF9;&#x8C61;&#x3002;</p>
+<pre><code class="lang-python"><span class="hljs-comment">#Blueprint&#x5FC5;&#x987B;&#x6307;&#x5B9A;&#x4E24;&#x4E2A;&#x53C2;&#x6570;&#xFF0C;admin&#x8868;&#x793A;&#x84DD;&#x56FE;&#x7684;&#x540D;&#x79F0;&#xFF0C;__name__&#x8868;&#x793A;&#x84DD;&#x56FE;&#x6240;&#x5728;&#x6A21;&#x5757;</span>
+admin = Blueprint(<span class="hljs-string">&apos;admin&apos;</span>,__name__)
+</code></pre>
+<p>&#x4E8C;&#x3001;&#x6CE8;&#x518C;&#x84DD;&#x56FE;&#x8DEF;&#x7531;&#x3002;</p>
+<pre><code class="lang-python"><span class="hljs-decorator">@admin.route(&apos;/&apos;)</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">admin_index</span><span class="hljs-params">()</span>:</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-string">&apos;admin_index&apos;</span>
+</code></pre>
+<p>&#x4E09;&#x3001;&#x5728;&#x7A0B;&#x5E8F;&#x5B9E;&#x4F8B;&#x4E2D;&#x6CE8;&#x518C;&#x8BE5;&#x84DD;&#x56FE;&#x3002;</p>
+<pre><code class="lang-python">app.register_blueprint(admin,url_prefix=<span class="hljs-string">&apos;/admin&apos;</span>)
+</code></pre>
+<h3 id="&#x6587;&#x4EF6;&#x76EE;&#x5F55;&#xFF1A;">&#x6587;&#x4EF6;&#x76EE;&#x5F55;&#xFF1A;</h3>
+<p><img src="../images/&#x76EE;&#x5F55;&#x6587;&#x4EF6;.png" alt="&#x76EE;&#x5F55;&#x6587;&#x4EF6;"></p>
+<h4 id="&#x7A0B;&#x5E8F;&#x6267;&#x884C;&#x6587;&#x4EF6;test4testpy">&#x7A0B;&#x5E8F;&#x6267;&#x884C;&#x6587;&#x4EF6;/test4/test.py</h4>
+<pre><code>from flask import Flask
+#&#x5BFC;&#x5165;&#x84DD;&#x56FE;&#x5BF9;&#x8C61;
+from login import logins
+from user import users
+
+app = Flask(__name__)
+
+@app.route(&apos;/&apos;)
+def hello_world():
+    return &apos;Hello World!&apos;
+#&#x6CE8;&#x518C;&#x84DD;&#x56FE;&#xFF0C;&#x7B2C;&#x4E00;&#x4E2A;&#x53C2;&#x6570;logins&#x662F;&#x84DD;&#x56FE;&#x5BF9;&#x8C61;&#xFF0C;url_prefix&#x53C2;&#x6570;&#x9ED8;&#x8BA4;&#x503C;&#x662F;&#x6839;&#x8DEF;&#x7531;&#xFF0C;&#x5982;&#x679C;&#x6307;&#x5B9A;&#xFF0C;&#x4F1A;&#x5728;&#x84DD;&#x56FE;&#x6CE8;&#x518C;&#x7684;&#x8DEF;&#x7531;url&#x4E2D;&#x6DFB;&#x52A0;&#x524D;&#x7F00;&#x3002;
+app.register_blueprint(logins,url_prefix=&apos;&apos;)
+app.register_blueprint(users,url_prefix=&apos;&apos;)
+
+if __name__ == &apos;__main__&apos;:
+    app.run(debug=True)
+</code></pre><h4 id="&#x521B;&#x5EFA;&#x84DD;&#x56FE;&#xFF1A;test4userpy">&#x521B;&#x5EFA;&#x84DD;&#x56FE;&#xFF1A;/test4/user.py</h4>
+<pre><code class="lang-python"><span class="hljs-keyword">from</span> flask <span class="hljs-keyword">import</span> Blueprint,render_template
+<span class="hljs-comment">#&#x521B;&#x5EFA;&#x84DD;&#x56FE;&#xFF0C;&#x7B2C;&#x4E00;&#x4E2A;&#x53C2;&#x6570;&#x6307;&#x5B9A;&#x4E86;&#x84DD;&#x56FE;&#x7684;&#x540D;&#x5B57;&#x3002;</span>
+users = Blueprint(<span class="hljs-string">&apos;user&apos;</span>,__name__)
+
+<span class="hljs-decorator">@users.route(&apos;/user&apos;)</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">user</span><span class="hljs-params">()</span>:</span>
+    <span class="hljs-keyword">return</span> render_template(<span class="hljs-string">&apos;user.html&apos;</span>)
+</code></pre>
+<h4 id="&#x521B;&#x5EFA;&#x84DD;&#x56FE;&#xFF1A;test4loginpy">&#x521B;&#x5EFA;&#x84DD;&#x56FE;&#xFF1A;/test4/login.py</h4>
+<pre><code class="lang-python"><span class="hljs-keyword">from</span> flask <span class="hljs-keyword">import</span> Blueprint,render_template
+<span class="hljs-comment">#&#x521B;&#x5EFA;&#x84DD;&#x56FE;</span>
+logins = Blueprint(<span class="hljs-string">&apos;login&apos;</span>,__name__)
+
+<span class="hljs-decorator">@logins.route(&apos;/login&apos;)</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">login</span><span class="hljs-params">()</span>:</span>
+    <span class="hljs-keyword">return</span> render_template(<span class="hljs-string">&apos;login.html&apos;</span>)
+</code></pre>
+<h3 id="&#x8FD0;&#x884C;test4testpy&#x6587;&#x4EF6;">&#x8FD0;&#x884C;/test4/test.py&#x6587;&#x4EF6;</h3>
+<p><img src="../images/&#x84DD;&#x56FE;&#x8DEF;&#x7531;.png" alt="&#x84DD;&#x56FE;&#x8DEF;&#x7531;"></p>
+<h3 id="&#x52A8;&#x6001;&#x8DEF;&#x7531;&#x793A;&#x4F8B;&#x4F5C;&#x8005;&#x56FE;&#x4E66;&#xFF1A;">&#x52A8;&#x6001;&#x8DEF;&#x7531;&#x793A;&#x4F8B;(&#x4F5C;&#x8005;--&#x56FE;&#x4E66;)&#xFF1A;</h3>
+<p>&#x6587;&#x4EF6;&#x76EE;&#x5F55;&#xFF1A;Flask_test4/delete.py</p>
+<pre><code class="lang-python"><span class="hljs-keyword">from</span> flask <span class="hljs-keyword">import</span> Blueprint,redirect,url_for
+app_au = Blueprint(<span class="hljs-string">&apos;app_au&apos;</span>,__name__)
+app_bk = Blueprint(<span class="hljs-string">&apos;app_bk&apos;</span>,__name__)
+
+<span class="hljs-keyword">from</span> test4 <span class="hljs-keyword">import</span> *
+
+<span class="hljs-decorator">@app_au.route(&apos;/delete_au&lt;id&gt;&apos;)</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">delete_au</span><span class="hljs-params">(id)</span>:</span>
+    del_au = Author.query.filter_by(id=id).first()
+    db.session.delete(del_au)
+    db.session.commit()
+    <span class="hljs-keyword">return</span> redirect(url_for(<span class="hljs-string">&apos;index&apos;</span>))
+
+<span class="hljs-decorator">@app_bk.route(&apos;/delete_bk&lt;id&gt;&apos;)</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">delete_bk</span><span class="hljs-params">(id)</span>:</span>
+    del_bk = Book.query.filter_by(id=id).first()
+    db.session.delete(del_bk)
+    db.session.commit()
+    <span class="hljs-keyword">return</span> redirect(url_for(<span class="hljs-string">&apos;index&apos;</span>))
+</code></pre>
+<p>&#x6587;&#x4EF6;&#x76EE;&#x5F55;&#xFF1A;Flask_test4/test4.py</p>
+<pre><code class="lang-python"><span class="hljs-comment">#coding=utf-8</span>
+<span class="hljs-comment">#&#x76EE;&#x7684;&#xFF1A;&#x521B;&#x5EFA;&#x4E24;&#x4E2A;&#x6A21;&#x578B;&#x7C7B;&#x578B;&#xFF0C;&#x5B9E;&#x73B0;&#x6570;&#x636E;&#x5E93;&#x7684;&#x8FDE;&#x63A5;&#x548C;&#x6570;&#x636E;&#x7684;&#x64CD;&#x4F5C;</span>
+<span class="hljs-keyword">from</span> flask <span class="hljs-keyword">import</span> Flask,render_template,request,redirect,url_for
+<span class="hljs-keyword">from</span> flask_sqlalchemy <span class="hljs-keyword">import</span> SQLAlchemy
+<span class="hljs-keyword">from</span> flask_wtf <span class="hljs-keyword">import</span> FlaskForm
+<span class="hljs-keyword">from</span> wtforms <span class="hljs-keyword">import</span> StringField,SubmitField
+<span class="hljs-keyword">from</span> wtforms.validators <span class="hljs-keyword">import</span> DataRequired
+<span class="hljs-comment">#&#x5BFC;&#x5165;delete&#x6587;&#x4EF6;&#x4E2D;&#x7684;&#x84DD;&#x56FE;&#x5BF9;&#x8C61;</span>
+<span class="hljs-keyword">from</span> delete <span class="hljs-keyword">import</span> app_au,app_bk
+
+app = Flask(__name__)
+<span class="hljs-comment">#&#x5BF9;&#x6570;&#x636E;&#x5E93;&#x8FDE;&#x63A5;&#x7684;&#x57FA;&#x672C;&#x8BBE;&#x7F6E;</span>
+app.config[<span class="hljs-string">&apos;SQLALCHEMY_DATABASE_URI&apos;</span>]=<span class="hljs-string">&apos;mysql://root:mysql@localhost/test0&apos;</span>
+app.config[<span class="hljs-string">&apos;SQLALCHEMY_COMMIT_ON_TEARDOWN&apos;</span>] = <span class="hljs-keyword">True</span>
+app.config[<span class="hljs-string">&apos;SQLALCHEMY_TRACK_MODIFICATIONS&apos;</span>] = <span class="hljs-keyword">True</span>
+<span class="hljs-comment">#&#x628A;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x7684;&#x5B9E;&#x4F8B;&#x548C;SQLAlchemy&#x8FDB;&#x884C;&#x5173;&#x8054;</span>
+db = SQLAlchemy(app)
+app.config[<span class="hljs-string">&apos;SECRET_KEY&apos;</span>] = <span class="hljs-string">&apos;a&apos;</span>
+
+<span class="hljs-comment">#&#x81EA;&#x5B9A;&#x4E49;&#x8868;&#x5355;&#xFF0C;&#x5B9E;&#x73B0;&#x6570;&#x636E;&#x7684;&#x8F93;&#x5165;&#x4FDD;&#x5B58;&#x64CD;&#x4F5C;</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Append</span><span class="hljs-params">(FlaskForm)</span>:</span>
+    author = StringField(validators=[DataRequired()])
+    book = StringField(validators=[DataRequired()])
+    submit = SubmitField(<span class="hljs-string">u&apos;&#x63D0;&#x4EA4;&apos;</span>)
+
+<span class="hljs-comment">#&#x81EA;&#x5B9A;&#x4E49;&#x6A21;&#x578B;&#x7C7B;</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Author</span><span class="hljs-params">(db.Model)</span>:</span>
+    __tablename__ = <span class="hljs-string">&apos;authors&apos;</span>
+    id = db.Column(db.Integer,primary_key=<span class="hljs-keyword">True</span>)
+    name = db.Column(db.String(<span class="hljs-number">32</span>),unique=<span class="hljs-keyword">True</span>)
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__repr__</span><span class="hljs-params">(self)</span>:</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-string">&apos;author:%s&apos;</span>%self.name
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Book</span><span class="hljs-params">(db.Model)</span>:</span>
+    __tablename__ = <span class="hljs-string">&apos;books&apos;</span>
+    id = db.Column(db.Integer,primary_key=<span class="hljs-keyword">True</span>)
+    info = db.Column(db.String(<span class="hljs-number">32</span>),unique=<span class="hljs-keyword">True</span>)
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__repr__</span><span class="hljs-params">(self)</span>:</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-string">&apos;book:%s&apos;</span>%self.info
+
+<span class="hljs-decorator">@app.route(&apos;/&apos;,methods=[&apos;GET&apos;,&apos;POST&apos;])</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">index</span><span class="hljs-params">()</span>:</span>
+    au = Author.query.all()
+    bk = Book.query.all()
+    form = Append()
+    <span class="hljs-keyword">if</span> form.validate_on_submit():
+        <span class="hljs-comment">#&#x4ECE;&#x8868;&#x5355;&#x4E2D;&#x83B7;&#x53D6;&#x6570;&#x636E;</span>
+        wtf_au = form.author.data
+        wtf_bk = form.book.data
+        <span class="hljs-comment">#&#x628A;&#x6570;&#x636E;&#x5B58;&#x5165;&#x6A21;&#x578B;&#x7C7B;&#x4E2D;</span>
+        db_au = Author(name=wtf_au)
+        db_bk = Book(info=wtf_bk)
+        <span class="hljs-comment">#&#x6DFB;&#x52A0;&#x5230;&#x6570;&#x636E;&#x5E93;&#x64CD;&#x4F5C;</span>
+        db.session.add_all([db_au,db_bk])
+        db.session.commit()
+        au = Author.query.all()
+        bk = Book.query.all()
+        <span class="hljs-keyword">return</span> render_template(<span class="hljs-string">&apos;index.html&apos;</span>,au=au,bk=bk,form=form)
+
+    <span class="hljs-keyword">if</span> request.method == <span class="hljs-string">&apos;GET&apos;</span>:
+        <span class="hljs-keyword">return</span> render_template(<span class="hljs-string">&apos;index.html&apos;</span>,au=au,bk=bk,form=form)
+
+<span class="hljs-comment">#&#x6CE8;&#x518C;&#x84DD;&#x56FE;</span>
+app.register_blueprint(app_au)
+app.register_blueprint(app_bk)
+
+<span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&apos;__main__&apos;</span>:    
+    <span class="hljs-keyword">print</span> app.url_map
+    app.run(debug=<span class="hljs-keyword">True</span>)
+</code></pre>
+<h3 id="&#x67E5;&#x770B;&#x84DD;&#x56FE;&#x8DEF;&#x7531;&#xFF1A;&#x84DD;&#x56FE;&#x8DEF;&#x7531;&#x53EF;&#x4EE5;&#x5206;&#x4E3A;&#x4E24;&#x5757;&#xFF0C;&#x524D;&#x9762;&#x7684;&#x662F;&#x84DD;&#x56FE;&#x540D;&#x79F0;&#xFF0C;&#x540E;&#x9762;&#x7684;&#x662F;&#x89C6;&#x56FE;&#x51FD;&#x6570;&#x540D;&#x3002;">&#x67E5;&#x770B;&#x84DD;&#x56FE;&#x8DEF;&#x7531;&#xFF1A;&#x84DD;&#x56FE;&#x8DEF;&#x7531;&#x53EF;&#x4EE5;&#x5206;&#x4E3A;&#x4E24;&#x5757;&#xFF0C;&quot;.&quot;&#x524D;&#x9762;&#x7684;&#x662F;&#x84DD;&#x56FE;&#x540D;&#x79F0;&#xFF0C;&quot;.&quot;&#x540E;&#x9762;&#x7684;&#x662F;&#x89C6;&#x56FE;&#x51FD;&#x6570;&#x540D;&#x3002;</h3>
+<p><img src="../images/&#x84DD;&#x56FE;url_prefix.png" alt="&#x84DD;&#x56FE;url_prefix"></p>
+
+                    
+                    </section>
+                
+                
+                </div>
+            </div>
+        </div>
+
+        
+        <a href="../c05/index.html" class="navigation navigation-prev " aria-label="Previous page: 测试与部署"><i class="fa fa-angle-left"></i></a>
+        
+        
+        <a href="../c05/s02.html" class="navigation navigation-next " aria-label="Next page: 单元测试"><i class="fa fa-angle-right"></i></a>
+        
+    </div>
+</div>
+
+        
+<script src="../gitbook/app.js"></script>
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-toggle-chapters/toggle.js"></script>
+    
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-splitter/splitter.js"></script>
+    
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-sharing/buttons.js"></script>
+    
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-fontsettings/buttons.js"></script>
+    
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-livereload/plugin.js"></script>
+    
+
+<script>
+require(["gitbook"], function(gitbook) {
+    var config = {"toggle-chapters":{},"splitter":{},"emphasize":{},"highlight":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"livereload":{}};
+    gitbook.start(config);
+});
+</script>
+
+        <!-- body:end -->
+    </body>
+    <!-- End of book Flask框架 -->
+</html>
