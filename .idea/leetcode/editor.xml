@@ -99,11 +99,35 @@
             </LeetcodeEditor>
           </value>
         </entry>
+        <entry key="$USER_HOME$/AppData/Local/Temp/leetcode/editor/cn/[12]整数转罗马数字.py">
+          <value>
+            <LeetcodeEditor>
+              <option name="path" value="$USER_HOME$/AppData/Local/Temp/leetcode/editor/cn/[12]整数转罗马数字.py" />
+              <option name="questionId" value="12" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
+        <entry key="$USER_HOME$/AppData/Local/Temp/leetcode/editor/cn/[13]罗马数字转整数.py">
+          <value>
+            <LeetcodeEditor>
+              <option name="path" value="$USER_HOME$/AppData/Local/Temp/leetcode/editor/cn/[13]罗马数字转整数.py" />
+              <option name="questionId" value="13" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
         <entry key="$USER_HOME$/AppData/Local/Temp/leetcode/editor/cn/[14]最长公共前缀.py">
           <value>
             <LeetcodeEditor>
               <option name="path" value="$USER_HOME$/AppData/Local/Temp/leetcode/editor/cn/[14]最长公共前缀.py" />
               <option name="questionId" value="14" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
+        <entry key="$USER_HOME$/AppData/Local/Temp/leetcode/editor/cn/[153]寻找旋转排序数组中的最小值.py">
+          <value>
+            <LeetcodeEditor>
+              <option name="path" value="$USER_HOME$/AppData/Local/Temp/leetcode/editor/cn/[153]寻找旋转排序数组中的最小值.py" />
+              <option name="questionId" value="153" />
             </LeetcodeEditor>
           </value>
         </entry>
@@ -192,6 +216,22 @@
             <LeetcodeEditor>
               <option name="path" value="$USER_HOME$/AppData/Local/Temp/leetcode/editor/cn/[300]最长上升子序列.py" />
               <option name="questionId" value="300" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
+        <entry key="$USER_HOME$/AppData/Local/Temp/leetcode/editor/cn/[33]搜索旋转排序数组.py">
+          <value>
+            <LeetcodeEditor>
+              <option name="path" value="$USER_HOME$/AppData/Local/Temp/leetcode/editor/cn/[33]搜索旋转排序数组.py" />
+              <option name="questionId" value="33" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
+        <entry key="$USER_HOME$/AppData/Local/Temp/leetcode/editor/cn/[367]有效的完全平方数.py">
+          <value>
+            <LeetcodeEditor>
+              <option name="path" value="$USER_HOME$/AppData/Local/Temp/leetcode/editor/cn/[367]有效的完全平方数.py" />
+              <option name="questionId" value="367" />
             </LeetcodeEditor>
           </value>
         </entry>
@@ -307,11 +347,27 @@
             </LeetcodeEditor>
           </value>
         </entry>
+        <entry key="$USER_HOME$/AppData/Local/Temp/leetcode/editor/cn/[69]x 的平方根.py">
+          <value>
+            <LeetcodeEditor>
+              <option name="path" value="$USER_HOME$/AppData/Local/Temp/leetcode/editor/cn/[69]x 的平方根.py" />
+              <option name="questionId" value="69" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
         <entry key="$USER_HOME$/AppData/Local/Temp/leetcode/editor/cn/[6]Z 字形变换.py">
           <value>
             <LeetcodeEditor>
               <option name="path" value="$USER_HOME$/AppData/Local/Temp/leetcode/editor/cn/[6]Z 字形变换.py" />
               <option name="questionId" value="6" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
+        <entry key="$USER_HOME$/AppData/Local/Temp/leetcode/editor/cn/[74]搜索二维矩阵.py">
+          <value>
+            <LeetcodeEditor>
+              <option name="path" value="$USER_HOME$/AppData/Local/Temp/leetcode/editor/cn/[74]搜索二维矩阵.py" />
+              <option name="questionId" value="74" />
             </LeetcodeEditor>
           </value>
         </entry>
