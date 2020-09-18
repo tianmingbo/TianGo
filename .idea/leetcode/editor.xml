@@ -51,6 +51,14 @@
             </LeetcodeEditor>
           </value>
         </entry>
+        <entry key="$USER_HOME$/AppData/Local/Temp/leetcode/editor/cn/[1143]最长公共子序列.py">
+          <value>
+            <LeetcodeEditor>
+              <option name="path" value="$USER_HOME$/AppData/Local/Temp/leetcode/editor/cn/[1143]最长公共子序列.py" />
+              <option name="questionId" value="1250" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
         <entry key="$USER_HOME$/AppData/Local/Temp/leetcode/editor/cn/[116]填充每个节点的下一个右侧节点指针.py">
           <value>
             <LeetcodeEditor>
@@ -120,6 +128,14 @@
             <LeetcodeEditor>
               <option name="path" value="$USER_HOME$/AppData/Local/Temp/leetcode/editor/cn/[14]最长公共前缀.py" />
               <option name="questionId" value="14" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
+        <entry key="$USER_HOME$/AppData/Local/Temp/leetcode/editor/cn/[152]乘积最大子数组.py">
+          <value>
+            <LeetcodeEditor>
+              <option name="path" value="$USER_HOME$/AppData/Local/Temp/leetcode/editor/cn/[152]乘积最大子数组.py" />
+              <option name="questionId" value="152" />
             </LeetcodeEditor>
           </value>
         </entry>
@@ -216,6 +232,22 @@
             <LeetcodeEditor>
               <option name="path" value="$USER_HOME$/AppData/Local/Temp/leetcode/editor/cn/[300]最长上升子序列.py" />
               <option name="questionId" value="300" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
+        <entry key="$USER_HOME$/AppData/Local/Temp/leetcode/editor/cn/[322]零钱兑换.py">
+          <value>
+            <LeetcodeEditor>
+              <option name="path" value="$USER_HOME$/AppData/Local/Temp/leetcode/editor/cn/[322]零钱兑换.py" />
+              <option name="questionId" value="322" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
+        <entry key="$USER_HOME$/AppData/Local/Temp/leetcode/editor/cn/[326]3的幂.py">
+          <value>
+            <LeetcodeEditor>
+              <option name="path" value="$USER_HOME$/AppData/Local/Temp/leetcode/editor/cn/[326]3的幂.py" />
+              <option name="questionId" value="326" />
             </LeetcodeEditor>
           </value>
         </entry>
@@ -328,6 +360,14 @@
             <LeetcodeEditor>
               <option name="path" value="$USER_HOME$/AppData/Local/Temp/leetcode/editor/cn/[62]不同路径.py" />
               <option name="questionId" value="62" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
+        <entry key="$USER_HOME$/AppData/Local/Temp/leetcode/editor/cn/[63]不同路径 II.py">
+          <value>
+            <LeetcodeEditor>
+              <option name="path" value="$USER_HOME$/AppData/Local/Temp/leetcode/editor/cn/[63]不同路径 II.py" />
+              <option name="questionId" value="63" />
             </LeetcodeEditor>
           </value>
         </entry>

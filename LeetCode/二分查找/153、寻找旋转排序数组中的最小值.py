@@ -5,23 +5,16 @@ class Solution(object):
     def findMin(self, nums):
         if len(nums) == 1:
             return nums[0]
-
-        left = 0
-        # right pointer
-        right = len(nums) - 1
-
-        if nums[right] > nums[0]:
-            return nums[0]
-        while right >= left:
-            mid = left + (right - left) // 2
-            if nums[mid] > nums[mid + 1]:
-                return nums[mid + 1]
-            if nums[mid - 1] > nums[mid]:
-                return nums[mid]
-            if nums[mid] > nums[0]:
+        left, right = 0, len(nums) - 1
+        while left <= right:
+            if nums[left] <= nums[right]:  # 当left<right时，说明是递增的，直接返回left的值
+                return nums[left]
+            mid = (left + right) // 2
+            if nums[left] <= nums[mid]:  # 如果nums[left] <= nums[mid]，说明left到mid是递增的，最小值不在这之间。要到left+1~right中查找
                 left = mid + 1
             else:
-                right = mid - 1
+                right = mid  # 如果nums[left] > nums[mid]，说明left到mid不是递增的，最小值在这之间。在left~right中查找（注意right不-1，因为mid没有被排除）
+        return -1
 
 
 if __name__ == '__main__':
