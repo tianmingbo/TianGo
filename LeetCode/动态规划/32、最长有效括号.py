@@ -3,6 +3,11 @@
 # @Author  : tmb
 class Solution:
     def longestValidParentheses(self, s: str) -> int:
+        '''
+        状态转移方程还未看懂，暂时用栈
+        :param s:
+        :return:
+        '''
         pass
 
 

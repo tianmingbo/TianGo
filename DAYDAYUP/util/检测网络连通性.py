@@ -1,3 +1,6 @@
+# -*- coding: utf-8 -*-
+# @Time    : 2020/9/29 9:24
+# @Author  : tmb
 import os
 import socket
 
@@ -63,9 +66,4 @@ def get_device_status_by_ip_port(ip, port, times=5):
 
 
 if __name__ == '__main__':
-    import time
-
-    start = time.time()
     print(is_network_link('192.168.200.147', '554'))
-    end = time.time()
-    print(end - start)
