@@ -66,6 +66,6 @@ if __name__ == '__main__':
     import time
 
     start = time.time()
-    print(is_network_link('192.168.200.147', '554'))
+    print(is_network_link('192.168.110.91', '5000'))
     end = time.time()
     print(end - start)
