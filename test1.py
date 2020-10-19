@@ -1,67 +1,18 @@
-class DLinkNode(object):
-    def __init__(self, key=0, value=0):
-        self.key = key
-        self.value = value
-        self.pre = None
-        self.next = None
+from socket import *
 
+# 1. 创建udp套接字
+udp_socket = socket(AF_INET, SOCK_DGRAM)
 
-class LRUCache:
+# 2. 准备接收方的地址
+# '192.168.1.103'表示目的ip地址
+# 8080表示目的端口
+dest_addr = ('192.168.1.103', 8080)  # 注意 是元组，ip是字符串，端口是数字
 
-    def __init__(self, capacity: int):
-        self.cache = dict()
-        self.head = DLinkNode()
-        self.tail = DLinkNode()
-        self.head.next = self.tail
-        self.tail.pre = self.head
-        self.capacity = capacity
-        self.size = 0
+# 3. 从键盘获取数据
+send_data = '7E00160100000000044C0000300000000B010000023000B7987D'
 
-    def get(self, key: int) -> int:
-        if key not in self.cache:
-            return -1
-        node = self.cache[key]
-        self.move_node_2_head(node)
-        return node.value
+# 4. 发送数据到指定的电脑上的指定程序中
+udp_socket.sendto(send_data.encode('utf-8'), dest_addr)
 
-    def put(self, key: int, value: int) -> None:
-        if key not in self.cache:
-            node = DLinkNode(key, value)
-            self.cache[key] = node  # 添加进哈希表
-            self.addToHead(node)
-            self.size += 1
-            if self.size > self.capacity:
-                # 如果超出容量，删除末尾结点
-                remove_node = self.remove_tail()
-                self.cache.pop(remove_node.key)
-                self.size -= 1
-        else:
-            # 如果存在，就移到头
-            node = self.cache[key]
-            node.value = value
-            self.move_node_2_head(node)
-
-    def move_node_2_head(self, node):
-        self.remove_node(node)
-        self.addToHead(node)
-
-    def addToHead(self, node):
-        node.next = self.head.next
-        node.pre = self.head
-        self.head.next.pre = node
-        self.head.next = node
-
-    def remove_node(self, node):
-        node.pre.next = node.next
-        node.next.pre = node.pre
-
-    def remove_tail(self):
-        node = self.tail.pre
-        self.remove_node(node)
-        return node
-
-
-if __name__ == '__main__':
-    a = LRUCache(5)
-    a.put(1, 2)
-    print(a.get(1))
+# 5. 关闭套接字
+udp_socket.close()

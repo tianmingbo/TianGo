@@ -5,7 +5,7 @@ import os
 import socket
 
 
-def is_network_link(ip, port, timeout=3):
+def is_network_link(ip, port, timeout=10):
     """检测网络连通性
 
     Args:
@@ -17,10 +17,12 @@ def is_network_link(ip, port, timeout=3):
     """
     try:
         socket_client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        print(socket_client)
         socket_client.settimeout(timeout)
         socket_client.connect((ip, int(port)))
         socket_client.close()
     except socket.error as e:
+        print(e)
         return False
 
     return True
@@ -66,4 +68,4 @@ def get_device_status_by_ip_port(ip, port, times=5):
 
 
 if __name__ == '__main__':
-    print(is_network_link('192.168.200.147', '554'))
+    print(is_network_link('192.168.10.33', '30000'))
