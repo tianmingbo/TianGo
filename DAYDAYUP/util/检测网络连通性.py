@@ -68,4 +68,4 @@ def get_device_status_by_ip_port(ip, port, times=5):
 
 
 if __name__ == '__main__':
-    print(is_network_link('192.168.10.33', '30000'))
+    print(is_network_link('192.168.10.33', '6379'))

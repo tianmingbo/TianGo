@@ -16,7 +16,7 @@ tmp = {
     "noReset": True
 }
 
-driver = webdriver.Remote("http://127.0.0.1:4723/wd/hub", tmp)
+driver = webdriver.Remote("http://127.0.0.1:4723/wd/hub", tmp)  # 连接服务器
 driver.find_element_by_xpath("//android.widget.TextView[@resource-id='com.tal.kaoyan:id/tip_commit']").click()
 try:
     if WebDriverWait(driver, 6).until(

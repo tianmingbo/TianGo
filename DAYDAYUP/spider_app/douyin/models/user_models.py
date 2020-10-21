@@ -14,18 +14,25 @@ engine = create_engine("mysql+pymysql://root:tian@127.0.0.1:3306/douyin", max_ov
 Base = declarative_base()
 
 
-class UserInfo(Base):
-    __tablename__ = 'UserInfo'
-    id = Column(Integer, primary_key=True)
-    avatar_image = Column(String(128))
-    nickname = Column(String(128))
-    signature = Column(String(128))
-    following_count = Column(Integer)  # 关注
-    fans = Column(Integer)  # 粉丝
-    zan = Column(Integer)  # 赞
-    works_count = Column(Integer)  # 作品
-    favoriting_count = Column(Integer)  # 喜欢
-    douyin_id = Column(String(32), nullable=False)
+#
+# class UserInfo(Base):
+#     __tablename__ = 'UserInfo'
+#     id = Column(Integer, primary_key=True)
+#     avatar_image = Column(String(128))
+#     nickname = Column(String(128))
+#     signature = Column(String(128))
+#     following_count = Column(Integer)  # 关注
+#     fans = Column(Integer)  # 粉丝
+#     zan = Column(Integer)  # 赞
+#     works_count = Column(Integer)  # 作品
+#     favoriting_count = Column(Integer)  # 喜欢
+#     douyin_id = Column(String(32), nullable=False)
+
+
+class CaiHongPI(Base):
+    __tablename__ = 'caihongpi'
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    value = Column(String(256))
 
 
 # 定义初始化数据库函数
