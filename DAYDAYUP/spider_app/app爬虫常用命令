@@ -3,4 +3,4 @@ adb.exe pm path phone.android    #获取对应的apk路径
 adb pull apk路径  本地路径          #把应用pull到本地
 aapt dump badging <apk_path>      #获取全部信息
 
-抖音页面不能获取，使用weditor
+抖音页面不能获取，使用weditor   python -m weditor #启动weditor
