@@ -23,5 +23,5 @@ print(datetime.datetime.now())
 # if __name__ == '__main__':
 #     a = Solution()
 #     print(a.numDecodings('1022'))
-
-
+status = 1
+print(f'multi period switch to multi period ,{status}', 'tactics')
