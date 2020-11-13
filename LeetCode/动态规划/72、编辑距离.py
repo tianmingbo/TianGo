@@ -18,6 +18,7 @@ class Solution:
             dp[i][0] = i
         for j in range(second + 1):
             dp[0][j] = j
+
         for x in range(1, first + 1):
             for y in range(1, second + 1):
                 if word1[x - 1] == word2[y - 1]:
