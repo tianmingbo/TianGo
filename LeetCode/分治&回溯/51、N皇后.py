@@ -4,6 +4,7 @@
 class Solution:
     def solveNQueens(self, n: int):
         def generateBoard():
+            # 棋盘生成
             board = list()
             for i in range(n):
                 row[queens[i]] = "Q"
@@ -12,20 +13,22 @@ class Solution:
             return board
 
         def backtrack(row: int):
+            # 结束条件
             if row == n:
                 board = generateBoard()
-                print(board)
                 solutions.append(board)
             else:
                 for i in range(n):
-                    if i in columns or row - i in diagonal1 or row + i in diagonal2:
+                    if i in columns or row - i in diagonal1 or row + i in diagonal2:  # 排除不合法选择：互相攻击
                         continue
+                    # 做选择
                     queens[row] = i
-                    print(queens)
                     columns.add(i)
                     diagonal1.add(row - i)
                     diagonal2.add(row + i)
+                    # 进入下一决策
                     backtrack(row + 1)
+                    # 撤销选择
                     columns.remove(i)
                     diagonal1.remove(row - i)
                     diagonal2.remove(row + i)
@@ -76,5 +79,5 @@ class Solution2:
 
 if __name__ == '__main__':
     a = Solution()
-    a.solveNQueens(4)
+    print(a.solveNQueens(4))
     # print(a.solveNQueens(3))

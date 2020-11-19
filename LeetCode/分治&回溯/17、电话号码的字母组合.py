@@ -16,19 +16,23 @@ class Solution:
             '9': 'wxyz'
         }
 
-        def helper(index):
-            if index == len(digits):
-                res.append("".join(tmp))  # 不能append(tmp),浅拷贝，值会被覆盖
-            else:
-                digit = digits[index]
-                for i in map[digit]:
-                    tmp.append(i)
-                    helper(index + 1)
-                    tmp.pop()
+        def backtrack(res, tmp, index):
+            # 终结条件
+            if len(tmp) == len(digits):
+                res.append(''.join(tmp))
+                return
+            # 和全排列相比，更新nums
+            digit = map[digits[index]]
+            for i in digit:
+                # 选择
+                tmp.append(i)
+                # 回溯
+                backtrack(res, tmp, index + 1)
+                # 撤销选择
+                tmp.pop()
 
-        tmp = []  # 一轮遍历临时存储
-        res = []  # 存储结果
-        helper(0)
+        res = []
+        backtrack(res, [], 0)
         return res
 
     def letterCombinations2(self, digits):
