@@ -18,12 +18,12 @@ class Solution:
         res = []
 
         def backtrack(s, tmp):
-            if not s:
+            if not s:  # 遍历到根
                 res.append(tmp[:])
                 return
 
             for i in range(1, len(s) + 1):
-                if self.ishuiwen(s[:i]):
+                if self.ishuiwen(s[:i]):  # 判断是不是回文，不是回文，停止向下
                     tmp.append(s[:i])
                     backtrack(s[i:], tmp)
                     tmp.pop()
@@ -31,6 +31,10 @@ class Solution:
         backtrack(s, [])
         return res
 
+
+'''
+#遍历树，第一次选一个，如下为例，左子树可选a-a-b，中间的为aa-b，右子树为aab
+'''
 
 if __name__ == '__main__':
     a = Solution()

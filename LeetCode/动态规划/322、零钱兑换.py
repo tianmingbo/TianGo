@@ -38,5 +38,5 @@ class Solution2:
 
 
 if __name__ == '__main__':
-    a = Solution()
+    a = Solution2()
     print(a.coinChange([1, 2, 5], amount=11))
