@@ -9,18 +9,17 @@ class ListNode:
 
 class Solution:
     def rotateRight(self, head: ListNode, k: int) -> ListNode:
-        len_listnode = 0
-        p, tail = head, head
-        end = ListNode(0)
-        while tail.next:  # 找到长度，获得尾结点
-            len_listnode += 1
-            tail = tail.next
-            end = tail
-        k = k % len_listnode  # 翻转长度
-        for i in range(len_listnode - k):  # 翻转的前一个结点
+        if not head or not head.next:
+            return head
+        p = head
+        len_node = 1
+        while p.next:  # 获取链表长度
             p = p.next
-            k -= 1
-        cur = p.next  # 翻转后的头结点
-        p.next = None
-        end.next = head
-        return cur
+            len_node += 1
+        p.next = head  # 尾指向头
+        new_pre = head
+        for i in range(len_node - (k % len_node + 1)):  # 翻转前的那个结点
+            new_pre = new_pre.next
+        new_head = new_pre.next  # 翻转结点
+        new_pre.next = None
+        return new_head
