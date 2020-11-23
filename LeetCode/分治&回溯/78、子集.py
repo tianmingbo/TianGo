@@ -105,4 +105,4 @@ class Solution4(object):
 
 if __name__ == '__main__':
     a = Solution5()
-    print(a.subsets([1, 2, 3]))
+    print(a.subsets([1, 2, 2]))
