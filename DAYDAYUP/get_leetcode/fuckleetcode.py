@@ -46,19 +46,17 @@ def get_one_info(link):
     content = etree.tostring(page[0])
     name = html.xpath('//h4[@data-cypress="QuestionTitle"]/a/text()')[0] + '.html'
     with open(name, 'w+') as f:
-        f.write('''
-        <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+        f.write('''<!DOCTYPE html>
+        <html lang="en">
+        <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+        </head>
+        <body>
         ''')
         f.write(content.decode('ascii'))
-        f.write('''
-        </body>
-</html>
+        f.write('''</body>
+        </html>
         ''')
     print(content.decode('ascii'))
 
