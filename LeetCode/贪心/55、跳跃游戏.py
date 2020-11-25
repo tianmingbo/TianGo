@@ -18,6 +18,10 @@ class Solution:
         return False
 
 
+'''
+每一步都计算一下从当前位置最远能够跳到哪里，然后和一个全局最优的最远位置farthest做对比，通过每一步的最优解，更新全局最优解，这就是贪心。
+'''
+
 if __name__ == '__main__':
     a = Solution()
     print(a.canJump([1, 0, 2, 3]))
