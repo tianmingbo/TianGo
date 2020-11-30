@@ -5,7 +5,7 @@ class Solution:
     def search(self, nums, target: int) -> int:
         if not nums:
             return -1
-        left, right = 0, len(nums)-1
+        left, right = 0, len(nums) - 1
         while (left <= right):
             mid = (left + right) // 2
             if nums[mid] == target:
@@ -25,4 +25,4 @@ class Solution:
 
 if __name__ == '__main__':
     a = Solution()
-    print(a.search([3,1], 1))
+    print(a.search([4, 5, 6, 7, 0, 1, 2], 0))

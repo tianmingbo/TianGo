@@ -16,4 +16,4 @@ class Solution:
 
 if __name__ == '__main__':
     a = Solution()
-    print(a.jump([1,1,1,1,4]))
+    print(a.jump([2, 3, 1, 1, 4]))
