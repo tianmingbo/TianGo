@@ -27,8 +27,23 @@ class Solution:
                 dp[i][j] = min(grid[i][j] + dp[i + 1][j], grid[i][j] + dp[i][j + 1])
         return dp[0][0]  # 从下往上走，左上角的就是最小路径和
 
+    def minPathSum2(self, grid):
+        if not grid:
+            return 0
+        dp = [[0] * (len(grid[0]) + 1) for _ in range(len(grid) + 1)]
+        dp[1][1] = grid[0][0]
+        for i in range(len(grid)):
+            for j in range(len(grid[0])):
+                if i == 0:
+                    dp[i + 1][j + 1] = grid[i][j] + dp[i + 1][j]
+                if j == 0:
+                    dp[i + 1][j + 1] = grid[i][j] + dp[i][j + 1]
+                elif i > 0 and j > 0:
+                    dp[i + 1][j + 1] = min(dp[i + 1][j] + grid[i][j], dp[i][j + 1] + grid[i][j])
+        return dp[-1][-1]
+
 
 if __name__ == '__main__':
     a = Solution()
-    print(a.minPathSum([[1, 3, 1],
-                        [1, 5, 1], ]))
+    print(a.minPathSum2([[1, 3, 1],
+                         [1, 5, 1]]))

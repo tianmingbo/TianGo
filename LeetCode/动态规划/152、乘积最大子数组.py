@@ -22,4 +22,4 @@ class Solution:
 
 if __name__ == '__main__':
     a = Solution()
-    print(a.maxProduct([2, -1, 1, 1]))
+    print(a.maxProduct([2, -1, -2, 1]))

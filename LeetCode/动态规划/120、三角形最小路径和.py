@@ -22,10 +22,20 @@ class Solution:
                         dp[index][j] = triangle[index][j] + dp[index - 1][j - 1]  # 头上没有值，左上角有值
         return min(dp[-1])
 
+    # bottom-up, O(n) space
+    def minimumTotal2(self, triangle):
+        if not triangle:
+            return
+        res = triangle[-1]
+        for i in range(len(triangle) - 2, -1, -1):
+            for j in range(len(triangle[i])):
+                res[j] = min(res[j], res[j + 1]) + triangle[i][j]
+        return res[0]
+
 
 if __name__ == '__main__':
     a = Solution()
-    print(a.minimumTotal([[2],
+    print(a.minimumTotal2([[2],
                           [-6, 7],
                           [4, -8, 7],
                           [4, -6, 7, -1],

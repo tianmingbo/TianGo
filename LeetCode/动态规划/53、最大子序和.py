@@ -6,11 +6,13 @@
 转移方程：
 dp[i] = max(nums[i], dp[i - 1] + nums[i])
 '''
+
+
 class Solution:
     def maxSubArray(self, nums):
         if not nums:
             return 0
-        dp = [0 for i in nums]
+        dp = [0 for _ in nums]
         for i in range(len(nums)):
             dp[i] = max(nums[i], dp[i - 1] + nums[i])
         return max(dp)

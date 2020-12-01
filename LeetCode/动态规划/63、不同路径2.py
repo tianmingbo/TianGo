@@ -47,11 +47,10 @@ class Solution2:
                 if obstacleGrid[i][j] == 1:
                     dp[i][j] = 0
                 else:
-                    if i - 1 >= 0:
+                    if i - 1 >= 0:  # 排除第一行，上面为空
                         dp[i][j] += dp[i - 1][j]
-                    if j - 1 >= 0:
+                    if j - 1 >= 0:  # 排除第一列，左面为空
                         dp[i][j] += dp[i][j - 1]
-        print(dp)
         return dp[-1][-1]
 
 
