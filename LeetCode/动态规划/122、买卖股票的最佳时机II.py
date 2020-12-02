@@ -39,6 +39,7 @@ class Solution2:
         # return max
         return sum(max(prices[i + 1] - prices[i], 0) for i in range(len(prices) - 1))
 
+
 if __name__ == '__main__':
     a = Solution2()
     print(a.maxProfit([7, 15, 5, 3, 6, 4]))
