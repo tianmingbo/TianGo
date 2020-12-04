@@ -13,7 +13,7 @@ class Solution:
         # 不能[[[0] * 2 ]*3  for _ in range(len(prices))] 简历dp table，存在浅复制的bug
         dp = [[[0] * 2 for _ in range(3)] for _ in range(len(prices))]
         for i in range(len(prices)):
-            for j in range(1, 3):
+            for j in range(2, 0, -1):
                 if i - 1 == -1:
                     dp[-1][j][0] = 0
                     dp[-1][j][1] = -float('inf')
