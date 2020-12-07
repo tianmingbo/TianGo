@@ -4,21 +4,30 @@
 class Trie:
 
     def __init__(self):
+        '''
+        1.结点本身不存完整单词;
+        2.从根结点到某一结点，路径上经过的字符连接起来，为该结点对应的字符串;
+        3.每个结点的所有子结点路径代表的字符都不相同。
+
+        '''
         """
         Initialize your data structure here.
         """
-        self.lookup = {}
+        self.trie = {}
 
     def insert(self, word: str) -> None:
         """
         Inserts a word into the trie.
         """
-        tree = self.lookup
+        tree = self.trie
         for a in word:
-            if a not in tree:
-                tree[a] = {}
-            tree = tree[a]
-            print(self.lookup)
+            # if a not in tree:
+            #     tree[a] = {}
+            # tree = tree[a]
+            # print(self.trie)
+
+            tree = tree.setdefault(a, {})
+            print(tree)
         # 单词结束标志
         tree["#"] = "#"
 
@@ -26,7 +35,7 @@ class Trie:
         """
         Returns if the word is in the trie.
         """
-        tree = self.lookup
+        tree = self.trie
         for a in word:
             if a not in tree:
                 return False
@@ -39,7 +48,7 @@ class Trie:
         """
         Returns if there is any word in the trie that starts with the given prefix.
         """
-        tree = self.lookup
+        tree = self.trie
         for a in prefix:
             if a not in tree:
                 return False
@@ -92,7 +101,7 @@ class Trie2:
 
 
 if __name__ == '__main__':
-    obj = Trie2()
+    obj = Trie()
     obj.insert('tian')
     obj.insert('tea')
     print(obj.trie)

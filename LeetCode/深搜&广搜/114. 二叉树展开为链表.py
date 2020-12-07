@@ -28,3 +28,19 @@ class Solution:
             cur = all_node[i]
             pre.left = None
             pre.right = cur
+
+    def flatten2(self, root):
+        if not root:
+            return
+        self.flatten2(root.left)
+        self.flatten2(root.right)
+
+        left = root.left
+        right = root.right
+        root.left = None
+        root.right = left
+
+        p = root
+        while p.right is not None:
+            p = p.right
+        p.right = right
