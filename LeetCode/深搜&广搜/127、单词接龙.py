@@ -27,16 +27,15 @@ class Solution:
 from collections import defaultdict, deque
 
 
+# 双向bfs
 class Solution2(object):
     def ladderLength(self, beginWord, endWord, wordList):
         wordList = set(wordList)
         if endWord not in wordList:
             return 0
-        front = set()
-        back = set()
-        front.add(beginWord)
-        back.add(endWord)
-        dist = 1
+        front = {beginWord}
+        back = {endWord}
+        dist = 1  # 走的步数
         word_len = len(beginWord)
 
         while front:
@@ -47,13 +46,13 @@ class Solution2(object):
                     for c in 'abcdefghijklmnopqrstuvwxyz':
                         if c != word[i]:
                             new_word = word[:i] + c + word[i + 1:]
-                            if new_word in back:
+                            if new_word in front:  # 相交了，front和back相交
                                 return dist
                             if new_word in wordList:
                                 next_front.add(new_word)
                                 wordList.remove(new_word)
             front = next_front
-            if len(back) < len(front):
+            if len(back) < len(front):  # 如果back的长度更小，互换
                 back, front = front, back
 
         return 0

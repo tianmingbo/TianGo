@@ -6,18 +6,20 @@
 '''
 
 
+# 类似岛屿问题，可以使用dfs，bfs，也可以使用并查集
+
 class Solution:
     def findCircleNum(self, M) -> int:
         if not M:
             return 0
         n = len(M)
-        p = [i for i in range(n)]
-        for i in range(n):
+        p = [i for i in range(n)]  # 初始化并查集
+        for i in range(n): #创建并查集
             for j in range(n):
                 if M[i][j] == 1:
                     self.union(p, i, j)
                     print(p)
-        a = set([self.parent(p, i) for i in range(n)])  # [1,2,2] 关系具有传递性，0和1是朋友，1和2是朋友，所以0和2是朋友
+        a = set([self.parent(p, i) for i in range(n)])  # [1,2,2] 关系具有传递性，0和1是朋友，1和2是朋友，所以0和2是朋友，判断有几个孤立的群
         return len(a)
 
     def union(self, p, i, j):
