@@ -25,7 +25,10 @@ class Solution:
 
         return seen_once
 
+    def singleNumber2(self, nums: List[int]) -> int:
+        return (sum([i * 3 for i in set(nums)]) - sum(nums))//2
+
 
 if __name__ == '__main__':
     a = Solution()
-    print(a.singleNumber([0, 1, 0, 1, 0, 1, 99]))
+    print(a.singleNumber2([0, 1, 0, 1, 0, 1, 99]))

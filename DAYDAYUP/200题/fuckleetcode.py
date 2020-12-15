@@ -17,7 +17,7 @@ driver = webdriver.Chrome(chrome_options=chrome_options)  # 创建Chrome对象.
 def get_all_links():
     # 进入浏览器设置
 
-    driver.get('https://leetcode-cn.com/problemset/leetcode-70/')
+    driver.get('https://leetcode-cn.com/problemset/leetcode-200/')
     # html = etree.HTML(driver.page_source)
     #
     # driver.find_element_by_xpath('//div[@class="css-lzlnnl-primary-title-AuthLinks ergbin812"]//a[2]').click()
@@ -43,7 +43,10 @@ def get_one_info(link):
     time.sleep(1)
     html = etree.HTML(driver.page_source)
     page = html.xpath('//div[@class="description__2b0C"]')
-    content = etree.tostring(page[0])
+    try:
+        content = etree.tostring(page[0])
+    except:
+        return
     name = html.xpath('//h4[@data-cypress="QuestionTitle"]/a/text()')[0] + '.html'
     with open(name, 'w+') as f:
         f.write('''<!DOCTYPE html>
@@ -63,6 +66,7 @@ def get_one_info(link):
 
 if __name__ == '__main__':
     links = get_all_links()
+    print(links)
     for i in links:
         get_one_info(i)
         time.sleep(1.5)

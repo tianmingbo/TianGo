@@ -12,6 +12,25 @@ def quick_sort(li: list):
     return left + [first] + right
 
 
+def quick_sort2(begin, end, nums):
+    if begin >= end:
+        return
+    pivot_index = partition(begin, end, nums)
+    quick_sort2(begin, pivot_index - 1, nums)
+    quick_sort2(pivot_index + 1, end, nums)
+    print(nums)
+
+def partition(begin, end, nums):
+    pivot = nums[begin]
+    mark = begin
+    for i in range(begin + 1, end + 1):
+        if nums[i] < pivot:
+            mark += 1
+            nums[mark], nums[i] = nums[i], nums[mark]
+    nums[begin], nums[mark] = nums[mark], nums[begin]
+    return mark
+
+
 '''
 递归，列表中取出第一个元素，作为标准，把比第一个元素小的都放在左侧，把比第一个元素大的都放在右侧，递归完成时就是排序结束的时候
 
@@ -19,7 +38,7 @@ def quick_sort(li: list):
 '''
 
 if __name__ == '__main__':
-    arr = [3, 1, 2, 9, 6, 4]
+    arr = [6, 1, 2, 9, 6, 4]
     n = len(arr)
-    b = quick_sort(arr)
+    b = quick_sort2(0, 5, arr)
     print(b)

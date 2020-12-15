@@ -66,7 +66,7 @@ class Solution2:
 
 
 if __name__ == '__main__':
-    nums = [1, 2, 3]
+    nums = [1, 1, 3]
     solution = Solution()
     res = solution.permute(nums)
     print(res)
