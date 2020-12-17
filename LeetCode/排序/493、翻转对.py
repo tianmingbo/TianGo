@@ -57,7 +57,7 @@ class Solution2:
         if start >= end:
             return 0
         mid = (start + end) // 2 + 1
-        print(mid)
+        # print(mid)
         count = self.mergeSort(nums, start, mid - 1) + self.mergeSort(nums, mid, end)
         j = mid
         for i in range(start, mid):
