@@ -13,6 +13,7 @@ class Solution:
                     dp[i][j] = dp[i - 1][j - 1] + dp[i][j - 1]
                 else:
                     dp[i][j] = dp[i][j - 1]
+        print(dp)
         return dp[row][col]
 '''
 状态转移方程：
@@ -22,4 +23,4 @@ else : dp[i][j] = dp[i][j-1]
 
 if __name__ == '__main__':
     a = Solution()
-    print(a.numDistinct('babgbag', 'bag'))
+    print(a.numDistinct('rabbbit', 'rabbit'))

@@ -26,7 +26,7 @@ class Solution:
                 else:
                     dp[i][j] = False
 
-                if dp[i][j]:
+                if dp[i][j]:  # 获取最长子串
                     cur_len = j - i + 1
                     if cur_len > max_len:
                         max_len = cur_len
@@ -36,4 +36,4 @@ class Solution:
 
 if __name__ == '__main__':
     a = Solution()
-    print(a.longestPalindrome('cbba'))
+    print(a.longestPalindrome('babad'))
