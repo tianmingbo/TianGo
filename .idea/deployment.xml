@@ -2,6 +2,20 @@
 <project version="4">
   <component name="PublishConfigData">
     <serverData>
+      <paths name="root@192.168.10.22:22">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="root@192.168.10.23:22">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
       <paths name="root@192.168.10.27:22">
         <serverdata>
           <mappings>
