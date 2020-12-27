@@ -9,6 +9,11 @@ class TreeNode:
         self.right = None
 
 
+'''
+「如果需要搜索整颗二叉树，那么递归函数就不要返回值，如果要搜索其中一条符合条件的路径，递归函数就需要返回值，因为遇到符合条件的路径了就要及时返回。」
+'''
+
+
 class Solution:
     # 递归
     def hasPathSum(self, root, sum: int) -> bool:
@@ -16,6 +21,7 @@ class Solution:
             return False
         if not root.left and not root.right:  # 遍历到叶子结点时，判断是否相等
             return sum == root.val
+        # 这里存在回溯，把sum - root.val作为参数传进去，函数结束，sum的值没有改变
         return self.hasPathSum(root.left, sum - root.val) or self.hasPathSum(root.right,
                                                                              sum - root.val)  # 遍历左子树和右子树，并减去当前值,左右子树一个成立即可
 
@@ -43,6 +49,30 @@ class Solution2:
                 queue.append(tmp.right)
                 all_res.append(res + tmp.right.val)
         return False
+
+
+class Solution3:
+    # 使用回溯
+    def hasPathSum(self, root, sum: int) -> bool:
+        if not root:
+            return False
+        self.flag = False
+
+        def dfs(root, path):
+            if not root.left and not root.right:  # 叶子节点
+                if path == sum:
+                    self.flag = True
+            if root.left:
+                path += root.left.val
+                dfs(root.left, path)
+                path -= root.left.val
+            if root.right:
+                path += root.right.val
+                dfs(root.right, path)
+                path -= root.right.val
+
+        dfs(root, root.val)
+        return self.flag
 
 
 if __name__ == '__main__':

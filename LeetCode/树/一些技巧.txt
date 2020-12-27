@@ -1,0 +1,10 @@
+1、后序遍历就是天然的回溯，最先处理的一定是叶子节点
+2、搜索一条边的写法：
+    if (递归函数(root->left)) return ;
+    if (递归函数(root->right)) return ;
+
+    搜索整个树写法：
+
+    left = 递归函数(root->left);
+    right = 递归函数(root->right);
+    left与right的逻辑处理;

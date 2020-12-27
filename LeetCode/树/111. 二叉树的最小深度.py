@@ -32,3 +32,16 @@ class Solution:
                     queue.append(cur.right)
             depth += 1
         return depth
+
+    def minDepth2(self, root: TreeNode) -> int:
+        if not root:
+            return 0
+        left_depth = self.minDepth2(root.left)
+        right_depth = self.minDepth2(root.right)
+
+        if not root.left and root.right:
+            return 1 + right_depth
+        if not root.right and root.left:
+            return 1 + left_depth
+
+        return 1 + min(left_depth, right_depth)

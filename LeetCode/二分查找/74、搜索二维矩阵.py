@@ -49,6 +49,6 @@ class Solution2:
 
 
 if __name__ == '__main__':
-    a = Solution()
+    a = Solution2()
     print(a.searchMatrix(matrix=[[-10, -8, -6, -4, -3], [0, 2, 3, 4, 5], [8, 9, 10, 10, 12]], target=0
                          ))
