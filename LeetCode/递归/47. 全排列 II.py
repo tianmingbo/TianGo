@@ -35,4 +35,4 @@ class Solution:
 
 if __name__ == '__main__':
     a = Solution()
-    print(a.permuteUnique([1, 1, 2]))
+    print(a.permuteUnique([1, 1, 5]))
