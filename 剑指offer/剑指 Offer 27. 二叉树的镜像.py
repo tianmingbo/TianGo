@@ -1,6 +1,4 @@
-# -*- coding: utf-8 -*-
-# @Time    : 2020/12/30 10:38
-# @Author  : tmb
+
 # Definition for a binary tree node.
 class TreeNode:
     def __init__(self, x):
@@ -11,5 +9,10 @@ class TreeNode:
 
 class Solution:
     def mirrorTree(self, root: TreeNode) -> TreeNode:
+        '''实质是后序遍历'''
         if not root:
             return root
+        left = self.mirrorTree(root.left)
+        right = self.mirrorTree(root.right)
+        root.left, root.right = right, left
+        return root
