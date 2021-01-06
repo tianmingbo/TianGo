@@ -1,26 +1,38 @@
 # -*- coding: utf-8 -*-
 # @Time    : 2020/10/19 10:54
 # @Author  : tmb
-def heap_sort(nums: list):
-    def heapify(parent_index, length, nums):
-        temp = nums[parent_index]  # 根节点的值
-        chile_index = 2 * parent_index + 1  # 左节点，再加一为右节点
-        while chile_index < length:
-            if chile_index + 1 < length and nums[chile_index + 1] > nums[chile_index]:
-                chile_index = chile_index + 1
-            if temp > nums[chile_index]:
-                break
-            nums[parent_index] = nums[chile_index]  # 使得根节点最大
-            parent_index = chile_index
-            chile_index = 2 * parent_index + 1
-        nums[parent_index] = temp
+import random
 
-    for i in range((len(nums) - 2) >> 1, -1, -1):
-        heapify(i, len(nums), nums)  # 1.建立大根堆
-        print(nums)
-    for j in range(len(nums) - 1, 0, -1):
-        nums[j], nums[0] = nums[0], nums[j]
-        heapify(0, j, nums)  # 2.堆排序，为升序
+
+def maxHeapfy(alist, length, parent):
+    left = 2 * parent + 1
+    right = 2 * parent + 2
+    largest = parent
+
+    # 找出根和左右孩子的最大值
+    if left < length and alist[left] > alist[largest]:
+        largest = left
+    if right < length and alist[right] > alist[largest]:
+        largest = right
+    if largest != parent:  # 如果根不是最大值，就交换最大值，然后再递归调整
+        alist[largest], alist[parent] = alist[parent], alist[largest]
+        maxHeapfy(alist, length, largest)  # 递归构建
+
+
+def buildMaxHeap(alist):  # 构建最大堆
+    n = len(alist)
+    lastParent = (n - 1) // 2
+    for i in range(lastParent, -1, -1):
+        maxHeapfy(alist, n, i)
+
+
+def heapSort(alist):
+    buildMaxHeap(alist)
+    n = len(alist)
+    for i in range(n - 1, -1, -1):
+        alist[0], alist[i] = alist[i], alist[0]  # 将最大值放在最后面
+        maxHeapfy(alist, i, 0)
+    return alist
 
 
 '''
@@ -28,9 +40,15 @@ def heap_sort(nums: list):
 
 构建大根堆，完全二叉树结构，初始无序
 最大堆调整，进行堆排序。将堆顶元素与最后一个元素交换，此时后面有序
-时间复杂度$O(nlogn)$，原地排序，稳定
+时间复杂度$O(nlogn)$，原地排序，不稳定  
+建堆复杂度为O(n)，维护堆为O(logn)
 '''
 if __name__ == '__main__':
-    nums = [89, 3, 3, 2, 5, 45, 33, 67]  # [2, 3, 3, 5, 33, 45, 67, 89]
-    heap_sort(nums)
-    print(nums)
+    a = [30, 50, 57, 77, 62, 78, 94, 80, 84]
+    print(a)
+    print(heapSort(a))
+    alist = [2, 4, 1, 2, 5, 58, 45, 24, 67]
+    print(heapSort(alist))
+    b = [random.randint(1, 1000) for i in range(1000)]
+    print(b)
+    print(heapSort(b))
