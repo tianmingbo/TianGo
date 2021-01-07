@@ -15,21 +15,22 @@ class Solution:
         if not nums:
             return []
         res = []
+        n = len(nums)
 
-        def backtrack(nums, tmp):
+        def backtrack(_nums, path):
             # 终结条件
-            if len(tmp) == len(nums):
-                res.append(tmp[:])
+            if len(path) == n:
+                res.append(path[:])
                 return
-            for i in range(len(nums)):
-                if nums[i] in tmp:  # 添加过滤条件
-                    continue
+            for i in range(len(_nums)):
+                # if nums[i] in tmp:  # 添加过滤条件
+                #     continue
                 # 选择
-                tmp.append(nums[i])
+                path.append(_nums[i])
                 # 回溯
-                backtrack(nums, tmp)
+                backtrack(_nums[:i] + _nums[i + 1:], path)  # 不能使用已经使用过的当前元素，其余的都可以使用
                 # 撤销选择
-                tmp.pop()
+                path.pop()
 
         backtrack(nums, [])
         return res
@@ -66,7 +67,7 @@ class Solution2:
 
 
 if __name__ == '__main__':
-    nums = [1, 1, 3]
-    solution = Solution2()
+    nums = [1, 2, 3]
+    solution = Solution()
     res = solution.permute(nums)
     print(res)

@@ -17,15 +17,15 @@ class Solution:
             return []
         res = []
 
-        def backtrack(s, tmp):
-            if not s:  # 遍历到根
+        def backtrack(_s, tmp):
+            if not _s:  # 遍历到根
                 res.append(tmp[:])
                 return
 
-            for i in range(1, len(s) + 1):
-                if self.ishuiwen(s[:i]):  # 判断是不是回文，不是回文，停止向下
-                    tmp.append(s[:i])
-                    backtrack(s[i:], tmp)
+            for i in range(1, len(_s) + 1):
+                if self.ishuiwen(_s[:i]):  # 判断是不是回文，不是回文，停止向下
+                    tmp.append(_s[:i])
+                    backtrack(_s[i:], tmp)
                     tmp.pop()
 
         backtrack(s, [])

@@ -10,19 +10,19 @@ class Solution:
             return []
         res = []
 
-        def backtrack(s, path, depth):
-            if not s and depth == 4 and path not in res:  # ip分四段
+        def backtrack(_s, path, depth):
+            if not _s and depth == 4 and path not in res:  # ip分四段
                 if self.isvalid(path):
                     res.append(path[:])
                     return
             if depth > 4:  # 超过4段，不合格
                 return
             for i in range(1, 4):  # 判断每位ip,是否符合规则
-                if s and 0 <= int(s[:i]) <= 255:
-                    path.append(s[:i])  # 选择
+                if _s and 0 <= int(_s[:i]) <= 255:
+                    path.append(_s[:i])  # 选择
                 else:
                     continue
-                backtrack(s[i:], path, depth + 1)  # ip有四段
+                backtrack(_s[i:], path, depth + 1)  # ip有四段
                 path.pop()  # 撤销选择
 
         backtrack(s, [], 0)
@@ -42,4 +42,4 @@ class Solution:
 
 if __name__ == '__main__':
     a = Solution()
-    print(a.restoreIpAddresses('1234'))
+    print(a.restoreIpAddresses('25525511135'))

@@ -11,18 +11,20 @@ class Solution:
         res = []
         candidates.sort()
 
-        def backtrack(candidates, res, tmp):
-            if sum(tmp) == target and tmp not in res:  # 终结条件,不能包含重复解
-                res.append(tmp[:])
+        def backtrack(candidates, path, target):
+            if target == 0:  # 终结条件,不能包含重复解
+                res.append(path[:])
+                return
+            if target < 0:
                 return
             for i in range(len(candidates)):
-                if sum(tmp) > target:  # 剪枝
-                    break
-                tmp.append(candidates[i])  # 选择
-                backtrack(candidates[i + 1:], res, tmp)  # candidates[i:],过滤掉前一个元素，不再使用
-                tmp.pop()  # 撤销选择，恢复现场
+                if i > 0 and candidates[i] == candidates[i - 1]:  # 重复数字不使用
+                    continue
+                path.append(candidates[i])  # 选择
+                backtrack(candidates[i + 1:], path, target - candidates[i])  # candidates[i:],过滤掉前一个元素，不再使用
+                path.pop()  # 撤销选择，恢复现场
 
-        backtrack(candidates, res, [])
+        backtrack(candidates, [], target)
         return res
 
     def combinationSum2(self, candidates: List[int], target: int) -> List[List[int]]:
@@ -54,5 +56,4 @@ class Solution:
 
 if __name__ == '__main__':
     a = Solution()
-    print(a.combinationSum(candidates=[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-                           target=27))
+    print(a.combinationSum([10, 1, 2, 7, 6, 1, 5], 8))

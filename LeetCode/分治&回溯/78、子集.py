@@ -74,17 +74,17 @@ class Solution5(object):
     def subsets(self, nums):
         res = []
 
-        def backtrack(tmp, nums, index):
-            res.append(tmp[:])
-            for i in range(index, len(nums)):
+        def backtrack(path, nums):
+            res.append(path[:])
+            for i in range(len(nums)):
                 # 做选择
-                tmp.append(nums[i])
+                path.append(nums[i])
                 # 回溯
-                backtrack(tmp, nums, i + 1)
+                backtrack(path, nums[i + 1:])
                 # 撤销选择
-                tmp.pop()
+                path.pop()
 
-        backtrack([], nums, 0)
+        backtrack([], nums)
         return res
 
 
@@ -105,4 +105,4 @@ class Solution4(object):
 
 if __name__ == '__main__':
     a = Solution5()
-    print(a.subsets([1, 2, 2]))
+    print(a.subsets([1, 2, 3]))

@@ -44,6 +44,28 @@ class Solution2:
         return res
 
 
+class Solution3:
+    def findSubsequences(self, nums):
+        res = []
+
+        def dfs(nums, path):
+            if len(path) > 1:
+                res.append(path[:])
+            for i in range(len(nums)):
+                if not path or nums[i] >= path[-1]:
+                    if i > 0 and nums[i] in nums[:i]:
+                        continue
+                    path.append(nums[i])
+                    dfs(nums[i + 1:], path)
+                    path.pop()
+
+        dfs(nums, [])
+        return len(res)
+
+
+'''
+[[4, 6], [4, 7], [4, 6, 7], [4, 6, 7, 7], [6, 7], [6, 7, 7], [7,7], [4,7,7]]
+'''
 if __name__ == '__main__':
-    a = Solution2()
-    print(a.findSubsequences([4, 6, 7, 7]))
+    a = Solution3()
+    print(a.findSubsequences([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1, 1, 1, 1, 1]))

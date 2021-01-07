@@ -12,9 +12,10 @@ class Solution:
         nums.sort()  # 首先需要排序，如[4, 4, 4, 1, 4]，不排序会出错
 
         def backtrack(nums, path):
-            if path not in res:  # 过滤，已在res中，则不添加
-                res.append(path[:])
+            res.append(path[:])
             for i in range(len(nums)):
+                if i > 0 and nums[i] == nums[i - 1]:
+                    continue
                 path.append(nums[i])
                 backtrack(nums[i + 1:], path)  # 回溯，1,已选择，只能在后面的[2,2]中选择
                 path.pop()
@@ -39,4 +40,4 @@ class Solution2(object):
 
 if __name__ == '__main__':
     a = Solution()
-    print(a.subsetsWithDup([4, 4, 4, 1, 4]))
+    print(a.subsetsWithDup([1, 2, 2]))
