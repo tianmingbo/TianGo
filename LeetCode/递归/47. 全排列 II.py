@@ -32,7 +32,27 @@ class Solution:
         backtrack(nums, [], used)
         return res
 
+    def permuteUnique2(self, nums: List[int]) -> List[List[int]]:
+        if not nums:
+            return []
+        res = []
+        n = len(nums)
+
+        def backtrack(_nums, path):
+            if len(path) == n:
+                res.append(path[:])
+                return
+            for i in range(len(_nums)):
+                if i > 0 and _nums[i] == _nums[i - 1]:
+                    continue
+                path.append(_nums[i])
+                backtrack(_nums[:i] + _nums[i + 1:], path)
+                path.pop()
+
+        backtrack(sorted(nums), [])
+        return res
+
 
 if __name__ == '__main__':
     a = Solution()
-    print(a.permuteUnique([1, 1, 5]))
+    print(a.permuteUnique2([1, 5, 1]))
