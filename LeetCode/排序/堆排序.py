@@ -47,8 +47,8 @@ if __name__ == '__main__':
     a = [30, 50, 57, 77, 62, 78, 94, 80, 84]
     print(a)
     print(heapSort(a))
-    alist = [2, 4, 1, 2, 5, 58, 45, 24, 67]
+    alist = [2, 4, 1, 2, 5, 58, 45, 24, 24]
     print(heapSort(alist))
-    b = [random.randint(1, 1000) for i in range(1000)]
-    print(b)
-    print(heapSort(b))
+    # b = [random.randint(1, 1000) for i in range(1000)]
+    # print(b)
+    # print(heapSort(b))
