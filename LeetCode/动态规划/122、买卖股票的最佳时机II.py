@@ -22,6 +22,15 @@ class Solution:
             dp[i][1] = max(dp[i - 1][0] - prices[i], dp[i - 1][1])
         return dp[-1][0]
 
+    def greedy(self, prices):
+        if len(prices) < 2:
+            return 0
+        res = 0
+        for i in range(1, len(prices)):
+            if prices[i] - prices[i - 1] > 0:
+                res += prices[i] - prices[i - 1]  # 贪心，只要利润是正的
+        return res
+
 
 class Solution2:
     def maxProfit(self, prices):
@@ -41,5 +50,5 @@ class Solution2:
 
 
 if __name__ == '__main__':
-    a = Solution2()
-    print(a.maxProfit([7, 15, 5, 3, 6, 4]))
+    a = Solution()
+    print(a.greedy([7, 15, 5, 3, 6, 4]))

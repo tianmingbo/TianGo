@@ -19,7 +19,7 @@ class Solution:
                     five -= 1
                 else:
                     five -= 3
-                if (ten < 0 or five < 0):
+                if ten < 0 or five < 0:
                     return False
         return True
 

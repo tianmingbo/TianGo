@@ -17,6 +17,22 @@ class Solution:
                 break
         return False
 
+    def canJump2(self, nums) -> bool:
+        if len(nums) <= 1:
+            return True
+        n = len(nums)
+        jump_list = [0] * n
+        for i, e in enumerate(nums):
+            jump_list[i] = max(i + e, jump_list[i - 1])
+        for j in range(len(jump_list) - 1):
+            if jump_list[j] == 0:
+                return False
+            if jump_list[j - 1] < j:
+                return False
+            if jump_list[j] >= n - 1:
+                return True
+        return False
+
 
 '''
 每一步都计算一下从当前位置最远能够跳到哪里，然后和一个全局最优的最远位置farthest做对比，通过每一步的最优解，更新全局最优解，这就是贪心。
@@ -24,4 +40,4 @@ class Solution:
 
 if __name__ == '__main__':
     a = Solution()
-    print(a.canJump([1, 0, 2, 3]))
+    print(a.canJump2([1, 0, 1, 0]))

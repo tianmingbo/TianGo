@@ -25,16 +25,17 @@ class Solution:
     def canCompleteCircuit2(self, gas: List[int], cost: List[int]) -> int:
         if sum(cost) > sum(gas):
             return -1
-        left = [gas[i] - cost[i] for i in range(len(gas))]
-        print(left)
+        cur_sum = 0
         start = 0
-        for i in left:
-            if i < 0:
-                start += 1
+        for i in range(len(gas)):
+            cur_sum += gas[i] - cost[i]
+            if cur_sum < 0:  # 如果当前油不够跑到下一个加油站，则0~i都不作为起点
+                start = i + 1
+                cur_sum = 0
         return start
 
 
 if __name__ == '__main__':
     a = Solution()
-    print(a.canCompleteCircuit([5, 1, 2, 3, 4]
-                                , [4, 4, 1, 5, 1]))
+    print(a.canCompleteCircuit2(gas=[3, 1, 1],
+                                cost=[1, 2, 2]))
