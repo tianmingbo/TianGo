@@ -23,6 +23,7 @@ class Solution:
             return (minIndex + 1) % len(gas)
 
     def canCompleteCircuit2(self, gas: List[int], cost: List[int]) -> int:
+        # 当前累加rest[j]的和curSum一旦小于0，起始位置至少要是j+1，因为从j开始一定不行。全局最优：找到可以跑一圈的起始位置。
         if sum(cost) > sum(gas):
             return -1
         cur_sum = 0

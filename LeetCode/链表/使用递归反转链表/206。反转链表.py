@@ -17,7 +17,7 @@ https://mp.weixin.qq.com/s?__biz=MzAxODQxMDM0Mw==&mid=2247484467&idx=1&sn=beb3ae
 class Solution:
     def reverseList(self, head: ListNode) -> ListNode:
         if not head:
-            return None
+            return head
         if head.next is None:
             return head
         last = self.reverseList(head.next)

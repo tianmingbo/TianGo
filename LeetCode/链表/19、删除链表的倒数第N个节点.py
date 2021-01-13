@@ -1,6 +1,11 @@
 # -*- coding: utf-8 -*-
 # @Time    : 2020/8/31 16:38
 # @Author  : tmb
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+
 
 class Solution:
     def removeNthFromEnd(self, head, n):

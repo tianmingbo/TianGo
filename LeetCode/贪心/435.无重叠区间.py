@@ -24,4 +24,4 @@ class Solution:
 
 if __name__ == '__main__':
     a = Solution()
-    print(a.eraseOverlapIntervals([[1, 2], [2, 5], [1, 5]]))
+    print(a.eraseOverlapIntervals([[1, 2], [2, 5], [6, 10]]))

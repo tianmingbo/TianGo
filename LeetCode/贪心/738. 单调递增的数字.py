@@ -16,10 +16,27 @@ class Solution:
                 repeat_count = 0
         return int(''.join(tmp))
 
+    def monotoneIncreasingDigits2(self, N: int) -> int:
+        # 从后向前
+        sn = list(str(N))
+        n = len(sn)
+        if n == 1:
+            return N
+        for i in range(n - 1, 0, -1):
+            if sn[i - 1] <= sn[i]:
+                continue
+            else:
+                # 如果当前元素小于前一个元素
+                sn[i - 1] = str(int(sn[i - 1]) - 1)
+                for j in range(i, n):
+                    sn[j] = str(9)
+
+        return int(''.join(sn))
+
 
 '''
 总体思路就是先找到第一个小于上一个值的index，然后把前一个值减一，最后把index后面的变成9。注意重复数字
 '''
 if __name__ == '__main__':
     a = Solution()
-    print(a.monotoneIncreasingDigits(668841))
+    print(a.monotoneIncreasingDigits2(332))

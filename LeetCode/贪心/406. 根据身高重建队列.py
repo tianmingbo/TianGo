@@ -32,4 +32,4 @@ class Solution:
 
 if __name__ == '__main__':
     a = Solution()
-    print(a.reconstructQueue2([[9, 0], [7, 0], [1, 9], [3, 0], [2, 7], [5, 3], [6, 0], [3, 4], [6, 2], [5, 2]]))
+    print(a.reconstructQueue2([ [1, 9], [3, 0], [2, 7], [5, 3], [3, 4], [6, 2], [5, 2]]))

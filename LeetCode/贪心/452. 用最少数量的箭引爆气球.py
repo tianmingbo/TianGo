@@ -8,6 +8,7 @@ class Solution:
     def findMinArrowShots(self, points: List[List[int]]) -> int:
         if not points:
             return 0
+        # 按照end进行排序
         points = sorted(points, key=lambda i: i[1])  # 类似无重叠区间
         arrow = 1
         cur_end = points[0][1]

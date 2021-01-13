@@ -15,7 +15,7 @@ class Solution:
                 max_num = i
         if max_num < 0:
             return 0
-        for j in range(1,len(nums)+1):
+        for j in range(1, len(nums) + 1):
             try:
                 nums.index(j)
             except:
@@ -25,4 +25,4 @@ class Solution:
 
 if __name__ == '__main__':
     a = Solution()
-    print(a.firstMissingPositive([2,3]))
+    print(a.firstMissingPositive([2, 3]))
