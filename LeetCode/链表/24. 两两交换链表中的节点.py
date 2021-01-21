@@ -8,7 +8,7 @@ class Solution:
         first = head
         second = head.next
         second.next, first.next = first, self.swapPairs(second.next)  # 递归
-        return second
+        return second  # second 作为交换后的头节点
 
 
 '''

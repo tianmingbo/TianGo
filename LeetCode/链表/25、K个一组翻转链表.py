@@ -19,7 +19,8 @@ class Solution:
             while count and tail:
                 count -= 1
                 tail = tail.next
-            if not tail: break
+            if not tail:
+                break
             head = pre.next
             while pre.next != tail:
                 cur = pre.next  # 获取下一个元素

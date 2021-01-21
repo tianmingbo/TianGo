@@ -9,27 +9,22 @@ class Solution:
         """
         Do not return anything, modify nums in-place instead.
         """
-        if len(nums) == 1:
-            return
-        r = len(nums) - 2
-        while r >= 0:
-            if nums[-1] > nums[r]:
+        if not nums:
+            return None
+        i = len(nums) - 1
+        j = -1  # j=-1 如果是 54321这样
+        while i > 0:
+            if nums[i - 1] < nums[i]:  # 找到第一个前面小于后面的index
+                j = i - 1
                 break
-            else:
-                r -= 1
-        if r < 0:
-            nums.sort()
-        else:
-            # while nums[r] == nums[r - 1]:
-            #     r -= 1
-            if r == 0:
-                nums.insert(0, nums[-1])
-                nums.pop()
-            else:
-                nums[-1], nums[r] = nums[r], nums[-1]
-        print(nums)
+            i -= 1
+        for i in range(len(nums) - 1, -1, -1):
+            if nums[i] > nums[j]:  #
+                nums[i], nums[j] = nums[j], nums[i]  # 交换找到的前面的元素小于后面的
+                nums[j + 1:] = sorted(nums[j + 1:])  # 之后的元素排序
+                return
 
 
 if __name__ == '__main__':
     a = Solution()
-    a.nextPermutation([3, 2,1,4,5])
+    a.nextPermutation([5, 1, 5, 5, 4])

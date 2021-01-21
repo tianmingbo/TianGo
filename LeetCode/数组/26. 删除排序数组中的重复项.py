@@ -13,6 +13,8 @@ class Solution:
         return i + 1
 
 
+# 使用双指针
+
 if __name__ == '__main__':
     a = Solution()
     print(a.removeDuplicates([1, 1, 2, 2, 3, 3]))

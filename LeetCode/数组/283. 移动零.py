@@ -10,7 +10,7 @@ class Solution:
             if nums[k]:
                 nums[j], nums[k] = nums[k], nums[j]
                 j += 1
-        print(j)
+        print(nums)
 
 
 if __name__ == '__main__':

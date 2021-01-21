@@ -4,7 +4,7 @@
 from socket import *
 
 udpClient = socket(AF_INET, SOCK_DGRAM)
-ADDR = ('127.0.0.1', 22222)
+ADDR = ('192.168.10.14', 5435)
 while True:
     data = input('< ')
     if not data:
@@ -13,5 +13,8 @@ while True:
     data, addr = udpClient.recvfrom(1024)
     if not data:
         break
-    print(data.decode('utf-8'))
+    print(data)
 udpClient.close()
+
+# 81 a3 00 03
+# 81 a4 00 02

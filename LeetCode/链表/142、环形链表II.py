@@ -31,14 +31,16 @@ class Solution1:
 
 class Solution2:
     def detectCycle(self, head):
-        try:
-            fast = head.next
-            slow = head
-            while fast != slow:
-                fast = fast.next.next
-                slow = slow.next
-        except:
+        if not head or not head.next:  # 没有头节点，或只有一个节点
             return None
+        fast = head.next
+        slow = head
+        while fast != slow:  # 有环，终会相遇
+            if not fast.next or not fast.next.next:  # 证明没有环
+                return None
+            fast = fast.next.next
+            slow = slow.next
+
         slow = slow.next
         while head != slow:
             head = head.next
