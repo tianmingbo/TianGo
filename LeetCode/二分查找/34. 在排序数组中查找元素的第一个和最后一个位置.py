@@ -46,4 +46,4 @@ class Solution:
 
 if __name__ == '__main__':
     a = Solution()
-    print(a.searchRange(nums=[5, 7, 7, 8, 8, 10], target=11))
+    print(a.searchRange(nums=[5, 7, 7, 8, 8, 10], target=8))

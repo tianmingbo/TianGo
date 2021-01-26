@@ -17,7 +17,7 @@ def maxHeapfy(alist, length, parent):
     if largest != parent:  # 如果根不是最大值，就交换最大值，然后再递归调整
         alist[largest], alist[parent] = alist[parent], alist[largest]
         maxHeapfy(alist, length, largest)  # 递归构建
-
+    print(alist)
 
 def buildMaxHeap(alist):  # 构建最大堆
     n = len(alist)
@@ -44,11 +44,10 @@ def heapSort(alist):
 建堆复杂度为O(n)，维护堆为O(logn)
 '''
 if __name__ == '__main__':
-    a = [30, 50, 57, 77, 62, 78, 94, 80, 84]
-    print(a)
+    a = [2, 7, 4, 1, 8, 1]
     print(heapSort(a))
-    alist = [2, 4, 1, 2, 5, 58, 45, 24, 24]
-    print(heapSort(alist))
+    # alist = [2, 4, 1, 2, 5, 58, 45, 24, 24]
+    # print(heapSort(alist))
     # b = [random.randint(1, 1000) for i in range(1000)]
     # print(b)
     # print(heapSort(b))

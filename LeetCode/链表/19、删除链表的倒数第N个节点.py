@@ -7,6 +7,11 @@ class ListNode:
         self.next = next
 
 
+'''
+快指针先行n个
+'''
+
+
 class Solution:
     def removeNthFromEnd(self, head, n):
         if not head:
