@@ -12,7 +12,7 @@ class Solution:
     def invertTree(self, root: TreeNode) -> TreeNode:
         if not root:
             return root
-        left = self.invertTree(root.left)
+        left = self.invertTree(root.left)  # 本质是后序遍历
         right = self.invertTree(root.right)
         root.left, root.right = right, left
         return root

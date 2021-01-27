@@ -22,6 +22,7 @@ class Solution:
             if tmp:
                 dp[i] += max(tmp)  # 取最大值
             tmp = []
+        print(dp)
         return max(dp)
 
 
@@ -47,5 +48,5 @@ class Solution2:
 
 
 if __name__ == '__main__':
-    a = Solution2()
+    a = Solution()
     print(a.lengthOfLIS([10, 9, 2, 5, 3, 7, 101, 18]))

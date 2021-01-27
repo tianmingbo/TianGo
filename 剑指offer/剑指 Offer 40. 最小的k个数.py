@@ -26,7 +26,7 @@ class Solution:
             self.heapfy(arr, length, largest)
 
     def getLeastNumbers(self, arr: List[int], k: int) -> List[int]:
-        # 堆
+        # 构建最大堆
         self.build_heap(arr)
         n = len(arr)
         for i in range(n - 1, -1, -1):

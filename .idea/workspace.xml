@@ -1,0 +1,1424 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="BRANCH:master" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </select>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="c4707e59-bc43-4dee-8e97-c1e3882a210f" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/DAYDAYUP/docker/1、镜像相关.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DAYDAYUP/linux命令.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LeetCode/哈希表、映射、集合/560. 和为K的子数组.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LeetCode/动态规划/300、最长上升子序列.py" beforeDir="false" afterPath="$PROJECT_DIR$/LeetCode/动态规划/300、最长上升子序列.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LeetCode/数组/239、滑动窗口最大值.py" beforeDir="false" afterPath="$PROJECT_DIR$/LeetCode/滑动窗口/239、滑动窗口最大值.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LeetCode/树/101、对称二叉树.py" beforeDir="false" afterPath="$PROJECT_DIR$/LeetCode/树/101、对称二叉树.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LeetCode/树/226. 翻转二叉树.py" beforeDir="false" afterPath="$PROJECT_DIR$/LeetCode/树/226. 翻转二叉树.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LeetCode/树/94、二叉树的中序遍历.py" beforeDir="false" afterPath="$PROJECT_DIR$/LeetCode/树/94、二叉树的中序遍历.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test2.py" beforeDir="false" afterPath="$PROJECT_DIR$/test2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/剑指offer/剑指 Offer 40. 最小的k个数.py" beforeDir="false" afterPath="$PROJECT_DIR$/剑指offer/剑指 Offer 40. 最小的k个数.py" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="HTML File" />
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="JupyterTrust" id="e125d9c4-b566-4e71-8d93-c8d62264d711" />
+  <component name="ProjectId" id="1gaAuB4AplpXz6Dlvx9oWbSPZQL" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="新增" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="DatabaseDriversLRU" value="sqlite" />
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="TERMINAL_CUSTOM_COMMANDS_GOT_IT" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="true" />
+    <property name="WebServerToolWindowPanel.toolwindow.highlight.mappings" value="true" />
+    <property name="WebServerToolWindowPanel.toolwindow.highlight.symlinks" value="true" />
+    <property name="WebServerToolWindowPanel.toolwindow.show.date" value="false" />
+    <property name="WebServerToolWindowPanel.toolwindow.show.permissions" value="false" />
+    <property name="WebServerToolWindowPanel.toolwindow.show.size" value="false" />
+    <property name="last_opened_file_path" value="D:/work/witposeidon-single-backend" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
+    <property name="settings.editor.selected.configurable" value="File.Encoding" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\mingb\Desktop\GOOD GOOD STUDY\LeetCode\滑动窗口" />
+      <recent name="C:\Users\mingb\Desktop\GOOD GOOD STUDY\LeetCode\二分查找" />
+      <recent name="C:\Users\mingb\Desktop\GOOD GOOD STUDY\LeetCode\数组" />
+      <recent name="C:\Users\mingb\Desktop\GOOD GOOD STUDY\LeetCode\分治&amp;回溯" />
+      <recent name="C:\Users\mingb\Desktop\GOOD GOOD STUDY\剑指offer" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\mingb\Desktop\GOOD GOOD STUDY" />
+      <recent name="C:\Users\mingb\Desktop\GOOD GOOD STUDY\LeetCode\字典树和并查集" />
+      <recent name="C:\Users\mingb\Desktop\GOOD GOOD STUDY\LeetCode\动态规划\背包问题" />
+      <recent name="C:\Users\mingb\Desktop\GOOD GOOD STUDY\DAYDAYUP\网络编程" />
+      <recent name="C:\Users\mingb\Desktop\GOOD GOOD STUDY\LeetCode\排序" />
+    </key>
+  </component>
+  <component name="RunAnythingCache">
+    <myKeys>
+      <visibility group="Grunt tasks" flag="true" />
+      <visibility group="Gulp tasks" flag="true" />
+      <visibility group="Recent projects" flag="true" />
+      <visibility group="Run configurations" flag="true" />
+      <visibility group="npm" flag="true" />
+      <visibility group="yarn" flag="true" />
+      <visibility group="最近的项目" flag="true" />
+      <visibility group="运行配置" flag="true" />
+    </myKeys>
+  </component>
+  <component name="RunManager" selected="Python.300、最长上升子序列">
+    <configuration name="1249. 移除无效的括号" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="GOOD GOOD STUDY" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/LeetCode/队列，栈" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/LeetCode/队列，栈/1249. 移除无效的括号.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="239、滑动窗口最大值" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="GOOD GOOD STUDY" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/LeetCode/滑动窗口" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/LeetCode/滑动窗口/239、滑动窗口最大值.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="300、最长上升子序列" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="GOOD GOOD STUDY" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/LeetCode/动态规划" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/LeetCode/动态规划/300、最长上升子序列.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="560. 和为K的子数组" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="GOOD GOOD STUDY" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/LeetCode/哈希表、映射、集合" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/LeetCode/哈希表、映射、集合/560. 和为K的子数组.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="test2" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="GOOD GOOD STUDY" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test2.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.300、最长上升子序列" />
+        <item itemvalue="Python.test2" />
+        <item itemvalue="Python.239、滑动窗口最大值" />
+        <item itemvalue="Python.560. 和为K的子数组" />
+        <item itemvalue="Python.1249. 移除无效的括号" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="c4707e59-bc43-4dee-8e97-c1e3882a210f" name="Default Changelist" comment="" />
+      <created>1598342549346</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1598342549346</updated>
+      <workItem from="1598342551840" duration="8016000" />
+      <workItem from="1598435255113" duration="4463000" />
+      <workItem from="1598490308644" duration="599000" />
+      <workItem from="1598522488300" duration="1094000" />
+      <workItem from="1598576578204" duration="7396000" />
+      <workItem from="1598662777755" duration="1805000" />
+      <workItem from="1598838908172" duration="21186000" />
+      <workItem from="1598922148184" duration="20995000" />
+      <workItem from="1599095090700" duration="35048000" />
+      <workItem from="1599440501356" duration="43849000" />
+      <workItem from="1599657130414" duration="782000" />
+      <workItem from="1599712665615" duration="5080000" />
+      <workItem from="1599785928049" duration="11629000" />
+      <workItem from="1599812919822" duration="43051000" />
+      <workItem from="1600161106799" duration="36187000" />
+      <workItem from="1600656666718" duration="12413000" />
+      <workItem from="1600822816820" duration="24241000" />
+      <workItem from="1601002346968" duration="22615000" />
+      <workItem from="1602291488794" duration="595000" />
+      <workItem from="1602488240861" duration="5070000" />
+      <workItem from="1602558726854" duration="57135000" />
+      <workItem from="1603096399821" duration="77344000" />
+      <workItem from="1604029611544" duration="7482000" />
+      <workItem from="1604066251275" duration="600000" />
+      <workItem from="1604074239301" duration="18154000" />
+      <workItem from="1604883282550" duration="17678000" />
+      <workItem from="1605172565034" duration="107636000" />
+      <workItem from="1605921521213" duration="30704000" />
+      <workItem from="1606095360601" duration="17093000" />
+      <workItem from="1606179494057" duration="26101000" />
+      <workItem from="1606266247215" duration="7855000" />
+      <workItem from="1606354266809" duration="28349000" />
+      <workItem from="1606698087278" duration="29040000" />
+      <workItem from="1606784618273" duration="5618000" />
+      <workItem from="1606799332090" duration="20064000" />
+      <workItem from="1606956648307" duration="128655000" />
+      <workItem from="1608096859890" duration="33750000" />
+      <workItem from="1608557906619" duration="483000" />
+      <workItem from="1608598849500" duration="44958000" />
+      <workItem from="1608971930497" duration="43739000" />
+      <workItem from="1609209167944" duration="8821000" />
+      <workItem from="1609219808185" duration="16743000" />
+      <workItem from="1609808572381" duration="135501000" />
+      <workItem from="1610931871075" duration="621000" />
+      <workItem from="1610950191644" duration="10295000" />
+      <workItem from="1611036043197" duration="25231000" />
+      <workItem from="1611536687099" duration="1320000" />
+      <workItem from="1611561536081" duration="24910000" />
+    </task>
+    <task id="LOCAL-00001" summary="11/20、回溯and字典学习">
+      <created>1605882451958</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1605882451958</updated>
+    </task>
+    <task id="LOCAL-00002" summary="11/21、爬虫">
+      <created>1605953065982</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1605953065982</updated>
+    </task>
+    <task id="LOCAL-00003" summary="11/23、dfs&amp;bfs">
+      <created>1606139920400</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1606139920400</updated>
+    </task>
+    <task id="LOCAL-00004" summary="11/24、DFS&amp;&amp;BFS">
+      <created>1606222678203</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1606222678203</updated>
+    </task>
+    <task id="LOCAL-00005" summary="11/25、不可贪心">
+      <created>1606312964935</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1606312964935</updated>
+    </task>
+    <task id="LOCAL-00006" summary="11.30/二分查找">
+      <created>1606714763839</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1606714763839</updated>
+    </task>
+    <task id="LOCAL-00007" summary="12.1/fluent python">
+      <created>1606823376841</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1606823376841</updated>
+    </task>
+    <task id="LOCAL-00008" summary="12/4、背包boom，背个锤子的包">
+      <created>1607075413990</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1607075413990</updated>
+    </task>
+    <task id="LOCAL-00009" summary="12/7、摸鱼快乐题">
+      <created>1607334336348</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1607334336348</updated>
+    </task>
+    <task id="LOCAL-00010" summary="12/8、乱做">
+      <created>1607419844313</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1607419844313</updated>
+    </task>
+    <task id="LOCAL-00011" summary="12/9、hai">
+      <created>1607513661507</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1607513661507</updated>
+    </task>
+    <task id="LOCAL-00012" summary="12/15、练习">
+      <created>1608031184412</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1608031184412</updated>
+    </task>
+    <task id="LOCAL-00013" summary="12/22、日常提交">
+      <created>1608630129290</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1608630129290</updated>
+    </task>
+    <task id="LOCAL-00014" summary="12/22、日常提交">
+      <created>1608727330683</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1608727330683</updated>
+    </task>
+    <task id="LOCAL-00015" summary="12/27、从前有个树，叫二叉树">
+      <created>1609060485708</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1609060485708</updated>
+    </task>
+    <task id="LOCAL-00016" summary="12/29、贱指offer">
+      <created>1609212296357</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1609212296357</updated>
+    </task>
+    <task id="LOCAL-00017" summary="12/30、日常">
+      <created>1609293334310</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1609293334310</updated>
+    </task>
+    <task id="LOCAL-00018" summary="1/5、星期二，天气不好，心情也是">
+      <created>1609851740328</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1609851740328</updated>
+    </task>
+    <task id="LOCAL-00019" summary="1/6、堆排序">
+      <created>1609904162630</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1609904162630</updated>
+    </task>
+    <task id="LOCAL-00020" summary="1/6、剑指offer">
+      <created>1609939143163</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1609939143163</updated>
+    </task>
+    <task id="LOCAL-00021" summary="1/7、回溯回顾和剑指offer">
+      <created>1610020077803</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1610020077803</updated>
+    </task>
+    <task id="LOCAL-00022" summary="1/8、心情烦躁">
+      <created>1610111588869</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1610111588869</updated>
+    </task>
+    <task id="LOCAL-00023" summary="1/9、干饭">
+      <created>1610186059124</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1610186059124</updated>
+    </task>
+    <task id="LOCAL-00024" summary="1/10、缝缝补补">
+      <created>1610278116046</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1610278116046</updated>
+    </task>
+    <task id="LOCAL-00025" summary="1/12ex、缝缝补补">
+      <created>1610531269410</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1610531269410</updated>
+    </task>
+    <task id="LOCAL-00026" summary="1/14、1227，我会sb">
+      <created>1610631424256</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1610631424256</updated>
+    </task>
+    <task id="LOCAL-00027" summary="1/20、日常复习">
+      <created>1611191535811</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1611191535811</updated>
+    </task>
+    <task id="LOCAL-00028" summary="1/26、repeat">
+      <created>1611651400286</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1611651400286</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="2" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="1">
+          <value>
+            <State>
+              <option name="SHOW_ONLY_AFFECTED_CHANGES" value="true" />
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="HEAD" />
+                      </list>
+                    </value>
+                  </entry>
+                  <entry key="structure">
+                    <value>
+                      <list>
+                        <option value="dir:C:/Users/mingb/Desktop/GOOD GOOD STUDY/DAYDAYUP" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+        <entry key="2">
+          <value>
+            <State>
+              <option name="CUSTOM_BOOLEAN_PROPERTIES">
+                <map>
+                  <entry key="Show.Git.Branches" value="false" />
+                </map>
+              </option>
+              <option name="SHOW_ONLY_AFFECTED_CHANGES" value="true" />
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="master" />
+                      </list>
+                    </value>
+                  </entry>
+                  <entry key="roots">
+                    <value>
+                      <list>
+                        <option value="$PROJECT_DIR$" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="master" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="OPEN_GENERIC_TABS">
+      <map>
+        <entry key="1" value="TOOL_WINDOW" />
+        <entry key="2" value="TOOL_WINDOW" />
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="11/23、dfs&amp;bfs" />
+    <MESSAGE value="11/24、DFS&amp;&amp;BFS" />
+    <MESSAGE value="11/25、不可贪心" />
+    <MESSAGE value="11.30/二分查找" />
+    <MESSAGE value="12.1/fluent python" />
+    <MESSAGE value="12/4、背包boom，背个锤子的包" />
+    <MESSAGE value="12/7、摸鱼快乐题" />
+    <MESSAGE value="12/8、乱做" />
+    <MESSAGE value="12/9、hai" />
+    <MESSAGE value="12/15、练习" />
+    <MESSAGE value="12/22、日常提交" />
+    <MESSAGE value="12/27、从前有个树，叫二叉树" />
+    <MESSAGE value="12/29、贱指offer" />
+    <MESSAGE value="12/30、日常" />
+    <MESSAGE value="1/5、星期二，天气不好，心情也是" />
+    <MESSAGE value="1/6、堆排序" />
+    <MESSAGE value="1/6、剑指offer" />
+    <MESSAGE value="1/7、回溯回顾和剑指offer" />
+    <MESSAGE value="1/8、心情烦躁" />
+    <MESSAGE value="1/9、干饭" />
+    <MESSAGE value="1/10、缝缝补补" />
+    <MESSAGE value="1/12、缝缝补补" />
+    <MESSAGE value="1/14、1227，我会sb" />
+    <MESSAGE value="1/20、日常复习" />
+    <MESSAGE value="1/26、repeat" />
+    <option name="LAST_COMMIT_MESSAGE" value="1/26、repeat" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="585" y="150" key="#HTTP代理" timestamp="1606121066160">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state x="585" y="150" key="#HTTP代理/0.0.1536.864@0.0.1536.864" timestamp="1606121066160" />
+    <state x="651" y="294" key="#Notifications" timestamp="1605230925389">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state x="651" y="294" key="#Notifications/0.0.1536.864/1920.0.1920.1080@0.0.1536.864" timestamp="1605230925389" />
+    <state x="345" y="78" key="#SSH_配置" timestamp="1608706596593">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state x="345" y="78" key="#SSH_配置/0.0.1536.864/1920.0.1920.1080@0.0.1536.864" timestamp="1608706596593" />
+    <state x="361" y="91" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1608706623847">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state x="361" y="91" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.864/1920.0.1920.1080@0.0.1536.864" timestamp="1608706623847" />
+    <state x="425" y="289" key="#com.intellij.featureStatistics.actions.ShowFeatureUsageStatisticsDialog" timestamp="1604037402194">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state x="425" y="289" key="#com.intellij.featureStatistics.actions.ShowFeatureUsageStatisticsDialog/0.0.1536.864/1920.0.1920.1080@0.0.1536.864" timestamp="1604037402194" />
+    <state x="470" y="233" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1611738722169">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state x="470" y="233" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1536.864/-1920.0.1920.1080@0.0.1536.864" timestamp="1611738722169" />
+    <state x="470" y="233" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1536.864/1920.0.1920.1080@0.0.1536.864" timestamp="1608706243447" />
+    <state x="2508" y="291" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1536.864/1920.0.1920.1080@1920.0.1920.1080" timestamp="1609218215406" />
+    <state x="470" y="233" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1536.864@0.0.1536.864" timestamp="1606227526572" />
+    <state x="567" y="123" key="#com.intellij.openapi.keymap.impl.ui.EditKeymapsDialog" timestamp="1606141784570">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state x="567" y="123" key="#com.intellij.openapi.keymap.impl.ui.EditKeymapsDialog/0.0.1536.864@0.0.1536.864" timestamp="1606141784570" />
+    <state x="499" y="179" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1605796013614">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state x="499" y="179" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1536.864@0.0.1536.864" timestamp="1605796013614" />
+    <state x="524" y="134" key="#xdebugger.evaluate" timestamp="1605763638691">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state x="524" y="134" key="#xdebugger.evaluate/0.0.1536.864/1920.0.1920.1080@0.0.1536.864" timestamp="1605763638691" />
+    <state x="361" y="91" key="#部署" timestamp="1608706261414">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state x="361" y="91" key="#部署/0.0.1536.864/1920.0.1920.1080@0.0.1536.864" timestamp="1608706261414" />
+    <state x="2631" y="403" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1" timestamp="1611035070488">
+      <screen x="1920" y="0" width="1920" height="1080" />
+    </state>
+    <state x="2631" y="403" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1536.864/1920.0.1920.1080@1920.0.1920.1080" timestamp="1611035070488" />
+    <state x="93" y="93" width="1350" height="678" key="DiffContextDialog" timestamp="1605882596389">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state x="93" y="93" width="1350" height="678" key="DiffContextDialog/0.0.1536.864@0.0.1536.864" timestamp="1605882596389" />
+    <state x="549" y="187" key="FileChooserDialogImpl" timestamp="1611718590206">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state x="549" y="187" key="FileChooserDialogImpl/0.0.1536.864/-1920.0.1920.1080@0.0.1536.864" timestamp="1611718590206" />
+    <state x="549" y="187" key="FileChooserDialogImpl/0.0.1536.864/1920.0.1920.1080@0.0.1536.864" timestamp="1608706609349" />
+    <state x="2606" y="234" key="FileChooserDialogImpl/0.0.1536.864/1920.0.1920.1080@1920.0.1920.1080" timestamp="1611035019966" />
+    <state x="549" y="187" key="FileChooserDialogImpl/0.0.1536.864@0.0.1536.864" timestamp="1603251838105" />
+    <state width="1492" height="183" key="GridCell.Tab.-1.bottom" timestamp="1605763610747">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state width="1492" height="183" key="GridCell.Tab.-1.bottom/0.0.1536.864/1920.0.1920.1080@0.0.1536.864" timestamp="1605763610747" />
+    <state width="1492" height="183" key="GridCell.Tab.-1.center" timestamp="1605763610746">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state width="1492" height="183" key="GridCell.Tab.-1.center/0.0.1536.864/1920.0.1920.1080@0.0.1536.864" timestamp="1605763610746" />
+    <state width="1492" height="183" key="GridCell.Tab.-1.left" timestamp="1605763610746">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state width="1492" height="183" key="GridCell.Tab.-1.left/0.0.1536.864/1920.0.1920.1080@0.0.1536.864" timestamp="1605763610746" />
+    <state width="1492" height="183" key="GridCell.Tab.-1.right" timestamp="1605763610747">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state width="1492" height="183" key="GridCell.Tab.-1.right/0.0.1536.864/1920.0.1920.1080@0.0.1536.864" timestamp="1605763610747" />
+    <state width="1492" height="185" key="GridCell.Tab.0.bottom" timestamp="1611718502478">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state width="1876" height="208" key="GridCell.Tab.0.bottom/0.0.1536.864/-1920.0.1920.1080@-1920.0.1920.1080" timestamp="1611653889068" />
+    <state width="1492" height="185" key="GridCell.Tab.0.bottom/0.0.1536.864/-1920.0.1920.1080@0.0.1536.864" timestamp="1611718502478" />
+    <state width="1492" height="155" key="GridCell.Tab.0.bottom/0.0.1536.864/1920.0.1920.1080@0.0.1536.864" timestamp="1611225804565" />
+    <state width="1874" height="155" key="GridCell.Tab.0.bottom/0.0.1536.864/1920.0.1920.1080@1920.0.1920.1080" timestamp="1611234451566" />
+    <state width="1492" height="143" key="GridCell.Tab.0.bottom/0.0.1536.864@0.0.1536.864" timestamp="1611666787001" />
+    <state width="1492" height="185" key="GridCell.Tab.0.center" timestamp="1611718502478">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state width="1876" height="208" key="GridCell.Tab.0.center/0.0.1536.864/-1920.0.1920.1080@-1920.0.1920.1080" timestamp="1611653889068" />
+    <state width="1492" height="185" key="GridCell.Tab.0.center/0.0.1536.864/-1920.0.1920.1080@0.0.1536.864" timestamp="1611718502478" />
+    <state width="1492" height="155" key="GridCell.Tab.0.center/0.0.1536.864/1920.0.1920.1080@0.0.1536.864" timestamp="1611225804565" />
+    <state width="1874" height="155" key="GridCell.Tab.0.center/0.0.1536.864/1920.0.1920.1080@1920.0.1920.1080" timestamp="1611234451566" />
+    <state width="1492" height="143" key="GridCell.Tab.0.center/0.0.1536.864@0.0.1536.864" timestamp="1611666787001" />
+    <state width="1492" height="185" key="GridCell.Tab.0.left" timestamp="1611718502478">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state width="1876" height="208" key="GridCell.Tab.0.left/0.0.1536.864/-1920.0.1920.1080@-1920.0.1920.1080" timestamp="1611653889068" />
+    <state width="1492" height="185" key="GridCell.Tab.0.left/0.0.1536.864/-1920.0.1920.1080@0.0.1536.864" timestamp="1611718502478" />
+    <state width="1492" height="155" key="GridCell.Tab.0.left/0.0.1536.864/1920.0.1920.1080@0.0.1536.864" timestamp="1611225804563" />
+    <state width="1874" height="155" key="GridCell.Tab.0.left/0.0.1536.864/1920.0.1920.1080@1920.0.1920.1080" timestamp="1611234451566" />
+    <state width="1492" height="143" key="GridCell.Tab.0.left/0.0.1536.864@0.0.1536.864" timestamp="1611666787001" />
+    <state width="1492" height="185" key="GridCell.Tab.0.right" timestamp="1611718502478">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state width="1876" height="208" key="GridCell.Tab.0.right/0.0.1536.864/-1920.0.1920.1080@-1920.0.1920.1080" timestamp="1611653889068" />
+    <state width="1492" height="185" key="GridCell.Tab.0.right/0.0.1536.864/-1920.0.1920.1080@0.0.1536.864" timestamp="1611718502478" />
+    <state width="1492" height="155" key="GridCell.Tab.0.right/0.0.1536.864/1920.0.1920.1080@0.0.1536.864" timestamp="1611225804565" />
+    <state width="1874" height="155" key="GridCell.Tab.0.right/0.0.1536.864/1920.0.1920.1080@1920.0.1920.1080" timestamp="1611234451566" />
+    <state width="1492" height="143" key="GridCell.Tab.0.right/0.0.1536.864@0.0.1536.864" timestamp="1611666787001" />
+    <state width="1492" height="56" key="GridCell.Tab.1.bottom" timestamp="1611665705461">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state width="1876" height="208" key="GridCell.Tab.1.bottom/0.0.1536.864/-1920.0.1920.1080@-1920.0.1920.1080" timestamp="1611653890016" />
+    <state width="1492" height="208" key="GridCell.Tab.1.bottom/0.0.1536.864/-1920.0.1920.1080@0.0.1536.864" timestamp="1611654717297" />
+    <state width="1492" height="144" key="GridCell.Tab.1.bottom/0.0.1536.864/1920.0.1920.1080@0.0.1536.864" timestamp="1610444427141" />
+    <state width="1876" height="194" key="GridCell.Tab.1.bottom/0.0.1536.864/1920.0.1920.1080@1920.0.1920.1080" timestamp="1611153181121" />
+    <state width="1492" height="56" key="GridCell.Tab.1.bottom/0.0.1536.864@0.0.1536.864" timestamp="1611665705461" />
+    <state width="1492" height="56" key="GridCell.Tab.1.center" timestamp="1611665705461">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state width="1876" height="208" key="GridCell.Tab.1.center/0.0.1536.864/-1920.0.1920.1080@-1920.0.1920.1080" timestamp="1611653890016" />
+    <state width="1492" height="208" key="GridCell.Tab.1.center/0.0.1536.864/-1920.0.1920.1080@0.0.1536.864" timestamp="1611654717297" />
+    <state width="1492" height="144" key="GridCell.Tab.1.center/0.0.1536.864/1920.0.1920.1080@0.0.1536.864" timestamp="1610444427141" />
+    <state width="1876" height="194" key="GridCell.Tab.1.center/0.0.1536.864/1920.0.1920.1080@1920.0.1920.1080" timestamp="1611153181120" />
+    <state width="1492" height="56" key="GridCell.Tab.1.center/0.0.1536.864@0.0.1536.864" timestamp="1611665705461" />
+    <state width="1492" height="56" key="GridCell.Tab.1.left" timestamp="1611665705461">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state width="1876" height="208" key="GridCell.Tab.1.left/0.0.1536.864/-1920.0.1920.1080@-1920.0.1920.1080" timestamp="1611653890016" />
+    <state width="1492" height="208" key="GridCell.Tab.1.left/0.0.1536.864/-1920.0.1920.1080@0.0.1536.864" timestamp="1611654717296" />
+    <state width="1492" height="144" key="GridCell.Tab.1.left/0.0.1536.864/1920.0.1920.1080@0.0.1536.864" timestamp="1610444427141" />
+    <state width="1876" height="194" key="GridCell.Tab.1.left/0.0.1536.864/1920.0.1920.1080@1920.0.1920.1080" timestamp="1611153181120" />
+    <state width="1492" height="56" key="GridCell.Tab.1.left/0.0.1536.864@0.0.1536.864" timestamp="1611665705461" />
+    <state width="1492" height="56" key="GridCell.Tab.1.right" timestamp="1611665705461">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state width="1876" height="208" key="GridCell.Tab.1.right/0.0.1536.864/-1920.0.1920.1080@-1920.0.1920.1080" timestamp="1611653890016" />
+    <state width="1492" height="208" key="GridCell.Tab.1.right/0.0.1536.864/-1920.0.1920.1080@0.0.1536.864" timestamp="1611654717297" />
+    <state width="1492" height="144" key="GridCell.Tab.1.right/0.0.1536.864/1920.0.1920.1080@0.0.1536.864" timestamp="1610444427141" />
+    <state width="1876" height="194" key="GridCell.Tab.1.right/0.0.1536.864/1920.0.1920.1080@1920.0.1920.1080" timestamp="1611153181120" />
+    <state width="1492" height="56" key="GridCell.Tab.1.right/0.0.1536.864@0.0.1536.864" timestamp="1611665705461" />
+    <state x="349" y="167" key="IDE.errors.dialog" timestamp="1608706126487">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state x="349" y="167" key="IDE.errors.dialog/0.0.1536.864/1920.0.1920.1080@0.0.1536.864" timestamp="1608706126487" />
+    <state x="2372" y="189" key="SettingsEditor" timestamp="1610271069117">
+      <screen x="1920" y="0" width="1920" height="1080" />
+    </state>
+    <state x="270" y="77" key="SettingsEditor/0.0.1536.864/1920.0.1920.1080@0.0.1536.864" timestamp="1609836179011" />
+    <state x="2372" y="189" key="SettingsEditor/0.0.1536.864/1920.0.1920.1080@1920.0.1920.1080" timestamp="1610271069117" />
+    <state x="270" y="77" key="SettingsEditor/0.0.1536.864@0.0.1536.864" timestamp="1606121191299" />
+    <state width="523" height="446" key="SwitcherDM" timestamp="1609982339503">
+      <screen x="1920" y="0" width="1920" height="1080" />
+    </state>
+    <state width="523" height="446" key="SwitcherDM/0.0.1536.864/1920.0.1920.1080@1920.0.1920.1080" timestamp="1609982339503" />
+    <state x="2731" y="453" key="VCS.ChangelistChooser" timestamp="1609212702211">
+      <screen x="1920" y="0" width="1920" height="1080" />
+    </state>
+    <state x="2731" y="453" key="VCS.ChangelistChooser/0.0.1536.864/1920.0.1920.1080@1920.0.1920.1080" timestamp="1609212702211" />
+    <state x="582" y="345" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1606466129819">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state x="582" y="345" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1536.864/1920.0.1920.1080@0.0.1536.864" timestamp="1606466129819" />
+    <state x="411" y="145" width="600" height="568" key="find.popup" timestamp="1605661746474">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state x="411" y="145" width="600" height="568" key="find.popup/0.0.1536.864/1920.0.1920.1080@0.0.1536.864" timestamp="1605661746474" />
+    <state x="2505" y="185" width="750" height="710" key="find.popup/0.0.1536.864/1920.0.1920.1080@1920.0.1920.1080" timestamp="1605013526141" />
+    <state x="468" y="148" width="600" height="568" key="find.popup/0.0.1536.864@0.0.1536.864" timestamp="1603439936399" />
+    <state x="431" y="181" width="672" height="678" key="search.everywhere.popup" timestamp="1611666747234">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state x="431" y="181" width="672" height="679" key="search.everywhere.popup/0.0.1536.864/1920.0.1920.1080@0.0.1536.864" timestamp="1610443580357" />
+    <state x="2459" y="226" width="840" height="848" key="search.everywhere.popup/0.0.1536.864/1920.0.1920.1080@1920.0.1920.1080" timestamp="1611234421563" />
+    <state x="431" y="181" width="672" height="678" key="search.everywhere.popup/0.0.1536.864@0.0.1536.864" timestamp="1611666747234" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/LeetCode/数组/14、最长公共前缀.py</url>
+          <line>20</line>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/LeetCode/数组/189、旋转数组.py</url>
+          <line>37</line>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/LeetCode/数组/15、三数之和.py</url>
+          <line>7</line>
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/LeetCode/动态规划/300、最长上升子序列.py</url>
+          <line>31</line>
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/LeetCode/动态规划/120、三角形最小路径和.py</url>
+          <line>17</line>
+          <option name="timeStamp" value="9" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/LeetCode/树/106、从中序与后序遍历序列构造二叉树.py</url>
+          <line>24</line>
+          <option name="timeStamp" value="10" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/LeetCode/树/105、从前序与中序遍历序列构造二叉树.py</url>
+          <line>29</line>
+          <option name="timeStamp" value="12" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/LeetCode/树/105、从前序与中序遍历序列构造二叉树.py</url>
+          <line>24</line>
+          <option name="timeStamp" value="13" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/LeetCode/字符串/7、整数反转.py</url>
+          <line>5</line>
+          <option name="timeStamp" value="16" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/LeetCode/分治&amp;回溯/50、Pow(x,n).py</url>
+          <line>38</line>
+          <option name="timeStamp" value="17" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/LeetCode/分治&amp;回溯/78、子集.py</url>
+          <line>32</line>
+          <option name="timeStamp" value="22" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/LeetCode/分治&amp;回溯/78、子集.py</url>
+          <line>96</line>
+          <option name="timeStamp" value="23" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/LeetCode/分治&amp;回溯/169、多数元素.py</url>
+          <line>41</line>
+          <option name="timeStamp" value="24" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/LeetCode/字符串/67、二进制求和.py</url>
+          <line>17</line>
+          <option name="timeStamp" value="28" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/LeetCode/分治&amp;回溯/51、N皇后.py</url>
+          <line>20</line>
+          <option name="timeStamp" value="29" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/LeetCode/深搜&amp;广搜/433、最小基因变化.py</url>
+          <line>5</line>
+          <option name="timeStamp" value="30" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/LeetCode/深搜&amp;广搜/200、岛屿数量.py</url>
+          <line>57</line>
+          <option name="timeStamp" value="36" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/LeetCode/贪心/55、跳跃游戏.py</url>
+          <line>10</line>
+          <option name="timeStamp" value="42" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/LeetCode/贪心/45、跳跃游戏2.py</url>
+          <line>6</line>
+          <option name="timeStamp" value="43" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/LeetCode/二分查找/69、x的平方根.py</url>
+          <line>9</line>
+          <option name="timeStamp" value="44" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/LeetCode/二分查找/33、搜索旋转排序数组.py</url>
+          <line>7</line>
+          <option name="timeStamp" value="45" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/LeetCode/动态规划/63、不同路径2.py</url>
+          <line>44</line>
+          <option name="timeStamp" value="48" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/LeetCode/动态规划/152、乘积最大子数组.py</url>
+          <line>9</line>
+          <option name="timeStamp" value="49" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/LeetCode/字典树和并查集/208、trie树实现.py</url>
+          <line>21</line>
+          <option name="timeStamp" value="52" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/LeetCode/字典树和并查集/547、朋友圈.py</url>
+          <line>21</line>
+          <option name="timeStamp" value="54" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/LeetCode/排序/493、翻转对.py</url>
+          <line>56</line>
+          <option name="timeStamp" value="62" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/LeetCode/动态规划/91、解码方法.py</url>
+          <line>17</line>
+          <option name="timeStamp" value="64" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/LeetCode/字符串/125、验证回文串.py</url>
+          <line>9</line>
+          <option name="timeStamp" value="67" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/LeetCode/字符串/5、最长回文子串.py</url>
+          <line>35</line>
+          <option name="timeStamp" value="68" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/LeetCode/动态规划/字符串+dp问题/5、最长回文子串.py</url>
+          <line>18</line>
+          <option name="timeStamp" value="69" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/DAYDAYUP/util/定时任务/调度模块：schedule.py</url>
+          <line>22</line>
+          <option name="timeStamp" value="70" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/DAYDAYUP/util/定时任务/调度模块：schedule.py</url>
+          <line>34</line>
+          <option name="timeStamp" value="71" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/LeetCode/队列，栈/84、柱状图中最大的矩形.py</url>
+          <line>20</line>
+          <option name="timeStamp" value="75" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/LeetCode/递归/77. 组合.py</url>
+          <line>7</line>
+          <option name="timeStamp" value="76" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/LeetCode/动态规划/322、零钱兑换.py</url>
+          <line>32</line>
+          <option name="timeStamp" value="81" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/LeetCode/分治&amp;回溯/37. 解数独.py</url>
+          <line>41</line>
+          <option name="timeStamp" value="82" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/LeetCode/深搜&amp;广搜/127、单词接龙.py</url>
+          <line>54</line>
+          <option name="timeStamp" value="84" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/LeetCode/深搜&amp;广搜/127、单词接龙.py</url>
+          <line>53</line>
+          <option name="timeStamp" value="85" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/LeetCode/贪心/134. 加油站.py</url>
+          <line>8</line>
+          <option name="timeStamp" value="87" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/LeetCode/二分查找/34. 在排序数组中查找元素的第一个和最后一个位置.py</url>
+          <line>33</line>
+          <option name="timeStamp" value="89" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/LeetCode/二分查找/162.寻找峰值.py</url>
+          <line>11</line>
+          <option name="timeStamp" value="90" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/LeetCode/二分查找/81. 搜索旋转排序数组 II.py</url>
+          <line>10</line>
+          <option name="timeStamp" value="91" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/LeetCode/数组/16. 最接近的三数之和.py</url>
+          <line>12</line>
+          <option name="timeStamp" value="92" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/LeetCode/二分查找/240. 搜索二维矩阵 II.py</url>
+          <line>15</line>
+          <option name="timeStamp" value="93" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/LeetCode/二分查找/240. 搜索二维矩阵 II.py</url>
+          <line>16</line>
+          <option name="timeStamp" value="94" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/LeetCode/二分查找/240. 搜索二维矩阵 II.py</url>
+          <line>43</line>
+          <option name="timeStamp" value="97" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/LeetCode/字符串/28. 实现 strStr().py</url>
+          <line>10</line>
+          <option name="timeStamp" value="99" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/LeetCode/二分查找/29.两数相除.py</url>
+          <line>10</line>
+          <option name="timeStamp" value="100" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/fluent python/7、函数装饰器和闭包/装饰器.py</url>
+          <line>52</line>
+          <option name="timeStamp" value="103" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/LeetCode/数组/209. 长度最小的子数组.py</url>
+          <line>13</line>
+          <option name="timeStamp" value="104" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/LeetCode/排序/快排.py</url>
+          <line>17</line>
+          <option name="timeStamp" value="107" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/LeetCode/动态规划/85. 最大矩形.py</url>
+          <line>30</line>
+          <option name="timeStamp" value="110" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/LeetCode/动态规划/字符串+dp问题/115、不同的子序列.py</url>
+          <line>9</line>
+          <option name="timeStamp" value="111" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/LeetCode/字符串/438. 找到字符串中所有字母异位词.py</url>
+          <line>21</line>
+          <option name="timeStamp" value="113" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/LeetCode/字符串/438. 找到字符串中所有字母异位词.py</url>
+          <line>22</line>
+          <option name="timeStamp" value="114" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/LeetCode/字符串/438. 找到字符串中所有字母异位词.py</url>
+          <line>37</line>
+          <option name="timeStamp" value="115" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/fluent python/14、可迭代的对象、迭代器和生成器/3、Sentence类第3版： 生成器函数.py</url>
+          <line>27</line>
+          <option name="timeStamp" value="118" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/LeetCode/数组/54. 螺旋矩阵.py</url>
+          <line>20</line>
+          <option name="timeStamp" value="120" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/LeetCode/数组/54. 螺旋矩阵.py</url>
+          <line>22</line>
+          <option name="timeStamp" value="121" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/LeetCode/数组/59. 螺旋矩阵 II.py</url>
+          <line>15</line>
+          <option name="timeStamp" value="122" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/剑指offer/剑指 Offer 03. 数组中重复的数字.py</url>
+          <line>13</line>
+          <option name="timeStamp" value="123" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/剑指offer/剑指 Offer 12. 矩阵中的路径.py</url>
+          <line>30</line>
+          <option name="timeStamp" value="125" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/剑指offer/剑指 Offer 33. 二叉搜索树的后序遍历序列.py</url>
+          <line>5</line>
+          <option name="timeStamp" value="126" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/剑指offer/剑指 Offer 38. 字符串的排列.py</url>
+          <line>15</line>
+          <option name="timeStamp" value="127" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/剑指offer/剑指 Offer 44. 数字序列中某一位的数字.py</url>
+          <line>24</line>
+          <option name="timeStamp" value="131" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/剑指offer/剑指 Offer 44. 数字序列中某一位的数字.py</url>
+          <line>21</line>
+          <option name="timeStamp" value="132" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/剑指offer/剑指 Offer 44. 数字序列中某一位的数字.py</url>
+          <line>19</line>
+          <option name="timeStamp" value="133" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/剑指offer/剑指 Offer 48. 最长不含重复字符的子字符串.py</url>
+          <line>18</line>
+          <option name="timeStamp" value="134" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/剑指offer/剑指 Offer 49. 丑数.py</url>
+          <line>14</line>
+          <option name="timeStamp" value="135" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/LeetCode/分治&amp;回溯/93. 复原IP地址.py</url>
+          <line>20</line>
+          <option name="timeStamp" value="137" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/剑指offer/剑指 Offer 56 - I. 数组中数字出现的次数.py</url>
+          <line>10</line>
+          <option name="timeStamp" value="139" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/剑指offer/剑指 Offer 57 - II. 和为s的连续正数序列.py</url>
+          <line>23</line>
+          <option name="timeStamp" value="140" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/剑指offer/剑指 Offer 57 - II. 和为s的连续正数序列.py</url>
+          <line>11</line>
+          <option name="timeStamp" value="141" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/LeetCode/数组/228. 汇总区间.py</url>
+          <line>14</line>
+          <option name="timeStamp" value="142" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/LeetCode/动态规划/376. 摆动序列.py</url>
+          <line>17</line>
+          <option name="timeStamp" value="144" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/LeetCode/贪心/406. 根据身高重建队列.py</url>
+          <line>26</line>
+          <option name="timeStamp" value="149" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/LeetCode/贪心/435.无重叠区间.py</url>
+          <line>17</line>
+          <option name="timeStamp" value="150" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/LeetCode/贪心/738. 单调递增的数字.py</url>
+          <line>25</line>
+          <option name="timeStamp" value="151" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/LeetCode/数组/31. 下一个排列.py</url>
+          <line>11</line>
+          <option name="timeStamp" value="153" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/LeetCode/队列，栈/1249. 移除无效的括号.py</url>
+          <line>18</line>
+          <option name="timeStamp" value="154" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/LeetCode/滑动窗口/239、滑动窗口最大值.py</url>
+          <line>23</line>
+          <option name="timeStamp" value="156" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$33.coverage" NAME="33、搜索旋转排序数组 Coverage Results" MODIFIED="1606535044018" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/二分查找" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$632.coverage" NAME="63、不同路径2 Coverage Results" MODIFIED="1606720519970" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/动态规划" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$253___II.coverage" NAME="253. 会议室 II Coverage Results" MODIFIED="1611579098165" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/贪心" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$_Offer_58___I__.coverage" NAME="剑指 Offer 58 - I. 翻转单词顺序 Coverage Results" MODIFIED="1610624715600" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/剑指offer" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$51N.coverage" NAME="51、N皇后 Coverage Results" MODIFIED="1605771067093" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/分治&amp;回溯" />
+    <SUITE FILE_PATH="coverage/LeetCode$67.coverage" NAME="67、二进制求和 Coverage Results" MODIFIED="1599645716817" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/字符串" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$15.coverage" NAME="15、三数之和 Coverage Results" MODIFIED="1610974866189" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/数组" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$_Offer_53___I___I.coverage" NAME="剑指 Offer 53 - I. 在排序数组中查找数字 I Coverage Results" MODIFIED="1609938888362" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/剑指offer" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$5.coverage" NAME="5、最长回文子串 Coverage Results" MODIFIED="1608633144756" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/动态规划/字符串+dp问题" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$59___II.coverage" NAME="59. 螺旋矩阵 II Coverage Results" MODIFIED="1608725616229" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/数组" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$135__.coverage" NAME="135. 分发糖果 Coverage Results" MODIFIED="1610276006764" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/贪心" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$120.coverage" NAME="120、三角形最小路径和 Coverage Results" MODIFIED="1606725012220" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/动态规划" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$test1.coverage" NAME="test1 Coverage Results" MODIFIED="1609218262554" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$338.coverage" NAME="338、比特位计数 Coverage Results" MODIFIED="1602641835577" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/位运算" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$435_.coverage" NAME="435.无重叠区间 Coverage Results" MODIFIED="1610365897507" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/贪心" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$200.coverage" NAME="200、岛屿数量 Coverage Results" MODIFIED="1599873224798" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/深搜&amp;广搜" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$29_.coverage" NAME="29.两数相除 Coverage Results" MODIFIED="1606738518592" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/二分查找" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$34__.coverage" NAME="34. 在排序数组中查找元素的第一个和最后一个位置 Coverage Results" MODIFIED="1611234451560" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/二分查找" />
+    <SUITE FILE_PATH="coverage/LeetCode$62.coverage" NAME="62、不同路径 Coverage Results" MODIFIED="1599450472442" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/动态规划" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$schedule.coverage" NAME="调度模块：schedule Coverage Results" MODIFIED="1605151867757" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/DAYDAYUP/util/定时任务" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$.coverage" NAME="堆排序 Coverage Results" MODIFIED="1611572892461" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/排序" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$_Offer_17__1n.coverage" NAME="剑指 Offer 17. 打印从1到最大的n位数 Coverage Results" MODIFIED="1609237143022" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/剑指offer" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$1046__.coverage" NAME="1046. 最后一块石头的重量 Coverage Results" MODIFIED="1611574397987" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/排序" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$Sentence1_.coverage" NAME="Sentence类第1版： 单词序列 Coverage Results" MODIFIED="1608647535959" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/fluent python/14、可迭代的对象、迭代器和生成器" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$40___II.coverage" NAME="40. 组合总和 II Coverage Results" MODIFIED="1609990072448" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/分治&amp;回溯" />
+    <SUITE FILE_PATH="coverage/LeetCode$7.coverage" NAME="7、整数反转 Coverage Results" MODIFIED="1599468481414" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/字符串" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$153.coverage" NAME="153、寻找旋转排序数组中的最小值 Coverage Results" MODIFIED="1600164242317" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/二分查找" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$130.coverage" NAME="130、被围绕的区域 Coverage Results" MODIFIED="1602242241004" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/字典树和并查集" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$746__.coverage" NAME="746. 使用最小花费爬楼梯 Coverage Results" MODIFIED="1609227837186" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/动态规划" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$Python_.coverage" NAME="Python 控制台 Coverage Results" MODIFIED="1606790099547" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$models.coverage" NAME="models Coverage Results" MODIFIED="1602580419016" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/DAYDAYUP/spider_app/douyin" />
+    <SUITE FILE_PATH="coverage/LeetCode$5.coverage" NAME="5、最长回文子串 Coverage Results" MODIFIED="1599465722086" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/动态规划" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$lru_cache__.coverage" NAME="lru_cache()装饰器 Coverage Results" MODIFIED="1606794080993" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/fluent python/7、函数装饰器和闭包" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$_Offer_55___II__.coverage" NAME="剑指 Offer 55 - II. 平衡二叉树 Coverage Results" MODIFIED="1610019051458" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/剑指offer" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$_Offer_58___II__.coverage" NAME="剑指 Offer 58 - II. 左旋转字符串 Coverage Results" MODIFIED="1610623833397" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/剑指offer" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$202.coverage" NAME="202、快乐数 Coverage Results" MODIFIED="1610444439350" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$test.coverage" NAME="test Coverage Results" MODIFIED="1602552090441" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$81___II.coverage" NAME="81. 搜索旋转排序数组 II Coverage Results" MODIFIED="1606536401022" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/二分查找" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$1911.coverage" NAME="191、位1的个数 Coverage Results" MODIFIED="1602639167527" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/位运算" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$timer.coverage" NAME="timer实现 Coverage Results" MODIFIED="1605149234289" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/DAYDAYUP/util/定时任务" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$property___.coverage" NAME="property() 函数 Coverage Results" MODIFIED="1606802589716" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/DAYDAYUP/flask源码学习" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$134__.coverage" NAME="134. 加油站 Coverage Results" MODIFIED="1610274696850" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/贪心" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$208trie.coverage" NAME="208、trie树实现 Coverage Results" MODIFIED="1607244255144" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/字典树和并查集" />
+    <SUITE FILE_PATH="coverage/LeetCode$169.coverage" NAME="169、多数元素 Coverage Results" MODIFIED="1599638563188" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/分治&amp;回溯" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$3__.coverage" NAME="3. 无重复字符的最长子串 Coverage Results" MODIFIED="1611576574123" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/滑动窗口" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$84.coverage" NAME="84、柱状图中最大的矩形 Coverage Results" MODIFIED="1605599452016" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/队列，栈" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$78.coverage" NAME="78、子集 Coverage Results" MODIFIED="1609997910713" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/分治&amp;回溯" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$560__K.coverage" NAME="560. 和为K的子数组 Coverage Results" MODIFIED="1611654723094" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/哈希表、映射、集合" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$123iii.coverage" NAME="123、买卖股票的最佳时机iii Coverage Results" MODIFIED="1606985061449" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/动态规划" />
+    <SUITE FILE_PATH="coverage/LeetCode$106.coverage" NAME="106、从中序与后序遍历序列构造二叉树 Coverage Results" MODIFIED="1599196211912" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/树" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$_78_.coverage" NAME="[78]子集 Coverage Results" MODIFIED="1605773414138" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$USER_HOME$/AppData/Local/Temp/leetcode/editor/cn" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$547.coverage" NAME="547、朋友圈 Coverage Results" MODIFIED="1607319565932" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/字典树和并查集" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$115.coverage" NAME="115、不同的子序列 Coverage Results" MODIFIED="1608636273011" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/动态规划/字符串+dp问题" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$187__DNA.coverage" NAME="187. 重复的DNA序列 Coverage Results" MODIFIED="1607416153256" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/位运算" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$151.coverage" NAME="151、翻转字符串里的单词 Coverage Results" MODIFIED="1610108506415" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/字符串" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$91.coverage" NAME="91、解码方法 Coverage Results" MODIFIED="1610109430628" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/动态规划" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$279__.coverage" NAME="279. 完全平方数 Coverage Results" MODIFIED="1608294391298" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/动态规划" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$240___II.coverage" NAME="240. 搜索二维矩阵 II Coverage Results" MODIFIED="1606714437834" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/二分查找" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$93__IP.coverage" NAME="93. 复原IP地址 Coverage Results" MODIFIED="1609996316134" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/分治&amp;回溯" />
+    <SUITE FILE_PATH="coverage/LeetCode$client2.coverage" NAME="client2 Coverage Results" MODIFIED="1598595426064" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/DAYDAYUP/ZMQ" />
+    <SUITE FILE_PATH="coverage/LeetCode$64.coverage" NAME="64、最小路径和 Coverage Results" MODIFIED="1598950914329" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/动态规划" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$50Pow_x_n_.coverage" NAME="50、Pow(x,n) Coverage Results" MODIFIED="1605768475930" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/分治&amp;回溯" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$162_.coverage" NAME="162.寻找峰值 Coverage Results" MODIFIED="1606442911359" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/二分查找" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$_Offer_16__.coverage" NAME="剑指 Offer 16. 数值的整数次方 Coverage Results" MODIFIED="1609233884510" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/剑指offer" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$212.coverage" NAME="212、单词搜索 Coverage Results" MODIFIED="1607260248654" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/字典树和并查集" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$_Offer_49__.coverage" NAME="剑指 Offer 49. 丑数 Coverage Results" MODIFIED="1609936187077" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/字符串" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$69x.coverage" NAME="69、x的平方根 Coverage Results" MODIFIED="1600154152680" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/二分查找" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$12.coverage" NAME="12、整数转罗马数字 Coverage Results" MODIFIED="1600069473761" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/字符串" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$_Offer_50__.coverage" NAME="剑指 Offer 50. 第一个只出现一次的字符 Coverage Results" MODIFIED="1609937105870" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/剑指offer" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$_Offer_10__II__.coverage" NAME="剑指 Offer 10- II. 青蛙跳台阶问题 Coverage Results" MODIFIED="1609161314873" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/剑指offer" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$TCP1.coverage" NAME="TCP客户端1 Coverage Results" MODIFIED="1603333399185" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/DAYDAYUP/网络编程" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$get_homepage_info__1_.coverage" NAME="get_homepage_info (1) Coverage Results" MODIFIED="1602582591769" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/DAYDAYUP/spider_app/douyin/views" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$38__.coverage" NAME="38. 外观数列 Coverage Results" MODIFIED="1606836050821" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/字符串" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$_Offer_57__s.coverage" NAME="剑指 Offer 57. 和为s的两个数字 Coverage Results" MODIFIED="1610104918744" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/剑指offer" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$131__.coverage" NAME="131. 分割回文串 Coverage Results" MODIFIED="1605853784495" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/分治&amp;回溯" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$5__1_.coverage" NAME="5、最长回文子串 (1) Coverage Results" MODIFIED="1604928594687" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/字符串" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$867__.coverage" NAME="867. 转置矩阵 Coverage Results" MODIFIED="1608204752688" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/数组" />
+    <SUITE FILE_PATH="coverage/LeetCode$test.coverage" NAME="test Coverage Results" MODIFIED="1599642457006" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$1286__.coverage" NAME="1286. 字母组合迭代器 Coverage Results" MODIFIED="1605954802326" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/分治&amp;回溯" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$167___II___.coverage" NAME="167. 两数之和 II - 输入有序数组 Coverage Results" MODIFIED="1606466146512" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/二分查找" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$_Offer_03__.coverage" NAME="剑指 Offer 03. 数组中重复的数字 Coverage Results" MODIFIED="1609158695383" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/剑指offer" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$test3.coverage" NAME="test3 Coverage Results" MODIFIED="1611228676634" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$438__.coverage" NAME="438. 找到字符串中所有字母异位词 Coverage Results" MODIFIED="1608629634106" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/字符串" />
+    <SUITE FILE_PATH="coverage/LeetCode$6Z.coverage" NAME="6、Z字形变换 Coverage Results" MODIFIED="1598861621834" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/数组" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$860.coverage" NAME="860、柠檬水找零 Coverage Results" MODIFIED="1599877583026" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/贪心" />
+    <SUITE FILE_PATH="coverage/LeetCode$14.coverage" NAME="14、最长公共前缀 Coverage Results" MODIFIED="1598840675034" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/数组" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$452__.coverage" NAME="452. 用最少数量的箭引爆气球 Coverage Results" MODIFIED="1606310592279" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/贪心" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$56__.coverage" NAME="56. 合并区间 Coverage Results" MODIFIED="1610368828758" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/贪心" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$53.coverage" NAME="53、最大子序和 Coverage Results" MODIFIED="1610268553973" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/动态规划" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$_Offer_14__I__.coverage" NAME="剑指 Offer 14- I. 剪绳子 Coverage Results" MODIFIED="1609221575198" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/剑指offer" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$1143.coverage" NAME="1143、最长公共子序列 Coverage Results" MODIFIED="1608630287378" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/动态规划/字符串+dp问题" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$_Offer_67__.coverage" NAME="剑指 Offer 67. 把字符串转换成整数 Coverage Results" MODIFIED="1610623635689" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/剑指offer" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$38.coverage" NAME="38、外观数列 Coverage Results" MODIFIED="1600746185004" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/字符串" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$1122__.coverage" NAME="1122. 数组的相对排序 Coverage Results" MODIFIED="1607998800055" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/排序" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$152.coverage" NAME="152、乘积最大子数组 Coverage Results" MODIFIED="1606725616479" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/动态规划" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$347___K_.coverage" NAME="347. 前 K 个高频元素 Coverage Results" MODIFIED="1610261463000" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/排序" />
+    <SUITE FILE_PATH="coverage/LeetCode$105.coverage" NAME="105、从前序与中序遍历序列构造二叉树 Coverage Results" MODIFIED="1599202235685" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/树" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$save_db.coverage" NAME="save_db Coverage Results" MODIFIED="1603260443485" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/DAYDAYUP/spider_app/douyin" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$72.coverage" NAME="72、编辑距离 Coverage Results" MODIFIED="1608171290689" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/动态规划" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$54__.coverage" NAME="54. 螺旋矩阵 Coverage Results" MODIFIED="1608723341306" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/数组" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$_Offer_38__.coverage" NAME="剑指 Offer 38. 字符串的排列 Coverage Results" MODIFIED="1609847121649" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/剑指offer" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$_Offer_59___II__.coverage" NAME="剑指 Offer 59 - II. 队列的最大值 Coverage Results" MODIFIED="1610534996300" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/剑指offer" />
+    <SUITE FILE_PATH="coverage/LeetCode$17__1_.coverage" NAME="17、电话号码的字母组合 (1) Coverage Results" MODIFIED="1599643195725" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/分治&amp;回溯" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$216.coverage" NAME="216、组合总和 Coverage Results" MODIFIED="1609988561048" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/分治&amp;回溯" />
+    <SUITE FILE_PATH="coverage/LeetCode$27.coverage" NAME="27、移除元素 Coverage Results" MODIFIED="1598856854936" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/数组" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$474__.coverage" NAME="474. 一和零 Coverage Results" MODIFIED="1608203476142" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/动态规划" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$85__.coverage" NAME="85. 最大矩形 Coverage Results" MODIFIED="1608193303036" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/动态规划" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$127.coverage" NAME="127、单词接龙 Coverage Results" MODIFIED="1607511180206" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/深搜&amp;广搜" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$16__.coverage" NAME="16. 最接近的三数之和 Coverage Results" MODIFIED="1606538204381" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/数组" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$406__.coverage" NAME="406. 根据身高重建队列 Coverage Results" MODIFIED="1610364943815" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/贪心" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$557III.coverage" NAME="557、反转字符串中的单词III Coverage Results" MODIFIED="1604672892335" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/字符串" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$416__.coverage" NAME="416. 分割等和子集 Coverage Results" MODIFIED="1607052370319" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/动态规划/背包问题" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$0_1.coverage" NAME="0,1背包问题 Coverage Results" MODIFIED="1607064211577" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/动态规划/背包问题" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$37__.coverage" NAME="37. 解数独 Coverage Results" MODIFIED="1610170086002" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/分治&amp;回溯" />
+    <SUITE FILE_PATH="coverage/LeetCode$120.coverage" NAME="120、三角形最小路径和 Coverage Results" MODIFIED="1598944139557" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/动态规划" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$fuckleetcode.coverage" NAME="fuckleetcode Coverage Results" MODIFIED="1607569454748" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/DAYDAYUP/200题" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$541II.coverage" NAME="541、反转字符串II Coverage Results" MODIFIED="1604669514143" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/字符串" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$_Offer_48__.coverage" NAME="剑指 Offer 48. 最长不含重复字符的子字符串 Coverage Results" MODIFIED="1609933496977" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/剑指offer" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$190.coverage" NAME="190、颠倒二进制位 Coverage Results" MODIFIED="1602640532490" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/位运算" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$454___II.coverage" NAME="454. 四数相加 II Coverage Results" MODIFIED="1610448876557" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/哈希表、映射、集合" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$77__.coverage" NAME="77. 组合 Coverage Results" MODIFIED="1605775909484" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/递归" />
+    <SUITE FILE_PATH="coverage/LeetCode$15.coverage" NAME="15、三数之和 Coverage Results" MODIFIED="1598858643916" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/数组" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$2312.coverage" NAME="231、2的幂 Coverage Results" MODIFIED="1602639764089" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/位运算" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$test__1_.coverage" NAME="test (1) Coverage Results" MODIFIED="1602571508997" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/DAYDAYUP/spider_app/douyin" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$while.coverage" NAME="while迭代字符串 Coverage Results" MODIFIED="1608648252811" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/fluent python/14、可迭代的对象、迭代器和生成器" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$287__.coverage" NAME="287. 寻找重复数 Coverage Results" MODIFIED="1610976209281" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/数组" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$61__.coverage" NAME="61. 旋转链表 Coverage Results" MODIFIED="1605875855581" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/链表" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$455.coverage" NAME="455、分发饼干 Coverage Results" MODIFIED="1610264325404" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/贪心" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$201__.coverage" NAME="201. 数字范围按位与 Coverage Results" MODIFIED="1607408663621" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/位运算" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$_Offer_12__.coverage" NAME="剑指 Offer 12. 矩阵中的路径 Coverage Results" MODIFIED="1609164955446" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/剑指offer" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$31__.coverage" NAME="31. 下一个排列 Coverage Results" MODIFIED="1611153671270" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/数组" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$_Offer_61__.coverage" NAME="剑指 Offer 61. 扑克牌中的顺子 Coverage Results" MODIFIED="1610536629583" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/剑指offer" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$_Offer_62__.coverage" NAME="剑指 Offer 62. 圆圈中最后剩下的数字 Coverage Results" MODIFIED="1610625238890" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/剑指offer" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$213II.coverage" NAME="213、打家劫舍II Coverage Results" MODIFIED="1600831267614" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/动态规划" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$_Offer_53___II__0n_1.coverage" NAME="剑指 Offer 53 - II. 0～n-1中缺失的数字 Coverage Results" MODIFIED="1610017932223" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/剑指offer" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$238__.coverage" NAME="238. 除自身以外数组的乘积 Coverage Results" MODIFIED="1606312329982" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/数组" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$28___strStr__.coverage" NAME="28. 实现 strStr() Coverage Results" MODIFIED="1606724231246" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/字符串" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$978__.coverage" NAME="978. 最长湍流子数组 Coverage Results" MODIFIED="1606735586106" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/动态规划" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$228__.coverage" NAME="228. 汇总区间 Coverage Results" MODIFIED="1610263176666" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/数组" />
+    <SUITE FILE_PATH="coverage/LeetCode$491__.coverage" NAME="491. 递增子序列 Coverage Results" MODIFIED="1598349053241" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$108__.coverage" NAME="108. 将有序数组转换为二叉搜索树 Coverage Results" MODIFIED="1606209731319" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/数组" />
+    <SUITE FILE_PATH="coverage/LeetCode$78.coverage" NAME="78、子集 Coverage Results" MODIFIED="1599636513402" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/分治&amp;回溯" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$367.coverage" NAME="367、有效的完全平方数 Coverage Results" MODIFIED="1600154936640" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/二分查找" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$376__.coverage" NAME="376. 摆动序列 Coverage Results" MODIFIED="1610267293855" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/动态规划" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$763__.coverage" NAME="763. 划分字母区间 Coverage Results" MODIFIED="1610367250237" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/贪心" />
+    <SUITE FILE_PATH="coverage/LeetCode$50Pow_x_n_.coverage" NAME="50、Pow(x,n) Coverage Results" MODIFIED="1599552027830" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/分治&amp;回溯" />
+    <SUITE FILE_PATH="coverage/LeetCode$17.coverage" NAME="17、电话号码的字幕组合 Coverage Results" MODIFIED="1599641671498" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/分治&amp;回溯" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$test2.coverage" NAME="test2 Coverage Results" MODIFIED="1611666249614" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/LeetCode$8.coverage" NAME="8、字符串转换整数 Coverage Results" MODIFIED="1599472749491" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/字符串" />
+    <SUITE FILE_PATH="coverage/LeetCode$53.coverage" NAME="53、最大子序和 Coverage Results" MODIFIED="1598930313681" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/动态规划" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$32.coverage" NAME="32、最长有效括号 Coverage Results" MODIFIED="1608182652531" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/动态规划" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$_Offer_21__.coverage" NAME="剑指 Offer 21. 调整数组顺序使奇数位于偶数前面 Coverage Results" MODIFIED="1609238363355" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/剑指offer" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$239.coverage" NAME="239、滑动窗口最大值 Coverage Results" MODIFIED="1611662191052" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/滑动窗口" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$user_models.coverage" NAME="user_models Coverage Results" MODIFIED="1603261989098" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/DAYDAYUP/spider_app/douyin/models" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$TCP.coverage" NAME="TCP客户端 Coverage Results" MODIFIED="1603333402083" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/DAYDAYUP/网络编程" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$714__.coverage" NAME="714. 买卖股票的最佳时机含手续费 Coverage Results" MODIFIED="1606914249233" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/动态规划" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$get_homepage_info.coverage" NAME="get_homepage_info Coverage Results" MODIFIED="1603257735666" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/DAYDAYUP/spider_app/douyin/views" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$47___II.coverage" NAME="47. 全排列 II Coverage Results" MODIFIED="1610070972748" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/递归" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$121.coverage" NAME="121、买卖股票的最佳时机 Coverage Results" MODIFIED="1600844616023" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/动态规划" />
+    <SUITE FILE_PATH="coverage/LeetCode$112.coverage" NAME="112、路径总和 Coverage Results" MODIFIED="1599186017778" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/树" />
+    <SUITE FILE_PATH="coverage/LeetCode$client1__1_.coverage" NAME="client1 (1) Coverage Results" MODIFIED="1598594898623" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/DAYDAYUP/ZMQ" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$_Offer_33__.coverage" NAME="剑指 Offer 33. 二叉搜索树的后序遍历序列 Coverage Results" MODIFIED="1609845555112" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/剑指offer" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$433.coverage" NAME="433、最小基因变化 Coverage Results" MODIFIED="1606119581340" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/深搜&amp;广搜" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$27.coverage" NAME="27、移除元素 Coverage Results" MODIFIED="1610436277599" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/数组" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$209__.coverage" NAME="209. 长度最小的子数组 Coverage Results" MODIFIED="1606831285524" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/数组" />
+    <SUITE FILE_PATH="coverage/LeetCode$300.coverage" NAME="300、最长上升子序列 Coverage Results" MODIFIED="1598939794608" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/动态规划" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$_Offer_15__1.coverage" NAME="剑指 Offer 15. 二进制中1的个数 Coverage Results" MODIFIED="1609222006635" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/剑指offer" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$90___II.coverage" NAME="90. 子集 II Coverage Results" MODIFIED="1609998620069" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/分治&amp;回溯" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$491__.coverage" NAME="491. 递增子序列 Coverage Results" MODIFIED="1610012356185" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/分治&amp;回溯" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$_Offer_39__.coverage" NAME="剑指 Offer 39. 数组中出现次数超过一半的数字 Coverage Results" MODIFIED="1609848414170" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/剑指offer" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$64.coverage" NAME="64、最小路径和 Coverage Results" MODIFIED="1606749290672" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/动态规划" />
+    <SUITE FILE_PATH="coverage/LeetCode$service__1_.coverage" NAME="service (1) Coverage Results" MODIFIED="1598595112716" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/DAYDAYUP/ZMQ" />
+    <SUITE FILE_PATH="coverage/LeetCode$122.coverage" NAME="122、买卖股票的最佳时机 Coverage Results" MODIFIED="1598852413773" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/动态规划" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$4Sentence4_.coverage" NAME="4、Sentence类第4版： 惰性实现 Coverage Results" MODIFIED="1608714440615" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/fluent python/14、可迭代的对象、迭代器和生成器" />
+    <SUITE FILE_PATH="coverage/LeetCode$189.coverage" NAME="189、旋转数组 Coverage Results" MODIFIED="1598854420834" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/数组" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$146LRU.coverage" NAME="146、LRU缓存机制 Coverage Results" MODIFIED="1602748242741" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/布隆过滤器和LRU" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$48__.coverage" NAME="48. 旋转图像 Coverage Results" MODIFIED="1607342957809" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/数组" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$17.coverage" NAME="17、电话号码的字母组合 Coverage Results" MODIFIED="1605778179824" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/分治&amp;回溯" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$detector_source_huang.coverage" NAME="detector_source_huang Coverage Results" MODIFIED="1605144104286" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="D:/田明博/wechatfile/WeChat Files/wxid_zcv3rtaryijn22/FileStorage/File/2020-11" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$_Offer_10__I__.coverage" NAME="剑指 Offer 10- I. 斐波那契数列 Coverage Results" MODIFIED="1609161059945" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/剑指offer" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$738__.coverage" NAME="738. 单调递增的数字 Coverage Results" MODIFIED="1610370787391" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/贪心" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$88__.coverage" NAME="88. 合并两个有序数组 Coverage Results" MODIFIED="1605590461687" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/数组" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$apscheduler.coverage" NAME="任务框架apscheduler Coverage Results" MODIFIED="1605152182340" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/DAYDAYUP/util/定时任务" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$_Offer_56___I__.coverage" NAME="剑指 Offer 56 - I. 数组中数字出现的次数 Coverage Results" MODIFIED="1610104384902" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/剑指offer" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$188___IV.coverage" NAME="188. 买卖股票的最佳时机 IV Coverage Results" MODIFIED="1606985076433" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/动态规划" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$11.coverage" NAME="11、盛最多水的容器 Coverage Results" MODIFIED="1610972159844" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/数组" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$42__.coverage" NAME="42. 接雨水 Coverage Results" MODIFIED="1611149734492" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/数组" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$39__.coverage" NAME="39. 组合总和 Coverage Results" MODIFIED="1609846524610" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/分治&amp;回溯" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$forLL.coverage" NAME="彩虹屁评论forLL Coverage Results" MODIFIED="1603347170515" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/DAYDAYUP/spider_app/douyin/views" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$22__.coverage" NAME="22. 括号生成 Coverage Results" MODIFIED="1606136191529" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/深搜&amp;广搜" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$309__.coverage" NAME="309. 最佳买卖股票时机含冷冻期 Coverage Results" MODIFIED="1606913479497" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/动态规划" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$_Offer_13__.coverage" NAME="剑指 Offer 13. 机器人的运动范围 Coverage Results" MODIFIED="1609211650466" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/剑指offer" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$670__.coverage" NAME="670. 最大交换 Coverage Results" MODIFIED="1610111489004" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/数组" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$79__.coverage" NAME="79. 单词搜索 Coverage Results" MODIFIED="1609164665159" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/分治&amp;回溯" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$122.coverage" NAME="122、买卖股票的最佳时期 Coverage Results" MODIFIED="1599878795013" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/贪心" />
+    <SUITE FILE_PATH="coverage/LeetCode$client.coverage" NAME="client Coverage Results" MODIFIED="1598593844292" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/DAYDAYUP/ZMQ" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$125.coverage" NAME="125、验证回文串 Coverage Results" MODIFIED="1604838563384" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/字符串" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$122II.coverage" NAME="122、买卖股票的最佳时机II Coverage Results" MODIFIED="1610269236294" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/动态规划" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$139__.coverage" NAME="139. 单词拆分 Coverage Results" MODIFIED="1606835233130" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/动态规划" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$46__.coverage" NAME="46. 全排列 Coverage Results" MODIFIED="1610013394101" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/递归" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$300.coverage" NAME="300、最长上升子序列 Coverage Results" MODIFIED="1611666786997" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/动态规划" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$_Offer_04__.coverage" NAME="剑指 Offer 04. 二维数组中的查找 Coverage Results" MODIFIED="1608987751473" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/数组" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$74.coverage" NAME="74、搜索二维矩阵 Coverage Results" MODIFIED="1608987424000" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/二分查找" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$43_.coverage" NAME="43.字符串相乘 Coverage Results" MODIFIED="1607419765624" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/字符串" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$_Offer_44__.coverage" NAME="剑指 Offer 44. 数字序列中某一位的数字 Coverage Results" MODIFIED="1609926320975" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/剑指offer" />
+    <SUITE FILE_PATH="coverage/LeetCode$35.coverage" NAME="35、搜索插入位置 Coverage Results" MODIFIED="1598344822966" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$219___II.coverage" NAME="219. 存在重复元素 II Coverage Results" MODIFIED="1610979812430" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/数组" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$198.coverage" NAME="198、打家劫舍 Coverage Results" MODIFIED="1600345977977" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/动态规划" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$UDP.coverage" NAME="UDP客户端 Coverage Results" MODIFIED="1611114380057" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/DAYDAYUP/网络编程" />
+    <SUITE FILE_PATH="coverage/LeetCode$198.coverage" NAME="198、打家劫舍 Coverage Results" MODIFIED="1598954525404" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/动态规划" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$73__.coverage" NAME="73. 矩阵置零 Coverage Results" MODIFIED="1606208609241" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/数组" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$1249__.coverage" NAME="1249. 移除无效的括号 Coverage Results" MODIFIED="1611580685974" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/队列，栈" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$_Offer_57___II__s.coverage" NAME="剑指 Offer 57 - II. 和为s的连续正数序列 Coverage Results" MODIFIED="1610108200206" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/剑指offer" />
+    <SUITE FILE_PATH="coverage/LeetCode$9.coverage" NAME="9回文数 Coverage Results" MODIFIED="1599473558998" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/数组" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$49.coverage" NAME="49、字母异位词分组 Coverage Results" MODIFIED="1605603049582" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/哈希表、映射、集合" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$452.coverage" NAME="45、跳跃游戏2 Coverage Results" MODIFIED="1606355782598" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/贪心" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$322.coverage" NAME="322、零钱兑换 Coverage Results" MODIFIED="1606727229888" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/动态规划" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$55.coverage" NAME="55、跳跃游戏 Coverage Results" MODIFIED="1610272337757" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/贪心" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$kaoyanbang_test.coverage" NAME="kaoyanbang_test Coverage Results" MODIFIED="1603266112788" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/DAYDAYUP/spider_app/kaoyanbang" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$collection.coverage" NAME="collection Coverage Results" MODIFIED="1605879304071" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/fluent python/3、字典和集合" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$137___II.coverage" NAME="137. 只出现一次的数字 II Coverage Results" MODIFIED="1607950696090" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/位运算" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$493.coverage" NAME="493、翻转对 Coverage Results" MODIFIED="1608031597956" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/排序" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$518___II.coverage" NAME="518. 零钱兑换 II Coverage Results" MODIFIED="1607074870031" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/动态规划/背包问题" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$3Sentence3_.coverage" NAME="3、Sentence类第3版： 生成器函数 Coverage Results" MODIFIED="1608705697069" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/fluent python/14、可迭代的对象、迭代器和生成器" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$283__.coverage" NAME="283. 移动零 Coverage Results" MODIFIED="1610973590369" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/数组" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$26__.coverage" NAME="26. 删除排序数组中的重复项 Coverage Results" MODIFIED="1605582845828" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/数组" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$36_.coverage" NAME="36.有效的数独 Coverage Results" MODIFIED="1607326562991" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$USER_HOME$/AppData/Local/Temp/leetcode/editor/cn" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$_Offer_46__.coverage" NAME="剑指 Offer 46. 把数字翻译成字符串 Coverage Results" MODIFIED="1609930161592" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/剑指offer" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$_Offer_66__.coverage" NAME="剑指 Offer 66. 构建乘积数组 Coverage Results" MODIFIED="1610627758840" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/剑指offer" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$75__.coverage" NAME="75. 颜色分类 Coverage Results" MODIFIED="1608640727848" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/双指针" />
+  </component>
+</project>

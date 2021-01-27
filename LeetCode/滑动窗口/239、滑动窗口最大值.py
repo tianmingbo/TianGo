@@ -18,7 +18,19 @@ class Solution:
         res_deque.append(tmp)
         return res_deque
 
+    def maxSlidingWindow2(self, nums, k):
+        win, ret = [], []
+        for i, v in enumerate(nums):
+            if i >= k and win[0] <= i - k:
+                win.pop(0)
+            while win and nums[win[-1]] <= v:
+                win.pop()
+            win.append(i)
+            if i >= k - 1:
+                ret.append(nums[win[0]])
+        return ret
+
 
 if __name__ == '__main__':
     a = Solution()
-    print(a.maxSlidingWindow([9, 7, 6, 4, 3, 1], 3))
+    print(a.maxSlidingWindow2([9, 10, 6, 4, 3, 1], 3))

@@ -1,0 +1,27 @@
+# -*- coding: utf-8 -*-
+# @Time    : 2021/1/26 17:43
+# @Author  : tmb
+from typing import List
+
+
+class Solution:
+    def subarraySum(self, nums: List[int], k: int) -> int:
+        prefix = {}
+        counter = 0  # 计数器
+        pre_sum = 0  # 前缀和
+        for i in range(len(nums)):
+            pre_sum += nums[i]  # 前缀和
+            if pre_sum == k:  # 如果前缀和等于k
+                counter += 1
+            if pre_sum - k in prefix:  # 如果前缀和-k在prefix中，说明从之前任意元素到目前元素，和为k
+                counter += prefix[pre_sum - k]
+            if pre_sum in prefix:
+                prefix[pre_sum] += 1
+            else:
+                prefix[pre_sum] = 1
+        return counter
+
+
+if __name__ == '__main__':
+    a = Solution()
+    print(a.subarraySum([3, 4, 7, 2, -3, 1, 4, 2], 4))

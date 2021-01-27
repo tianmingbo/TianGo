@@ -1,12 +1,15 @@
 # -*- coding: utf-8 -*-
 # @Time    : 2020/9/3 11:47
 # @Author  : tmb
-# class TreeNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
+class TreeNode:
+    def __init__(self, x):
+        self.val = x
+        self.left = None
+        self.right = None
+
+
 class Solution:
+    # 不能使用层序遍历
     def isSymmetric(self, root) -> bool:
         if not root:
             return True
