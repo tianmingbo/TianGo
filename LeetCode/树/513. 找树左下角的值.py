@@ -8,6 +8,11 @@ class TreeNode:
         self.right = right
 
 
+'''
+使用层序遍历，取最后一行第一个值
+'''
+
+
 class Solution:
     def findBottomLeftValue(self, root: TreeNode) -> int:
         queue = [root]

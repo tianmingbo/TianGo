@@ -22,8 +22,8 @@ class Solution:
         if not root.left and not root.right:  # 遍历到叶子结点时，判断是否相等
             return sum == root.val
         # 这里存在回溯，把sum - root.val作为参数传进去，函数结束，sum的值没有改变
-        return self.hasPathSum(root.left, sum - root.val) or self.hasPathSum(root.right,
-                                                                             sum - root.val)  # 遍历左子树和右子树，并减去当前值,左右子树一个成立即可
+        # 遍历左子树和右子树，并减去当前值,左右子树一个成立即可
+        return self.hasPathSum(root.left, sum - root.val) or self.hasPathSum(root.right, sum - root.val)
 
 
 class Solution2:
@@ -53,12 +53,15 @@ class Solution2:
 
 class Solution3:
     # 使用回溯
+    flag = False
+
     def hasPathSum(self, root, sum: int) -> bool:
         if not root:
             return False
-        self.flag = False
 
         def dfs(root, path):
+            if self.flag:  # 找到一个符合，就终止
+                return
             if not root.left and not root.right:  # 叶子节点
                 if path == sum:
                     self.flag = True

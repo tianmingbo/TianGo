@@ -20,6 +20,7 @@ class Solution:
 
 class Solution2:
     res = 0
+
     def sumOfLeftLeaves(self, root: TreeNode) -> int:
         if not root:
             return 0

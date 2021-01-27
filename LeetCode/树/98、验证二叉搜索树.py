@@ -66,10 +66,9 @@ class Solution3:
             val = node.val
             if val <= lower or val >= upper:
                 return False
-
-            if not helper(node.right, val, upper):
-                return False
             if not helper(node.left, lower, val):
+                return False
+            if not helper(node.right, val, upper):
                 return False
             return True
 
