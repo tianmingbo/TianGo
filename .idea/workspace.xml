@@ -26,15 +26,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c4707e59-bc43-4dee-8e97-c1e3882a210f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/LeetCode/树/100. 相同的树.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/LeetCode/树/124. 二叉树中的最大路径和.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DAYDAYUP/docker/2、容器相关.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LeetCode/排序/寻找第K大.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LeetCode/数组/724. 寻找数组的中心索引.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DAYDAYUP/docker/1、镜像相关.md" beforeDir="false" afterPath="$PROJECT_DIR$/DAYDAYUP/docker/1、镜像相关.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LeetCode/树/112、路径总和.py" beforeDir="false" afterPath="$PROJECT_DIR$/LeetCode/树/112、路径总和.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LeetCode/树/257. 二叉树的所有路径.py" beforeDir="false" afterPath="$PROJECT_DIR$/LeetCode/树/257. 二叉树的所有路径.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LeetCode/树/404. 左叶子之和.py" beforeDir="false" afterPath="$PROJECT_DIR$/LeetCode/树/404. 左叶子之和.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LeetCode/树/513. 找树左下角的值.py" beforeDir="false" afterPath="$PROJECT_DIR$/LeetCode/树/513. 找树左下角的值.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LeetCode/树/98、验证二叉搜索树.py" beforeDir="false" afterPath="$PROJECT_DIR$/LeetCode/树/98、验证二叉搜索树.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DAYDAYUP/mysql/创建高性能索引.xmind" beforeDir="false" afterPath="$PROJECT_DIR$/DAYDAYUP/数据库/mysql/创建高性能索引.xmind" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DAYDAYUP/mysql/力扣.docx" beforeDir="false" afterPath="$PROJECT_DIR$/DAYDAYUP/数据库/mysql/力扣.docx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DAYDAYUP/mysql/学习笔记.xmind" beforeDir="false" afterPath="$PROJECT_DIR$/DAYDAYUP/数据库/mysql/学习笔记.xmind" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LeetCode/排序/快排.py" beforeDir="false" afterPath="$PROJECT_DIR$/LeetCode/排序/快排.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LeetCode/树/236、二叉树的最近公共祖先.py" beforeDir="false" afterPath="$PROJECT_DIR$/LeetCode/树/236、二叉树的最近公共祖先.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test2.py" beforeDir="false" afterPath="$PROJECT_DIR$/test2.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -81,11 +82,11 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\mingb\Desktop\GOOD GOOD STUDY\DAYDAYUP\数据库" />
       <recent name="C:\Users\mingb\Desktop\GOOD GOOD STUDY\LeetCode\滑动窗口" />
       <recent name="C:\Users\mingb\Desktop\GOOD GOOD STUDY\LeetCode\二分查找" />
       <recent name="C:\Users\mingb\Desktop\GOOD GOOD STUDY\LeetCode\数组" />
       <recent name="C:\Users\mingb\Desktop\GOOD GOOD STUDY\LeetCode\分治&amp;回溯" />
-      <recent name="C:\Users\mingb\Desktop\GOOD GOOD STUDY\剑指offer" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\mingb\Desktop\GOOD GOOD STUDY" />
@@ -107,8 +108,8 @@
       <visibility group="运行配置" flag="true" />
     </myKeys>
   </component>
-  <component name="RunManager" selected="Python.300、最长上升子序列">
-    <configuration name="1249. 移除无效的括号" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Python.724. 寻找数组的中心索引">
+    <configuration name="快排" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="GOOD GOOD STUDY" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -116,34 +117,12 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/LeetCode/队列，栈" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/LeetCode/排序" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/LeetCode/队列，栈/1249. 移除无效的括号.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="239、滑动窗口最大值" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="GOOD GOOD STUDY" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/LeetCode/滑动窗口" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/LeetCode/滑动窗口/239、滑动窗口最大值.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/LeetCode/排序/快排.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -174,7 +153,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="560. 和为K的子数组" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="724. 寻找数组的中心索引" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="GOOD GOOD STUDY" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -182,12 +161,34 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/LeetCode/哈希表、映射、集合" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/LeetCode/数组" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/LeetCode/哈希表、映射、集合/560. 和为K的子数组.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/LeetCode/数组/724. 寻找数组的中心索引.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="寻找第K大" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="GOOD GOOD STUDY" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/LeetCode/排序" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/LeetCode/排序/寻找第K大.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -220,11 +221,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.300、最长上升子序列" />
+        <item itemvalue="Python.724. 寻找数组的中心索引" />
         <item itemvalue="Python.test2" />
-        <item itemvalue="Python.239、滑动窗口最大值" />
-        <item itemvalue="Python.560. 和为K的子数组" />
-        <item itemvalue="Python.1249. 移除无效的括号" />
+        <item itemvalue="Python.寻找第K大" />
+        <item itemvalue="Python.快排" />
+        <item itemvalue="Python.300、最长上升子序列" />
       </list>
     </recent_temporary>
   </component>
@@ -285,7 +286,7 @@
       <workItem from="1610950191644" duration="10295000" />
       <workItem from="1611036043197" duration="25231000" />
       <workItem from="1611536687099" duration="1320000" />
-      <workItem from="1611561536081" duration="31448000" />
+      <workItem from="1611561536081" duration="46567000" />
     </task>
     <task id="LOCAL-00001" summary="11/20、回溯and字典学习">
       <created>1605882451958</created>
@@ -483,7 +484,14 @@
       <option name="project" value="LOCAL" />
       <updated>1611651400286</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="1/27、树">
+      <created>1611751767096</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1611751767096</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -576,7 +584,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="11/23、dfs&amp;bfs" />
     <MESSAGE value="11/24、DFS&amp;&amp;BFS" />
     <MESSAGE value="11/25、不可贪心" />
     <MESSAGE value="11.30/二分查找" />
@@ -601,7 +608,8 @@
     <MESSAGE value="1/14、1227，我会sb" />
     <MESSAGE value="1/20、日常复习" />
     <MESSAGE value="1/26、repeat" />
-    <option name="LAST_COMMIT_MESSAGE" value="1/26、repeat" />
+    <MESSAGE value="1/27、树" />
+    <option name="LAST_COMMIT_MESSAGE" value="1/27、树" />
   </component>
   <component name="WindowStateProjectService">
     <state x="585" y="150" key="#HTTP代理" timestamp="1606121066160">
@@ -624,10 +632,10 @@
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="425" y="289" key="#com.intellij.featureStatistics.actions.ShowFeatureUsageStatisticsDialog/0.0.1536.864/1920.0.1920.1080@0.0.1536.864" timestamp="1604037402194" />
-    <state x="470" y="233" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1611738722169">
+    <state x="470" y="233" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1611827932620">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="470" y="233" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1536.864/-1920.0.1920.1080@0.0.1536.864" timestamp="1611738722169" />
+    <state x="470" y="233" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1536.864/-1920.0.1920.1080@0.0.1536.864" timestamp="1611827932620" />
     <state x="470" y="233" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1536.864/1920.0.1920.1080@0.0.1536.864" timestamp="1608706243447" />
     <state x="2508" y="291" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1536.864/1920.0.1920.1080@1920.0.1920.1080" timestamp="1609218215406" />
     <state x="470" y="233" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1536.864@0.0.1536.864" timestamp="1606227526572" />
@@ -678,67 +686,67 @@
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state width="1492" height="183" key="GridCell.Tab.-1.right/0.0.1536.864/1920.0.1920.1080@0.0.1536.864" timestamp="1605763610747" />
-    <state width="1492" height="331" key="GridCell.Tab.0.bottom" timestamp="1611739937433">
+    <state width="1492" height="141" key="GridCell.Tab.0.bottom" timestamp="1611843698649">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state width="1876" height="208" key="GridCell.Tab.0.bottom/0.0.1536.864/-1920.0.1920.1080@-1920.0.1920.1080" timestamp="1611653889068" />
-    <state width="1492" height="331" key="GridCell.Tab.0.bottom/0.0.1536.864/-1920.0.1920.1080@0.0.1536.864" timestamp="1611739937433" />
+    <state width="1492" height="141" key="GridCell.Tab.0.bottom/0.0.1536.864/-1920.0.1920.1080@0.0.1536.864" timestamp="1611843698649" />
     <state width="1492" height="155" key="GridCell.Tab.0.bottom/0.0.1536.864/1920.0.1920.1080@0.0.1536.864" timestamp="1611225804565" />
     <state width="1874" height="155" key="GridCell.Tab.0.bottom/0.0.1536.864/1920.0.1920.1080@1920.0.1920.1080" timestamp="1611234451566" />
     <state width="1492" height="143" key="GridCell.Tab.0.bottom/0.0.1536.864@0.0.1536.864" timestamp="1611666787001" />
-    <state width="1492" height="331" key="GridCell.Tab.0.center" timestamp="1611739937433">
+    <state width="1492" height="141" key="GridCell.Tab.0.center" timestamp="1611843698648">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state width="1876" height="208" key="GridCell.Tab.0.center/0.0.1536.864/-1920.0.1920.1080@-1920.0.1920.1080" timestamp="1611653889068" />
-    <state width="1492" height="331" key="GridCell.Tab.0.center/0.0.1536.864/-1920.0.1920.1080@0.0.1536.864" timestamp="1611739937433" />
+    <state width="1492" height="141" key="GridCell.Tab.0.center/0.0.1536.864/-1920.0.1920.1080@0.0.1536.864" timestamp="1611843698648" />
     <state width="1492" height="155" key="GridCell.Tab.0.center/0.0.1536.864/1920.0.1920.1080@0.0.1536.864" timestamp="1611225804565" />
     <state width="1874" height="155" key="GridCell.Tab.0.center/0.0.1536.864/1920.0.1920.1080@1920.0.1920.1080" timestamp="1611234451566" />
     <state width="1492" height="143" key="GridCell.Tab.0.center/0.0.1536.864@0.0.1536.864" timestamp="1611666787001" />
-    <state width="1492" height="331" key="GridCell.Tab.0.left" timestamp="1611739937433">
+    <state width="1492" height="141" key="GridCell.Tab.0.left" timestamp="1611843698648">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state width="1876" height="208" key="GridCell.Tab.0.left/0.0.1536.864/-1920.0.1920.1080@-1920.0.1920.1080" timestamp="1611653889068" />
-    <state width="1492" height="331" key="GridCell.Tab.0.left/0.0.1536.864/-1920.0.1920.1080@0.0.1536.864" timestamp="1611739937433" />
+    <state width="1492" height="141" key="GridCell.Tab.0.left/0.0.1536.864/-1920.0.1920.1080@0.0.1536.864" timestamp="1611843698648" />
     <state width="1492" height="155" key="GridCell.Tab.0.left/0.0.1536.864/1920.0.1920.1080@0.0.1536.864" timestamp="1611225804563" />
     <state width="1874" height="155" key="GridCell.Tab.0.left/0.0.1536.864/1920.0.1920.1080@1920.0.1920.1080" timestamp="1611234451566" />
     <state width="1492" height="143" key="GridCell.Tab.0.left/0.0.1536.864@0.0.1536.864" timestamp="1611666787001" />
-    <state width="1492" height="331" key="GridCell.Tab.0.right" timestamp="1611739937433">
+    <state width="1492" height="141" key="GridCell.Tab.0.right" timestamp="1611843698649">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state width="1876" height="208" key="GridCell.Tab.0.right/0.0.1536.864/-1920.0.1920.1080@-1920.0.1920.1080" timestamp="1611653889068" />
-    <state width="1492" height="331" key="GridCell.Tab.0.right/0.0.1536.864/-1920.0.1920.1080@0.0.1536.864" timestamp="1611739937433" />
+    <state width="1492" height="141" key="GridCell.Tab.0.right/0.0.1536.864/-1920.0.1920.1080@0.0.1536.864" timestamp="1611843698649" />
     <state width="1492" height="155" key="GridCell.Tab.0.right/0.0.1536.864/1920.0.1920.1080@0.0.1536.864" timestamp="1611225804565" />
     <state width="1874" height="155" key="GridCell.Tab.0.right/0.0.1536.864/1920.0.1920.1080@1920.0.1920.1080" timestamp="1611234451566" />
     <state width="1492" height="143" key="GridCell.Tab.0.right/0.0.1536.864@0.0.1536.864" timestamp="1611666787001" />
-    <state width="1492" height="331" key="GridCell.Tab.1.bottom" timestamp="1611739937433">
+    <state width="1492" height="151" key="GridCell.Tab.1.bottom" timestamp="1611843427357">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state width="1876" height="208" key="GridCell.Tab.1.bottom/0.0.1536.864/-1920.0.1920.1080@-1920.0.1920.1080" timestamp="1611653890016" />
-    <state width="1492" height="331" key="GridCell.Tab.1.bottom/0.0.1536.864/-1920.0.1920.1080@0.0.1536.864" timestamp="1611739937433" />
+    <state width="1492" height="151" key="GridCell.Tab.1.bottom/0.0.1536.864/-1920.0.1920.1080@0.0.1536.864" timestamp="1611843427357" />
     <state width="1492" height="144" key="GridCell.Tab.1.bottom/0.0.1536.864/1920.0.1920.1080@0.0.1536.864" timestamp="1610444427141" />
     <state width="1876" height="194" key="GridCell.Tab.1.bottom/0.0.1536.864/1920.0.1920.1080@1920.0.1920.1080" timestamp="1611153181121" />
     <state width="1492" height="56" key="GridCell.Tab.1.bottom/0.0.1536.864@0.0.1536.864" timestamp="1611665705461" />
-    <state width="1492" height="331" key="GridCell.Tab.1.center" timestamp="1611739937433">
+    <state width="1492" height="151" key="GridCell.Tab.1.center" timestamp="1611843427357">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state width="1876" height="208" key="GridCell.Tab.1.center/0.0.1536.864/-1920.0.1920.1080@-1920.0.1920.1080" timestamp="1611653890016" />
-    <state width="1492" height="331" key="GridCell.Tab.1.center/0.0.1536.864/-1920.0.1920.1080@0.0.1536.864" timestamp="1611739937433" />
+    <state width="1492" height="151" key="GridCell.Tab.1.center/0.0.1536.864/-1920.0.1920.1080@0.0.1536.864" timestamp="1611843427357" />
     <state width="1492" height="144" key="GridCell.Tab.1.center/0.0.1536.864/1920.0.1920.1080@0.0.1536.864" timestamp="1610444427141" />
     <state width="1876" height="194" key="GridCell.Tab.1.center/0.0.1536.864/1920.0.1920.1080@1920.0.1920.1080" timestamp="1611153181120" />
     <state width="1492" height="56" key="GridCell.Tab.1.center/0.0.1536.864@0.0.1536.864" timestamp="1611665705461" />
-    <state width="1492" height="331" key="GridCell.Tab.1.left" timestamp="1611739937433">
+    <state width="1492" height="151" key="GridCell.Tab.1.left" timestamp="1611843427357">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state width="1876" height="208" key="GridCell.Tab.1.left/0.0.1536.864/-1920.0.1920.1080@-1920.0.1920.1080" timestamp="1611653890016" />
-    <state width="1492" height="331" key="GridCell.Tab.1.left/0.0.1536.864/-1920.0.1920.1080@0.0.1536.864" timestamp="1611739937433" />
+    <state width="1492" height="151" key="GridCell.Tab.1.left/0.0.1536.864/-1920.0.1920.1080@0.0.1536.864" timestamp="1611843427357" />
     <state width="1492" height="144" key="GridCell.Tab.1.left/0.0.1536.864/1920.0.1920.1080@0.0.1536.864" timestamp="1610444427141" />
     <state width="1876" height="194" key="GridCell.Tab.1.left/0.0.1536.864/1920.0.1920.1080@1920.0.1920.1080" timestamp="1611153181120" />
     <state width="1492" height="56" key="GridCell.Tab.1.left/0.0.1536.864@0.0.1536.864" timestamp="1611665705461" />
-    <state width="1492" height="331" key="GridCell.Tab.1.right" timestamp="1611739937433">
+    <state width="1492" height="151" key="GridCell.Tab.1.right" timestamp="1611843427357">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state width="1876" height="208" key="GridCell.Tab.1.right/0.0.1536.864/-1920.0.1920.1080@-1920.0.1920.1080" timestamp="1611653890016" />
-    <state width="1492" height="331" key="GridCell.Tab.1.right/0.0.1536.864/-1920.0.1920.1080@0.0.1536.864" timestamp="1611739937433" />
+    <state width="1492" height="151" key="GridCell.Tab.1.right/0.0.1536.864/-1920.0.1920.1080@0.0.1536.864" timestamp="1611843427357" />
     <state width="1492" height="144" key="GridCell.Tab.1.right/0.0.1536.864/1920.0.1920.1080@0.0.1536.864" timestamp="1610444427141" />
     <state width="1876" height="194" key="GridCell.Tab.1.right/0.0.1536.864/1920.0.1920.1080@1920.0.1920.1080" timestamp="1611153181120" />
     <state width="1492" height="56" key="GridCell.Tab.1.right/0.0.1536.864@0.0.1536.864" timestamp="1611665705461" />
@@ -1032,11 +1040,6 @@
           <option name="timeStamp" value="104" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/LeetCode/排序/快排.py</url>
-          <line>17</line>
-          <option name="timeStamp" value="107" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/LeetCode/动态规划/85. 最大矩形.py</url>
           <line>30</line>
           <option name="timeStamp" value="110" />
@@ -1186,6 +1189,11 @@
           <line>23</line>
           <option name="timeStamp" value="156" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/LeetCode/排序/快排.py</url>
+          <line>30</line>
+          <option name="timeStamp" value="159" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
@@ -1210,7 +1218,7 @@
     <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$34__.coverage" NAME="34. 在排序数组中查找元素的第一个和最后一个位置 Coverage Results" MODIFIED="1611234451560" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/二分查找" />
     <SUITE FILE_PATH="coverage/LeetCode$62.coverage" NAME="62、不同路径 Coverage Results" MODIFIED="1599450472442" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/动态规划" />
     <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$schedule.coverage" NAME="调度模块：schedule Coverage Results" MODIFIED="1605151867757" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/DAYDAYUP/util/定时任务" />
-    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$.coverage" NAME="堆排序 Coverage Results" MODIFIED="1611572892461" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/排序" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$.coverage" NAME="快排 Coverage Results" MODIFIED="1611838287461" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/排序" />
     <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$_Offer_17__1n.coverage" NAME="剑指 Offer 17. 打印从1到最大的n位数 Coverage Results" MODIFIED="1609237143022" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/剑指offer" />
     <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$1046__.coverage" NAME="1046. 最后一块石头的重量 Coverage Results" MODIFIED="1611574397987" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/排序" />
     <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$Sentence1_.coverage" NAME="Sentence类第1版： 单词序列 Coverage Results" MODIFIED="1608647535959" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/fluent python/14、可迭代的对象、迭代器和生成器" />
@@ -1235,6 +1243,7 @@
     <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$208trie.coverage" NAME="208、trie树实现 Coverage Results" MODIFIED="1607244255144" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/字典树和并查集" />
     <SUITE FILE_PATH="coverage/LeetCode$169.coverage" NAME="169、多数元素 Coverage Results" MODIFIED="1599638563188" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/分治&amp;回溯" />
     <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$3__.coverage" NAME="3. 无重复字符的最长子串 Coverage Results" MODIFIED="1611576574123" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/滑动窗口" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$K.coverage" NAME="寻找第K大 Coverage Results" MODIFIED="1611839865856" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/排序" />
     <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$84.coverage" NAME="84、柱状图中最大的矩形 Coverage Results" MODIFIED="1605599452016" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/队列，栈" />
     <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$78.coverage" NAME="78、子集 Coverage Results" MODIFIED="1609997910713" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/分治&amp;回溯" />
     <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$560__K.coverage" NAME="560. 和为K的子数组 Coverage Results" MODIFIED="1611654723094" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/哈希表、映射、集合" />
@@ -1337,13 +1346,14 @@
     <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$763__.coverage" NAME="763. 划分字母区间 Coverage Results" MODIFIED="1610367250237" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/贪心" />
     <SUITE FILE_PATH="coverage/LeetCode$50Pow_x_n_.coverage" NAME="50、Pow(x,n) Coverage Results" MODIFIED="1599552027830" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/分治&amp;回溯" />
     <SUITE FILE_PATH="coverage/LeetCode$17.coverage" NAME="17、电话号码的字幕组合 Coverage Results" MODIFIED="1599641671498" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/分治&amp;回溯" />
-    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$test2.coverage" NAME="test2 Coverage Results" MODIFIED="1611666249614" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$test2.coverage" NAME="test2 Coverage Results" MODIFIED="1611841399222" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/LeetCode$8.coverage" NAME="8、字符串转换整数 Coverage Results" MODIFIED="1599472749491" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/字符串" />
     <SUITE FILE_PATH="coverage/LeetCode$53.coverage" NAME="53、最大子序和 Coverage Results" MODIFIED="1598930313681" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/动态规划" />
     <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$32.coverage" NAME="32、最长有效括号 Coverage Results" MODIFIED="1608182652531" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/动态规划" />
     <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$_Offer_21__.coverage" NAME="剑指 Offer 21. 调整数组顺序使奇数位于偶数前面 Coverage Results" MODIFIED="1609238363355" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/剑指offer" />
     <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$239.coverage" NAME="239、滑动窗口最大值 Coverage Results" MODIFIED="1611662191052" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/滑动窗口" />
     <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$user_models.coverage" NAME="user_models Coverage Results" MODIFIED="1603261989098" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/DAYDAYUP/spider_app/douyin/models" />
+    <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$724__.coverage" NAME="724. 寻找数组的中心索引 Coverage Results" MODIFIED="1611843698643" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/数组" />
     <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$TCP.coverage" NAME="TCP客户端 Coverage Results" MODIFIED="1603333402083" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/DAYDAYUP/网络编程" />
     <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$714__.coverage" NAME="714. 买卖股票的最佳时机含手续费 Coverage Results" MODIFIED="1606914249233" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LeetCode/动态规划" />
     <SUITE FILE_PATH="coverage/GOOD_GOOD_STUDY$get_homepage_info.coverage" NAME="get_homepage_info Coverage Results" MODIFIED="1603257735666" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/DAYDAYUP/spider_app/douyin/views" />

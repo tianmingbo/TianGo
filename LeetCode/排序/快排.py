@@ -16,9 +16,10 @@ def quick_sort2(begin, end, nums):
     if begin >= end:
         return
     pivot_index = partition(begin, end, nums)
+    print(nums)
     quick_sort2(begin, pivot_index - 1, nums)
     quick_sort2(pivot_index + 1, end, nums)
-    print(nums)
+
 
 def partition(begin, end, nums):
     pivot = nums[begin]
@@ -38,7 +39,7 @@ def partition(begin, end, nums):
 '''
 
 if __name__ == '__main__':
-    arr = [6, 1, 2, 9, 6, 4]
+    arr = [4, 5, 8, 3, 2]
     n = len(arr)
-    b = quick_sort2(0, 5, arr)
+    b = quick_sort2(0, 4, arr)
     print(b)

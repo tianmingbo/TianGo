@@ -1,18 +1,13 @@
 class Solution:
-    def maxsumofSubarray(self, arr):
-        if len(arr) == 1:
-            return arr[0]
-        max_sum = 0
-        res = 0
-        for i in range(len(arr)):
-            max_sum += arr[i]
-            if max_sum < 0:
-                max_sum = 0
-            else:
-                res = max(res, max_sum)
-        return res
-
-
-if __name__ == '__main__':
-    a = Solution()
-    print(a.maxsumofSubarray([1, -2, 3, 5, -2, 6, -1]))
+    def lowestCommonAncestor(self, root, o1, o2):
+        if not root:
+            return
+        if o1 == root.val:
+            return o1
+        if o2 == root.val:
+            return o2
+        left = self.lowestCommonAncestor(root.left, o1, o2)
+        right = self.lowestCommonAncestor(root.right, o1, o2)
+        if left and right:
+            return root.val
+        return left or right
