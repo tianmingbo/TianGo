@@ -1,71 +1,37 @@
-import os
-import socket
+from typing import List
+
+'''
+利用快排思想，部分排序
+'''
 
 
-def is_network_link(ip, port, timeout=3):
-    """检测网络连通性
+class Solution:
+    def findKthLargest(self, nums: List[int], k: int) -> int:
+        n = len(nums)
+        start, end = 0, n - 1
+        pivot = -1
+        while pivot != n - k:
+            print(nums)
+            if pivot < n - k:
+                start, pivot, t = self.partition(nums, pivot + 1, end)
+            else:
+                start, pivot, t = self.partition(nums, start, pivot - 1)
+        return nums[pivot]
 
-    Args:
-        ip: IP地址
-        port: 端口
-        timeout: 超时时间
-    Returns:
-        boolean
-    """
-    try:
-        socket_client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        socket_client.settimeout(timeout)
-        socket_client.connect((ip, int(port)))
-        socket_client.close()
-    except socket.error as e:
-        return False
-
-    return True
-
-
-def icmp_packet_link(ip_address, times):
-    """
-
-    :param ip_address: 地址
-    :param times: ping的次数
-    :return: 最小时延、平均时延、最大时延、丢包率
-    """
-    stdout = ''
-    try:
-        stdout = os.popen('ping -c ' + str(times) + ' ' + ip_address).read()
-        stdout = stdout.strip('\n').split('\n')
-
-        # if len(stdout) == int(times) + 5:
-        if 'received' in stdout[-2] and 'loss' in stdout[-2] and 'min/avg/max/' in stdout[-1]:
-            delay_info = stdout[-1].split(' ', 1)[1]
-            delay_info = delay_info.split(' = ')
-            delay_vals = delay_info[1].split('/')
-
-            loss_info = stdout[-2].split(', ')[2]
-            loss_info = loss_info.split(' ')[0].replace('%', '')
-
-            if float(loss_info) < 40:
-                return delay_vals[0], delay_vals[1], delay_vals[2], loss_info
-    except Exception as e:
-        pass
-    return None, None, None, 100
-
-
-def get_device_status_by_ip_port(ip, port, times=5):
-    if is_network_link(ip, port):
-        status = 1
-        if int(icmp_packet_link(ip, times)[3]) >= 40:
-            status = 0
-    else:
-        ret = icmp_packet_link(ip, times)
-        status = 0 if int(ret[3]) >= 40 else 2  # 暂定丢包率>=40为离线
-    return status
+    def partition(self, nums, start, end):
+        pilot = start
+        l = start + 1
+        r = end
+        while l <= r:
+            if nums[l] > nums[pilot]:
+                nums[l], nums[r] = nums[r], nums[l]
+                r -= 1
+            else:
+                l += 1
+        nums[pilot], nums[r] = nums[r], nums[pilot]
+        return start, r, end
 
 
 if __name__ == '__main__':
-    import time
-
-    start = time.time()
-    print(is_network_link('192.168.110.91', '5000'))
-    end = time.time()
-    print(end - start)
+    a = Solution()
+    print(a.findKthLargest([3, 2, 1, 5, 6, 4], 2))
