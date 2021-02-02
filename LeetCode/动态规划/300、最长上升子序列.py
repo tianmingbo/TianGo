@@ -7,6 +7,7 @@
 2、动态规划，向前寻找比当前小的那个位置，统计那个位置前面比自己小的个数  dp[i]=max(dp[j])+1
 
 '''
+from typing import List
 
 
 class Solution:
@@ -26,27 +27,34 @@ class Solution:
         return max(dp)
 
 
+import bisect
+
+
 # 贪心+二分
 class Solution2:
-    def lengthOfLIS(self, nums):
-        d = []
-        for n in nums:
-            if not d or n > d[-1]:
-                d.append(n)
+    def lengthOfLIS(self, arr):
+        if not arr:
+            return None
+        n = len(arr)
+        dp = [1] * n
+        helper = [arr[0]]
+        for i, a in enumerate(arr[1:], 1):  # 从下标1开始遍历
+            if a > helper[-1]:
+                helper.append(a)
+                dp[i] = len(helper)
             else:
-                l, r = 0, len(d) - 1
-                loc = r
-                while l <= r:
-                    mid = (l + r) // 2
-                    if d[mid] >= n:
-                        loc = mid
-                        r = mid - 1
-                    else:
-                        l = mid + 1
-                d[loc] = n
-        return len(d)
+                pos = bisect.bisect_left(helper, a)  # 通过二分，找出当前元素应在的位置
+                dp[i] = pos + 1
+                helper[pos] = a
+        # 上面相当于求出最长公共子串，dp记录最长子串
+        length = len(helper)
+        for i in range(n - 1, -1, -1):
+            if dp[i] == length:
+                length -= 1
+                helper[length] = arr[i]
+        return helper
 
 
 if __name__ == '__main__':
-    a = Solution()
-    print(a.lengthOfLIS([10, 9, 2, 5, 3, 7, 101, 18]))
+    a = Solution2()
+    print(a.lengthOfLIS([10, 9, 2, 5, 3, 7, 101, 18, 16, 5]))
