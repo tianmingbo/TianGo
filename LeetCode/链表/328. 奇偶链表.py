@@ -12,7 +12,7 @@ class Solution:
     def oddEvenList(self, head: ListNode) -> ListNode:
         if not head:
             return head
-        even_head = head.next
+        even_head = head.next  # 偶链表的头
         odd, even = head, head.next
         while even and even.next:
             odd.next = even.next
