@@ -46,3 +46,17 @@ function myArrayMax(arr) {
   //查找数组中的最小值
   return Math.max.apply(null, arr);
 }
+
+//数组遍历
+num.forEach(function (data, index, array) {
+  //data每个元素，index索引，array所有元素
+  // console.log(data,index,array)
+})
+num.indexOf(1) //1的索引下标
+num.lastIndexOf(1) //最后一个1的索引下标
+
+
+//*******日期函数*****
+let d = new Date();
+console.log(d)
+
