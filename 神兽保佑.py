@@ -1,11 +1,11 @@
-'''
+"""
 code is far away from bug with the animal protecting
    ┏┓　　　┏┓
  ┏┛┻━━━┛┻┓
  ┃　　　　　  ┃ 　
  ┃　　　━　　 ┃
  ┃　┳┛　 ┗┳  ┃
- ┃　　　　　　 ┃
+ ┃　　　　　  ┃
  ┃　　　┻　　 ┃
  ┃　　　　　　┃
  ┗━┓　　　┏━┛
@@ -17,4 +17,4 @@ code is far away from bug with the animal protecting
  　　┗┓┓┏━┳┓┏┛
  　　　┃┫┫　┃┫┫
  　　　┗┻┛　┗┻┛
-'''
+"""
