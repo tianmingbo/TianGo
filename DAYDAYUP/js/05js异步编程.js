@@ -74,25 +74,29 @@
 
 
 //********************** try catch
-async function asyncFunc() {
-  try {
-    await new Promise(function (resolve, reject) {
-      reject('error');
-    })
-  } catch (e) {
-    console.log(e);
-  }
-}
-
-async function asyncFunc2() {
-  let value = await new Promise(
-    function (resolve, reject) {
-      resolve("Return value");
+async function asyncFunc(tryCount) {
+  while (tryCount) {
+    try {
+      await new Promise(function (resolve, reject) {
+        reject('error');
+      })
+    } catch (e) {
+      console.log(e);
+      tryCount -= 1;
     }
-  );
-  //正常返回，会获取到返回值
-  console.log(value);
+  }
+
 }
 
-asyncFunc();
-asyncFunc2()
+// async function asyncFunc2() {
+//   let value = await new Promise(
+//     function (resolve, reject) {
+//       resolve("Return value");
+//     }
+//   );
+//   //正常返回，会获取到返回值
+//   console.log(value);
+// }
+
+asyncFunc(5);
+// asyncFunc2()
