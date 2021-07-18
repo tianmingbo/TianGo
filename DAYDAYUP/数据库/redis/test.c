@@ -1,7 +1,16 @@
+
 #include <stdio.h>
-int main()
+#include <time.h>
+ 
+
+
+int main ()
 {
-   // printf() 中字符串需要引号
-   printf("Hello, World!");
+
+
+   /* 输出实际值 */
+   printf("Number of seconds%d",2);
+
    return 0;
 }
+
