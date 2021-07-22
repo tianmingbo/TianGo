@@ -75,39 +75,57 @@
 
 //**********函数返回数组
 /* 要生成和返回随机数的函数 */
-#include<stdio.h>
-#include<stdlib.h>
-#include<time.h>
+// #include<stdio.h>
+// #include<stdlib.h>
+// #include<time.h>
 
-int * getRandom( )
+// int * getRandom( )
+// {
+//   static int  r[10];
+//   int i;
+ 
+//   /* 设置种子 */
+//   srand( (unsigned)time( NULL ) );
+//   for ( i = 0; i < 10; ++i)
+//   {
+//      r[i] = rand();
+//      printf( "r[%d] = %d\n", i, r[i]);
+ 
+//   }
+ 
+//   return r;
+// }
+ 
+// /* 要调用上面定义函数的主函数 */
+// int main ()
+// {
+//    /* 一个指向整数的指针 */
+//    int *p;
+//    int i;
+ 
+//    p = getRandom();
+//    for ( i = 0; i < 10; i++ )
+//    {
+//        printf( "*(p + %d) : %d\n", i, *(p + i));
+//    }
+ 
+//    return 0;
+// }
+
+
+
+
+//指向数组的指针
+#include<stdlib.h>
+#include<stdio.h>
+
+int main(int argc, char const *argv[])
 {
-  static int  r[10];
-  int i;
- 
-  /* 设置种子 */
-  srand( (unsigned)time( NULL ) );
-  for ( i = 0; i < 10; ++i)
-  {
-     r[i] = rand();
-     printf( "r[%d] = %d\n", i, r[i]);
- 
-  }
- 
-  return r;
-}
- 
-/* 要调用上面定义函数的主函数 */
-int main ()
-{
-   /* 一个指向整数的指针 */
-   int *p;
-   int i;
- 
-   p = getRandom();
-   for ( i = 0; i < 10; i++ )
-   {
-       printf( "*(p + %d) : %d\n", i, *(p + i));
-   }
- 
-   return 0;
+    double balance[10]={1.0,2,3,4,5};
+    double *p;
+    p=balance;
+    printf("%f",*p);
+    printf("%f",*(p+1));
+    //数组名是指向数组中一个元素的常量指针，balance是指向&balance[0]的指针
+    return 0;
 }
