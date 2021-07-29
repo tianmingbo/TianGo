@@ -1,16 +1,10 @@
-#include<stdio.h>
-void swap(int *x,int *y);
+#include <stdio.h>
+#ifndef MESSAGE
+#define MESSAGE "You wish!"
+#endif
 int main(int argc, char const *argv[])
 {
-   int x=100;
-   int y=200;
-   swap(&x,&y);
-   printf("%d,%d", x , y);
+   printf("%s\n", MESSAGE);
+   printf("%s", __DATE__);
    return 0;
-}
-void swap(int *x ,int *y){
-   int tmp;
-   tmp = *x;
-   *x = *y;
-   *x = tmp;
 }

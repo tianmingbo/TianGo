@@ -60,22 +60,37 @@
 // }
 
 //传递指针给函数
+// #include <stdio.h>
+// double getSum(int *arr, int size);
+// int main(int argc, char const *argv[])
+// {
+//     int a[] = {1, 2, 33, 44};
+//     int res, size = 4;
+//     res = getSum(a, size);
+//     printf("%d", res);
+//     return 0;
+// }
+// double getSum(int *arr, int size) //接收数组作为参数
+// {
+//     int i, sum;
+//     for (i = 0; i < size; i++)
+//     {
+//         sum += arr[i];
+//     }
+//     return sum;
+// }
+
+//函数指针
+
 #include <stdio.h>
-double getSum(int *arr, int size);
+int max(int x, int y)
+{
+    return x > y ? x : y;
+}
+
 int main(int argc, char const *argv[])
 {
-    int a[] = {1, 2, 33, 44};
-    int res, size = 4;
-    res = getSum(a, size);
-    printf("%d", res);
+    int (*p)(int, int) = max; //指向函数的指针
+    printf("%d", p(1, 2));
     return 0;
-}
-double getSum(int *arr, int size) //接收数组作为参数
-{
-    int i, sum;
-    for (i = 0; i < size; i++)
-    {
-        sum += arr[i];
-    }
-    return sum;
 }
