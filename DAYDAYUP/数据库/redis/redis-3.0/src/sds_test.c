@@ -12,6 +12,7 @@ struct sdshdr
     // 数据空间
     char buf[];
 };
+
 sds sdsnewlen(const void *init, int len)
 {
     struct sdshdr *sh;
@@ -26,18 +27,24 @@ sds sdsnewlen(const void *init, int len)
     return sh->buf;
 }
 
+sds sdsnew(const char *init)
+{
+    size_t initlen = (init == NULL) ? 0 : strlen(init);
+    printf("%s", init);
+    return sdsnewlen(init, initlen);
+}
+
 static inline size_t sdslen(const sds s)
 {
     struct sdshdr *sh = (void *)(s - (sizeof(struct sdshdr)));
     return sh->len;
 }
 
-
 int main(int argc, char const *argv[])
 {
-    sds s;
     int lens;
-    // sds x = sdsnewlen("foo", 3);
+    sds x = sdsnew("foo");
+    printf("x->:%s\n", x);
     // char a[10] = "123";
     char *tmp = sdsnewlen("tian", 4);
     /*
@@ -51,6 +58,6 @@ int main(int argc, char const *argv[])
     printf("%s\n", tmp);
     lens = sdslen(tmp);
     printf("%d\n", lens);
-    
+
     return 0;
 }

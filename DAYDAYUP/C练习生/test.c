@@ -1,10 +1,12 @@
+#include <stdlib.h>
 #include <stdio.h>
-#ifndef MESSAGE
-#define MESSAGE "You wish!"
-#endif
 int main(int argc, char const *argv[])
 {
-   printf("%s\n", MESSAGE);
-   printf("%s", __DATE__);
+   int *p;
+   int **q;
+   int a = 100, b = 200;
+   p = &a;
+   q = &p;
+   printf("%d", **q);
    return 0;
 }

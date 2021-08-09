@@ -94,3 +94,18 @@ int main(int argc, char const *argv[])
     printf("%d", p(1, 2));
     return 0;
 }
+
+
+//指向指針的指針
+// #include <stdlib.h>
+// #include <stdio.h>
+// int main(int argc, char const *argv[])
+// {
+//    int *p;
+//    int **q;
+//    int a = 100, b = 200;
+//    p = &a;
+//    q = &p;
+//    printf("%d", **q);
+//    return 0;
+// }
