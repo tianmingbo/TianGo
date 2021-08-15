@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#define SDS_MAX_PREALLOC (1024 * 1024)
+
 typedef char *sds;
 
 struct sdshdr
@@ -40,6 +42,53 @@ static inline size_t sdslen(const sds s)
     return sh->len;
 }
 
+static inline size_t sdsavail(const sds s)
+{
+    struct sdshdr *sh = (void *)(s - (sizeof(struct sdshdr)));
+    return sh->free;
+}
+
+sds sdsMakeRoomFor(sds s, size_t addlen)
+{
+    struct sdshdr *sh, *newsh;
+    size_t free = sdsavail(s);
+    size_t len, newlen;
+    if (free >= addlen)
+        return s;
+    len = sdslen(s);
+    sh = (void *)(s - (sizeof(struct sdshdr)));
+    newlen = (len + addlen);
+    if (newlen < SDS_MAX_PREALLOC)
+        newlen *= 2;
+    else
+        newlen += SDS_MAX_PREALLOC;
+    newsh = realloc(sh, sizeof(struct sdshdr) + newlen + 1);
+    if (newsh == NULL)
+        return NULL;
+    newsh->free = newlen - len;
+    return newsh->buf;
+}
+
+sds sdscatlen(sds s, const char *t, size_t len)
+{
+    struct sdshdr *sh;
+    size_t curlen = sdslen(s);
+    s = sdsMakeRoomFor(s, len);
+    if (s == NULL)
+        return NULL;
+    sh = (void *)(s - (sizeof(struct sdshdr)));
+    memcpy(s + curlen, t, len);
+    sh->len = curlen + len;
+    sh->free = sh->free - len;
+    s[curlen + len] = '\0';
+    return s;
+}
+
+sds sdscat(sds s, const char *t)
+{
+    return sdscatlen(s, t, strlen(t));
+}
+
 int main(int argc, char const *argv[])
 {
     int lens;
@@ -55,9 +104,10 @@ int main(int argc, char const *argv[])
     str = "http://c.biancheng.net";
     */
     // printf("%s\n", x);
-    printf("%s\n", tmp);
-    lens = sdslen(tmp);
-    printf("%d\n", lens);
-
+    // printf("%s\n", tmp);
+    // lens = sdslen(tmp);
+    // printf("%d\n", lens);
+    sdscat(x, "is a good man");
+    printf("%s\n", x);
     return 0;
 }

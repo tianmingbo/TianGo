@@ -3,11 +3,14 @@
 #include <stdlib.h>
 #include "sds.h"
 
+//获取字符串长度
 static inline size_t sdslen(const sds s)
 {
     struct sdshdr *sh = (void *)(s - (sizeof(struct sdshdr)));
     return sh->len;
 }
+
+
 sds sdsnewlen(const char *init, size_t initlen)
 {
     struct sdshdr *sh;
