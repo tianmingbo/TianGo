@@ -1,12 +1,13 @@
-#include <stdlib.h>
 #include <stdio.h>
-int main(int argc, char const *argv[])
+#include <string.h>
+ 
+int main ()
 {
-   int *p;
-   int **q;
-   int a = 100, b = 200;
-   p = &a;
-   q = &p;
-   printf("%d", **q);
-   return 0;
+   const char src[50] = "http://www.runoob.com";
+   char dest[99]="tian";
+ 
+   memcpy(&dest[0]+strlen(dest), src, strlen(src)+1);
+   printf("dest = %s\n", dest);
+   
+   return(0);
 }

@@ -10,4 +10,14 @@ print(d.device_info)
 # d=u2.connect_adb_wifi()
 
 # 启动app，首先通过aapt获取包名，然后启动app
-d.app_start('com.xunmeng.pinduoduo')
+# d.app_start('com.xunmeng.pinduoduo')
+# d.uiautomator.start()  # 启动uiautomator
+# print(d.uiautomator.running())
+# d.uiautomator.stop()
+# print(d.agent_alive)
+
+# 查看窗口大小
+print(d.window_size())
+
+# 获取ip
+print(d.wlan_ip)
