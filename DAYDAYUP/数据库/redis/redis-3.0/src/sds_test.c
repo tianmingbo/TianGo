@@ -58,9 +58,11 @@ sds sdsMakeRoomFor(sds s, size_t addlen)
     len = sdslen(s);
     sh = (void *)(s - (sizeof(struct sdshdr)));
     newlen = (len + addlen);
+    // 优化，如果小于1M，则分配2倍空间
     if (newlen < SDS_MAX_PREALLOC)
         newlen *= 2;
     else
+        // 大于1M，就再额外分派1M
         newlen += SDS_MAX_PREALLOC;
     newsh = realloc(sh, sizeof(struct sdshdr) + newlen + 1);
     if (newsh == NULL)
@@ -73,34 +75,101 @@ sds sdscatlen(sds s, const char *t, size_t len)
 {
     struct sdshdr *sh;
     size_t curlen = sdslen(s);
-    printf("1:%p\n", s);
-    s = sdsMakeRoomFor(s, len);
+    // printf("1:%p\n", s);
+    s = sdsMakeRoomFor(s, len); //s指向的是buf的地址
     if (s == NULL)
         return NULL;
-    printf("2:%p\n", s);
-    sh = (void *)(s - (sizeof(struct sdshdr)));
-    printf("3:%p\n", sh);
+    // printf("2:%p\n", s);
+    sh = (void *)(s - (sizeof(struct sdshdr))); //指向结构体开始的地址
+    // printf("3:%p\n", sh);
 
-    memcpy(s + curlen, t, len);
-    printf("**s:%s**", t);
-    printf("**%zu**", curlen);
-    printf("\n**%zu**\n", len);
+    memcpy(s + curlen, t, len); //内存复制，从s开始，偏移curlen个，再把t放到s后面
+    // printf("**s:%s**", t);
+    // printf("**%zu**", curlen);
+    // printf("\n**%zu**\n", len);
     sh->len = curlen + len;
     sh->free = sh->free - len;
     s[curlen + len] = '\0';
     return s;
 }
 
+//释放给定的sds
+void sdsfree(sds s)
+{
+    if (s == NULL)
+        return;
+    free(s - sizeof(struct sdshdr));
+}
+
+//把t追加到 sds的末尾
 sds sdscat(sds s, const char *t)
 {
     return sdscatlen(s, t, strlen(t));
 }
 
+sds sdscpylen(sds s, const char *t, size_t len)
+{
+    struct sdshdr *sh = (void *)(s - (sizeof(struct sdshdr)));
+    printf("%d\n", sh->len);
+    printf("%d\n", sh->free);
+    size_t totlen = sh->free + sh->len;
+    if (totlen < len) //如果空间不够，申请空间
+    {
+        s = sdsMakeRoomFor(s, len - sh->len);
+        if (s == NULL)
+            return NULL;
+        sh = (void *)(s - (sizeof(struct sdshdr)));
+        totlen = sh->free + sh->len;
+    }
+    // 复制
+    memcpy(s, t, len);
+    // 终止符号
+    s[len] = '\0';
+    sh->len = len;
+    sh->free = totlen - len;
+    printf("%d\n", sh->len);
+    printf("%d\n", sh->free);
+    return s;
+}
+
+sds sdscpy(sds s, const char *t)
+{
+    return sdscpylen(s, t, strlen(t));
+}
+
+sds sdstrim(sds s, const char *cset)
+{
+    // 只能取出两边的字符，内部字符不能去除
+    struct sdshdr *sh = (void *)(s - sizeof(struct sdshdr));
+    char *start, *end, *sp, *ep;
+    size_t len;
+    sp = start = s;
+    end = ep = s + sdslen(s) - 1;
+    // 双指针
+    while (sp <= end && strchr(cset, *sp))
+    {
+        sp++;
+        printf("%s\n", "flag");
+    }
+    while (ep > start && strchr(cset, *ep))
+        ep--;
+    // 判断是不是全删除了
+    len = (sp > ep) ? 0 : ((ep - sp) + 1);
+    // 如果有删除，就移动
+    if (sh->buf != sp)
+        memmove(sh->buf, sp, len);
+    sh->buf[len] = '\0';
+    // 重新给len和free赋值
+    sh->len = len;
+    sh->free = sh->free + (sh->len - len);
+    return s;
+}
+
 int main(int argc, char const *argv[])
 {
     int lens;
-    sds x = sdsnew("foo");
-    printf("x->:%s\n", x);
+    sds x = sdsnew("tian");
+    // printf("x->:%s\n", x);
     // char a[10] = "123";
     // char *tmp = sdsnewlen("tian", 4);
     /*
@@ -114,7 +183,10 @@ int main(int argc, char const *argv[])
     // printf("%s\n", tmp);
     // lens = sdslen(tmp);
     // printf("%d\n", lens);
-    sdscat(x, "is a good man");
+    sdscat(x, " is a good man");
+    // sdsfree(x);
+    // x = sdscpy(x, "a");
+    sdstrim(x, "tn");
     printf("x->:%s\n", x);
     return 0;
 }
