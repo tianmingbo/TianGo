@@ -165,10 +165,75 @@ sds sdstrim(sds s, const char *cset)
     return s;
 }
 
+void sdsrange(sds s, int start, int end)
+{
+    struct sdshdr *sh = (void *)(s - (sizeof(struct sdshdr)));
+    size_t newlen, len = sdslen(s);
+    if (len == 0)
+        return;
+    //对负值索引做判断
+    if (start < 0)
+    {
+        start = len + start;
+        if (start < 0)
+            start = 0;
+    }
+    if (end < 0)
+    {
+        end = len + end;
+        if (end < 0)
+            end = 0;
+    }
+    newlen = (start > end) ? 0 : (end - start) + 1;
+    if (newlen != 0)
+    {
+        if (start >= (signed)len)
+        {
+            newlen = 0;
+        }
+        else if (end > (signed)len)
+        {
+            end = len - 1;
+            newlen = (start > end) ? 0 : (end - start) + 1;
+        }
+    }
+    else
+    {
+        start = 0;
+    }
+    if (start && newlen)
+        memmove(sh->buf, sh->buf + start, newlen);
+    sh->buf[newlen] = 0;
+    sh->free = sh->free + (sh->len - newlen);
+    sh->len = newlen;
+}
+
+sds sdsup(const sds s)
+{
+    return sdsnewlen(s, sdslen(s));
+}
+
+sds sdsgrowzero(sds s, size_t len)
+{
+    struct sdshdr *sh = (void *)(s - (sizeof(struct sdshdr)));
+    size_t totlen, curlen = sh->len;
+    if (len < curlen)
+        return s;
+    s = sdsMakeRoomFor(s, len - curlen);
+    if (s == NULL)
+        return NULL;
+    sh = (void *)(s - (sizeof(struct sdshdr)));
+    memset(s + curlen, 0, (len - curlen + 1)); //填充0
+    totlen = sh->len + sh->free;
+    sh->len = len;
+    sh->free = totlen - len;
+    return s;
+}
+
 int main(int argc, char const *argv[])
 {
     int lens;
-    sds x = sdsnew("tian");
+    sds x = sdsnew("tian"), y;
     // printf("x->:%s\n", x);
     // char a[10] = "123";
     // char *tmp = sdsnewlen("tian", 4);
@@ -186,7 +251,11 @@ int main(int argc, char const *argv[])
     sdscat(x, " is a good man");
     // sdsfree(x);
     // x = sdscpy(x, "a");
-    sdstrim(x, "tn");
-    printf("x->:%s\n", x);
+    // sdstrim(x, "tn");
+    // sdsrange(x, 1, 2);
+    // y = sdsup(x);
+    // printf("x->:%s\n", y);
+    // y = sdsgrowzero(x, 100);
+    printf("x->:%s\n", y);
     return 0;
 }
