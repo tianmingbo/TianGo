@@ -2,12 +2,21 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define AL_START_HEAD 0
+#define AL_START_TAIL 1
+#define listLength(l) ((l)->len)
 typedef struct listNode
 {
     struct listNode *prev; //指向前置节点
     struct listNode *next; //下一个节点
     void *value;
 } listNode;
+
+typedef struct listIter
+{
+    listNode *next;
+    int direction;
+} listIter;
 
 //双端列表，直接取到最后一个
 typedef struct list
@@ -20,7 +29,7 @@ typedef struct list
     unsigned long len;
 } list;
 
-list *ListCreate(void)
+list *listCreate(void)
 {
     struct list *list;
     if ((list = malloc(sizeof(*list))) == NULL)
@@ -72,7 +81,7 @@ list *listAddNodeHead(list *list, void *value)
     return list;
 }
 
-list *listAddTail(list *list, void *value)
+list *listAddNodeTail(list *list, void *value)
 {
     listNode *node;
     if ((node = malloc(sizeof(*node))) == NULL)
@@ -144,6 +153,147 @@ void listDelNode(list *list, listNode *node)
 
     free(node);
     list->len--;
+}
+
+listIter *listGetIterator(list *list, int direction)
+{
+    listIter *iter;
+    if ((iter = malloc(sizeof(*iter))) == NULL)
+        return NULL;
+    if (direction == AL_START_HEAD)
+        iter->next = list->head;
+    else
+        iter->next = list->tail;
+    iter->direction = direction;
+    return iter;
+}
+
+void listReleaseIterator(listIter *iter)
+{
+    free(iter);
+}
+
+void listRewind(list *list, listIter *li)
+{
+    li->next = list->head;
+    li->direction = AL_START_HEAD;
+}
+
+void listRewIndTail(list *list, listIter *li)
+{
+    li->next = list->tail;
+    li->direction = AL_START_TAIL;
+}
+
+listNode *listNext(listIter *iter)
+{
+    listNode *current = iter->next;
+    if (current != NULL)
+    {
+        if (iter->direction == AL_START_HEAD)
+            iter->next = current->next;
+        else
+            iter->next = current->prev;
+    }
+    return current;
+}
+
+//复制一个给定链表的副本
+list *listDup(list *orig)
+{
+    list *copy;
+    listIter *iter;
+    listNode *node;
+    if ((copy = listCreate()) == NULL)
+        return NULL;
+    copy->dup = orig->dup;
+    copy->free = orig->free;
+    copy->match = orig->match;
+    iter = listGetIterator(orig, AL_START_HEAD);
+    while ((node = listNext(iter)) != NULL)
+    {
+        void *value;
+        if (copy->dup)
+        {
+            value = copy->dup(node->value);
+            if (value == NULL)
+            {
+                listRelease(copy);
+                listReleaseIterator(iter);
+                return NULL;
+            }
+        }
+        else
+            value = node->value;
+        if (listAddNodeTail(copy, value) == NULL)
+        {
+            listRelease(copy);
+            listReleaseIterator(iter);
+            return NULL;
+        }
+    }
+    listReleaseIterator(iter);
+    return copy;
+}
+
+listNode *listSearchKey(list *list, void *key)
+{
+    listIter *iter;
+    listNode *node;
+    iter = listGetIterator(list, AL_START_HEAD);
+    while ((node = listNext(iter)) != NULL)
+    {
+        if (list->match)
+        {
+            if (list->match(node->value, key))
+            {
+                listReleaseIterator(iter);
+                return node;
+            }
+        }
+        else
+        {
+            if (key == node->value)
+            {
+                listReleaseIterator(iter);
+                return node;
+            }
+        }
+    }
+    listReleaseIterator(iter);
+    return NULL;
+}
+
+listNode *listIndex(list *list, long index)
+{
+    listNode *n;
+    if (index < 0)
+    {
+        index = (-index) - 1;
+        while (index-- && n)
+            n = n->prev;
+    }
+    else
+    {
+        n = list->head;
+        while (index-- && n)
+            n = n->next;
+    }
+    return n;
+}
+
+void listRotate(list *list)
+{
+    listNode *tail = list->tail; //取出尾节点
+    if (listLength(list) <= 1)
+        return;
+    list->tail = tail->prev;
+    list->tail->next = NULL;
+    //插入到表头
+    list->head->prev = tail;
+    tail->prev = NULL;
+    tail->next = list->head;
+    list->head = tail;
 }
 
 int main(int argc, char const *argv[])
