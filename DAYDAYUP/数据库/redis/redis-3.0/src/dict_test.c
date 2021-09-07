@@ -5,6 +5,33 @@
 #define DICT_OK 0
 #define DICT_ERR 1
 
+// 比对两个键
+#define dictCompareKeys(d, key1, key2) \
+    (((d)->type->keyCompare) ? (d)->type->keyCompare((d)->privdata, key1, key2) : (key1) == (key2))
+// 设置给定字典节点的键
+#define dictSetKey(d, entry, _key_)                               \
+    do                                                            \
+    {                                                             \
+        if ((d)->type->keyDup)                                    \
+            entry->key = (d)->type->keyDup((d)->privdata, _key_); \
+        else                                                      \
+            entry->key = (_key_);                                 \
+    } while (0)
+
+#define dictFreeVal(d, entry)     \
+    if ((d)->type->valDestructor) \
+    (d)->type->valDestructor((d)->privdata, (entry)->v.val)
+
+// 设置给定字典节点的值
+#define dictSetVal(d, entry, _val_)                                 \
+    do                                                              \
+    {                                                               \
+        if ((d)->type->valDup)                                      \
+            entry->v.val = (d)->type->valDup((d)->privdata, _val_); \
+        else                                                        \
+            entry->v.val = (_val_);                                 \
+    } while (0)
+
 #define dicytIsRehashing(ht) ((ht)->rehashidx != -1)
 #define dictHashKey(d, key) (d)->type->hashFunction(key)
 #define DICT_HT_INITIAL_SIZE 4
@@ -191,7 +218,20 @@ static int _dictKeyIndex(dict *d, const void *key)
     if (_dictExpandIfNeeded(d) == DICT_ERR)
         return -1;
     h = dictHashKey(d, key);
-    
+    for (table = 0; table <= 1; table++)
+    {
+        idx = h & d->ht[table].sizemask;
+        he = d->ht[table].table[idx];
+        while (he)
+        {
+            if (dictCompareKeys(d, key, he->key))
+                return -1;
+            he = he->next;
+        }
+        if (!dicytIsRehashing(d))
+            break;
+    }
+    return idx;
 }
 
 dictEntry *dictAddRaw(dict *d, void *key)
@@ -201,11 +241,57 @@ dictEntry *dictAddRaw(dict *d, void *key)
     dictht *ht;
     if (dicytIsRehashing(d))
         _dictRehashStep(d);
+    if ((index = _dictKeyIndex(d, key)) == -1)
+        return NULL;
+    ht = dicytIsRehashing(d) ? &d->ht[0] : &d->ht[1];
+    entry = malloc(sizeof(*entry));
+    entry->next = ht->table[index];
+    ht->table[index] = entry;
+    ht->used++;
+    dictSetKey(d, entry, key);
+    return entry;
 }
 
+//将给定的键值对添加到字典中
 int dictAdd(dict *d, void *key, void *val)
 {
     dictEntry *entry = dictAddRaw(d, key);
 
     return DICT_OK;
+}
+
+dictEntry *dictFind(dict *d, const void *key)
+{
+    dictEntry *he;
+    unsigned int h, idx, table;
+    if (d->ht[0].size == 0)
+        return NULL;
+    if (dicytIsRehashing(d))
+        _dictRehashStep(d);
+    h = dictHashKey(d, key);
+    for (table = 0; table <= 1; table++)
+    {
+        idx = h & d->ht[table].sizemask;
+        while (he)
+        {
+            if (dictCompareKeys(d, key, he->key))
+                return he;
+            he = he->next;
+        }
+        if (!dicytIsRehashing(d))
+            return NULL;
+    }
+    return NULL;
+}
+
+int dictReplace(dict *d, void *key, void *val)
+{
+    dictEntry *entry, auxentry;
+    if (dictAdd(d, key, val) == DICT_OK)
+        return 1;
+    entry = dictFind(d, key);
+    auxentry = *entry;
+    dictSetVal(d, entry, val);
+    dictFreeVal(d, &auxentry);
+    return 0;
 }
