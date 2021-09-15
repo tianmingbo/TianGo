@@ -137,7 +137,7 @@ class Blueprint(Scaffold):
         a ``url_prefix``, the app's static route will take precedence,
         and the blueprint's static files won't be accessible.
     :param template_folder: A folder with templates that should be added
-        to the app's template search path. The path is relative to the
+        to the app's templates search path. The path is relative to the
         blueprint's root path. Blueprint templates are disabled by
         default. Blueprint templates have a lower precedence than those
         in the app's templates folder.
@@ -426,7 +426,7 @@ class Blueprint(Scaffold):
     def app_template_filter(
         self, name: t.Optional[str] = None
     ) -> t.Callable[[TemplateFilterCallable], TemplateFilterCallable]:
-        """Register a custom template filter, available application wide.  Like
+        """Register a custom templates filter, available application wide.  Like
         :meth:`Flask.template_filter` but for a blueprint.
 
         :param name: the optional name of the filter, otherwise the
@@ -442,7 +442,7 @@ class Blueprint(Scaffold):
     def add_app_template_filter(
         self, f: TemplateFilterCallable, name: t.Optional[str] = None
     ) -> None:
-        """Register a custom template filter, available application wide.  Like
+        """Register a custom templates filter, available application wide.  Like
         :meth:`Flask.add_template_filter` but for a blueprint.  Works exactly
         like the :meth:`app_template_filter` decorator.
 
@@ -458,7 +458,7 @@ class Blueprint(Scaffold):
     def app_template_test(
         self, name: t.Optional[str] = None
     ) -> t.Callable[[TemplateTestCallable], TemplateTestCallable]:
-        """Register a custom template test, available application wide.  Like
+        """Register a custom templates test, available application wide.  Like
         :meth:`Flask.template_test` but for a blueprint.
 
         .. versionadded:: 0.10
@@ -476,7 +476,7 @@ class Blueprint(Scaffold):
     def add_app_template_test(
         self, f: TemplateTestCallable, name: t.Optional[str] = None
     ) -> None:
-        """Register a custom template test, available application wide.  Like
+        """Register a custom templates test, available application wide.  Like
         :meth:`Flask.add_template_test` but for a blueprint.  Works exactly
         like the :meth:`app_template_test` decorator.
 
@@ -494,7 +494,7 @@ class Blueprint(Scaffold):
     def app_template_global(
         self, name: t.Optional[str] = None
     ) -> t.Callable[[TemplateGlobalCallable], TemplateGlobalCallable]:
-        """Register a custom template global, available application wide.  Like
+        """Register a custom templates global, available application wide.  Like
         :meth:`Flask.template_global` but for a blueprint.
 
         .. versionadded:: 0.10
@@ -512,7 +512,7 @@ class Blueprint(Scaffold):
     def add_app_template_global(
         self, f: TemplateGlobalCallable, name: t.Optional[str] = None
     ) -> None:
-        """Register a custom template global, available application wide.  Like
+        """Register a custom templates global, available application wide.  Like
         :meth:`Flask.add_template_global` but for a blueprint.  Works exactly
         like the :meth:`app_template_global` decorator.
 

@@ -44,8 +44,8 @@ _signals = Namespace()
 
 # Core signals.  For usage examples grep the source code or consult
 # the API documentation in docs/api.rst as well as docs/signals.rst
-template_rendered = _signals.signal("template-rendered")
-before_render_template = _signals.signal("before-render-template")
+template_rendered = _signals.signal("templates-rendered")
+before_render_template = _signals.signal("before-render-templates")
 request_started = _signals.signal("request-started")
 request_finished = _signals.signal("request-finished")
 request_tearing_down = _signals.signal("request-tearing-down")

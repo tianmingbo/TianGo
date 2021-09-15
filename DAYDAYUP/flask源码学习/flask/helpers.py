@@ -343,9 +343,9 @@ def url_for(endpoint: str, **values: t.Any) -> str:
 
 
 def get_template_attribute(template_name: str, attribute: str) -> t.Any:
-    """Loads a macro (or variable) a template exports.  This can be used to
+    """Loads a macro (or variable) a templates exports.  This can be used to
     invoke a macro from within Python code.  If you for example have a
-    template named :file:`_cider.html` with the following contents:
+    templates named :file:`_cider.html` with the following contents:
 
     .. sourcecode:: html+jinja
 
@@ -358,7 +358,7 @@ def get_template_attribute(template_name: str, attribute: str) -> t.Any:
 
     .. versionadded:: 0.2
 
-    :param template_name: the name of the template
+    :param template_name: the name of the templates
     :param attribute: the name of the variable of macro to access
     """
     return getattr(current_app.jinja_env.get_template(template_name).module, attribute)
@@ -367,7 +367,7 @@ def get_template_attribute(template_name: str, attribute: str) -> t.Any:
 def flash(message: str, category: str = "message") -> None:
     """Flashes a message to the next request.  In order to remove the
     flashed message from the session and to display it to the user,
-    the template has to call :func:`get_flashed_messages`.
+    the templates has to call :func:`get_flashed_messages`.
 
     .. versionchanged:: 0.3
        `category` parameter added.

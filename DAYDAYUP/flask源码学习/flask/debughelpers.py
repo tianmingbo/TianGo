@@ -112,7 +112,7 @@ def _dump_loader_info(loader) -> t.Generator:
 
 def explain_template_loading_attempts(app: Flask, template, attempts) -> None:
     """This should help developers understand what failed"""
-    info = [f"Locating template {template!r}:"]
+    info = [f"Locating templates {template!r}:"]
     total_found = 0
     blueprint = None
     reqctx = _request_ctx_stack.top
@@ -141,18 +141,18 @@ def explain_template_loading_attempts(app: Flask, template, attempts) -> None:
 
     seems_fishy = False
     if total_found == 0:
-        info.append("Error: the template could not be found.")
+        info.append("Error: the templates could not be found.")
         seems_fishy = True
     elif total_found > 1:
-        info.append("Warning: multiple loaders returned a match for the template.")
+        info.append("Warning: multiple loaders returned a match for the templates.")
         seems_fishy = True
 
     if blueprint is not None and seems_fishy:
         info.append(
-            "  The template was looked up from an endpoint that belongs"
+            "  The templates was looked up from an endpoint that belongs"
             f" to the blueprint {blueprint!r}."
         )
-        info.append("  Maybe you did not place a template in the right folder?")
+        info.append("  Maybe you did not place a templates in the right folder?")
         info.append("  See https://flask.palletsprojects.com/blueprints/#templates")
 
     app.logger.info("\n".join(info))

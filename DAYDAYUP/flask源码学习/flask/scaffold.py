@@ -67,9 +67,9 @@ class Scaffold:
     :param static_folder: Path to a folder of static files to serve.
         If this is set, a static route will be added.
     :param static_url_path: URL prefix for the static route.
-    :param template_folder: Path to a folder containing template files.
+    :param template_folder: Path to a folder containing templates files.
         for rendering. If this is set, a Jinja loader will be added.
-    :param root_path: The path that static, template, and resource files
+    :param root_path: The path that static, templates, and resource files
         are relative to. Typically not set, it is discovered based on
         the ``import_name``.
 
@@ -104,7 +104,7 @@ class Scaffold:
         self.static_url_path = static_url_path
 
         #: The path to the templates folder, relative to
-        #: :attr:`root_path`, to add to the template loader. ``None`` if
+        #: :attr:`root_path`, to add to the templates loader. ``None`` if
         #: templates should not be added.
         self.template_folder = template_folder
 
@@ -609,7 +609,7 @@ class Scaffold:
     def context_processor(
         self, f: TemplateContextProcessorCallable
     ) -> TemplateContextProcessorCallable:
-        """Registers a template context processor function."""
+        """Registers a templates context processor function."""
         self.template_context_processors[None].append(f)
         return f
 

@@ -102,7 +102,7 @@ def url_for(endpoint, **values):
 def flash(message):
     """Flashes a message to the next request.  In order to remove the
     flashed message from the session and to display it to the user,
-    the template has to call :func:`get_flashed_messages`.
+    the templates has to call :func:`get_flashed_messages`.
 
     :param message: the message to be flashed.
     """
@@ -122,32 +122,32 @@ def get_flashed_messages():
 
 
 def render_template(template_name, **context):
-    """Renders a template from the template folder with the given
+    """Renders a templates from the templates folder with the given
     context.
 
-    :param template_name: the name of the template to be rendered
+    :param template_name: the name of the templates to be rendered
     :param context: the variables that should be available in the
-                    context of the template.
+                    context of the templates.
     """
     current_app.update_template_context(context)
     return current_app.jinja_env.get_template(template_name).render(context)
 
 
 def render_template_string(source, **context):
-    """Renders a template from the given template source string
+    """Renders a templates from the given templates source string
     with the given context.
 
-    :param template_name: the sourcecode of the template to be
+    :param template_name: the sourcecode of the templates to be
                           rendered
     :param context: the variables that should be available in the
-                    context of the template.
+                    context of the templates.
     """
     current_app.update_template_context(context)
     return current_app.jinja_env.from_string(source).render(context)
 
 
 def _default_template_ctx_processor():
-    """Default template context processor.  Injects `request`,
+    """Default templates context processor.  Injects `request`,
     `session` and `g`.
     """
     reqctx = _request_ctx_stack.top
@@ -170,7 +170,7 @@ class Flask(object):
     """The flask object implements a WSGI application and acts as the central
     object.  It is passed the name of the module or package of the
     application.  Once it is created it will act as a central registry for
-    the view functions, the URL rules, template configuration and much more.
+    the view functions, the URL rules, templates configuration and much more.
 
     The name of the package is used to resolve resources from inside the
     package or the folder the module is contained in depending on if the
@@ -257,8 +257,8 @@ class Flask(object):
         self.after_request_funcs = []
 
         #: a list of functions that are called without arguments
-        #: to populate the template context.  Each returns a dictionary
-        #: that the template context is updated with.
+        #: to populate the templates context.  Each returns a dictionary
+        #: that the templates context is updated with.
         #: To register a function here, use the :meth:`context_processor`
         #: decorator.
         self.template_context_processors = [_default_template_ctx_processor]
@@ -297,8 +297,8 @@ class Flask(object):
         return PackageLoader(self.package_name)
 
     def update_template_context(self, context):
-        """Update the template context with some commonly used variables.
-        This injects request, session and g into the template context.
+        """Update the templates context with some commonly used variables.
+        This injects request, session and g into the templates context.
 
         :param context: the context as a dictionary that is updated in place
                         to add extra variables.
@@ -341,7 +341,7 @@ class Flask(object):
             /schemal.sql
             /static
                 /style.css
-            /template
+            /templates
                 /layout.html
                 /index.html
 
@@ -520,7 +520,7 @@ class Flask(object):
         return f
 
     def context_processor(self, f):
-        """Registers a template context processor function."""
+        """Registers a templates context processor function."""
         self.template_context_processors.append(f)
         return f
 

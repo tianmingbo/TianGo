@@ -103,7 +103,7 @@ class Flask(Scaffold):
     """The flask object implements a WSGI application and acts as the central
     object.  It is passed the name of the module or package of the
     application.  Once it is created it will act as a central registry for
-    the view functions, the URL rules, template configuration and much more.
+    the view functions, the URL rules, templates configuration and much more.
 
     The name of the package is used to resolve resources from inside the
     package or the folder the module is contained in depending on if the
@@ -724,7 +724,7 @@ class Flask(Scaffold):
 
     def select_jinja_autoescape(self, filename: str) -> bool:
         """Returns ``True`` if autoescaping should be active for the given
-        template name. If no template name is given, returns `True`.
+        templates name. If no templates name is given, returns `True`.
 
         .. versionadded:: 0.5
         """
@@ -733,9 +733,9 @@ class Flask(Scaffold):
         return filename.endswith((".html", ".htm", ".xml", ".xhtml"))
 
     def update_template_context(self, context: dict) -> None:
-        """Update the template context with some commonly used variables.
-        This injects request, session, config and g into the template
-        context as well as everything template context processors want
+        """Update the templates context with some commonly used variables.
+        This injects request, session, config and g into the templates
+        context as well as everything templates context processors want
         to inject.  Note that the as of Flask 0.6, the original values
         in the context will not be overridden if a context processor
         decides to return a value with the same key.
@@ -1099,7 +1099,7 @@ class Flask(Scaffold):
     def template_filter(
         self, name: t.Optional[str] = None
     ) -> t.Callable[[TemplateFilterCallable], TemplateFilterCallable]:
-        """A decorator that is used to register custom template filter.
+        """A decorator that is used to register custom templates filter.
         You can specify a name for the filter, otherwise the function
         name will be used. Example::
 
@@ -1121,7 +1121,7 @@ class Flask(Scaffold):
     def add_template_filter(
         self, f: TemplateFilterCallable, name: t.Optional[str] = None
     ) -> None:
-        """Register a custom template filter.  Works exactly like the
+        """Register a custom templates filter.  Works exactly like the
         :meth:`template_filter` decorator.
 
         :param name: the optional name of the filter, otherwise the
@@ -1133,7 +1133,7 @@ class Flask(Scaffold):
     def template_test(
         self, name: t.Optional[str] = None
     ) -> t.Callable[[TemplateTestCallable], TemplateTestCallable]:
-        """A decorator that is used to register custom template test.
+        """A decorator that is used to register custom templates test.
         You can specify a name for the test, otherwise the function
         name will be used. Example::
 
@@ -1162,7 +1162,7 @@ class Flask(Scaffold):
     def add_template_test(
         self, f: TemplateTestCallable, name: t.Optional[str] = None
     ) -> None:
-        """Register a custom template test.  Works exactly like the
+        """Register a custom templates test.  Works exactly like the
         :meth:`template_test` decorator.
 
         .. versionadded:: 0.10
@@ -1176,7 +1176,7 @@ class Flask(Scaffold):
     def template_global(
         self, name: t.Optional[str] = None
     ) -> t.Callable[[TemplateGlobalCallable], TemplateGlobalCallable]:
-        """A decorator that is used to register a custom template global function.
+        """A decorator that is used to register a custom templates global function.
         You can specify a name for the global function, otherwise the function
         name will be used. Example::
 
@@ -1200,7 +1200,7 @@ class Flask(Scaffold):
     def add_template_global(
         self, f: TemplateGlobalCallable, name: t.Optional[str] = None
     ) -> None:
-        """Register a custom template global function. Works exactly like the
+        """Register a custom templates global function. Works exactly like the
         :meth:`template_global` decorator.
 
         .. versionadded:: 0.10

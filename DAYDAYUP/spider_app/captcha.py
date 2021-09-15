@@ -81,9 +81,9 @@ class Login(object):
         x, y = np.unravel_index(result.argmax(), result.shape)
         return x, y
         # # 展示圈出来的区域
-        # cv2.rectangle(template, (y, x), (y + w, x + h), (7, 249, 151), 2)
-        # cv2.imwrite("yuantu.jpg", template)
-        # show(template)
+        # cv2.rectangle(templates, (y, x), (y + w, x + h), (7, 249, 151), 2)
+        # cv2.imwrite("yuantu.jpg", templates)
+        # show(templates)
 
     @staticmethod
     def get_track(distance):

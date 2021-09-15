@@ -16,7 +16,7 @@ if t.TYPE_CHECKING:
 
 
 def _default_template_ctx_processor() -> t.Dict[str, t.Any]:
-    """Default template context processor.  Injects `request`,
+    """Default templates context processor.  Injects `request`,
     `session` and `g`.
     """
     reqctx = _request_ctx_stack.top
@@ -122,7 +122,7 @@ class DispatchingJinjaLoader(BaseLoader):
 
 
 def _render(template: Template, context: dict, app: "Flask") -> str:
-    """Renders the template and fires the signal"""
+    """Renders the templates and fires the signal"""
 
     before_render_template.send(app, template=template, context=context)
     rv = template.render(context)
@@ -133,14 +133,14 @@ def _render(template: Template, context: dict, app: "Flask") -> str:
 def render_template(
     template_name_or_list: t.Union[str, t.List[str]], **context: t.Any
 ) -> str:
-    """Renders a template from the template folder with the given
+    """Renders a templates from the templates folder with the given
     context.
 
-    :param template_name_or_list: the name of the template to be
-                                  rendered, or an iterable with template names
+    :param template_name_or_list: the name of the templates to be
+                                  rendered, or an iterable with templates names
                                   the first one existing will be rendered
     :param context: the variables that should be available in the
-                    context of the template.
+                    context of the templates.
     """
     ctx = _app_ctx_stack.top
     ctx.app.update_template_context(context)
@@ -152,13 +152,13 @@ def render_template(
 
 
 def render_template_string(source: str, **context: t.Any) -> str:
-    """Renders a template from the given template source string
+    """Renders a templates from the given templates source string
     with the given context. Template variables will be autoescaped.
 
-    :param source: the source code of the template to be
+    :param source: the source code of the templates to be
                    rendered
     :param context: the variables that should be available in the
-                    context of the template.
+                    context of the templates.
     """
     ctx = _app_ctx_stack.top
     ctx.app.update_template_context(context)
