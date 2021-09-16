@@ -1,5 +1,4 @@
 *.pdf
-*.html
 .idea
 .gitignore
 .vscode
