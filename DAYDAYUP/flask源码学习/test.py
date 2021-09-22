@@ -1,8 +1,17 @@
-from werkzeug.routing import Map,Rule
-url_map = Map()    # 关键依赖: werkzeug.routing.Map
+from werkzeug.local import Local
+import threading
 
-        if static_path is not None:    # 处理静态资源
-            #
-            # todo: 待深入 关键依赖: werkzeug.routing.Rule
-            url_map.add(Rule(static_path + '/<filename>',
-                                  build_only=True, endpoint='static'))
+l = Local()
+
+
+def add_arg(arg, i):
+    l.__setattr__(arg, i)
+
+
+if __name__ == '__main__':
+    print(l.__storage__)
+    for i in range(3):
+        arg = 'arg' + str(i)
+        t = threading.Thread(target=add_arg, args=(arg, i))
+        t.start()
+    print(l.__storage__)
