@@ -170,7 +170,9 @@ implements_bool = lambda x: x
 
 @implements_bool
 class LocalProxy(object):
-    """Acts as a proxy for a werkzeug local.  Forwards all operations to
+    """
+    简单理解就是使用一个中间人来转发操作
+    Acts as a proxy for a werkzeug local.  Forwards all operations to
     a proxied object.  The only operations not supported for forwarding
     are right handed operands and any kind of assignment.
 
@@ -218,7 +220,9 @@ class LocalProxy(object):
         print('?', self.__dict__)
 
     def _get_current_object(self):
-        """Return the current object.  This is useful if you want the real
+        """
+        获取被代理的实际对象
+        Return the current object.  This is useful if you want the real
         object behind the proxy at a time for performance reasons or because
         you want to pass the object into a different context.
         """
