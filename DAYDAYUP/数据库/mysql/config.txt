@@ -158,7 +158,7 @@ innodb_compression_pad_pct_max	50
 innodb_concurrency_tickets	5000
 innodb_data_file_path	ibdata1:12M:autoextend
 innodb_data_home_dir	
-innodb_deadlock_detect	ON
+innodb_deadlock_detect	ON  主动死锁检测，发现死锁后，立马回滚死锁链条中的某个事务
 innodb_dedicated_server	OFF
 innodb_default_row_format	dynamic
 innodb_directories	
@@ -196,7 +196,7 @@ innodb_ft_user_stopword_table
 innodb_idle_flush_pct	100
 innodb_io_capacity	200
 innodb_io_capacity_max	2000
-innodb_lock_wait_timeout	50
+innodb_lock_wait_timeout	50  死锁超时时间，默认50s，线上这个设置太长
 innodb_log_buffer_size	16777216
 innodb_log_checksums	ON
 innodb_log_compressed_pages	ON
