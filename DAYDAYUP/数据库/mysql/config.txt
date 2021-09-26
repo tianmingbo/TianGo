@@ -13,7 +13,7 @@ admin_tls_version	TLSv1,TLSv1.1,TLSv1.2,TLSv1.3
 auto_generate_certs	ON
 auto_increment_increment	1
 auto_increment_offset	1
-autocommit	ON
+autocommit	ON 如果不是显式的开启一个事务，那么这个事务会自动提交
 automatic_sp_privileges	ON
 avoid_temporal_upgrade	OFF
 back_log	151
@@ -175,7 +175,7 @@ innodb_fill_factor	100
 innodb_flush_log_at_timeout	1
 innodb_flush_log_at_trx_commit	1   每次事务的redo log都直接持久化到硬盘
 innodb_flush_method	fsync
-innodb_flush_neighbors	0
+innodb_flush_neighbors	0 脏页刷到磁盘的时候，如果为1，就把邻居也刷新到磁盘（连坐）
 innodb_flush_sync	ON
 innodb_flushing_avg_loops	30
 innodb_force_load_corrupted	OFF
@@ -194,7 +194,7 @@ innodb_ft_sort_pll_degree	2
 innodb_ft_total_cache_size	640000000
 innodb_ft_user_stopword_table	
 innodb_idle_flush_pct	100
-innodb_io_capacity	200
+innodb_io_capacity	200 磁盘的io能力
 innodb_io_capacity_max	2000
 innodb_lock_wait_timeout	50  死锁超时时间，默认50s，线上这个设置太长
 innodb_log_buffer_size	16777216
@@ -209,7 +209,7 @@ innodb_log_wait_for_flush_spin_hwm	400
 innodb_log_write_ahead_size	8192
 innodb_log_writer_threads	ON
 innodb_lru_scan_depth	1024
-innodb_max_dirty_pages_pct	90.000000
+innodb_max_dirty_pages_pct	90.000000  脏页比例上限
 innodb_max_dirty_pages_pct_lwm	10.000000
 innodb_max_purge_lag	0
 innodb_max_purge_lag_delay	0
@@ -248,7 +248,7 @@ innodb_stats_auto_recalc	ON
 innodb_stats_include_delete_marked	OFF
 innodb_stats_method	nulls_equal
 innodb_stats_on_metadata	OFF
-innodb_stats_persistent	ON
+innodb_stats_persistent	ON 存储索引统计的方式，为ON时（统计信息会持久化存储），默认统计20个数据页，变更10次。触发索引统计
 innodb_stats_persistent_sample_pages	20
 innodb_stats_transient_sample_pages	8
 innodb_status_output	OFF
@@ -311,7 +311,7 @@ log_slow_slave_statements	OFF
 log_statements_unsafe_for_binlog	ON
 log_throttle_queries_not_using_indexes	0
 log_timestamps	UTC
-long_query_time	10.000000
+long_query_time	10.000000  慢查询阈值
 low_priority_updates	OFF
 lower_case_file_system	ON
 lower_case_table_names	2
