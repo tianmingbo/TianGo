@@ -170,7 +170,7 @@ innodb_doublewrite_files	2
 innodb_doublewrite_pages	4
 innodb_extend_and_initialize	ON
 innodb_fast_shutdown	1
-innodb_file_per_table	ON
+innodb_file_per_table	ON 每个InnoDB表数据存储在一个以.ibd为后缀的文件中
 innodb_fill_factor	100
 innodb_flush_log_at_timeout	1
 innodb_flush_log_at_trx_commit	1   每次事务的redo log都直接持久化到硬盘

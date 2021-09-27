@@ -32,9 +32,11 @@
             entry->v.val = (_val_);                                 \
     } while (0)
 
-#define dicytIsRehashing(ht) ((ht)->rehashidx != -1)
+#define dictIsRehashing(ht) ((ht)->rehashidx != -1)
 #define dictHashKey(d, key) (d)->type->hashFunction(key)
+#define dictGetVal(he) ((he)->v.val)
 #define DICT_HT_INITIAL_SIZE 4
+#define dictSize(d) ((d)->ht[0].used + (d)->ht[1].used)
 static int dict_can_resize = 1;
 static unsigned int dict_force_resize_ratio = 5;
 
@@ -293,5 +295,58 @@ int dictReplace(dict *d, void *key, void *val)
     auxentry = *entry;
     dictSetVal(d, entry, val);
     dictFreeVal(d, &auxentry);
+    return 0;
+}
+
+void *dictFetchValue(dict *d, const void *key)
+// 返回给定键的值
+{
+    dictEntry *he;
+    he = dictFind(d, key);
+    return he ? dictGetVal(he) : NULL;
+}
+
+dictEntry *dictGetRandomKey(dict *d)
+{
+    dictEntry *he, *orighe;
+    unsigned int h;
+    int listlen, listele;
+    if (dictSize(d) == 0)
+        return NULL;
+    if (dictIsRehashing(d))
+        _dictRehashStep(d);
+    if (dictIsRehashing(d))
+    {
+        do
+        {
+            h = random() % (d->ht[0].size + d->ht[1].size);
+            he = (h >= d->ht[0].size) ? d->ht[1].table[h - d->ht[0].size] : d->ht[0].table[h];
+        } while (he == NULL);
+    }
+    else
+    {
+        do
+        {
+            h = random() & d->ht[0].sizemask;
+            he = d->ht[0].table[h];
+        } while (he == NULL);
+    }
+    listlen = 0;
+    orighe = he;
+    while (he)
+    {
+        he = he->next;
+        listlen++;
+    }
+    listele = random() % listlen;
+    he = orighe;
+    while (listele--)
+        he = he->next;
+    return he;
+}
+
+int main(int argc, char const *argv[])
+{
+    printf("%ld", random());
     return 0;
 }
