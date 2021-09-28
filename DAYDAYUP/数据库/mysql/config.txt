@@ -331,7 +331,7 @@ max_execution_time	0
 max_heap_table_size	16777216
 max_insert_delayed_threads	20
 max_join_size	18446744073709551615
-max_length_for_sort_data	4096
+max_length_for_sort_data	4096 在排序时控制单行数据的长度，如果单行数据的长度大于这个值，就换一种排序算法
 max_points_in_geometry	65536
 max_prepared_stmt_count	16382
 max_relay_log_size	0
@@ -549,7 +549,7 @@ slow_launch_time	2
 slow_query_log	OFF
 slow_query_log_file	/usr/local/var/mysql/tianmingbodeMacBook-Pro-slow.log  慢查询目录
 socket	/tmp/mysql.sock
-sort_buffer_size	262144
+sort_buffer_size	262144  MySQL为排序开辟的内存sort_buffer大小，如果排序的数据量小于这个参数，就在内存中进行排序，否则就会用到临时文件。
 source_verify_checksum	OFF
 sql_auto_is_null	OFF
 sql_big_selects	ON

@@ -5,6 +5,10 @@
 #define DICT_OK 0
 #define DICT_ERR 1
 
+#define dictFreeKey(d, entry)     \
+    if ((d)->type->keyDestructor) \
+    (d)->type->keyDestructor((d)->privdata, (entry)->key)
+
 // 比对两个键
 #define dictCompareKeys(d, key1, key2) \
     (((d)->type->keyCompare) ? (d)->type->keyCompare((d)->privdata, key1, key2) : (key1) == (key2))
@@ -343,6 +347,84 @@ dictEntry *dictGetRandomKey(dict *d)
     while (listele--)
         he = he->next;
     return he;
+}
+
+static int dictGenericDelete(dict *d, const void *key, int nofree)
+{
+    unsigned int h, idx;
+    dictEntry *he, *prevHe;
+    int table;
+    if (d->ht[0].size == 0)
+        return DICT_ERR;
+    if (dictIsRehashing(d))
+        _dictRehashStep(d);
+    h = dictHashKey(d, key);
+    for (table = 0; table <= 1; table++)
+    {
+        idx = h & d->ht[table].sizemask;
+        he = d->ht[table].table[idx];
+        prevHe = NULL;
+        while (he)
+        {
+            if (dictCompareKeys(d, key, he->key))
+            {
+                if (prevHe)
+                    prevHe->next = he->next;
+                else
+                    d->ht[table].table[idx] = he->next;
+                if (!nofree)
+                {
+                    dictFreeKey(d, he);
+                    dictFreeVal(d, he);
+                }
+                free(he);
+                d->ht[table].used--;
+                return DICT_OK;
+            }
+            prevHe = he;
+            he = he->next;
+        }
+        if (!dictIsRehashing(d))
+            break;
+    }
+    return DICT_ERR;
+}
+
+int dictDelete(dict *ht, const void *key)
+{
+    return dictGenericDelete(ht, key, 0);
+}
+
+int _dictClear(dict *d, dictht *ht, void(callback)(void *))
+{
+    unsigned long i;
+    for (i = 0; i < ht->size && ht->used > 0; i++)
+    {
+        dictEntry *he, *nextHe;
+        if (callback && (i & 65535) == 0)
+            callback(d->privdata);
+        if ((he = ht->table[i]) == NULL)
+            continue;
+        while (he)
+        {
+            nextHe = he->next;
+            dictFreeKey(d, he);
+            dictFreeVal(d, he);
+            free(he);
+            ht->used--;
+            he = nextHe;
+        }
+    }
+    free(ht->table);
+    _dictReset(ht);
+    return DICT_OK;
+}
+
+void dictRelease(dict *d)
+{
+    _dictClear(d, &d->ht[0], NULL);
+    _dictClear(d, &d->ht[1], NULL);
+    free(d);
 }
 
 int main(int argc, char const *argv[])
