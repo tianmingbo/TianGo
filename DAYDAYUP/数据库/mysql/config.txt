@@ -596,7 +596,7 @@ thread_stack	286720
 time_zone	SYSTEM
 tls_ciphersuites	
 tls_version	TLSv1,TLSv1.1,TLSv1.2,TLSv1.3
-tmp_table_size	16777216
+tmp_table_size	16777216 内存临时表的大小，16M。如果超过这个指，就会使用磁盘临时表。
 tmpdir	/var/folders/w0/l1w27fdn3zl560tfvbzmb2g00000gn/T/
 transaction_alloc_block_size	8192
 transaction_isolation	REPEATABLE-READ  隔离级别
