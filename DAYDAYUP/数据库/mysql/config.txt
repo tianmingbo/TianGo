@@ -126,7 +126,7 @@ init_replica
 init_slave	
 innodb_adaptive_flushing	ON
 innodb_adaptive_flushing_lwm	10
-innodb_adaptive_hash_index	ON
+innodb_adaptive_hash_index	ON  自适应hash索引
 innodb_adaptive_hash_index_parts	8
 innodb_adaptive_max_sleep_delay	150000
 innodb_api_bk_commit_interval	5
@@ -147,8 +147,8 @@ innodb_buffer_pool_load_abort	OFF
 innodb_buffer_pool_load_at_startup	ON
 innodb_buffer_pool_load_now	OFF
 innodb_buffer_pool_size	134217728
-innodb_change_buffer_max_size	25
-innodb_change_buffering	all
+innodb_change_buffer_max_size	25 控制change_buffer最大使用内存的数量，默认25%
+innodb_change_buffering	all  all：启用所有buffer（inserts，deletes，purges，changes，all，none）
 innodb_checksum_algorithm	crc32
 innodb_cmp_per_index_enabled	OFF
 innodb_commit_concurrency	0
@@ -163,13 +163,13 @@ innodb_dedicated_server	OFF
 innodb_default_row_format	dynamic
 innodb_directories	
 innodb_disable_sort_file_cache	OFF
-innodb_doublewrite	ON
+innodb_doublewrite	ON  开启两次写
 innodb_doublewrite_batch_size	0
 innodb_doublewrite_dir	
 innodb_doublewrite_files	2
 innodb_doublewrite_pages	4
 innodb_extend_and_initialize	ON
-innodb_fast_shutdown	1
+innodb_fast_shutdown	1 
 innodb_file_per_table	ON 每个InnoDB表数据存储在一个以.ibd为后缀的文件中
 innodb_fill_factor	100
 innodb_flush_log_at_timeout	1
@@ -197,7 +197,7 @@ innodb_idle_flush_pct	100
 innodb_io_capacity	200 磁盘的io能力
 innodb_io_capacity_max	2000
 innodb_lock_wait_timeout	50  死锁超时时间，默认50s，线上这个设置太长
-innodb_log_buffer_size	16777216
+innodb_log_buffer_size	16777216 redo log buffer的大小16M
 innodb_log_checksums	ON
 innodb_log_compressed_pages	ON
 innodb_log_file_size	50331648
@@ -267,7 +267,7 @@ innodb_undo_log_encrypt	OFF
 innodb_undo_log_truncate	ON
 innodb_undo_tablespaces	2
 innodb_use_fdatasync	OFF
-innodb_use_native_aio	OFF
+innodb_use_native_aio	OFF  异步IO是不是由内核提供的服务，mac不支持这个东西
 innodb_validate_tablespace_paths	ON
 innodb_version	8.0.26
 innodb_write_io_threads	4
@@ -291,7 +291,7 @@ local_infile	OFF
 lock_wait_timeout	31536000
 locked_in_memory	OFF
 log_bin	ON
-log_bin_basename	/usr/local/var/mysql/binlog
+log_bin_basename	/usr/local/var/mysql/binlog  binlog位置
 log_bin_index	/usr/local/var/mysql/binlog.index
 log_bin_trust_function_creators	OFF
 log_bin_use_v1_row_events	OFF
@@ -303,7 +303,7 @@ log_output	FILE
 log_queries_not_using_indexes	OFF
 log_raw	OFF
 log_replica_updates	ON
-log_slave_updates	ON
+log_slave_updates	ON  备库执行relay log后生成binlog
 log_slow_admin_statements	OFF
 log_slow_extra	OFF
 log_slow_replica_statements	OFF
@@ -323,7 +323,7 @@ max_binlog_cache_size	18446744073709547520
 max_binlog_size	1073741824
 max_binlog_stmt_cache_size	18446744073709547520
 max_connect_errors	100
-max_connections	151
+max_connections	151  最大连接数
 max_delayed_threads	20
 max_digest_length	1024
 max_error_count	1024
@@ -575,7 +575,7 @@ ssl_key	server-key.pem
 stored_program_cache	256
 stored_program_definition_cache	256
 super_read_only	OFF
-sync_binlog	1     每次事务的binlog都持久化到硬盘，保证mysql异常重启后binlog不丢失
+sync_binlog	1     每次事务的binlog都持久化到硬盘，保证mysql异常重启后binlog不丢失，如果大于1，表示每次积累N个事务后才fsync
 sync_master_info	10000
 sync_relay_log	10000
 sync_relay_log_info	10000
