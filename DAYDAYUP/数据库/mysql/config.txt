@@ -20,13 +20,14 @@ back_log	151
 basedir	/usr/local/Cellar/mysql/8.0.26/
 big_tables	OFF
 bind_address	127.0.0.1
-binlog_cache_size	32768 binlog缓冲大小
+binlog_cache_size	32768 binlog缓冲大小 binlog cache size是基于会话的，当一个线程开启事务时，会分配一个大小为biblog_cache_size大小的缓存
+大小超过32K，就会把缓冲中的日志写入一个临时文件中
 binlog_checksum	CRC32
 binlog_direct_non_transactional_updates	OFF
 binlog_encryption	OFF
 binlog_error_action	ABORT_SERVER
 binlog_expire_logs_seconds	2592000
-binlog_format	ROW
+binlog_format	ROW  binlog记录的格式，有statement，raw和mixed
 binlog_group_commit_sync_delay	0
 binlog_group_commit_sync_no_delay_count	0
 binlog_gtid_simple_recovery	ON
@@ -67,7 +68,7 @@ connect_timeout	10
 core_file	OFF
 create_admin_listener_thread	OFF
 cte_max_recursion_depth	1000
-datadir	/usr/local/var/mysql/
+datadir	/usr/local/var/mysql/  二进制文件目录（binlog）
 default_authentication_plugin	caching_sha2_password
 default_collation_for_utf8mb4	utf8mb4_0900_ai_ci
 default_password_lifetime	0
@@ -96,7 +97,7 @@ ft_max_word_len	84
 ft_min_word_len	4
 ft_query_expansion_limit	20
 ft_stopword_file	(built-in)
-general_log	OFF
+general_log	OFF  查询日志，记录了所有对mysql数据库的请求信息
 general_log_file	/usr/local/var/mysql/tianmingbodeMacBook-Pro.log
 generated_random_password_length	20
 group_concat_max_len	1024
@@ -156,7 +157,7 @@ innodb_compression_failure_threshold_pct	5
 innodb_compression_level	6
 innodb_compression_pad_pct_max	50
 innodb_concurrency_tickets	5000
-innodb_data_file_path	ibdata1:12M:autoextend
+innodb_data_file_path	ibdata1:12M:autoextend  表空间文件12M，autoextend自动增长
 innodb_data_home_dir	
 innodb_deadlock_detect	ON  主动死锁检测，发现死锁后，立马回滚死锁链条中的某个事务
 innodb_dedicated_server	OFF
@@ -200,9 +201,9 @@ innodb_lock_wait_timeout	50  死锁超时时间，默认50s，线上这个设置
 innodb_log_buffer_size	16777216 redo log buffer的大小16M
 innodb_log_checksums	ON
 innodb_log_compressed_pages	ON
-innodb_log_file_size	50331648
-innodb_log_files_in_group	2
-innodb_log_group_home_dir	./
+innodb_log_file_size	50331648 每个重做日志文件的大小
+innodb_log_files_in_group	2 指定了日志文件组中重做日志文件的数量，默认2
+innodb_log_group_home_dir	./  redo log日志文件组所在路径
 innodb_log_spin_cpu_abs_lwm	80
 innodb_log_spin_cpu_pct_hwm	50
 innodb_log_wait_for_flush_spin_hwm	400
@@ -299,8 +300,8 @@ log_error	./tianmingbodeMacBook-Pro.local.err  错误日志目录
 log_error_services	log_filter_internal; log_sink_internal
 log_error_suppression_list	
 log_error_verbosity	2
-log_output	FILE
-log_queries_not_using_indexes	OFF
+log_output	FILE  慢查询输出的格式，默认为FILE
+log_queries_not_using_indexes	OFF 如果运行的SQL语句没有使用索引，MySQL数据库就会把这条SQL记录到慢查询日志文件
 log_raw	OFF
 log_replica_updates	ON
 log_slave_updates	ON  备库执行relay log后生成binlog
@@ -309,7 +310,7 @@ log_slow_extra	OFF
 log_slow_replica_statements	OFF
 log_slow_slave_statements	OFF
 log_statements_unsafe_for_binlog	ON
-log_throttle_queries_not_using_indexes	0
+log_throttle_queries_not_using_indexes	0 每分钟允许记录到慢查询日志的查询个数（没有使用索引的查询）
 log_timestamps	UTC
 long_query_time	10.000000  慢查询阈值
 low_priority_updates	OFF
@@ -320,7 +321,7 @@ master_info_repository	TABLE
 master_verify_checksum	OFF
 max_allowed_packet	67108864
 max_binlog_cache_size	18446744073709547520
-max_binlog_size	1073741824
+max_binlog_size	1073741824 单个binlog文件的最大值：1G，超过该值，自动新建日志
 max_binlog_stmt_cache_size	18446744073709547520
 max_connect_errors	100
 max_connections	151  最大连接数
@@ -449,7 +450,7 @@ performance_schema_show_processlist	OFF
 performance_schema_users_size	-1
 persist_only_admin_x509_subject	
 persisted_globals_load	ON
-pid_file	/usr/local/var/mysql/tianmingbodeMacBook-Pro.local.pid
+pid_file	/usr/local/var/mysql/tianmingbodeMacBook-Pro.local.pid  当MySQL实例启动后，会将自己的进程ID写入这个文件中
 plugin_dir	/usr/local/Cellar/mysql/8.0.26/lib/plugin/
 port	3306
 preload_buffer_size	32768
@@ -548,7 +549,7 @@ slave_type_conversions
 slow_launch_time	2
 slow_query_log	OFF
 slow_query_log_file	/usr/local/var/mysql/tianmingbodeMacBook-Pro-slow.log  慢查询目录
-socket	/tmp/mysql.sock
+socket	/tmp/mysql.sock  套接字文件
 sort_buffer_size	262144  MySQL为排序开辟的内存sort_buffer大小，如果排序的数据量小于这个参数，就在内存中进行排序，否则就会用到临时文件。
 source_verify_checksum	OFF
 sql_auto_is_null	OFF
