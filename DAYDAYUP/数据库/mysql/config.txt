@@ -20,7 +20,7 @@ back_log	151
 basedir	/usr/local/Cellar/mysql/8.0.26/
 big_tables	OFF
 bind_address	127.0.0.1
-binlog_cache_size	32768
+binlog_cache_size	32768 binlog缓冲大小
 binlog_checksum	CRC32
 binlog_direct_non_transactional_updates	OFF
 binlog_encryption	OFF
@@ -146,7 +146,7 @@ innodb_buffer_pool_instances	1
 innodb_buffer_pool_load_abort	OFF
 innodb_buffer_pool_load_at_startup	ON
 innodb_buffer_pool_load_now	OFF
-innodb_buffer_pool_size	134217728
+innodb_buffer_pool_size	134217728 缓冲池大小
 innodb_change_buffer_max_size	25
 innodb_change_buffering	all
 innodb_checksum_algorithm	crc32
@@ -295,7 +295,7 @@ log_bin_basename	/usr/local/var/mysql/binlog
 log_bin_index	/usr/local/var/mysql/binlog.index
 log_bin_trust_function_creators	OFF
 log_bin_use_v1_row_events	OFF
-log_error	./tianmingbodeMacBook-Pro.local.err
+log_error	./tianmingbodeMacBook-Pro.local.err  错误日志目录
 log_error_services	log_filter_internal; log_sink_internal
 log_error_suppression_list	
 log_error_verbosity	2
@@ -537,7 +537,7 @@ slave_load_tmpdir	/var/folders/w0/l1w27fdn3zl560tfvbzmb2g00000gn/T/
 slave_max_allowed_packet	1073741824
 slave_net_timeout	60
 slave_parallel_type	DATABASE
-slave_parallel_workers	0
+slave_parallel_workers	0 备库更新日志的线程个数 设置为8-16之间（32核物理机下）
 slave_pending_jobs_size_max	134217728
 slave_preserve_commit_order	OFF
 slave_rows_search_algorithms	INDEX_SCAN,HASH_SCAN
