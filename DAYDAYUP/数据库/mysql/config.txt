@@ -225,7 +225,7 @@ innodb_online_alter_log_max_size	134217728
 innodb_open_files	4000
 innodb_optimize_fulltext_only	OFF
 innodb_page_cleaners	1
-innodb_page_size	16384
+innodb_page_size	16384  页的大小，默认16KB
 innodb_parallel_read_threads	4
 innodb_print_all_deadlocks	OFF
 innodb_print_ddl_logs	OFF
