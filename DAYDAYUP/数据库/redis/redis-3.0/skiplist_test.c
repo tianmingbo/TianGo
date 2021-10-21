@@ -60,6 +60,22 @@ zskiplist *zslCreate(void)
     return zsl;
 }
 
+void zslFreeNode(zskiplistNode *node)
+{
+    decrRefCount(node->obj);
+    free(node);
+}
+
+void zslFree(zskiplist *zsl)
+{
+    zskiplistNode *node = zsl->header->level[0].forward, *next;
+    free(zsl->header);
+    while (node)
+    {
+        next = node->level[0].forward;
+        zslFreeNode(node);
+    }
+}
 int main(int argc, char const *argv[])
 {
     /* code */
