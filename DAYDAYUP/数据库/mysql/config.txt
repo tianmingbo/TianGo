@@ -221,7 +221,7 @@ innodb_monitor_reset
 innodb_monitor_reset_all	
 innodb_old_blocks_pct	37
 innodb_old_blocks_time	1000
-innodb_online_alter_log_max_size	134217728
+innodb_online_alter_log_max_size	134217728 为了实现在online DDL执行创建和删除操作的同时，可以处理insert，update等DML操作，此参数是缓存DML操作的缓存大小，待完成索引创建后，重放缓存数据即可。
 innodb_open_files	4000
 innodb_optimize_fulltext_only	OFF
 innodb_page_cleaners	1
@@ -247,11 +247,11 @@ innodb_spin_wait_delay	6
 innodb_spin_wait_pause_multiplier	50
 innodb_stats_auto_recalc	ON
 innodb_stats_include_delete_marked	OFF
-innodb_stats_method	nulls_equal
-innodb_stats_on_metadata	OFF
+innodb_stats_method	nulls_equal 用来判断如何处理索引中出现的NULL值，nulls_equal表示将NULL值记录视为相等的记录
+innodb_stats_on_metadata	OFF 当通过命令show table status、show index及访问information_schema下的表tables和statistics时，是否需要重新计算索引的cardinality值
 innodb_stats_persistent	ON 存储索引统计的方式，为ON时（统计信息会持久化存储），默认统计20个数据页，变更10次。触发索引统计
-innodb_stats_persistent_sample_pages	20
-innodb_stats_transient_sample_pages	8
+innodb_stats_persistent_sample_pages	20 表示analyze table更新cardinality值时每次采样页的数量
+innodb_stats_transient_sample_pages	8 每次采样页的数量
 innodb_status_output	OFF
 innodb_status_output_locks	OFF
 innodb_strict_mode	ON
@@ -388,7 +388,7 @@ new	OFF
 ngram_token_size	2
 offline_mode	OFF
 old	OFF
-old_alter_table	OFF
+old_alter_table	OFF  判断是inplace算法还是copy算法，默认inplace算法
 open_files_limit	8161 nysql启动时，打开文件个数的限制
 optimizer_prune_level	1
 optimizer_search_depth	62
