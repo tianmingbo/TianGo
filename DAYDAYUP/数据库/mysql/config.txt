@@ -104,8 +104,8 @@ group_concat_max_len	1024
 group_replication_consistency	EVENTUAL
 gtid_executed	
 gtid_executed_compression_period	0
-gtid_mode	OFF
-gtid_owned	
+gtid_mode	OFF  GTID模式是否开启
+gtid_owned
 gtid_purged	
 have_compress	YES
 have_dynamic_loading	YES
@@ -260,7 +260,7 @@ innodb_sync_spin_loops	30
 innodb_table_locks	ON
 innodb_temp_data_file_path	ibtmp1:12M:autoextend
 innodb_temp_tablespaces_dir	./#innodb_temp/
-innodb_thread_concurrency	0
+innodb_thread_concurrency	0  并发线程数
 innodb_thread_sleep_delay	10000
 innodb_tmpdir	
 innodb_undo_directory	./
@@ -512,7 +512,7 @@ select_into_disk_sync_delay	0
 server_id	1
 server_id_bits	32
 server_uuid	e9feba9a-1c76-11ec-a75b-41333d973e70
-session_track_gtids	OFF
+session_track_gtids	OFF  设置为ON，MySQL在执行事务后，返回包中带上GTID
 session_track_schema	ON
 session_track_state_change	OFF
 session_track_system_variables	time_zone,autocommit,character_set_client,character_set_results,character_set_connection
@@ -542,7 +542,7 @@ slave_parallel_workers	0 备库更新日志的线程个数 设置为8-16之间�
 slave_pending_jobs_size_max	134217728
 slave_preserve_commit_order	OFF
 slave_rows_search_algorithms	INDEX_SCAN,HASH_SCAN
-slave_skip_errors	OFF
+slave_skip_errors	OFF 从库同步时，跳过错误  在执行主备切换时，有这么两类错误，是经常会遇到的：1062错误是插入数据时唯一键冲突；1032错误是删除数据时找不到行。
 slave_sql_verify_checksum	ON
 slave_transaction_retries	10
 slave_type_conversions	
@@ -563,7 +563,7 @@ sql_replica_skip_counter	0
 sql_require_primary_key	OFF
 sql_safe_updates	OFF
 sql_select_limit	18446744073709551615
-sql_slave_skip_counter	0
+sql_slave_skip_counter	0 从库同步时，跳过几个错误
 sql_warnings	OFF
 ssl_ca	ca.pem
 ssl_capath	
