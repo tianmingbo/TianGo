@@ -127,7 +127,7 @@ init_replica
 init_slave	
 innodb_adaptive_flushing	ON
 innodb_adaptive_flushing_lwm	10
-innodb_adaptive_hash_index	ON  自适应hash索引
+innodb_adaptive_hash_index	ON  自适应hash索引，默认开启
 innodb_adaptive_hash_index_parts	8
 innodb_adaptive_max_sleep_delay	150000
 innodb_api_bk_commit_interval	5
@@ -239,7 +239,7 @@ innodb_read_only	OFF
 innodb_redo_log_archive_dirs	
 innodb_redo_log_encrypt	OFF
 innodb_replication_delay	0
-innodb_rollback_on_timeout	OFF
+innodb_rollback_on_timeout	OFF 等待锁超时后，是否进行回滚操作
 innodb_rollback_segments	128
 innodb_segment_reserve_factor	12.500000
 innodb_sort_buffer_size	1048576
@@ -250,7 +250,7 @@ innodb_stats_include_delete_marked	OFF
 innodb_stats_method	nulls_equal 用来判断如何处理索引中出现的NULL值，nulls_equal表示将NULL值记录视为相等的记录
 innodb_stats_on_metadata	OFF 当通过命令show table status、show index及访问information_schema下的表tables和statistics时，是否需要重新计算索引的cardinality值
 innodb_stats_persistent	ON 存储索引统计的方式，为ON时（统计信息会持久化存储），默认统计20个数据页，变更10次。触发索引统计
-innodb_stats_persistent_sample_pages	20 表示analyze table更新cardinality值时每次采样页的数量
+innodb_stats_persistent_sample_pages	20 表示analyze table更新cardinaliinnodb_thread_concurrencyty值时每次采样页的数量
 innodb_stats_transient_sample_pages	8 每次采样页的数量
 innodb_status_output	OFF
 innodb_status_output_locks	OFF
@@ -260,7 +260,7 @@ innodb_sync_spin_loops	30
 innodb_table_locks	ON
 innodb_temp_data_file_path	ibtmp1:12M:autoextend
 innodb_temp_tablespaces_dir	./#innodb_temp/
-innodb_thread_concurrency	0  并发线程数
+innodb_thread_concurrency	0  并发线程数,为0表示不限制
 innodb_thread_sleep_delay	10000
 innodb_tmpdir	
 innodb_undo_directory	./
