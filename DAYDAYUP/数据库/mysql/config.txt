@@ -31,7 +31,7 @@ binlog_format	ROW  binlog记录的格式，有statement，raw和mixed
 binlog_group_commit_sync_delay	0
 binlog_group_commit_sync_no_delay_count	0
 binlog_gtid_simple_recovery	ON
-binlog_max_flush_queue_time	0
+binlog_max_flush_queue_time	0 用来控制Flush阶段中等待的时间
 binlog_order_commits	ON
 binlog_rotate_encryption_master_key_at_startup	OFF
 binlog_row_event_max_size	8192
@@ -174,7 +174,7 @@ innodb_fast_shutdown	1
 innodb_file_per_table	ON 每个InnoDB表数据存储在一个以.ibd为后缀的文件中
 innodb_fill_factor	100
 innodb_flush_log_at_timeout	1
-innodb_flush_log_at_trx_commit	1   每次事务的redo log都直接持久化到硬盘
+innodb_flush_log_at_trx_commit	1   每次事务的redo log都直接持久化到硬盘;0表示事务提交时不进行写入重做日志操作，2表示写入文件系统，而没有写入到磁盘。MySQL进程崩溃，数据不会丢失，操作系统崩溃，数据才会丢失
 innodb_flush_method	fsync
 innodb_flush_neighbors	0 脏页刷到磁盘的时候，如果为1，就把邻居也刷新到磁盘（连坐）
 innodb_flush_sync	ON
@@ -263,10 +263,10 @@ innodb_temp_tablespaces_dir	./#innodb_temp/
 innodb_thread_concurrency	0  并发线程数,为0表示不限制
 innodb_thread_sleep_delay	10000
 innodb_tmpdir	
-innodb_undo_directory	./
+innodb_undo_directory	./  用于设置rollback segment文件所在的路径
 innodb_undo_log_encrypt	OFF
 innodb_undo_log_truncate	ON
-innodb_undo_tablespaces	2
+innodb_undo_tablespaces	2 用来设置rollback segment文件的数量
 innodb_use_fdatasync	OFF
 innodb_use_native_aio	OFF  异步IO是不是由内核提供的服务，mac不支持这个东西
 innodb_validate_tablespace_paths	ON
