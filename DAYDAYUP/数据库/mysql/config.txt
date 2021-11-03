@@ -561,7 +561,7 @@ sql_notes	ON
 sql_quote_show_create	ON
 sql_replica_skip_counter	0
 sql_require_primary_key	OFF
-sql_safe_updates	OFF
+sql_safe_updates	OFF  如果忘记在delete或者update语句中写where条件，或者where条件里面没有包含索引字段的话，这条语句的执行就会报错
 sql_select_limit	18446744073709551615
 sql_slave_skip_counter	0 从库同步时，跳过几个错误
 sql_warnings	OFF
