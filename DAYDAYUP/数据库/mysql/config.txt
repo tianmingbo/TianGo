@@ -16,7 +16,7 @@ auto_increment_offset	1
 autocommit	ON 如果不是显式的开启一个事务，那么这个事务会自动提交
 automatic_sp_privileges	ON
 avoid_temporal_upgrade	OFF
-back_log	151
+back_log	151  back_log 参数控制MySQL监听TCP端口时设置的积压请求栈大小。如果MySql的连接数达到max_connections时，新来的请求将会被存在堆栈中，以等待某一连接释放资源，该堆栈的数量即back_log，如果等待连接的数量超过back_log，将不被授予连接资源，将会报错。
 basedir	/usr/local/Cellar/mysql/8.0.26/
 big_tables	OFF
 bind_address	127.0.0.1
@@ -147,7 +147,7 @@ innodb_buffer_pool_instances	1
 innodb_buffer_pool_load_abort	OFF
 innodb_buffer_pool_load_at_startup	ON
 innodb_buffer_pool_load_now	OFF
-innodb_buffer_pool_size	134217728
+innodb_buffer_pool_size	134217728 内存中的数据页是在buffer pool中管理的，可以加速更新、加速查询。
 innodb_change_buffer_max_size	25 控制change_buffer最大使用内存的数量，默认25%
 innodb_change_buffering	all  all：启用所有buffer（inserts，deletes，purges，changes，all，none）
 innodb_checksum_algorithm	crc32
@@ -220,7 +220,7 @@ innodb_monitor_enable
 innodb_monitor_reset	
 innodb_monitor_reset_all	
 innodb_old_blocks_pct	37
-innodb_old_blocks_time	1000
+innodb_old_blocks_time	1000 buffer pool数据更新时，分为young，old区域。如果在lru链表中存在的时间已经超过这个参数的值，则移动到young区域。对于读全表的操作，不会更新lru中所有的数据。
 innodb_online_alter_log_max_size	134217728 为了实现在online DDL执行创建和删除操作的同时，可以处理insert，update等DML操作，此参数是缓存DML操作的缓存大小，待完成索引创建后，重放缓存数据即可。
 innodb_open_files	4000
 innodb_optimize_fulltext_only	OFF
@@ -274,7 +274,7 @@ innodb_version	8.0.26
 innodb_write_io_threads	4
 interactive_timeout	28800
 internal_tmp_mem_storage_engine	TempTable
-join_buffer_size	262144
+join_buffer_size	262144 join查询的时候，使用join_buffer，这个参数设置join_buffer的大小
 keep_files_on_create	OFF
 key_buffer_size	8388608
 key_cache_age_threshold	300
@@ -319,7 +319,7 @@ lower_case_table_names	2
 mandatory_roles	
 master_info_repository	TABLE
 master_verify_checksum	OFF
-max_allowed_packet	67108864
+max_allowed_packet	67108864  服务端一次能接收的数据包的最大长度
 max_binlog_cache_size	18446744073709547520
 max_binlog_size	1073741824 单个binlog文件的最大值：1G，超过该值，自动新建日志
 max_binlog_stmt_cache_size	18446744073709547520
@@ -380,7 +380,7 @@ mysqlx_wait_timeout	28800
 mysqlx_write_timeout	60
 mysqlx_zstd_default_compression_level	3
 mysqlx_zstd_max_client_compression_level	11
-net_buffer_length	16384
+net_buffer_length	16384 服务端临时存储数据net_buffer，默认16KB，满了发送给客户端
 net_read_timeout	30
 net_retry_count	10
 net_write_timeout	60
@@ -393,7 +393,7 @@ open_files_limit	8161 nysql启动时，打开文件个数的限制
 optimizer_prune_level	1
 optimizer_search_depth	62
 optimizer_switch	index_merge=on,index_merge_union=on,index_merge_sort_union=on,index_merge_intersection=on,engine_condition_pushdown=on,index_condition_pushdown=on,mrr=on,mrr_cost_based=on,block_nested_loop=on,batched_key_access=off,materialization=on,semijoin=on,loosescan=on,firstmatch=on,duplicateweedout=on,subquery_materialization_cost_based=on,use_index_extensions=on,condition_fanout_filter=on,derived_merge=on,use_invisible_indexes=off,skip_scan=on,hash_join=on,subquery_to_derived=off,prefer_ordering_index=on,hypergraph_optimizer=off,derived_condition_pushdown=on
-optimizer_trace	enabled=off,one_line=off
+optimizer_trace	enabled=off,one_line=off  MySQL5.6提供了对SQL的跟踪trace, 通过trace文件能够进一步了解为什么优化器选择A计划, 而不是选择B计划。
 optimizer_trace_features	greedy_search=on,range_optimizer=on,dynamic_range=on,repeated_subselect=on
 optimizer_trace_limit	1
 optimizer_trace_max_mem_size	1048576
@@ -455,7 +455,7 @@ plugin_dir	/usr/local/Cellar/mysql/8.0.26/lib/plugin/
 port	3306
 preload_buffer_size	32768
 print_identified_with_as_hex	OFF
-profiling	OFF
+profiling	OFF  show profiles 能够在做SQL优化时帮助我们了解时间都耗费到哪里去了。
 profiling_history_size	15
 protocol_compression_algorithms	zlib,zstd,uncompressed
 protocol_version	10
@@ -465,16 +465,16 @@ range_alloc_block_size	4096
 range_optimizer_max_mem_size	8388608
 rbr_exec_mode	STRICT
 read_buffer_size	131072
-read_only	OFF
+read_only	OFF  只读？从库开启这个
 read_rnd_buffer_size	262144
 regexp_stack_limit	8000000
 regexp_time_limit	32
-relay_log	tianmingbodeMacBook-Pro-relay-bin
+relay_log	tianmingbodeMacBook-Pro-relay-bin  中转日志所在的位置
 relay_log_basename	/usr/local/var/mysql/tianmingbodeMacBook-Pro-relay-bin
 relay_log_index	/usr/local/var/mysql/tianmingbodeMacBook-Pro-relay-bin.index
 relay_log_info_file	relay-log.info
 relay_log_info_repository	TABLE
-relay_log_purge	ON
+relay_log_purge	ON  如果主备延迟大，备库的IO线程会写很多relay log，这个选项控制重写线程重放完一个relay log后，尽快将其删除
 relay_log_recovery	OFF
 relay_log_space_limit	0
 replica_allow_batching	OFF
@@ -547,7 +547,7 @@ slave_sql_verify_checksum	ON
 slave_transaction_retries	10
 slave_type_conversions	
 slow_launch_time	2
-slow_query_log	OFF
+slow_query_log	OFF  慢查询默认关闭
 slow_query_log_file	/usr/local/var/mysql/tianmingbodeMacBook-Pro-slow.log  慢查询目录
 socket	/tmp/mysql.sock  套接字文件
 sort_buffer_size	262144  MySQL为排序开辟的内存sort_buffer大小，如果排序的数据量小于这个参数，就在内存中进行排序，否则就会用到临时文件。
@@ -591,20 +591,20 @@ temptable_max_mmap	1073741824
 temptable_max_ram	1073741824
 temptable_use_mmap	ON
 terminology_use_previous	NONE
-thread_cache_size	9
+thread_cache_size	9  为了加快连接数据库的速度，MySQL 会缓存一定数量的客户服务线程以备重用，通过参数 thread_cache_size 可控制 MySQL 缓存客户服务线程的数量。
 thread_handling	one-thread-per-connection
 thread_stack	286720
 time_zone	SYSTEM
 tls_ciphersuites	
 tls_version	TLSv1,TLSv1.1,TLSv1.2,TLSv1.3
 tmp_table_size	16777216 内存临时表的大小，16M。如果超过这个指，就会使用磁盘临时表。
-tmpdir	/var/folders/w0/l1w27fdn3zl560tfvbzmb2g00000gn/T/
+tmpdir	/var/folders/w0/l1w27fdn3zl560tfvbzmb2g00000gn/T/  临时文件目录
 transaction_alloc_block_size	8192
 transaction_isolation	REPEATABLE-READ  隔离级别
 transaction_prealloc_size	4096
 transaction_read_only	OFF
 transaction_write_set_extraction	XXHASH64
-unique_checks	ON
+unique_checks	ON  唯一性校验
 updatable_views_with_limit	YES
 version	8.0.26
 version_comment	Homebrew
