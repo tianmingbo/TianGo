@@ -11,8 +11,8 @@ admin_ssl_key
 admin_tls_ciphersuites	
 admin_tls_version	TLSv1,TLSv1.1,TLSv1.2,TLSv1.3
 auto_generate_certs	ON
-auto_increment_increment	1
-auto_increment_offset	1
+auto_increment_increment	1 自增步长
+auto_increment_offset	1  auto increment自增的初始值
 autocommit	ON 如果不是显式的开启一个事务，那么这个事务会自动提交
 automatic_sp_privileges	ON
 avoid_temporal_upgrade	OFF
@@ -136,7 +136,7 @@ innodb_api_enable_binlog	OFF
 innodb_api_enable_mdl	OFF
 innodb_api_trx_level	0
 innodb_autoextend_increment	64
-innodb_autoinc_lock_mode	2
+innodb_autoinc_lock_mode	2  申请自增主键的动作都是申请后就释放锁。
 innodb_buffer_pool_chunk_size	134217728
 innodb_buffer_pool_dump_at_shutdown	ON
 innodb_buffer_pool_dump_now	OFF
