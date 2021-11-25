@@ -5,7 +5,7 @@
       <paths name="ubuntu@1.117.157.234:22">
         <serverdata>
           <mappings>
-            <mapping deploy="/data" local="$PROJECT_DIR$" />
+            <mapping deploy="/tmp/pycharm_project_394" local="$PROJECT_DIR$" />
           </mappings>
         </serverdata>
       </paths>
