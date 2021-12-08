@@ -4,3 +4,5 @@ https://mp.weixin.qq.com/s/2mdcZnlTWCDYejGkZCdNOQ
 
 学习路线：
 https://mp.weixin.qq.com/s?__biz=MzUyNjQxNjYyMg==&mid=2247496613&idx=4&sn=8e6069a747311b594a5386e73215386f&chksm=fa0d9c24cd7a153276fda30500ae2d771ca34cb22b2fe4681dba49d0a5704c86ff371e363ea2&scene=126&sessionid=1607997929&key=7906d1860b93eb8f87303350cf812cac85c81a90977083eca9eb08076ebe6380aa7af19401b5e7053fc720705ea2d58282861962a28dd0068834a7944c7f1bbe0afcd6991847727b0ba7c373efa93b3ebe89b90426d299c484ac4d5213a45b9533650184ee95a05e1352578c66b04243ed5f2666cc7ccff44b00b4a4fe66e94f&ascene=1&uin=Mjc5OTcyNzkyOQ%3D%3D&devicetype=Windows+10+x64&version=63000039&lang=zh_CN&exportkey=A1VB9AVTqxPz7N4LXH9G6pY%3D&pass_ticket=teEDPCEh%2BNevRLMVWiCS%2FnO9B1RkyjHBencsPBH3M1jJn1rTL7RWiYRMQAEd8f1q&wx_header=0
+
+minikube安装： https://developer.aliyun.com/article/221687:q
