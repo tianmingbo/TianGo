@@ -2961,16 +2961,16 @@ window = this;
     ,
     ze.version = "2.3.1",
     t.JSEncrypt = ze
+
+
 });
 
-
-function getPwd(passwd) {
+function getPwd(passwd, key) {
   var e = new window.JSEncrypt();
-  console.log(e)
-  var val = 'MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCjfeE0MIYsZes/HwV06/kvRw34Hmhn9WPt0feLPp1PVqdqZz1/xFvPPEAJ/lAvfqt5kyn+A06bvYXIhizTjlOzPgLE4897ihuSYXgfwcUshPZvydRLbftU6Exj5SLbv5tw4GInbgQv7RWLWOKyQA81q6lWae2Kcgd1XpDRsQNXVwIDAQAB';
-  e.setPublicKey(val);
+  e.setPublicKey(key);
   var p = e.encrypt(passwd);
   return p;
 }
 
-getPwd('123456')
+let a = getPwd('123456', 'MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCjfeE0MIYsZes/HwV06/kvRw34Hmhn9WPt0feLPp1PVqdqZz1/xFvPPEAJ/lAvfqt5kyn+A06bvYXIhizTjlOzPgLE4897ihuSYXgfwcUshPZvydRLbftU6Exj5SLbv5tw4GInbgQv7RWLWOKyQA81q6lWae2Kcgd1XpDRsQNXVwIDAQAB');
+console.log(a);
