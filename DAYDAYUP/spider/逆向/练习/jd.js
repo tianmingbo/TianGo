@@ -4002,13 +4002,10 @@ window = this;
 });
 
 
-function getPwd(pwd) {
+function getPwd(pwd, pubKey) {
   var encrypt = new JSEncrypt();
-  var pubKey = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDC7kw8r6tq43pwApYvkJ5laljaN9BZb21TAIfT/vexbobzH7Q8SUdP5uDPXEBKzOjx2L28y7Xs1d9v3tdPfKI2LR7PAzWBmDMn8riHrDDNpUpJnlAGUqJG9ooPn8j7YNpcxCa1iybOlc2kEhmJn5uwoanQq+CA6agNkqly2H4j6wIDAQAB";
   encrypt.setPublicKey(pubKey);
-  var passport = encrypt.encrypt(pwd);
-  console.log(passport);
-  return passport;
+  return encrypt.encrypt(pwd);
 }
 
 getPwd(123456)

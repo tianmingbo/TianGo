@@ -3,7 +3,6 @@ http://login.shikee.com/
 根据form表单中value是不是password来判断，
 另一个需要全局搜索rsa_n
 """
-import requests
 import execjs
 
 headers = {
