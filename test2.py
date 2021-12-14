@@ -1,5 +1,8 @@
-1 != T.needShowNewVc | | T.hasVCSuccess ? 1 == T.needShowNewVc & & T.hasVCSuccess ?
-(e = T.checkUrl.replace( / ^ https?:\ / \ // gi, '').split('/')[0], T.show_err(
-    '网络遇到点问题，请稍后刷新页面重试。<a target="_blank" href="https://ping.huatuo.qq.com/' + e + '">点击排查。</a>', !0), S.logger.info(
-    '$login_btn.onClick()', 'plogin.cntCheckTimeout='.concat(T.cntCheckTimeout))): T.submit(t): (
-    T.showVC(), S.logger.info('$login_btn.onClick()', 'showVC'))
+import requests
+
+headers = {
+    'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.93 Safari/537.36',
+}
+url = 'https://www.sohu.com'
+res = requests.get(url)
+print(res.cookies)
