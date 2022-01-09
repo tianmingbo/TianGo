@@ -183,6 +183,7 @@ function md5(e) {
 
 
 function getSign(e, i) {
+  console.log("fanyideskweb" + e + i + "Y2FYu%TNSbMCxc3t2u^XT")
   return md5("fanyideskweb" + e + i + "Y2FYu%TNSbMCxc3t2u^XT")
 }
 console.log(md5('5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.55 Safari/537.36'))
