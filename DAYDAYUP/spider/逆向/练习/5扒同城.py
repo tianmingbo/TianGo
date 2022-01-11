@@ -1,7 +1,7 @@
 """
 https://sh.58.com/searchjob/
 字符加密
-High logic FontCreator.exe 解密|或则百度在线编辑
+High logic FontCreator.exe 解密|或则百度woff
 """
 import re
 import requests
