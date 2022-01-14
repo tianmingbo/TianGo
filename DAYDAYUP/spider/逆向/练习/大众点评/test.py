@@ -1,4 +1,6 @@
+import copy
 import hashlib
+import json
 import re
 
 import requests
@@ -60,6 +62,7 @@ from fontTools.ttLib import TTFont
 	选择一个woff文件，
 """
 
+
 # 访问页面需要验证，重点不在这里，直接拿到css文件，匹配里面的woff
 # headers = {
 #     'User-agent': 'Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.159 Safari/537.36'
@@ -68,32 +71,53 @@ from fontTools.ttLib import TTFont
 # resp = requests.get('https://www.dianping.com/shop/G4mmqiZrzgkpQZGY', headers=headers)
 # print(resp.text)
 
-# with open('load.css', 'r') as f:
-#     css = f.read()
-# print(css)
-# woff_link = re.findall(re.compile(r',url\("(.*)\.woff"\);'), css)
-# woff_link = ['https:' + i + '.woff' for i in list(set(woff_link))]
-# for i in range(len(woff_link)):
-#     res = requests.get(woff_link[i])
-#     with open(f'{i}.woff', 'wb') as f:
-#         f.write(res.content)
-mapping = {}
-font = TTFont('1.woff')
-# font.saveXML('1.xml')
-# 提取字形信息
-# content = font['glyf'].glyphs
-# content = font.getGlyphNames()[1:-1]
-# with open('word.txt', 'r', encoding='utf-8') as f:
-#     word = f.read()
-# print(len(word))
-# print(len(content),content)
-# for i in range(len(content)):
-#     mapping.update({'name': content[i], 'value': word[i],
-#                     'hex': hashlib.md5(font['glyf'].glyphs.get(content[i]).data).hexdigest()})
-# print(mapping)
-# print(font.getGlyphID('unif4b0'))
-print(font.getGlyphOrder())
-print(len(font.getGlyphOrder()))
-#
-# for i in word:
-#     print(i)
+def get_mapping():
+    with open('load.css', 'r') as f:
+        css = f.read()
+    with open('word.txt', 'r', encoding='utf-8') as f:
+        word = f.read()
+    mapping = {}
+
+    woff_link = re.findall(re.compile(r',url\("(.*)\.woff"\);'), css)
+    woff_link = ['https:' + i + '.woff' for i in list(set(woff_link))]
+    for i in range(len(woff_link)):
+        res = requests.get(woff_link[i])
+        with open(f'{i}.woff', 'wb') as f:
+            f.write(res.content)
+        font = TTFont(f'{i}.woff')
+        content = font.getGlyphOrder()[2:]
+        for j in range(len(content)):
+            md5_value = hashlib.md5(font['glyf'].glyphs.get(content[j]).data).hexdigest()
+            if md5_value not in mapping:
+                mapping[md5_value] = {'name': {content[j]}, 'value': word[j]}
+            else:
+                mapping[md5_value]['name'].add(content[j])
+    return mapping
+
+
+def get_value(i, mapping):
+    for k, v in mapping.items():
+        if i in v['name']:
+            return v['value']
+    return i
+
+
+def process(mapping):
+    with open('dazhongdianping.json', 'r', encoding='utf-8') as f:
+        info = json.loads(f.read())
+    test_str = info['reviewAllDOList'][0]['reviewDataVO']['reviewBody']
+    print(test_str)
+    res = re.sub('<svgmtsi class=\\"review\\">', '', test_str)
+    res = re.sub(';</svgmtsi>', '', res)
+    res = re.sub('<.*?>', '', res)
+    res = res.replace('&#x', 'uni')
+    wait_replace = re.findall(re.compile(r'uni[0-9a-z]{4}'), res)
+    for i in wait_replace:
+        res = res.replace(i, get_value(i, mapping))
+    return res
+
+
+if __name__ == '__main__':
+    mapping = get_mapping()
+    res = process(mapping)
+    print(res)

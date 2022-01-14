@@ -14,21 +14,20 @@ print(msg)
 
 
 def font_convert(path):
-    font = TTFont(path)  # 打开文件
+    font = TTFont(path)
     font.saveXML('ztiku.xml')
     code_list = font.getGlyphOrder()[2:]
     im = Image.new("RGB", (1800, 1000), (255, 255, 255))
     dr = ImageDraw.Draw(im)
     font = ImageFont.truetype(path, 40)
     count = 15
-    array_list = numpy.array_split(code_list, count)  # 将列表切分成15份，以便于在图片上分行显示
+    array_list = numpy.array_split(code_list, count)
     for t in range(count):
         new_list = [i.replace("uni", "\\u") for i in array_list[t]]
         text = "".join(new_list)
         text = text.encode('utf-8').decode('unicode_escape')
         dr.text((0, 50 * t), text, font=font, fill="#000000")
-
-    im.save("s1.jpg")
+    im.save("tmp.jpg")
 
 
 if __name__ == '__main__':
