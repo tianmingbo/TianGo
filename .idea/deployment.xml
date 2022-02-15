@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" autoUpload="Always" serverName="ubuntu@150.158.47.35:22">
+  <component name="PublishConfigData">
     <serverData>
       <paths name="tonglai@10.88.230.217:22">
         <serverdata>
@@ -19,18 +19,17 @@
       <paths name="ubuntu@1.117.157.234:22">
         <serverdata>
           <mappings>
-            <mapping deploy="/tmp/pycharm_project_394" local="$PROJECT_DIR$" />
+            <mapping local="$PROJECT_DIR$" web="/" />
           </mappings>
         </serverdata>
       </paths>
       <paths name="ubuntu@150.158.47.35:22">
         <serverdata>
           <mappings>
-            <mapping deploy="/home/ubuntu/tmb" local="$PROJECT_DIR$" />
+            <mapping local="$PROJECT_DIR$" web="/" />
           </mappings>
         </serverdata>
       </paths>
     </serverData>
-    <option name="myAutoUpload" value="ALWAYS" />
   </component>
 </project>
