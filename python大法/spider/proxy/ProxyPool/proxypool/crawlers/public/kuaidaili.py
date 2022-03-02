@@ -1,5 +1,5 @@
 from proxypool.crawlers.base import BaseCrawler
-from proxypool.schemas.proxy import Proxy
+from proxypool.schemas import Proxy
 import re
 from pyquery import PyQuery as pq
 

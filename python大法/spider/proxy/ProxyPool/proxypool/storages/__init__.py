@@ -3,7 +3,7 @@ from random import choice
 from typing import List
 from loguru import logger
 from ..exceptions import PoolEmptyException
-from ..schemas.proxy import Proxy
+from proxypool.schemas import Proxy
 from ..setting import REDIS_CONNECTION_STRING, REDIS_HOST, REDIS_PORT, REDIS_PASSWORD, REDIS_DB, REDIS_KEY, \
     PROXY_SCORE_MAX, PROXY_SCORE_MIN, PROXY_SCORE_INIT
 from ..utils import is_valid_proxy, convert_proxy_or_proxies

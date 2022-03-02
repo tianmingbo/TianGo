@@ -2,7 +2,7 @@ import asyncio
 import aiohttp
 from loguru import logger
 from proxypool.schemas import Proxy
-from proxypool.storages.redis import RedisClient
+from proxypool.storages import RedisClient
 from proxypool.setting import TEST_TIMEOUT, TEST_BATCH, TEST_URL, TEST_VALID_STATUS, TEST_ANONYMOUS
 from aiohttp import ClientProxyConnectionError, ServerDisconnectedError, ClientOSError, ClientHttpProxyError
 from asyncio import TimeoutError

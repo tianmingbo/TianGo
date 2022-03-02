@@ -1,7 +1,7 @@
 from retrying import RetryError, retry
 import requests
 from loguru import logger
-from ..setting import GET_TIMEOUT
+from proxypool.setting import GET_TIMEOUT
 from fake_headers import Headers
 import time
 

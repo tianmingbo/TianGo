@@ -304,7 +304,7 @@ services:
 
 ```python
 from pyquery import PyQuery as pq
-from proxypool.schemas.proxy import Proxy
+from proxypool.schemas import Proxy
 from proxypool.crawlers.base import BaseCrawler
 
 BASE_URL = 'http://www.664ip.cn/{page}.html'

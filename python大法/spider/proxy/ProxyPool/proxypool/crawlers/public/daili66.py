@@ -1,6 +1,6 @@
 from pyquery import PyQuery as pq
-from . import Proxy
-from ..base import BaseCrawler
+from proxypool.schemas import Proxy
+from proxypool.crawlers.base import BaseCrawler
 
 BASE_URL = 'http://www.66ip.cn/{page}.html'
 MAX_PAGE = 3
