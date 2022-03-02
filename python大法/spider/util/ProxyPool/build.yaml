@@ -6,7 +6,7 @@ services:
     ports:
       - "6374:6379"
   proxypool:
-    build: .
+    build: ""
     image: "germey/proxypool:master"
     container_name: proxypool
     ports:
