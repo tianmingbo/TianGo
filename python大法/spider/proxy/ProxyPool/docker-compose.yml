@@ -1,0 +1,17 @@
+version: "3"
+services:
+  redis4proxypool:
+    image: redis:alpine
+    container_name: redis4proxypool
+    ports:
+      - "6374:6379"
+  proxypool:
+    image: "germey/proxypool:master"
+    container_name: proxypool
+    ports:
+      - "5555:5555"
+    restart: always
+    # volumes:
+    #   - proxypool/crawlers/private:/app/proxypool/crawlers/private
+    environment:
+      PROXYPOOL_REDIS_HOST: redis4proxypool
