@@ -38,8 +38,7 @@ class QQ_Login:
             if check_flag:
                 login_flag, login_msg = self.login()
                 if login_flag:
-                    print
-                    "User %s login Ok, nickname: %s" % (self.uin, self.nick)
+                    print (                    "User %s login Ok, nickname: %s" % (self.uin, self.nick))
                     print
                     "Cookie info:"
                     for c in self.session.cookies:
