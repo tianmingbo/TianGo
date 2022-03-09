@@ -25,12 +25,12 @@ gettokenid = function () {
     _0x31cex51['push'](this['hasLocalStorage']());
     _0x31cex51['push'](!!window['indexedDB']);
     if (document['body']) {
-        _0x31cex51['push'](typeof(document['body']['addBehavior']))
+        _0x31cex51['push'](typeof (document['body']['addBehavior']))
     } else {
         _0x31cex51['push'](typeof undefined)
     }
     ;
-    _0x31cex51['push'](typeof(window['openDatabase']));
+    _0x31cex51['push'](typeof (window['openDatabase']));
     _0x31cex51['push'](navigator['cpuClass']);
     _0x31cex51['push'](navigator['platform']);
     _0x31cex51['push'](navigator['doNotTrack']);
@@ -102,7 +102,7 @@ hasSessionStorage = function () {
         return true
     }
 }
-isCanvasSupported: function () {
+isCanvasSupported = function () {
     var _0x31cex5b = document['createElement']('canvas');
     return !!(_0x31cex5b['getContext'] && _0x31cex5b['getContext']('2d'))
 }
@@ -135,7 +135,7 @@ getRegularPluginsString = function () {
         },
         this)['join'](';')
 }
-getIEPluginsString: function () {
+getIEPluginsString = function () {
     if (window['ActiveXObject']) {
         var _0x31cex5e = ['ShockwaveFlash.ShockwaveFlash', 'AcroPDF.PDF', 'PDF.PdfCtrl', 'QuickTime.QuickTime', 'rmocx.RealPlayer G2 Control', 'rmocx.RealPlayer G2 Control.1', 'RealPlayer.RealPlayer(tm) ActiveX Control (32-bit)', 'RealVideo.RealVideo(tm) ActiveX Control (32-bit)', 'RealPlayer', 'SWCtl.SWCtl', 'WMPlayer.OCX', 'AgControl.AgControl', 'Skype.Detection'];
         return this['map'](_0x31cex5e,
@@ -151,7 +151,7 @@ getIEPluginsString: function () {
         return ''
     }
 }
-getScreenResolution: function () {
+getScreenResolution = function () {
     var _0x31cex52;
     if (this['screen_orientation']) {
         _0x31cex52 = (screen['height'] > screen['width']) ? [screen['height'], screen['width']] : [screen['width'], screen['height']]
@@ -161,7 +161,7 @@ getScreenResolution: function () {
     ;
     return _0x31cex52
 }
-getCanvasFingerprint: function () {
+getCanvasFingerprint = function () {
     var _0x31cex60 = document['createElement']('canvas');
     var _0x31cex61 = _0x31cex60['getContext']('2d');
     var _0x31cex62 = 'aq';

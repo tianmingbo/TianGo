@@ -82,17 +82,20 @@ class Verify:
         self.parent = parent
 
     def check(self):
+        # 检测是否需要验证码
         params = {
             'regmaster': '',
             'pt_tea': '2',
             'pt_vcode': '1',
             'uin': self.parent.qq,
             'appid': self.parent.param['param']['appid'],
-            'js_ver': '10270',
+            'daid': self.parent.param['param']['daid'],
+            'pt_3rd_aid': self.parent.param['param']['pt_3rd_aid'],
+            'js_ver': '22030810',
             'js_type': '1',
             'login_sig': self.parent.cookies['pt_login_sig'],
             'u1': 'https://graph.qq.com/oauth2.0/login_jump',
-            'r': '0.17619262990810558',
+            'r': '0.08131688059297848',
             'pt_uistyle': '40',
             'pt_jstoken': '1207490033',
         }
@@ -145,10 +148,11 @@ class Captch:
             'ua': 'TW96aWxsYS81LjAgKFdpbmRvd3MgTlQgMTAuMDsgV09XNjQpIEFwcGxlV2ViS2l0LzUzNy4zNiAoS0hUTUwsIGxpa2UgR2Vja28pIENocm9tZS81My4wLjI3ODUuMTA0IFNhZmFyaS81MzcuMzYgQ29yZS8xLjUzLjQ4NDMuNDAwIFFRQnJvd3Nlci85LjcuMTMwMjEuNDAw',
             'uid': self.parent.qq,
             'cap_cd': self.parent.verifier.vcode,
-            'lang': '2052',
+            'lang': 'zh-CN',
             'callback': Decrypt(os.path.join(js_path, 'tokenid.js')).decrypt_callback(),
         }
         r = self.parent.fetch(self.captch_url_1, params=params)
+        print(r.text)
         return json.loads(re.findall('\((.*?)\)', r.text)[0])
 
     def fetch_vsig(self):
@@ -373,6 +377,7 @@ class QQ:
 
     @property
     def __fetch_jumpurl(self):
+        # 首先获取跳转地址
         hosts = re.search('http[s]?://(.*?)/', self.third_url)[1]
         headers = {
             'Host': hosts,
