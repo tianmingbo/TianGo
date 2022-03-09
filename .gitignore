@@ -3,3 +3,4 @@
 .idea
 .gitignore
 target.mdgit commit
+.node_modules
