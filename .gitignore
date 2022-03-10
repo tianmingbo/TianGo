@@ -1,6 +1,6 @@
 *.pdf
 *.html
-.idea
+.idea/*
 .gitignore
 target.mdgit commit
-.node_modules
+/python大法/spider/逆向/知识点/js混淆/node_modules/
