@@ -1,3 +1,4 @@
+//https://astexplorer.net/    网站查看ast
 import {parse} from "@babel/parser"
 import generate from "@babel/generator"
 import fs from "fs";
