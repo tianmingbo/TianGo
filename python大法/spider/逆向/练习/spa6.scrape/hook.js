@@ -12,5 +12,5 @@
     }
   }
 
-  hook(window, 'btoa')
+  hook(window, 'btoa') //hook base64加密
 })()
