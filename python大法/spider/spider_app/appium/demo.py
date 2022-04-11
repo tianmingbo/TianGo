@@ -25,55 +25,34 @@ desired_capabilities = {
 driver = webdriver.Remote(server, desired_capabilities)
 wait = WebDriverWait(driver, 30)
 
-el1 = driver.find_element(by=AppiumBy.ID, value="com.yaya.zone:id/ani_car")
-el1.click()
-actions = ActionChains(driver)
-actions.w3c_actions = ActionBuilder(driver, mouse=PointerInput(interaction.POINTER_TOUCH, "touch"))
-actions.w3c_actions.pointer_action.move_to_location(770, 1830)
-actions.w3c_actions.pointer_action.pointer_down()
-actions.w3c_actions.pointer_action.move_to_location(496, 733)
-actions.w3c_actions.pointer_action.release()
-actions.perform()
-
-actions = ActionChains(driver)
-actions.w3c_actions = ActionBuilder(driver, mouse=PointerInput(interaction.POINTER_TOUCH, "touch"))
-actions.w3c_actions.pointer_action.move_to_location(482, 759)
-actions.w3c_actions.pointer_action.pointer_down()
-actions.w3c_actions.pointer_action.move_to_location(474, 1382)
-actions.w3c_actions.pointer_action.release()
-actions.perform()
-
-print('click')
-el2 = driver.find_element(by=AppiumBy.ID, value="com.yaya.zone:id/btn_submit")
-el2.click()
-time.sleep(1)
+# el1 = driver.find_element(by=AppiumBy.ID, value="com.yaya.zone:id/ani_car")
+# el1.click()
+# time.sleep(0.3)
+# driver.swipe(496, 733, 474, 1382, 1000)  # 屏幕滑动
+#
+# print('click')
+# el2 = driver.find_element(by=AppiumBy.ID, value="com.yaya.zone:id/btn_submit")
+# el2.click()
+time.sleep(10)
 try_count = 0
-
+while True:
+    try:
+        driver.find_element(by=AppiumBy.ID, value="com.yaya.zone:id/tv_submit")
+        break
+    except Exception:
+        time.sleep(1)
 while try_count < 100000000:
     try:
         el3 = driver.find_element(by=AppiumBy.ID, value="com.yaya.zone:id/tv_submit")
         print('???')
         el3.click()
-        actions = ActionChains(driver)
-        actions.w3c_actions = ActionBuilder(driver, mouse=PointerInput(interaction.POINTER_TOUCH, "touch"))
-        actions.w3c_actions.pointer_action.move_to_location(725, 976 + try_count % 9 * 100)
-        # actions.w3c_actions.pointer_action.move_to_location(694, 516)
-        actions.w3c_actions.pointer_action.pointer_down()
-        actions.w3c_actions.pointer_action.pause(0.1)
-        actions.w3c_actions.pointer_action.release()
-        actions.perform()
+        driver.tap([(725, 976 + try_count % 9 * 100), ], 100)
         print(f'click(725,{976 + try_count % 9 * 100})')
         try_count += 1
     except Exception as e:
         print('error')
         time.sleep(0.01)
         try:
-            actions = ActionChains(driver)
-            actions.w3c_actions = ActionBuilder(driver, mouse=PointerInput(interaction.POINTER_TOUCH, "touch"))
-            actions.w3c_actions.pointer_action.move_to_location(962, 663)
-            actions.w3c_actions.pointer_action.pointer_down()
-            actions.w3c_actions.pointer_action.pause(0.1)
-            actions.w3c_actions.pointer_action.release()
-            actions.perform()
-        except Exception as e:
-            print('none')
+            driver.tap([(962, 663), ], 200)
+        except Exception:
+            pass
