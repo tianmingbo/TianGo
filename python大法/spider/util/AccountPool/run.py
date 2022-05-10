@@ -13,3 +13,4 @@ if __name__ == '__main__':
         getattr(Scheduler(), f'run_{args.processor}')(website)
     else:
         Scheduler().run(website)
+g
