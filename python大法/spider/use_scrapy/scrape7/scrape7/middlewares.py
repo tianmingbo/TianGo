@@ -59,7 +59,7 @@ class AuthorizationMiddleware:
     """
     添加登录信息
     """
-    account_pool_url = 'http://localhost:6789/antispider7/random'
+    account_pool_url = 'http://150.158.47.35:6789/antispider7/random'
     logger = logging.getLogger('middlewares.authorization')
 
     async def process_request(self, request, spider):
@@ -77,7 +77,7 @@ class ProxyMiddleware(object):
     """
     设置代理
     """
-    proxy_url = 'http://localhost:5555/random'
+    proxy_url = 'http://150.158.47.35:5555/random'
     logger = logging.getLogger('middlewares.proxy')
 
     async def process_request(self, request, spider):
