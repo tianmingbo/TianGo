@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 from accountpool.scheduler import Scheduler
+=======
+from scheduler import Scheduler
+>>>>>>> 3bd9a02e0b0537a70c1b67d45c712c56bdb002f0
 import argparse
 
 parser = argparse.ArgumentParser(description='AccountPool')
