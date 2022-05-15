@@ -94,6 +94,7 @@ RETRY_HTTP_CODES = [401, 403, 500, 502, 503, 504]
 DOWNLOAD_TIMEOUT = 10  # 超时时间
 RETRY_TIMES = 10  # 重试次数
 SCHEDULER = "scrapy_redis.scheduler.Scheduler"  # 使用调度器
-DUPEFILTER_CLASS = "scrapy_redis.dupefilter.RFPDupeFilter"  # 过滤
+# DUPEFILTER_CLASS = "scrapy_redis.dupefilter.RFPDupeFilter"  # 过滤
+DUPEFILTER_CLASS = "scrapy_redis_bloomfilter.dupefilter.RFPDupeFilter"  # 使用bloomfilter，避免占用大量内存
 REDIS_URL = 'redis://:123456@150.158.47.35:6379'
-
+BLOOMFILTER_BIT = 20  # 2**20 bit
