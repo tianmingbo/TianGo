@@ -1,12 +1,7 @@
 import json
 from flask import Flask, g
-<<<<<<< HEAD
-from accountpool.storages.redis import RedisClient
-from accountpool.setting import GENERATOR_MAP
-=======
 from storages.redis import RedisClient
 from setting import GENERATOR_MAP
->>>>>>> 3bd9a02e0b0537a70c1b67d45c712c56bdb002f0
 from loguru import logger
 
 __all__ = ['app']

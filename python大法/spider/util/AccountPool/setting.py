@@ -2,11 +2,7 @@ import platform
 from os.path import dirname, abspath, join
 from environs import Env
 from loguru import logger
-<<<<<<< HEAD
-from accountpool.utils.parse import parse_redis_connection_string
-=======
 from utils.parse import parse_redis_connection_string
->>>>>>> 3bd9a02e0b0537a70c1b67d45c712c56bdb002f0
 
 env = Env()
 env.read_env()
@@ -27,19 +23,11 @@ APP_PROD = IS_PROD = APP_ENV == PROD_MODE
 APP_TEST = IS_TEST = APP_ENV == TEST_MODE
 
 # redis host
-<<<<<<< HEAD
-REDIS_HOST = env.str('REDIS_HOST', '127.0.0.1')
-# redis port
-REDIS_PORT = env.int('REDIS_PORT', 6379)
-# redis password, if no password, set it to None
-REDIS_PASSWORD = env.str('REDIS_PASSWORD', None)
-=======
 REDIS_HOST = env.str('REDIS_HOST', '150.158.47.35')
 # redis port
 REDIS_PORT = env.int('REDIS_PORT', 6379)
 # redis password, if no password, set it to None
 REDIS_PASSWORD = env.str('REDIS_PASSWORD', '123456')
->>>>>>> 3bd9a02e0b0537a70c1b67d45c712c56bdb002f0
 # redis db, if no choice, set it to 0
 REDIS_DB = env.int('REDIS_DB', 0)
 # redis connection string, like redis://[password]@host:port or rediss://[password]@host:port/0
@@ -85,11 +73,8 @@ API_HOST = env.str('API_HOST', '0.0.0.0')
 API_PORT = env.int('API_PORT', 6789)
 API_THREADED = env.bool('API_THREADED', True)
 
-<<<<<<< HEAD
-# flags of enable
-=======
+
 # 是否开启对应模块
->>>>>>> 3bd9a02e0b0537a70c1b67d45c712c56bdb002f0
 ENABLE_TESTER = env.bool('ENABLE_TESTER', True)
 ENABLE_GENERATOR = env.bool('ENABLE_GENERATOR', True)
 ENABLE_SERVER = env.bool('ENABLE_SERVER', True)

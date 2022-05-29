@@ -1,11 +1,6 @@
-<<<<<<< HEAD
-from accountpool.exceptions.init import InitException
-from accountpool.storages.redis import RedisClient
-=======
 import requests
 from exceptions.init import InitException
 from storages.redis import RedisClient
->>>>>>> 3bd9a02e0b0537a70c1b67d45c712c56bdb002f0
 from loguru import logger
 
 
@@ -20,11 +15,7 @@ class BaseGenerator(object):
             raise InitException
         self.account_operator = RedisClient(type='account', website=self.website)
         self.credential_operator = RedisClient(type='credential', website=self.website)
-<<<<<<< HEAD
-    
-=======
 
->>>>>>> 3bd9a02e0b0537a70c1b67d45c712c56bdb002f0
     def generate(self, username, password):
         """
         generate method
@@ -33,21 +24,13 @@ class BaseGenerator(object):
         :return:
         """
         raise NotImplementedError
-<<<<<<< HEAD
-    
-=======
 
->>>>>>> 3bd9a02e0b0537a70c1b67d45c712c56bdb002f0
     def init(self):
         """
         do init
         """
         pass
-<<<<<<< HEAD
-    
-=======
 
->>>>>>> 3bd9a02e0b0537a70c1b67d45c712c56bdb002f0
     def run(self):
         """
         run main process
@@ -62,16 +45,8 @@ class BaseGenerator(object):
             self.generate(username, password)
 
 
-<<<<<<< HEAD
-import requests
-
-
-class Antispider6Generator(BaseGenerator):
-    
-=======
 class Antispider6Generator(BaseGenerator):
 
->>>>>>> 3bd9a02e0b0537a70c1b67d45c712c56bdb002f0
     def init(self):
         """
         do init
@@ -79,11 +54,7 @@ class Antispider6Generator(BaseGenerator):
         if self.account_operator.count() == 0:
             self.account_operator.set('admin', 'admin')
             self.account_operator.set('admin2', 'admin2')
-<<<<<<< HEAD
-    
-=======
 
->>>>>>> 3bd9a02e0b0537a70c1b67d45c712c56bdb002f0
     def generate(self, username, password):
         """
         generate main process
@@ -103,18 +74,11 @@ class Antispider6Generator(BaseGenerator):
             result.append(f'{cookie.name}={cookie.value}')
         result = ';'.join(result)
         logger.debug(f'get credential {result}')
-<<<<<<< HEAD
-=======
         # 存储cookie
->>>>>>> 3bd9a02e0b0537a70c1b67d45c712c56bdb002f0
         self.credential_operator.set(username, result)
 
 
 class Antispider7Generator(BaseGenerator):
-<<<<<<< HEAD
-
-=======
->>>>>>> 3bd9a02e0b0537a70c1b67d45c712c56bdb002f0
     MAX_COUNT = 100
 
     def init(self):
