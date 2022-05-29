@@ -1,0 +1,53 @@
+INFO - 2022-05-24 22:48:19,961 - process: 26464 - scheduler.py - gerapy.server.core.scheduler - 105 - scheduler - successfully synced task with jobs with force
+INFO - 2022-05-24 22:52:51,282 - process: 26464 - build.py - gerapy.server.core.build - 24 - build - successfully build project tutorial to egg file C:\tmb\GOOD-GOOD-STUDY\python大法\spider\use_scrapy\gerapy\projects\tutorial\tutorial-1.0-py3.7.egg
+ERROR - 2022-05-24 22:52:51,743 - process: 26464 - build.py - gerapy.server.core.build - 78 - build - error occurred (2, '系统找不到指定的路径。')
+INFO - 2022-05-24 22:52:51,743 - process: 26464 - build.py - gerapy.server.core.build - 24 - build - successfully build project tutorial to egg file None
+ERROR - 2022-05-24 22:52:51,749 - process: 26464 - utils.py - gerapy.server.core.utils - 564 - utils - [WinError 3] 系统找不到指定的路径。: 'C:\\tmb\\GOOD-GOOD-STUDY\\python大法\\spider\\use_scrapy\\gerapy\\projects\\tutorial\\projects\\tutorial'
+Traceback (most recent call last):
+  File "c:\users\mingbotian\appdata\local\programs\python\python37-32\lib\site-packages\gerapy\server\core\utils.py", line 562, in wrapper
+    result = func(*args, **kwargs)
+  File "c:\users\mingbotian\appdata\local\programs\python\python37-32\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "c:\users\mingbotian\appdata\local\programs\python\python37-32\lib\site-packages\django\views\generic\base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "c:\users\mingbotian\appdata\local\programs\python\python37-32\lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "c:\users\mingbotian\appdata\local\programs\python\python37-32\lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "c:\users\mingbotian\appdata\local\programs\python\python37-32\lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "c:\users\mingbotian\appdata\local\programs\python\python37-32\lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "c:\users\mingbotian\appdata\local\programs\python\python37-32\lib\site-packages\rest_framework\decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+  File "c:\users\mingbotian\appdata\local\programs\python\python37-32\lib\site-packages\gerapy\server\core\views.py", line 513, in project_build
+    egg = find_egg(project_path)
+  File "c:\users\mingbotian\appdata\local\programs\python\python37-32\lib\site-packages\gerapy\server\core\build.py", line 89, in find_egg
+    items = os.listdir(path)
+FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'C:\\tmb\\GOOD-GOOD-STUDY\\python大法\\spider\\use_scrapy\\gerapy\\projects\\tutorial\\projects\\tutorial'
+ERROR - 2022-05-24 22:52:51,965 - process: 26464 - build.py - gerapy.server.core.build - 78 - build - error occurred (2, '系统找不到指定的路径。')
+INFO - 2022-05-24 22:52:51,966 - process: 26464 - build.py - gerapy.server.core.build - 24 - build - successfully build project tutorial to egg file None
+ERROR - 2022-05-24 22:52:51,967 - process: 26464 - utils.py - gerapy.server.core.utils - 564 - utils - [WinError 3] 系统找不到指定的路径。: 'C:\\tmb\\GOOD-GOOD-STUDY\\python大法\\spider\\use_scrapy\\gerapy\\projects\\tutorial\\projects\\tutorial'
+Traceback (most recent call last):
+  File "c:\users\mingbotian\appdata\local\programs\python\python37-32\lib\site-packages\gerapy\server\core\utils.py", line 562, in wrapper
+    result = func(*args, **kwargs)
+  File "c:\users\mingbotian\appdata\local\programs\python\python37-32\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "c:\users\mingbotian\appdata\local\programs\python\python37-32\lib\site-packages\django\views\generic\base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "c:\users\mingbotian\appdata\local\programs\python\python37-32\lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "c:\users\mingbotian\appdata\local\programs\python\python37-32\lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "c:\users\mingbotian\appdata\local\programs\python\python37-32\lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "c:\users\mingbotian\appdata\local\programs\python\python37-32\lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "c:\users\mingbotian\appdata\local\programs\python\python37-32\lib\site-packages\rest_framework\decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+  File "c:\users\mingbotian\appdata\local\programs\python\python37-32\lib\site-packages\gerapy\server\core\views.py", line 513, in project_build
+    egg = find_egg(project_path)
+  File "c:\users\mingbotian\appdata\local\programs\python\python37-32\lib\site-packages\gerapy\server\core\build.py", line 89, in find_egg
+    items = os.listdir(path)
+FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'C:\\tmb\\GOOD-GOOD-STUDY\\python大法\\spider\\use_scrapy\\gerapy\\projects\\tutorial\\projects\\tutorial'
+INFO - 2022-05-24 22:52:52,273 - process: 26464 - build.py - gerapy.server.core.build - 24 - build - successfully build project tutorial to egg file C:\tmb\GOOD-GOOD-STUDY\python大法\spider\use_scrapy\gerapy\projects\tutorial\tutorial-1.0-py3.7.egg
