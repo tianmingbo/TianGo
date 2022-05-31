@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: scrapycompositedemo
+  namespace: crawler
+  labels:
+    app: scrapycompositedemo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: scrapycompositedemo
+  template:
+    metadata:
+      labels:
+        app: scrapycompositedemo
+    spec:
+      containers:
+        - env:
+            - name: ACCOUNTPOOL_URL
+              value: 'http://accountpool.crawler.svc.cluster.local:6777/antispider7/random'
+            - name: PROXYPOOL_URL
+              value: 'http://proxypool.crawler.svc.cluster.local:5555/random'
+            - name: REDIS_URL
+              value: 'redis://redis.crawler.svc.cluster.local:6379'
+          image: tianmingboo/scrapycompositedemo
+          name: scrapycompositedemo
+          resources:
+            limits:
+              memory: "500Mi"
+              cpu: "300m"
+            requests:
+              memory: "500Mi"
+              cpu: "300m"

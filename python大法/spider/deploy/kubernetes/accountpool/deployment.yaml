@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: accountpool
+  namespace: crawler
+  labels:
+    app: accountpool
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: accountpool
+  template:
+    metadata:
+      labels:
+        app: accountpool
+    spec:
+      containers:
+        - env:
+            - name: REDIS_HOST
+              value: 'redis.crawler.svc.cluster.local'
+            - name: REDIS_PORT
+              value: '6379'
+            - name: API_PORT
+              value: '6777'
+            - name: WEBSITE
+              value: antispider7
+          image: tianmingboo/accountpool
+          name: accountpool
+          resources:
+            limits:
+              memory: "500Mi"
+              cpu: "300m"
+            requests:
+              memory: "500Mi"
+              cpu: "300m"
+          ports:
+            - containerPort: 6777

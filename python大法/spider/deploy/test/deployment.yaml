@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: testserver
+  namespace: service
+  labels:
+    app: testserver
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: testserver
+  template:
+    metadata:
+      labels:
+        app: testserver
+    spec:
+      containers:
+        - name: testserver
+          image: tianmingboo/testserver
+          ports:
+            - containerPort: 80

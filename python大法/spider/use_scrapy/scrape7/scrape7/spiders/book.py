@@ -14,9 +14,9 @@ class BookSpider(Spider):
             yield Request(url, callback=self.parse_index)
 
     def parse_index(self, response):
-        # print(response.__dict__)
-        if response.status == 200:
-            data = json.loads(response.text)
-            results = data.get('results', [])
-            for result in results:
-                print(result.get('id'), '*' * 100)
+        print('666')
+        # if response.status == 200:
+        #     data = json.loads(response.text)
+        #     results = data.get('results', [])
+        #     for result in results:
+        #         print(result.get('id'), '*' * 100)

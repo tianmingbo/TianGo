@@ -52,8 +52,8 @@ CONCURRENT_REQUESTS = 10
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 DOWNLOADER_MIDDLEWARES = {
     # 'scrape7.middlewares.Scrape7DownloaderMiddleware': 543,
-    'scrape7.middlewares.AuthorizationMiddleware': 500,
-    'scrape7.middlewares.ProxyMiddleware': 501,
+    # 'scrape7.middlewares.AuthorizationMiddleware': 500,
+    # 'scrape7.middlewares.ProxyMiddleware': 501,
 }
 
 # Enable or disable extensions
@@ -98,3 +98,4 @@ SCHEDULER = "scrapy_redis.scheduler.Scheduler"  # 使用调度器
 DUPEFILTER_CLASS = "scrapy_redis_bloomfilter.dupefilter.RFPDupeFilter"  # 使用bloomfilter，避免占用大量内存
 REDIS_URL = 'redis://:123456@150.158.47.35:6379'
 BLOOMFILTER_BIT = 20  # 2**20 bit
+STATS_CLASS = "scrapy_redis.stats.RedisStatsCollector"  # 爬虫统计信息收集
