@@ -1,4 +1,4 @@
-package 面向对象.继承;
+package Object.jicheng;
 
 public class Override extends Bird {
     /**
@@ -8,8 +8,14 @@ public class Override extends Bird {
     public void fly() {
         System.out.println("do not fly");
     }
+
+    public void callOverrideMethod() {
+        super.fly();
+    }
+
     public static void main(String[] args) {
         var os = new Override();
         os.fly();
+        os.callOverrideMethod();
     }
 }

@@ -1,4 +1,4 @@
-package 面向对象;
+package Object;
 
 public class Person {
     public String name;

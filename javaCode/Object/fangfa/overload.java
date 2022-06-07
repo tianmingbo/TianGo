@@ -1,4 +1,4 @@
-package 面向对象.方法;
+package Object.fangfa;
 
 //方法重载，方法名可以重复，只要形参列表不同就行，就是方法重载
 public class overload {

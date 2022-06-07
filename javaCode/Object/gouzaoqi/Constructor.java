@@ -1,4 +1,4 @@
-package 面向对象.构造器;
+package Object.gouzaoqi;
 
 //构造器重载
 public class Constructor {

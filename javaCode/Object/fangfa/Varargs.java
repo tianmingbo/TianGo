@@ -1,6 +1,6 @@
-package 面向对象.方法;
+package Object.fangfa;
 
-import 面向对象.Person;
+import Object.Person;
 
 //参数可变
 public class Varargs {

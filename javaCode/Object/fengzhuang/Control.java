@@ -1,4 +1,4 @@
-package 面向对象.封装;
+package Object.fengzhuang;
 
 //使用public，protected，private修饰
 public class Control {
