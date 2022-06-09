@@ -8,3 +8,4 @@ target.mdgit commit
 /python大法/spider/spider_app/Airtest/*.apk
 /javaCode/.idea/
 /javaCode/out/
+/node_modules/

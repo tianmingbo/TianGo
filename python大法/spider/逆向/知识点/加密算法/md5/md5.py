@@ -13,7 +13,7 @@ def md5_test1():
 
 
 def md5sum():
-    with open('tmp.txt', 'rb', encoding='utf-8') as f:
+    with open('../tmp.txt', 'rb', encoding='utf-8') as f:
         file_md5 = hashlib.md5(f.read()).hexdigest()
     return file_md5
 
