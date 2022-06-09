@@ -10,6 +10,7 @@ public class Override extends Bird {
     }
 
     public void callOverrideMethod() {
+        //super不能出现在static修饰的方法中
         super.fly();
     }
 
