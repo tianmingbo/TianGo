@@ -3,6 +3,13 @@
 # @FileName: loader.py
 # @Description: rpc调用
 
+
+"""
+frida逆向三板斧
+1：Objection快速Hook定位，
+2：通过frida脚本进行关键函数的逻辑修改与主动调用
+3：frida脚本结合python对关键函数调用
+"""
 import frida
 
 
