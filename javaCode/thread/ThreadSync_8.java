@@ -2,7 +2,7 @@ package thread;
 
 import java.util.Objects;
 
-//线程同步
+//线程同步，代码块同步
 class Account {
     private String accountNo;
     private double balance;
