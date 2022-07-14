@@ -1,4 +1,4 @@
-package thread.ThreadCommunication;
+package thread.ThreadCommunication_10;
 
 //线程通信
 public class Account {
@@ -61,8 +61,8 @@ public class Account {
 
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o != null && o.getClass() == Account.class) {
-            var target = (Account) o;
+        if (o != null && o.getClass() == thread.ThreadCommunication_11.Account.class) {
+            var target = (thread.ThreadCommunication_11.Account) o;
             return target.getAccountNo().equals(accountNo);
         }
         return false;

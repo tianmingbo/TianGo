@@ -1,8 +1,8 @@
-package thread.ThreadCommunication;
+package thread.ThreadCommunication_11;
 
 //取款线程
 public class DrawThread extends Thread {
-    private final Account account;
+    private final thread.ThreadCommunication_11.Account account;
     private double drawAmount;
 
     public DrawThread(String name, Account account, double drawAmount) {

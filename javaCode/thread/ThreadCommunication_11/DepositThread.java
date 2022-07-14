@@ -1,7 +1,7 @@
-package thread.ThreadCommunication;
+package thread.ThreadCommunication_11;
 
 public class DepositThread extends Thread {
-    private Account account;
+    private thread.ThreadCommunication_11.Account account;
     private double depositAmount;
 
     public DepositThread(String name, Account account, double depositAmount) {
