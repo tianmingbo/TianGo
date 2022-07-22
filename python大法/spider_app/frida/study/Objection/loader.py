@@ -14,7 +14,7 @@ import frida
 
 
 def on_message(message, data):
-    if message['type'] == 'send':
+    if message['type'] == 'send':  # 接收js send发送的数据
         print("[*] {0}".format(message['payload']))
     else:
         print(message)
