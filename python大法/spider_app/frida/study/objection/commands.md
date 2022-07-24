@@ -12,3 +12,5 @@
 12. android heap execute \<HashCode> \<methodname> 执行实例方法
 13. android heap evaluate \<HashCode> 执行带参数的函数，需要先执行这个，然后在编译器中输入脚本
 14. android intent launch_activity com.example.junior.CalculatorActivity 启动活动
+15.  ./frida-server-15.1.17-android-arm64  -l 0.0.0.0:8888 设置服务端口
+16. objection -N -h 192.168.1.3 -p 8888  -g com.hello.qqc   explore -P  C:\Users\kkk\.objection\plugins   设置端口及添加插件
