@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
                         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                         connection.setRequestMethod("GET");
                         connection.setRequestProperty("token", "tian666");
-                        connection.setConnectTimeout(8000);
+                        connection.setConnectTimeout(8000); //设置请求头
                         connection.setReadTimeout(8000);
                         connection.connect(); // 开始连接
                         InputStream in = connection.getInputStream(); //获取服务器的输入流
