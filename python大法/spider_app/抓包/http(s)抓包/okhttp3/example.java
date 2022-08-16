@@ -18,6 +18,7 @@ public class example {
     void run(String url) throws IOException {
         Request request = new Request.Builder().url(url).header("token", "tian").build();
         //enqueue产生一次真实的网络请求.发起异步请求
+        // android hooking watch class_method okhttp3.OkHttpClient.newCall --dump-arg s --dump-backtrace --dump-return
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
