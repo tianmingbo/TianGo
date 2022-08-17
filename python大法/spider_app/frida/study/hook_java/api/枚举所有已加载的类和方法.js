@@ -1,6 +1,5 @@
 Java.perform(function () {
-    console.log(Java.enumerateClassLoadersSync().join('\n')); //枚举内存中的所有类
-
+    console.log(Java.enumerateLoadedClassesSync().join('\n')); //枚举内存中的所有类
     //枚举类的所有方法
     var wallet = Java.use("com.xjb.hook.Wallet");
     var methods = wallet.class.getDeclaredMethods(); //通过反射的方法获取方法名，return array
