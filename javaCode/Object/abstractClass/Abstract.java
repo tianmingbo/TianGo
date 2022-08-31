@@ -7,11 +7,12 @@ abstract class Shape {
 
     private String color;
 
-    //抽象方法
+    //抽象方法，没有方法体
     public abstract double calPerimeter();
 
     public abstract String getType();
 
+    //用来被子类调用
     public Shape() {
     }
 
