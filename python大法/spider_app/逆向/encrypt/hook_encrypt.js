@@ -80,4 +80,157 @@ Java.perform(function () {
         console.log("=====================================");
         return this.init(key);
     }
+
+    mac.doFinal.overload().implementation = function () {
+        console.log("mac.doFinal() is called");
+        var res = this.doFinal();
+        var algorithm = this.getAlgorithm(); //获取加密名
+        var tag = algorithm + " doFinal key";
+        toUtf8(tag, res);
+        toHex(tag, res);
+        toBase64(tag, res);
+        console.log("=====================================");
+        return res;
+    }
+
+    mac.doFinal.overload('[B').implementation = function (data) {
+        console.log("mac.doFinal('[B') is called");
+        return this.doFinal(data);
+    }
+
+    mac.doFinal.overload('[B', 'int').implementation = function (data, outOffset) {
+        console.log("mac.doFinal('[B', 'int') is called");
+        return this.doFinal(data, outOffset);
+    }
+
+    //AES DES hook, hook init 可以得到iv，密钥
+    var cipher = Java.use("javax.crypto.Cipher");
+
+
+    cipher.init.overload("int", "java.security.cert.Certificate").implementation = function () {
+        console.log('Cipher.init("int", "java.security.cert.Certificate") is called');
+        console.log('==================================================================')
+        return this.init.apply(this, arguments);
+    }
+
+    cipher.init.overload("int", "java.security.cert.Certificate", "java.security.SecureRandom").implementation = function () {
+        console.log('Cipher.init("int", "java.security.cert.Certificate", "java.security.SecureRandom") is called');
+        console.log('==================================================================')
+        return this.init.apply(this, arguments);
+    }
+
+    cipher.init.overload("int", "java.security.Key", "java.security.SecureRandom").implementation = function () {
+        console.log('Cipher.init("int", "java.security.Key","java.security.SecureRandom") is called');
+        console.log('==================================================================')
+        return this.init.apply(this, arguments);
+    }
+
+    cipher.init.overload("int", "java.security.Key", "java.security.spec.AlgorithmParameterSpec", "java.security.SecureRandom").implementation = function () {
+        console.log('Cipher.init("int", "java.security.Key",,"java.security.spec.AlgorithmParameterSpec","java.security.SecureRandom") is called');
+        console.log('==================================================================')
+        return this.init.apply(this, arguments);
+    }
+
+    cipher.init.overload("int", "java.security.Key", "java.security.AlgorithmParameters", "java.security.SecureRandom").implementation = function () {
+        console.log('Cipher.init("int", "java.security.Key","java.security.AlgorithmParameters","java.security.SecureRandom") is called');
+        console.log('==================================================================')
+        return this.init.apply(this, arguments);
+    }
+
+    cipher.init.overload("int", "java.security.Key").implementation = function () {
+        console.log('Cipher.init("int", "java.security.Key") is called');
+        showStacks()
+        var algorithm = this.getAlgorithm();
+        var tag = algorithm + " init key";
+        var keyBytes = arguments[1].getEncoded(); //获取密钥字节
+        toBase64(tag, keyBytes);
+        toHex(tag, keyBytes);
+        toUtf8(tag, keyBytes);
+        console.log('==================================================================')
+        return this.init.apply(this, arguments);
+    }
+
+    cipher.init.overload("int", "java.security.Key", "java.security.spec.AlgorithmParameterSpec",).implementation = function () {
+        console.log('Cipher.init("int", "java.security.Key","java.security.spec.AlgorithmParameterSpec") is called');
+        showStacks();
+        var algorithm = this.getAlgorithm();
+        var tag = algorithm + " init key";
+        var keyBytes = arguments[1].getEncoded(); //获取密钥字节
+        toBase64(tag, keyBytes);
+        toHex(tag, keyBytes);
+        toUtf8(tag, keyBytes);
+        var tags = algorithm + " init iv"
+        var iv = Java.cast(arguments[2], Java.use("javax.crypto.spec.IvParameterSpec"));//向下转型，因为接收的是AlgorithmParameterSpec类
+        var ivByte = iv.getIV(); //获取iv byte
+        toUtf8(tags, ivByte);
+        toBase64(tags, ivByte);
+        toHex(tags, ivByte);
+        console.log('==================================================================')
+        return this.init.apply(this, arguments);
+    }
+
+    cipher.doFinal.overload().implementation = function () {
+        console.log('Cipher.doFinal() is called');
+        console.log('==================================================================')
+        return this.doFinal.apply(this, arguments);
+    }
+
+    cipher.doFinal.overload("[B").implementation = function () {
+        console.log('Cipher.doFinal("[B") is called');
+        showStacks();
+        var algorithm = this.getAlgorithm();
+        var tag = algorithm + " doFinal data";
+        var data = arguments[0];
+        toHex(tag, data);
+        toBase64(tag, data);
+        toUtf8(tag, data);
+        var res = this.doFinal.apply(this, arguments);
+        var tags = algorithm + "doFinal res"
+        toHex(tags, res);
+        toBase64(tags, res);
+        toUtf8(tags, res);
+        console.log('==================================================================')
+        return res;
+    }
+
+    cipher.doFinal.overload("[B", "int").implementation = function () {
+        console.log('Cipher.doFinal("[B", "int") is called');
+        console.log('==================================================================')
+        return this.doFinal.apply(this, arguments);
+    }
+
+    cipher.doFinal.overload("[B", "int", "int").implementation = function () {
+        showStacks();
+        var algorithm = this.getAlgorithm();
+        var tag = algorithm + " doFinal data";
+        var data = arguments[0]; //加密的明文
+        toHex(tag, data);
+        toBase64(tag, data);
+        toUtf8(tag, data);
+        var res = this.doFinal.apply(this, arguments); //结果
+        var tags = algorithm + "doFinal res"
+        toHex(tags, res);
+        toBase64(tags, res);
+        toUtf8(tags, res);
+        console.log('==================================================================', arguments[1], arguments[2])
+        return res;
+    }
+
+    cipher.doFinal.overload("[B", "int", "int", "[B").implementation = function () {
+        console.log('Cipher.doFinal("[B", "int", "int", "[B") is called');
+        console.log('==================================================================')
+        return this.doFinal.apply(this, arguments);
+    }
+
+    cipher.doFinal.overload("[B", "int", "int", "[B", "int").implementation = function () {
+        console.log('Cipher.doFinal("[B", "int", "int", "[B", "int") is called');
+        console.log('==================================================================')
+        return this.doFinal.apply(this, arguments);
+    }
+
+    cipher.doFinal.overload("java.nio.ByteBuffer", "java.nio.ByteBuffer").implementation = function () {
+        console.log('Cipher.doFinal("java.nio.ByteBuffer", "java.nio.ByteBuffer") is called');
+        console.log('==================================================================')
+        return this.doFinal.apply(this, arguments);
+    }
 })
