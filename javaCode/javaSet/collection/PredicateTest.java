@@ -10,7 +10,7 @@ public class PredicateTest {
         books.add("js");
         books.add("android");
         //removeI方法的类型是Predicate
-        books.removeIf(ele -> ((String) ele).length() < 10);
+        books.removeIf(ele -> ((String) ele).length() < 5);
         System.out.println(books);
     }
 }
