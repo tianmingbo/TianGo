@@ -2,9 +2,8 @@ package javaSet.map;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.util.HashMap;
-import java.util.Properties;
-import java.util.TreeMap;
+import java.util.*;
+import java.util.Map.Entry;
 
 public class mapDemo {
     //字典实现
@@ -13,14 +12,21 @@ public class mapDemo {
         map.put("age", "18");
         map.put("name", "tian");
         map.put("hobby", "game");
-        System.out.println(map);
-        System.out.println(map.put("name", "dali")); //更新name的value，会返回原来的value
-        System.out.println(map.containsKey("age"));
-        System.out.println(map.keySet());//所有key
-        System.out.println(map.values()); //所有value
+//        System.out.println(map);
+//        System.out.println(map.put("name", "dali")); //更新name的value，会返回原来的value
+//        System.out.println(map.containsKey("age"));
+//        System.out.println(map.keySet());//所有key
+//        System.out.println(map.values()); //所有value
         for (var key : map.keySet()) {
             System.out.println(key);
             System.out.println(map.get(key));
+        }
+        Set<Entry<String, String>> entryseSet = map.entrySet();  //遍历
+
+        for (Entry entry : entryseSet) {
+
+            System.out.println(entry.getKey() + "," + entry.getValue());
+
         }
         map.forEach((k, v) -> System.out.println((String) k + (String) v));
     }
@@ -47,8 +53,8 @@ public class mapDemo {
     }
 
     public static void main(String[] args) throws Exception {
-//        mapDemo.hashMap();
+        mapDemo.hashMap();
 //        mapDemo.properties();
-        mapDemo.treeMap();
+//        mapDemo.treeMap();
     }
 }
