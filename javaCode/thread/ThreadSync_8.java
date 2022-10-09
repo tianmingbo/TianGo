@@ -2,7 +2,7 @@ package thread;
 
 import java.util.Objects;
 
-//线程同步，代码块同步
+//线程同步，代码块同步  synchronized(obj){}   同步监视器
 class Account {
     private String accountNo;
     private double balance;

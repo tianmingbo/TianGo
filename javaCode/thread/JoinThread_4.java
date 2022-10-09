@@ -19,7 +19,7 @@ public class JoinThread_4 extends Thread {
             if (i == 5) {
                 var jt = new JoinThread_4("join thread");
                 jt.start();
-                jt.join();
+                jt.join(); //阻塞主线程
             }
             System.out.println(Thread.currentThread().getName() + " " + i);
         }
