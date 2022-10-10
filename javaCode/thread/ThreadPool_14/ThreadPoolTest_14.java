@@ -6,6 +6,7 @@ import java.util.concurrent.Executors;
 public class ThreadPoolTest_14 {
     public static void main(String[] args) {
         ExecutorService pool = Executors.newFixedThreadPool(5); //创建线程池
+        //创建runnable对象
         Runnable target = () -> {
             for (var i = 0; i < 100; i++) {
                 System.out.println(Thread.currentThread().getName() + " i value: " + i);

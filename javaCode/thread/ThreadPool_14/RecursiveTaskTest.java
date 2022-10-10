@@ -30,7 +30,7 @@ class CalTask extends RecursiveTask<Integer> {
             var right = new CalTask(arr, mid, end);
             left.fork();
             right.fork();
-            return left.join() + right.join();
+            return left.join() + right.join(); //返回值进行拼接
         }
     }
 }

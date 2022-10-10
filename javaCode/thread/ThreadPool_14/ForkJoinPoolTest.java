@@ -5,6 +5,7 @@ import java.util.concurrent.RecursiveAction;
 import java.util.concurrent.TimeUnit;
 
 //使用forkjoinPool利用多核
+//RecursiveAction 没有返回值
 class PrintTask extends RecursiveAction {
     private static final int Threshold = 50;
     private int start;
