@@ -1,3 +1,5 @@
+// frida -UF -l .\hook.js -o log.txt
+
 function print_arg(addr) {
     var module = Process.findRangeByAddress(addr);
     if (module != null) return hexdump(addr) + "\n";
@@ -29,6 +31,6 @@ var soAddr = Module.findBaseAddress("libwtf.so");
 var MD5Digest = soAddr.add(0xC90 + 1);
 hook_native_addr(MD5Digest, 3);
 
-var get32MD5String = soAddr.add(0x8BC + 1);
+var get32MD5String = soAddr.add(0x8BC + 1); //32位+1
 hook_native_addr(get32MD5String, 2);
 
