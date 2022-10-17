@@ -9,10 +9,10 @@ import java.net.DatagramSocket;
 public class ServerDemo2 {
     public static void main(String[] args) throws Exception {
         System.out.println("=====服务端启动======");
-        // 1、创建接收端对象：注册端口（人）
+        // 1、创建接收端对象：注册端口
         DatagramSocket socket = new DatagramSocket(8888);
 
-        // 2、创建一个数据包对象接收数据（韭菜盘子）
+        // 2、创建一个数据包对象接收数据
         byte[] buffer = new byte[1024 * 64];
         DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
 

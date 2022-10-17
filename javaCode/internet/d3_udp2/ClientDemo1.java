@@ -12,9 +12,8 @@ public class ClientDemo1 {
     public static void main(String[] args) throws Exception {
         System.out.println("=====客户端启动======");
 
-        // 1、创建发送端对象：发送端自带默认的端口号（人）
+        // 1、创建发送端对象：发送端自带默认的端口号
         DatagramSocket socket = new DatagramSocket(7777);
-        
 
         Scanner sc = new Scanner(System.in);
         while (true) {
@@ -27,7 +26,7 @@ public class ClientDemo1 {
                 break;
             }
 
-            // 2、创建一个数据包对象封装数据（韭菜盘子）
+            // 2、创建一个数据包对象封装数据
             byte[] buffer = msg.getBytes();
             DatagramPacket packet = new DatagramPacket( buffer, buffer.length,
                     InetAddress.getLocalHost() , 8888);
