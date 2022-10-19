@@ -24,7 +24,7 @@ public class ClientDemo1 {
             PrintStream ps = new PrintStream(os);
 
             // 4、发送消息
-            ps.println("我是TCP的客户端，我已经与你对接，并发出邀请：约吗？");
+            ps.println("i am client");
             ps.flush();
 
             // 关闭资源。

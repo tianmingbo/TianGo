@@ -6,10 +6,10 @@ import java.net.Socket;
 import java.util.Scanner;
 
 /**
-    拓展：即时通信
-
-    客户端：发消息的同时，随时有人发消息过来。
-    服务端：接收消息后，推送给其他所有的在线socket
+ * 拓展：即时通信
+ * <p>
+ * 客户端：发消息的同时，随时有人发消息过来。
+ * 服务端：接收消息后，推送给其他所有的在线socket
  */
 public class ClientDemo1 {
     public static void main(String[] args) {
@@ -30,7 +30,7 @@ public class ClientDemo1 {
             // 3、把低级的字节流包装成打印流
             PrintStream ps = new PrintStream(os);
 
-            Scanner sc =  new Scanner(System.in);
+            Scanner sc = new Scanner(System.in);
             while (true) {
                 System.out.println("请说：");
                 String msg = sc.nextLine();
