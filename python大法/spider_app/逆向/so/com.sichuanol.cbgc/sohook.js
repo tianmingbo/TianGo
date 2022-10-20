@@ -1,4 +1,4 @@
-// frida -UF -l .\hook.js -o log.txt
+// frida -UF -l .\hook jni.js -o log.txt
 
 function print_arg(addr) {
     var module = Process.findRangeByAddress(addr);
