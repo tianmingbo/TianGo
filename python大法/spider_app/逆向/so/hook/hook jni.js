@@ -4,7 +4,7 @@ function hook_jni() {
     var newStringUtf = null;
     for (let i = 0; i < symbols.length; i++) {
         var symbol = symbols[i];
-        if(symbol.name.indexOf("CheckJNI") === -1 && symbol.name.indexOf("NewStringUTF") !== -1){
+        if (symbol.name.indexOf("CheckJNI") === -1 && symbol.name.indexOf("NewStringUTF") !== -1) {
             console.log(symbol.name, symbol.address);
             newStringUtf = symbol.address;
         }
@@ -19,6 +19,7 @@ function hook_jni() {
 }
 
 function hook_jni2() {
+    //计算地址方式，不常用
     var envAddr = Java.vm.tryGetEnv().handle.readPointer();
     var funAddr = envAddr.add(48).readPointer();
     //console.log(Instruction.parse(funAddr).toString());
