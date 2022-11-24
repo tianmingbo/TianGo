@@ -59,7 +59,9 @@
 
     }
 
+    //得到上下文
     function getCodeLocation() {
+        //打印堆栈，主动触发报错
         const callstack = new Error().stack.split("\n");
         while (callstack.length > 0 && callstack[0].indexOf("cc11001100") === -1) {
             callstack.shift();

@@ -19,6 +19,7 @@ const injectSuccessJsFileCache = new Map();
 
 const disableCache = false;
 
+//初始化,读缓存
 (function initInjectSuccessJsFileCache() {
     ensureDirectoryExists(injectSuccessJsFileCacheDirectory);
     if (!exists(injectSuccessJsFileCacheMetaFile)) {
@@ -74,14 +75,14 @@ function isHtmlResponse(responseDetail) {
 
 // HTML中可能会夹带script标签，里面的JS代码也要能Hook到
 function processHtmlResponse(requestDetail, responseDetail) {
-    // 使用了这个库来解析HTML  https://github.com/chishui/JSSoup
-    // 上面那个库有bug，替换为这个库： https://github.com/cheeriojs/cheerio/
+    // https://github.com/cheeriojs/cheerio/
 
     // 对所有的内嵌JavaScript内容注入Hook
     const url = requestDetail.url;
     const body = responseDetail.response.body.toString();
 
     if (!body.length) {
+        //为空
         return;
     }
 
@@ -105,7 +106,7 @@ function processHtmlResponse(requestDetail, responseDetail) {
 
         // script的内容
         let jsCode = "";
-        for(let child of script.children) {
+        for (let child of script.children) {
             jsCode += child.data;
         }
         if (!jsCode) {
@@ -118,7 +119,7 @@ function processHtmlResponse(requestDetail, responseDetail) {
             newJsCode = loadPluginsAsStringWithCache() + newJsCode;
             alreadyInjectHookContext = true;
         }
-
+        //替换原来的script,指定script标签
         const newScript = cheerio.load("<script>" + newJsCode + "</script>")("script");
         newScript.attribs = script.attribs;
         $(script).replaceWith(newScript);

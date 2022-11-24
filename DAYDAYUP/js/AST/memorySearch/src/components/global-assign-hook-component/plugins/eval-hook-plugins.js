@@ -4,7 +4,7 @@
     const enableEvalHookLog = true;
 
     // 用eval执行的代码也要能够注入，我擦开个接口吧...
-    const evalHolder = window.eval;
+    const evalHolder = window.eval; //接管evel
     window.eval = function (jsCode) {
 
         if (enableEvalHookLog) {
@@ -18,7 +18,7 @@
             newJsCode = decodeURIComponent(xhr.responseText);
         });
         // 必须同步执行，否则无法返回结果
-        xhr.open("POST", "http://127.0.0.1:10010/hook-js-code", false);
+        xhr.open("POST", "http://127.0.0.1:10010/hook-js-code", false); //AST处理evel代码
         xhr.send(encodeURIComponent(jsCode));
         arguments[0] = newJsCode;
         return evalHolder.apply(this, arguments);
