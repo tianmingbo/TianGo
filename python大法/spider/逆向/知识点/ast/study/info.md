@@ -15,3 +15,5 @@
 10. Literal 字面量（本身语义就代表一个值的字面量）
 11. RegExpLiteral 正则字面量
 12. Programs 根节点 代表了一个完整的程序
+13. FunctionDeclaration 函数声明
+14. AssignmentExpression 复制表达式

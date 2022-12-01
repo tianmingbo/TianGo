@@ -23,7 +23,6 @@ const updateNode = {
     // console.log(path);
     path.stop(); //停止遍历
   }, ReturnStatement(path) {
-    console.log('???')
     path.replaceWithMultiple([t.returnStatement()]);
     path.replaceWithSourceString("x+b+1000") //源码替换
     path.stop();
@@ -47,6 +46,13 @@ const visitor = {
   },
   EmptyStatement(path) {
     path.remove();//删除节点
+  },
+  ReturnStatement(path) {
+    console.log(path.listKey) //容器名
+    console.log(path.key) //容器索引
+    console.log(path.container) //容器
+    console.log(path.getSibling(path.key + 1)) //获取同级容器
+
   }
 }
 
