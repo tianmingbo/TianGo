@@ -3,7 +3,7 @@
 2. https://juejin.cn/post/6875970383447588871#heading-22 节点含义
 
 ## type
-1. MemberExpression 成员表达式 console['log']
+1. MemberExpression 成员表达式 console['log'] 或console.log
 2. Identifier 标识符 如变量名，函数名，属性名，都归为标识符
 3. ObjectExpression 对象表达式
 4. VariableDeclaration 变量声明语句 var
@@ -21,3 +21,4 @@
 16. ArrayExpression 数组表达式 [1,2]
 17. CallExpression 调用表达式 atob()
 18. ExpressionStatement 表达式语句
+19. BlockStatement 块语句
