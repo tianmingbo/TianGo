@@ -42,6 +42,7 @@ let ast = parser.parse(jsCode);
 traverse(ast, {
   FunctionExpression(path) {
     let blockStatement = path.node.body;
+    //获取行数及对应的字符串
     let statements = blockStatement.body.map(function (v, i) {
       return {index: i, value: v};
     });
@@ -53,7 +54,9 @@ traverse(ast, {
     let dispenserArr = [];
     let cases = [];
     statements.map(function (v, i) {
+      //记录执行顺序
       dispenserArr[v.index] = i;
+      //打乱顺序
       let switchCase = t.switchCase(t.numericLiteral(i), [v.value, t.continueStatement()]);
       cases.push(switchCase);
     });
@@ -61,17 +64,23 @@ traverse(ast, {
     let array = path.scope.generateUidIdentifier('array');
     let index = path.scope.generateUidIdentifier('index');
     let callee = t.memberExpression(t.stringLiteral(dispenserStr), t.identifier('split'));
+    //拼装split
     let arrayInit = t.callExpression(callee, [t.stringLiteral('|')]);
+    //_array
     let varArray = t.variableDeclarator(array, arrayInit);
+    //_index
     let varIndex = t.variableDeclarator(index, t.numericLiteral(0));
+    //let
     let dispenser = t.variableDeclaration('let', [varArray, varIndex]);
+    //拼装switch (+_array[_index++])
     let uptExp = t.updateExpression('++', index);
     let memExp = t.memberExpression(array, uptExp, true);
     let discriminant = t.unaryExpression('+', memExp);
     let switchSta = t.switchStatement(discriminant, cases);
+    //拼装while (!![])
     let unaExp = t.unaryExpression('!', t.arrayExpression());
     unaExp = t.unaryExpression('!', unaExp);
-    let whileSta = t.whileStatement(unaExp, t.blockStatement([switchSta, t.blockStatement()]))
+    let whileSta = t.whileStatement(unaExp, t.blockStatement([switchSta, t.breakStatement()]))
     path.get('body').replaceWith(t.blockStatement([dispenser, whileSta]));
   }
 })
