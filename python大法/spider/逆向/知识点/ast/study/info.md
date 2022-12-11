@@ -24,3 +24,4 @@
 17. CallExpression 调用表达式 atob()
 18. ExpressionStatement 表达式语句 a=a+1
 19. BlockStatement 块语句
+20. SequenceExpression 逗号表达式  ,

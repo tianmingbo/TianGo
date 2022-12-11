@@ -56,7 +56,10 @@ traverse(ast, {
           v.init && statements.push(t.assignmentExpression('=', v.id, v.init))
         })
       }
-    })
+    });
+    /*
+    * 未理解
+    * */
   }
 })
 let code = generator(ast).code;
