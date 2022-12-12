@@ -1,37 +1,48 @@
+const parser = require("@babel/parser");
+const traverse = require("@babel/traverse").default;
+const t = require("@babel/types");
+const generator = require("@babel/generator").default;
 const fs = require('fs');
-const parser = require('@babel/parser');
-const generator = require('@babel/generator').default;
-const t = require('@babel/types');
-const traverse = require('@babel/traverse').default;
 
+const jscode = fs.readFileSync("./test.js", {
+  encoding: "utf-8"
+});
 
-const jsCode = fs.readFileSync('./test2.js', {encoding: 'utf-8'})
+let ast = parser.parse(jscode);
 
-let ast = parser.parse(jsCode);
-
-//得到解密函数所在节点
+//拿到解密函数所在节点
 let stringDecryptFuncAst = ast.program.body[2];
-//得到字符串解密函数的名字
-let decryptFuncName = ast.program.body[3].declarations[0].id.name;
-
+//拿到解密函数的名字
+let DecryptFuncName = stringDecryptFuncAst.declarations[0].id.name;
+//新建一个 AST，把原代码中的前三部分，加入到 body 节点中
 let newAst = parser.parse('');
+newAst.program.body.push(ast.program.body[0]);
 newAst.program.body.push(ast.program.body[1]);
-newAst.program.body.push(ast.program.body[2]);
-//添加字符串解密函数
-newAst.program.body.push(ast.program.body[3]);
 newAst.program.body.push(stringDecryptFuncAst);
-//生成时不能格式化代码，因为有格式化检测
+//把这三部分的代码转为字符串，由于存在格式化检测，需要指定选项，来压缩代码
 let stringDecryptFunc = generator(newAst, {compact: true}).code;
+//将字符串形式的代码执行，这样就可以在 nodejs 中运行解密函数了
 eval(stringDecryptFunc);
 
-//字符串解密
 traverse(ast, {
-  CallExpression(path) {
-    if (path.node.callee.name === decryptFuncName) {
-      console.log(generator(path.node).code)
-      console.log(eval(generator(path.node).code + ''))
+  //遍历所有变量
+  VariableDeclarator(path) {
+    //当变量名与解密函数名相同时，就执行相应操作
+    if (path.node.id.name === DecryptFuncName) {
+      let binding = path.scope.getBinding(DecryptFuncName);
+      binding && binding.referencePaths.map(function (v) {
+        v.parentPath.isCallExpression() &&
+        v.parentPath.replaceWith(t.stringLiteral(eval(v.parentPath + '')));
+
+      });
     }
   }
-})
-fs.writeFile('./ressss.js', stringDecryptFunc, (err) => {
+});
+
+ast.program.body.shift();
+ast.program.body.shift();
+ast.program.body.shift();
+
+let code = generator(ast).code;
+fs.writeFile('./res.js', code, (err) => {
 });
