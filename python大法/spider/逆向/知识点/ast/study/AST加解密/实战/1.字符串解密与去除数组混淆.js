@@ -10,6 +10,8 @@ const jscode = fs.readFileSync("./test.js", {
 
 let ast = parser.parse(jscode);
 
+///////////去除数组混淆
+
 //拿到解密函数所在节点
 let stringDecryptFuncAst = ast.program.body[2];
 //拿到解密函数的名字
@@ -25,6 +27,7 @@ let stringDecryptFunc = generator(newAst, {compact: true}).code;
 eval(stringDecryptFunc);
 
 traverse(ast, {
+  //////字符串解密
   //遍历所有变量
   VariableDeclarator(path) {
     //当变量名与解密函数名相同时，就执行相应操作
