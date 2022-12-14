@@ -87,6 +87,5 @@ traverse(ast, {
 });
 
 let code = generator(ast).code;
-console.log(code)
-// fs.writeFile('./res2.js', code, (err) => {
-// });
+fs.writeFile('./res2.js', code, (err) => {
+});
