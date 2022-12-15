@@ -4,7 +4,7 @@ const t = require("@babel/types");
 const generator = require("@babel/generator").default;
 const fs = require('fs');
 
-const jscode = fs.readFileSync("./test.js", {
+const jscode = fs.readFileSync("./res0.js", {
   encoding: "utf-8"
 });
 
@@ -47,5 +47,5 @@ ast.program.body.shift();
 ast.program.body.shift();
 
 let code = generator(ast).code;
-fs.writeFile('./res.js', code, (err) => {
+fs.writeFile('./res1.js', code, (err) => {
 });
