@@ -17,5 +17,5 @@ def add(x, y):
 
 
 if __name__ == '__main__':
-    add = logger(add) #同@logger ，实际作用是 addf=inner 函数
+    add = logger(add)  # 同@logger ，实际作用是 addf=inner 函数
     add(1, 2)

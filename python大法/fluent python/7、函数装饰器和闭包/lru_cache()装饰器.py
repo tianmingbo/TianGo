@@ -5,8 +5,8 @@ import functools
 from 装饰器 import clock
 
 
-@functools.lru_cache()  # ➊
-@clock  # ➋
+@functools.lru_cache()
+@clock
 def fibonacci(n):
     if n < 2:
         return n
