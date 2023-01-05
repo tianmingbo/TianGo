@@ -15,7 +15,16 @@ headers = {
 
 class KuGou:
     def __init__(self):
-        pass
+        self.session = requests.Session()
+        self.key_params = self.get_key_params()
+
+    def fetch(self, url, data=None, **kwargs):
+        if data:
+            kwargs['data'] = data
+            func = self.session.post
+        else:
+            func = self.session.get
+        return func(url, **kwargs)
 
     @staticmethod
     def read_file(path):
@@ -23,27 +32,28 @@ class KuGou:
         with open(path, "r", encoding="utf-8") as f:
             return node.compile(f.read())
 
-    def get_mid(self):
-        ctx = self.read_file('./kg_mid.js')
-        return ctx.call('getMid')
+    def get_key_params(self):
+        ctx = self.read_file('kg_mid_dfid.js')
+        return ctx.call('getUrlDfid')
+
+    def get_dfid(self):
+        print(self.key_params['register_url'], self.key_params['fingerPrint'])
+        dfid = self.fetch(self.key_params['register_url'], data=self.key_params['fingerPrint'], headers=headers)
+        return dfid.json()['data']['dfid']
 
 
 song_par = re.compile('"play_url":"(.*?)","au', re.I | re.M)
-# hash_pat = re.compile('"Hash":"(.*?)".*?"album_id":(.*?),"encrypt_id', re.I | re.M)
-# index_url = requests.get('https://www.kugou.com/yy/html/rank.html', headers=headers)
-# hashs = re.findall(hash_pat, index_url.text)
-# print(hashs)
 
 if __name__ == '__main__':
     kugou = KuGou()
+
     url = 'https://wwwapi.kugou.com/yy/index.php'
-    # url = 'https://wwwapi.kugou.com/yy/index.php?r=play/getdata&callback=jQuery191049889224078365313_1672839068389&dfid=2mSjyM2i31kI0j5orH1ipSln&appid=1014&mid=938333539676f5768374176fe3f69cfa&platid=4&encode_album_audio_id=7qmtwabe&_=1672839068390'
     param = {
         'r': 'play/getdata',
         'callback': 'jQuery191049889224078365313_1672839068389',
-        'dfid': '2mSjyM2i31kI0j5orH1ipSln',
+        'dfid': kugou.get_dfid(),
         'appid': '1014',
-        'mid': kugou.get_mid(),
+        'mid': kugou.key_params['kg_mid'],
         'platid': '4',
         'encode_album_audio_id': '7qmtwabe',
         '_': '1672839068390'
