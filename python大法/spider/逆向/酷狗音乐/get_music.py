@@ -2,6 +2,7 @@ import os
 import re
 import execjs
 import requests
+from lxml.html import etree
 
 """
 获取音乐
@@ -14,9 +15,13 @@ headers = {
 
 
 class KuGou:
+    dfid = ''
+    song_parse = re.compile('"play_url":"(.*?)","au', re.I | re.M)
+
     def __init__(self):
         self.session = requests.Session()
         self.key_params = self.get_key_params()
+        self.dfid = self.get_dfid()  # 注册设备
 
     def fetch(self, url, data=None, **kwargs):
         if data:
@@ -33,39 +38,52 @@ class KuGou:
             return node.compile(f.read())
 
     def get_key_params(self):
+        """
+        获取mid，以及请求获取dfid的url和设备指纹
+        :return:
+        """
         ctx = self.read_file('kg_mid_dfid.js')
         return ctx.call('getUrlDfid')
 
     def get_dfid(self):
-        print(self.key_params['register_url'], self.key_params['fingerPrint'])
         dfid = self.fetch(self.key_params['register_url'], data=self.key_params['fingerPrint'], headers=headers)
         return dfid.json()['data']['dfid']
 
+    def get_rank_song(self):
+        url = 'https://www.kugou.com/yy/html/rank.html'
+        html = self.fetch(url, headers=headers)
+        song_id_list, title_list = self.parse_rank_song(html.text)
+        for index in range(len(song_id_list)):
+            url = 'https://wwwapi.kugou.com/yy/index.php'
+            param = {
+                'r': 'play/getdata',
+                'callback': 'jQuery191049889224078365313_1672839068389',
+                'dfid': self.dfid,
+                'appid': '1014',
+                'mid': self.key_params['kg_mid'],
+                'platid': '4',
+                'encode_album_audio_id': song_id_list[index],
+                '_': '1672839068390'
+            }
+            song = requests.get(url, headers=headers, params=param)
+            for i in re.findall(self.song_parse, song.text):
+                song_play_url = i.replace('\/', '/')
 
-song_par = re.compile('"play_url":"(.*?)","au', re.I | re.M)
+            if not os.path.exists('./song'):
+                os.mkdir('./song')
+
+            with open(f'./song/{title_list[index]}.mp3', 'wb') as f:
+                f.write(requests.get(song_play_url).content)
+
+    @staticmethod
+    def parse_rank_song(content):
+        obj = etree.HTML(content)
+        href_list = obj.xpath('//a[@data-active="playDwn"]/@href')
+        title_list = obj.xpath('//a[@data-active="playDwn"]/@title')
+        song_id_list = [re.search('mixsong/([0-9,a-z]{7,8})', i).group(1) for i in href_list]
+        return song_id_list, title_list
+
 
 if __name__ == '__main__':
     kugou = KuGou()
-
-    url = 'https://wwwapi.kugou.com/yy/index.php'
-    param = {
-        'r': 'play/getdata',
-        'callback': 'jQuery191049889224078365313_1672839068389',
-        'dfid': kugou.get_dfid(),
-        'appid': '1014',
-        'mid': kugou.key_params['kg_mid'],
-        'platid': '4',
-        'encode_album_audio_id': '7qmtwabe',
-        '_': '1672839068390'
-    }
-    song = requests.get(url, headers=headers, params=param)
-    print(song.text)
-    for i in re.findall(song_par, song.text):
-        song_play_url = i.replace('\/', '/')
-        print(song_play_url)
-
-    if not os.path.exists('./song'):
-        os.mkdir('./song')
-
-    with open('./song/{}'.format(song_play_url[-10:]), 'wb') as f:
-        f.write(requests.get(song_play_url).content)
+    kugou.get_rank_song()
