@@ -2,7 +2,6 @@
 # @Time    : 2020/12/23 16:59
 # @Author  : tmb
 import re
-import reprlib
 
 RE_WORD = re.compile('\w+')
 

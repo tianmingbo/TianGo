@@ -33,9 +33,8 @@ def gen_AB():
 
 
 if __name__ == '__main__':
-    # obj = Sentence('tian is a good man!')
-    # print(obj)
-    # for i in obj:
-    #     print(i)
+    obj = Sentence('tian is a good man!')
+    for i in obj:
+        print(i)
     for i in gen_AB():
         print(i)
