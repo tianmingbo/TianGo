@@ -111,7 +111,7 @@ class User(BaseModel):
 
 
 if __name__ == "__main__":
-    user = User(name="bobby", age=28)
-    # user.name = "bobby"
+    user = User(name="dali", age=28)
+    # user.name = "dali"
     # user.age = 28
     user.save()
