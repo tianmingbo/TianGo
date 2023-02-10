@@ -23,6 +23,7 @@ def get_page_info():
         time.sleep(0.5)
         query_string = urllib.parse.urlencode(params)
         res = requests.get(url + query_string, headers={'User-Agent': 'yuanrenxue.project'}).json()
+        print(res)
         for val in res['data']:
             count += 1
             sum_price += val['value']
