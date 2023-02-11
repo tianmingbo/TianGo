@@ -17,7 +17,7 @@ try:
 except StopIteration as _e:
     _r = _e.value   # 如果抛出了`StopIteration`异常，那么就将异常对象的`value`属性保存到_r，这是最简单的情况的返回值；
 else:
-    while 1:    # 尝试执行这个循环，委托生成器会阻塞；
+    while 1:    # 尝试执行这个循环，委托生成器会阻塞；只作为调用方和子生成器之间的通道
         _s = yield _y   # 生产子生成器的值，等待调用方`send()`值，发送过来的值将保存在_s中；
         try:
             _y = _i.send(_s)    # 转发_s，并且尝试向下执行；

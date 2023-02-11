@@ -1,4 +1,7 @@
 # python3.3新加了yield from语法
+"""
+yield from 语法使用
+"""
 from itertools import chain
 
 my_list = [1, 2, 3]
