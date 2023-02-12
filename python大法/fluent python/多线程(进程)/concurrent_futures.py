@@ -1,9 +1,10 @@
+"""
+future：
+future封装待完成的操作，可以放入队列，完成的状态可以查询，得到结果后（或抛出异常）可以查看结果（异常）。
+未来对象，task的返回容器
+"""
 from concurrent.futures import ThreadPoolExecutor, as_completed, wait, FIRST_COMPLETED
 from concurrent.futures import Future
-from multiprocessing import Pool
-
-# 未来对象，task的返回容器
-
 
 # 线程池， 为什么要线程池
 # 主线程中可以获取某一个线程的状态或者某一个任务的状态，以及返回值
@@ -26,10 +27,10 @@ executor = ThreadPoolExecutor(max_workers=2)
 
 # 要获取已经成功的task的返回
 urls = [3, 2, 4]
-all_task = [executor.submit(get_html, (url)) for url in urls]
+all_task = [executor.submit(get_html, (url)) for url in urls]  # 为传入的可调用对象get_html排期，并返回一个future
 # wait(all_task, return_when=FIRST_COMPLETED)
 # print("main")
-for future in as_completed(all_task):
+for future in as_completed(all_task):  # as_completed 参数是一个future列表,返回值是一个迭代器
     data = future.result()
     print("get {} page".format(data))
 # 通过executor的map获取已经完成的task的值
