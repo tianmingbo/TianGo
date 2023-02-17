@@ -4,7 +4,7 @@ import socket
 from urllib.parse import urlparse
 from selectors import DefaultSelector, EVENT_READ, EVENT_WRITE
 
-selector = DefaultSelector()
+selector = DefaultSelector()  # 自动选择select|epoll
 
 urls = []
 stop = False
@@ -26,7 +26,7 @@ class Fetcher:
         if d:
             self.data += d
         else:
-            selector.unregister(key.fd)
+            selector.unregister(key.fd)  # 取消注册，数据已读取完成
             data = self.data.decode("utf8")
             html_data = data.split("\r\n\r\n")[1]
             print(html_data)
@@ -55,7 +55,7 @@ class Fetcher:
             pass
 
         # 注册 self.client.fileno()->socket句柄
-        selector.register(self.client.fileno(), EVENT_WRITE, self.connected)
+        selector.register(self.client.fileno(), EVENT_WRITE, self.connected)  # self.client.fileno()文件描述符
 
 
 def loop():
