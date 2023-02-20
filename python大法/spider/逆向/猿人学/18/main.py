@@ -1,13 +1,10 @@
+import subprocess
 import time
 import requests
-import execjs
 
 sum_num = 0
 
 session = requests.session()
-node = execjs.get()
-with open('webpack1.js', 'r', encoding='utf-8') as f:
-    ctx = node.compile(f.read())
 
 
 def login():
@@ -21,14 +18,16 @@ def login():
 
 def get_page_info():
     global sum_num
-    url = 'https://match.yuanrenxue.com/api/match/16?'
+    url = 'https://match.yuanrenxue.com/match/18data?'
     for i in range(1, 6):
-        t = str(int(time.time() * 1000))
-        params = {
-            'm': ctx.call('getM', t),
-            'page': i,
-            't': t
-        }
+        t = str(int(time.time()))
+        p = subprocess.Popen(['/usr/local/bin/node', './jsvmp.js', t, str(i)], stdout=subprocess.PIPE)
+        v = p.stdout.read().decode('UTF-8').replace('\n', '')
+        params = {'page': i}
+        if i != 1:
+            params['v'] = v
+            params['t'] = t
+        print(params)
         res = session.get(f'{url}page={i}', headers={'User-Agent': 'yuanrenxue.project'}, params=params)
         print(res.text)
         res = res.json()

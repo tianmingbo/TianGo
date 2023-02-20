@@ -23,7 +23,7 @@ class CrackGeetest():
         self.wait = WebDriverWait(self.browser, 20)
         self.email = EMAIL
         self.password = PASSWORD
-        self.chaojiying = ChaoJiYingClient('chendali', 'woshihaoren666', '928872')  # 用户中心>>软件ID 生成一个替换
+        self.chaojiying = ChaoJiYingClient('chendali', '********', '928872')  # 用户中心>>软件ID 生成一个替换
 
     def crack(self):
         # 输入用户名密码

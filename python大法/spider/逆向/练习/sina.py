@@ -41,7 +41,7 @@ def login(pre_info):
     pub_key = pre_info['pubkey']
     ser_time = pre_info['servertime']
     nonce = pre_info['nonce']
-    pwd = 'woshihaoren666'
+    pwd = '********'
     sp = ctx.eval(f'getPwd("{pub_key}","{ser_time}","{nonce}","{pwd}")')
     url = f'https://login.sina.com.cn/sso/login.php?client=ssologin.js(v1.4.19)&_={timestamp}'
     door = input('请输入验证码->')
