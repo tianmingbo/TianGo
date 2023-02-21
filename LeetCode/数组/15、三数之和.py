@@ -16,13 +16,13 @@ class Solution:
             j = len(nums) - 1
             while i < j:
                 s = nums[k] + nums[i] + nums[j]
+                # 去除重复元素
+                while i < j and nums[i] == nums[i + 1]:
+                    i += 1
+                while i < j and nums[j] == nums[j - 1]:
+                    j -= 1
                 if s == 0:
                     res.append([nums[k], nums[i], nums[j]])
-                    # 去除重复元素
-                    while i < j and nums[i] == nums[i + 1]:
-                        i += 1
-                    while i < j and nums[j] == nums[j - 1]:
-                        j -= 1
                     i += 1
                     j -= 1
                 elif s > 0:
@@ -41,4 +41,4 @@ class Solution:
 
 if __name__ == '__main__':
     a = Solution()
-    print(a.threeSum([-2, 0, 0, 2, 2]))
+    print(a.threeSum([-1, 0, 1, 2, -1, -4, 0, 2, 2]))

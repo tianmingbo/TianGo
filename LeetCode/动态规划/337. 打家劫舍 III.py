@@ -18,13 +18,6 @@ class Solution:
                 return self.memo[root]
             if not root:
                 return 0
-            # just_do_it = root.val
-            # if root.left:
-            #     just_do_it += self.rob(root.left.left)
-            #     just_do_it += self.rob(root.left.right)
-            # if root.right:
-            #     just_do_it += self.rob(root.right.left)
-            #     just_do_it += self.rob(root.right.right)
             just_do_it = root.val + (0 if not root.left else self.rob(root.left.left) + self.rob(root.left.right)) + (
                 0 if not root.right else self.rob(root.right.left) + self.rob(root.right.right))
             a_little_scared = self.rob(root.left) + self.rob(root.right)
