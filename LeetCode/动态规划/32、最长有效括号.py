@@ -24,4 +24,4 @@ class Solution:
 
 if __name__ == '__main__':
     a = Solution()
-    print(a.longestValidParentheses("()(())"))
+    print(a.longestValidParentheses("()(())}"))
