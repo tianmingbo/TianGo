@@ -1,9 +1,19 @@
 # @Time : 2022/5/23 23:27
 # @Author :bo~
 # @FileName: aes.py
-# @Description:
+# @Description: AES
 import base64
 from Crypto.Cipher import AES
+
+"""
+填充：
+pkcs7：缺多少补多少，补的是缺的数字。如127bit，不到128bit，后面补1
+x923填充字节0
+模式：
+每个块128bit，可以指定每个块的加密方式
+ECB： 每个分块分别进行AES加密
+CBC： 每个密文块都依赖于前面的所有明文块，IV先与第一个明文块进行异或。
+"""
 
 
 # AES
@@ -17,7 +27,8 @@ def add_to_16(value):
 # 加密方法
 def encrypt(key, text):
     aes = AES.new(add_to_16(key), AES.MODE_ECB)  # 初始化加密器
-    encrypt_aes = aes.encrypt(add_to_16(text))  # 先进行aes加密
+    # aes = AES.new(add_to_16(key), AES.MODE_CBC)  # 初始化加密器 CBC模式
+    encrypt_aes = aes.encrypt(add_to_16(text))  # 先进行aes加密,分段加密，每次128bit
     encrypted_text = str(base64.encodebytes(encrypt_aes), encoding='utf-8')
     return encrypted_text
 

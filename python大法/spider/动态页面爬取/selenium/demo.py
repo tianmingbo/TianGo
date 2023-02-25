@@ -26,6 +26,14 @@ options.add_experimental_option('excludeSwitches', ['enable-automation'])
 options.add_experimental_option('useAutomationExtension', False)
 
 browser = webdriver.Chrome(service=ser, options=options)
+with open('过selenium检测.js', 'r+', encoding='utf8')as f:
+    source = f.read()
+    # 操作chrome devtools开发者工具
+    browser.execute_cdp_cmd("Page.addScriptToEvaluateOnNewDocument", {
+        "source": source
+    })
+browser.get('https://book.douban.com/tag/%E6%97%A5%E6%9C%AC%E6%96%87%E5%AD%A6')
+
 wait = WebDriverWait(browser, TIMEOUT)
 
 
