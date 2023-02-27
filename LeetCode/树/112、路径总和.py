@@ -66,13 +66,13 @@ class Solution3:
                 if path == sum:
                     self.flag = True
             if root.left:
-                path += root.left.val
-                dfs(root.left, path)
-                path -= root.left.val
+                # path += root.left.val
+                dfs(root.left, path + root.left.val)
+                # path -= root.left.val
             if root.right:
-                path += root.right.val
-                dfs(root.right, path)
-                path -= root.right.val
+                # path += root.right.val
+                dfs(root.right, path + root.right.val)
+                # path -= root.right.val
 
         dfs(root, root.val)
         return self.flag

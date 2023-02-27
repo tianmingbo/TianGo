@@ -26,10 +26,10 @@ class Solution:
 
         if root.val == key:
             if root.right and root.right.left:  # 有右节点且右节点存在左节点
-                tmp2 = root.right
-                while tmp2.left:  # 向左找到左节点
-                    tmp2 = tmp2.left
-                root.val, tmp2 = tmp2.val, self.deleteNode(root, tmp2.val)  # 删除最左节点
+                tmp = root.right
+                while tmp.left:  # 向左找到左节点
+                    tmp = tmp.left
+                root.val, tmp = tmp.val, self.deleteNode(root, tmp.val)  # 删除最左节点
                 return root
 
             elif not root.right and root.left:  # 有左节点

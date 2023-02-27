@@ -13,13 +13,13 @@ class TreeNode:
 
 class Solution:
     def constructMaximumBinaryTree(self, nums: List[int]) -> TreeNode:
-        if len(nums) == 1:  # 长度为1，终止条件
+        if len(nums) == 1:
             return TreeNode(nums[0])
         cur_node_val = max(nums)  # 根的值
         root = TreeNode(cur_node_val)
-        index = nums.index(cur_node_val)  # 最大值的索引，题目已知值唯一
-        if index > 0:  # 确保左子树至少有一个
+        index = nums.index(cur_node_val)  # 最大值的索引
+        if index > 0:  # 如果索引大于0，说明左边有值
             root.left = self.constructMaximumBinaryTree(nums[:index])
-        if index < len(nums) - 1:  # 确保右子树至少有一个
+        if index < len(nums) - 1:
             root.right = self.constructMaximumBinaryTree(nums[index + 1:])
         return root
