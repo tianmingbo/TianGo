@@ -28,7 +28,7 @@ class Solution:
             pre = pre.next
             cur = cur.next
             fast = fast.next
-        pre.next = cur.next
+        pre.next = cur.next  # 删除节点
         return tmp.next
 
 

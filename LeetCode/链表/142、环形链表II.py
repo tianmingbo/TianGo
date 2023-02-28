@@ -33,16 +33,18 @@ class Solution2:
     def detectCycle(self, head):
         if not head or not head.next:  # 没有头节点，或只有一个节点
             return None
-        fast = head.next
-        slow = head
-        while fast != slow:  # 有环，终会相遇
-            if not fast.next or not fast.next.next:  # 证明没有环
-                return None
+        fast, slow = head, head
+        while fast and fast.next:  # 有环，终会相遇
             fast = fast.next.next
             slow = slow.next
+            if slow == fast:
+                break
+        if not fast or not fast.next:
+            return None
 
-        slow = slow.next
-        while head != slow:
-            head = head.next
+        slow = head  # slow重新等于head
+        while slow != fast:
+            # 快慢指针同步前进，相交点就是环起点
+            fast = fast.next
             slow = slow.next
-        return head
+        return slow

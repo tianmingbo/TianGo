@@ -28,4 +28,4 @@ class Solution:
 
 if __name__ == '__main__':
     a = Solution()
-    print(a.search(nums=[1,4,1,1,1,1,1,1,1,1,1,1], target=4))
+    print(a.search(nums=[1, 4, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], target=4))

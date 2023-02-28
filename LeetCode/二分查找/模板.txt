@@ -12,10 +12,6 @@ while left <= right: #right-1,所以这里是<=  ,while(left <= right)的终止�
 		    right = mid - 1
 
 
-
-
-
-
 int binary_search(int[] nums, int target) {
     int left = 0, right = nums.length - 1;
     while(left <= right) {

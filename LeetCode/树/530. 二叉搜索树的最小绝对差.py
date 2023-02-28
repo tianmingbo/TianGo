@@ -8,6 +8,7 @@ class TreeNode:
         self.right = None
 
 
+# 中序遍历是升序
 class Solution:
     def getMinimumDifference(self, root: TreeNode) -> int:
         self.res = []

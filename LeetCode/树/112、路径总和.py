@@ -55,7 +55,7 @@ class Solution3:
     # 使用回溯
     flag = False
 
-    def hasPathSum(self, root, sum: int) -> bool:
+    def hasPathSum(self, root, _sum: int) -> bool:
         if not root:
             return False
 
@@ -63,7 +63,7 @@ class Solution3:
             if self.flag:  # 找到一个符合，就终止
                 return
             if not root.left and not root.right:  # 叶子节点
-                if path == sum:
+                if path == _sum:
                     self.flag = True
             if root.left:
                 # path += root.left.val

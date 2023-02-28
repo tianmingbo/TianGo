@@ -5,16 +5,16 @@ from typing import List
 
 
 class Solution:
-    def subarraySum(self, nums: List[int], k: int) -> int:
+    def subarraySum(self, nums: List[int], key: int) -> int:
         prefix = {}
-        counter = 0  # 计数器
+        counter = 0
         pre_sum = 0  # 前缀和
         for i in range(len(nums)):
             pre_sum += nums[i]  # 前缀和
-            if pre_sum == k:  # 如果前缀和等于k
+            if pre_sum == key:  # 如果前缀和等于k
                 counter += 1
-            if pre_sum - k in prefix:  # 如果前缀和-k在prefix中，说明从之前任意元素到目前元素，和为k
-                counter += prefix[pre_sum - k]
+            if pre_sum - key in prefix:  # 如果 前缀和-k 在prefix中，说明从之前任意元素到目前元素，和为k
+                counter += prefix[pre_sum - key]
             if pre_sum in prefix:
                 prefix[pre_sum] += 1
             else:
