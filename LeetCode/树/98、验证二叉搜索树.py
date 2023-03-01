@@ -36,19 +36,15 @@ class Solution:
 
 class Solution2:
     def isValidBST(self, root) -> bool:
-
-        def dfs(node, min_val, max_val):
-            if not node:
+        def dfs(root, left, right):
+            if root is None:
                 return True
-            if not min_val < node.val < max_val:
+            if left < root.val < right:
+                return dfs(root.left, left, root.val) and dfs(root.right, root.val, right)
+            else:
                 return False
-            if not dfs(node.left, min_val, node.val):
-                return False
-            if not dfs(node.right, node.val, max_val):
-                return False
-            return True
 
-        return dfs(root, float('-inf'), float('inf'))
+        return dfs(root, -float('inf'), float('inf'))
 
 
 class Solution3:
