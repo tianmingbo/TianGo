@@ -19,6 +19,7 @@ def maxHeapfy(alist, length, parent):
         maxHeapfy(alist, length, largest)  # 递归构建
     print(alist)
 
+
 def buildMaxHeap(alist):  # 构建最大堆
     n = len(alist)
     lastParent = (n - 1) // 2

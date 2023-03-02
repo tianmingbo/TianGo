@@ -5,22 +5,21 @@
 class Solution2:
     # 深度优先搜索，把每一块岛屿变成‘0’水
     def numIslands(self, grid) -> int:
-        if not grid:
-            return 0
         count = 0
-        for i in range(len(grid)):
-            for j in range(len(grid[i])):
+        max_raw, max_col = len(grid), len(grid[0])
+
+        def dfs(raw, col):
+            grid[raw][col] = 0  # floodfill算法，赋值为0，已被洪水淹没
+            for x, y in [(raw + 1, col), (raw - 1, col), (raw, col + 1), (raw, col - 1)]:  # 遍历上下左右
+                if 0 <= x < max_raw and 0 <= y < max_col and grid[x][y] == '1':
+                    dfs(x, y)
+
+        for i in range(max_raw):
+            for j in range(max_col):
                 if grid[i][j] == '1':
                     count += 1  # 如果是1，就把相关联的1，全变成0，岛屿数量加1
-                    self.dfs(grid, i, j)
+                    dfs(i, j)
         return count
-
-    def dfs(self, grid, raw, col):
-        max_raw, max_col = len(grid), len(grid[0])
-        grid[raw][col] = 0  # floodfill算法，赋值为0，已被洪水淹没
-        for x, y in [(raw + 1, col), (raw - 1, col), (raw, col + 1), (raw, col - 1)]:  # 遍历上下左右
-            if 0 <= x < max_raw and 0 <= y < max_col and grid[x][y] == '1':
-                self.dfs(grid, x, y)
 
 
 class Solution3:
@@ -76,6 +75,6 @@ if __name__ == '__main__':
         ['1', '1', '1', '1', '0'],
         ['1', '1', '0', '1', '0'],
         ['1', '1', '0', '0', '0'],
-        ['0', '0', '0', '0', '0']
+        ['0', '0', '0', '0', '1']
     ]
     ))

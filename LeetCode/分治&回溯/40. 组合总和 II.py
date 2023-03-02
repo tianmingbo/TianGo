@@ -20,37 +20,12 @@ class Solution:
             for i in range(len(candidates)):
                 if i > 0 and candidates[i] == candidates[i - 1]:  # 重复数字不使用
                     continue
-                path.append(candidates[i])  # 选择
-                backtrack(candidates[i + 1:], path, target - candidates[i])  # candidates[i:],过滤掉前一个元素，不再使用
-                path.pop()  # 撤销选择，恢复现场
+                # path.append(candidates[i])  # 选择
+                # candidates[i:],过滤掉前一个元素，不再使用
+                backtrack(candidates[i + 1:], path + [candidates[i]], target - candidates[i])
+                # path.pop()  # 撤销选择，恢复现场
 
         backtrack(candidates, [], target)
-        return res
-
-    def combinationSum2(self, candidates: List[int], target: int) -> List[List[int]]:
-        def dfs(begin, path, residue):
-            if residue == 0:
-                res.append(path[:])
-                return
-
-            for index in range(begin, size):
-                if candidates[index] > residue:
-                    break
-
-                if index > begin and candidates[index - 1] == candidates[index]:
-                    continue
-
-                path.append(candidates[index])
-                dfs(index + 1, path, residue - candidates[index])
-                path.pop()
-
-        size = len(candidates)
-        if size == 0:
-            return []
-
-        candidates.sort()
-        res = []
-        dfs(0, [], target)
         return res
 
 

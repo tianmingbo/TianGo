@@ -20,7 +20,7 @@ class Solution:
                 right_max.append(right)
             else:
                 right_max.append(right)
-
+        print(left_max,right_max)
         # sum(left_max) + sum(right_max) 多加了一个矩阵的面积，right * len(height)是整个矩阵的面积
         return sum(left_max) + sum(right_max) - sum(height) - right * len(height)
 

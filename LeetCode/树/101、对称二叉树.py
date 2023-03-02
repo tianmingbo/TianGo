@@ -9,7 +9,6 @@ class TreeNode:
 
 
 class Solution:
-    # 不能使用层序遍历
     def isSymmetric(self, root) -> bool:
         if not root:
             return True
@@ -17,9 +16,11 @@ class Solution:
         def dfs(left, right):
             if not left and not right:  # 左右结点都为空，True
                 return True
-            if left and right and left.val == right.val:  # 左右结点同时存在且值相等
-                return dfs(left.left, right.right) and dfs(left.right, right.left)
-            return False
+            if not left or not right:
+                return False
+            if left.val != right.val:  # 若左右节点值不同
+                return False
+            return dfs(left.left, right.right) and dfs(left.right, right.left)
 
         return dfs(root.left, root.right)
 

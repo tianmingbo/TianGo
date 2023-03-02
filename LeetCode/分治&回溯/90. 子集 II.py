@@ -16,9 +16,9 @@ class Solution:
             for i in range(len(nums)):
                 if i > 0 and nums[i] == nums[i - 1]:
                     continue
-                path.append(nums[i])
-                backtrack(nums[i + 1:], path)  # 回溯，1,已选择，只能在后面的[2,2]中选择
-                path.pop()
+                # path.append(nums[i])
+                backtrack(nums[i + 1:], path + [nums[i]])  # 回溯，1,已选择，只能在后面的[2,2]中选择
+                # path.pop()
 
         backtrack(nums, [])
         return res

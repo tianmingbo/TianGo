@@ -19,12 +19,9 @@ class Solution:
                 for j in alpha_possible:
                     tmp = word[:i] + j + word[i + 1:]  # 变化一个新单词，查看是否在Wordlist中，如果在，就入栈
                     if tmp in wordList:
-                        wordList.remove(tmp)  # 如果已经变换过，删除。也可以用一个标志
+                        wordList.discard(tmp)  # 如果已经变换过，删除。也可以用一个标志
                         queue.append((tmp, step + 1))  # 存在相应变化，步数+1
         return 0
-
-
-from collections import defaultdict, deque
 
 
 # 双向bfs
@@ -59,7 +56,7 @@ class Solution2(object):
 
 
 if __name__ == '__main__':
-    a = Solution2()
+    a = Solution()
     print(a.ladderLength("hit",
                          "cog",
-                         ["hot", "dot", "dog", "lot", "log", "cog"]))
+                         ["tot", "dor", "dog", "lot", "log", "cog"]))

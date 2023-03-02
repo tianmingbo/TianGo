@@ -20,16 +20,16 @@ class Solution2:
     def combine(self, n: int, k: int):
         result = []
 
-        def recall(n, k, start, result, subset):
-            if len(subset) == k:
-                result.append(subset[:])
+        def recall(num, start, path):
+            if len(path) == k:
+                result.append(path[:])
                 return
-            for i in range(start, n + 1):
-                subset.append(i)
-                recall(n, k, i + 1, result, subset)
-                subset.pop()
+            for i in range(start, num + 1):
+                path.append(i)
+                recall(num, i + 1, path)
+                path.pop()
 
-        recall(n, k, 1, result, [])
+        recall(n, 1, [])
         return result
 
 

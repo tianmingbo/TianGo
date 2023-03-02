@@ -5,18 +5,20 @@ class Solution:
     def combinationSum(self, candidates, target: int):
         res = []
 
-        def backtrack(candidates, res, tmp):
-            if sum(tmp) == target:  # 终结条件
-                res.append(tmp[:])
+        def backtrack(candidates, res, path, target):
+            # print(path)
+            if target == 0:  # 终结条件
+                res.append(path[:])
                 return
             for i in range(len(candidates)):
-                if sum(tmp) > target:  # 剪枝
-                    break
-                tmp.append(candidates[i])  # 选择
-                backtrack(candidates[i:], res, tmp)  # candidates[i:],过滤掉前一个元素，不再使用
-                tmp.pop()  # 撤销选择，恢复现场
+                if target < 0:  # 剪枝
+                    return
+                # path.append(candidates[i])  # 选择
+                # candidates[i:],过滤掉前一个元素，不再使用
+                backtrack(candidates[i:], res, path + [candidates[i]], target - candidates[i])
+                # path.pop()  # 撤销选择，恢复现场
 
-        backtrack(candidates, res, [])
+        backtrack(candidates, res, [], target)
         return res
 
 
