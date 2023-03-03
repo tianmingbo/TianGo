@@ -31,7 +31,7 @@ class Solution:
             w, step = queue.popleft()
             if w == target:
                 return step
-            if w in deadends:
+            if w in deadends:  # 狗带，退出
                 continue
             for i in range(len(w)):
                 tmp1 = w[:i] + self._add(w[i]) + w[i + 1:]

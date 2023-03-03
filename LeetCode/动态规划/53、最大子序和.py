@@ -33,4 +33,4 @@ class Solution:
 
 if __name__ == '__main__':
     a = Solution()
-    print(a.greedy([-2, 1, -3, 4, -1, 2, 1, -5, 4]))
+    print(a.maxSubArray([-2, 1, -3, 4, -1, 2, 1, -5, 4]))

@@ -11,19 +11,14 @@ from typing import List
 
 
 class Solution:
-    def lengthOfLIS(self, nums):
+    def lengthOfLIS(self, nums: List[int]) -> int:
         if not nums:
             return 0
-        tmp = []
         dp = [1 for _ in nums]
         for i in range(1, len(nums)):
             for j in range(i, -1, -1):
                 if nums[j] < nums[i]:  # 统计前方所有比当前位置小的元素
-                    tmp.append(dp[j])
-            if tmp:
-                dp[i] += max(tmp)  # 取最大值
-            tmp = []
-        print(dp)
+                    dp[i] = max(dp[i], dp[j] + 1)
         return max(dp)
 
 
@@ -56,5 +51,5 @@ class Solution2:
 
 
 if __name__ == '__main__':
-    a = Solution2()
+    a = Solution()
     print(a.lengthOfLIS([10, 9, 2, 5, 3, 7, 101, 18, 16, 5]))

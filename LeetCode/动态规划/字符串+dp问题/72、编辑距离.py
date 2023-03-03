@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 # @Time    : 2020/10/27 12:40
 # @Author  : tmb
-'''
+"""
 类似转换问题，变成二维矩阵格式
-'''
+"""
 
 
 class Solution:

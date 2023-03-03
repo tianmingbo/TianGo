@@ -6,20 +6,19 @@ from typing import List
 
 class Solution:
     def change(self, amount: int, coins: List[int]) -> int:
-        dp = [0 for _ in range(amount + 1)]
+        n = len(coins)
+        dp = [0] * (amount + 1)
         dp[0] = 1
-        for coin in coins:
-            for j in range(coin, amount + 1):
-                dp[j] = dp[j] + dp[j - coin]
-            print(dp)
-            '''
-            [1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0] #全用金币2
-            [1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 2, 1] #用金币2,5
-            [1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 3, 1] #用金币2,5,10
-            '''
+
+        for i in range(1, n + 1):
+            for j in range(1, amount + 1):
+                if j - coins[i - 1] >= 0:
+                    dp[j] = dp[j] + dp[j - coins[i - 1]]
+                    print(i, j, dp)
+            # print(dp)
         return dp[amount]
 
 
 if __name__ == '__main__':
     a = Solution()
-    print(a.change(amount=11, coins=[2, 5, 10]))
+    print(a.change(amount=5, coins=[1, 2, 5]))

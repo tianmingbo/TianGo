@@ -5,10 +5,10 @@ from typing import List
 
 
 class Solution:
-    '''
-    本题可以理解哼背包问题，背包容量为sum(nums)/2，如果sum（nums）为奇数，说明不能正确分割，
+    """
+    本题可以理解为背包问题，背包容量为sum(nums)/2，如果sum（nums）为奇数，说明不能正确分割，
     物品个数为n，要求装满背包。
-    '''
+    """
 
     def canPartition(self, nums: List[int]) -> bool:
         '''
@@ -52,4 +52,4 @@ class Solution:
 
 if __name__ == '__main__':
     a = Solution()
-    print(a.canPartition([1, 2, 3, 5]))
+    print(a.canPartition([1, 2, 3, 6]))
