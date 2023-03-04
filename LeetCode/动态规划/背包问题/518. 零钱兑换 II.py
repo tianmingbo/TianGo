@@ -8,16 +8,11 @@ from typing import List
 
 class Solution:
     def change(self, amount: int, coins: List[int]) -> int:
-        if not coins and not amount:
-            return 1
-        if not coins:
-            return 0
-        if not amount:
-            return 1
         n = len(coins)
         dp = [[0] * (amount + 1) for _ in range(n + 1)]  # 一维，硬币，二维，硬币可以组成的金额
         for k in range(n + 1):  # 临界条件，当需要拼的金额为0是，有1种
             dp[k][0] = 1
+        # print(dp)
         for i in range(1, n + 1):  # 金币
             for j in range(1, amount + 1):  # 拼成的金额
                 if j - coins[i - 1] < 0:
