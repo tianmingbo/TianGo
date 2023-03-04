@@ -8,17 +8,15 @@ class Solution:
     '''
 
     def rob(self, nums) -> int:
-        if not nums:
-            return 0
         if len(nums) <= 2:
             return max(nums)
-        dp = [0 for i in nums]
+        n = len(nums)
+        dp = [0 for _ in nums]
         dp[0] = nums[0]
         dp[1] = max(nums[1], nums[0])
-        for i in range(2, len(nums)):
+        for i in range(2, n):
             dp[i] = max(dp[i - 2] + nums[i], dp[i - 1])
-        print(dp)
-        return max(dp)
+        return dp[n - 1]
 
 
 class Solution2:
@@ -43,4 +41,4 @@ class Solution2:
 
 if __name__ == '__main__':
     a = Solution()
-    print(a.rob([2, 1, 1, 2]))
+    print(a.rob([2, 7, 9, 3, 1]))

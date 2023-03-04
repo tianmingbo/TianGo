@@ -13,16 +13,20 @@ class Solution:
     memo = {}
 
     def rob(self, root: TreeNode) -> int:
-        def helper(root):
-            if root in self.memo:
-                return self.memo[root]
-            if not root:
-                return 0
-            just_do_it = root.val + (0 if not root.left else self.rob(root.left.left) + self.rob(root.left.right)) + (
-                0 if not root.right else self.rob(root.right.left) + self.rob(root.right.right))
-            a_little_scared = self.rob(root.left) + self.rob(root.right)
-            res = max(just_do_it, a_little_scared)
-            self.memo[root] = res
-            return res
-
-        return helper(root)
+        if root in self.memo:
+            return self.memo[root]
+        if not root:
+            return 0
+        # 抢了后去下下家
+        do_it = root.val
+        if root.left:
+            do_it += self.rob(root.left.left)
+            do_it += self.rob(root.left.right)
+        if root.right:
+            do_it += self.rob(root.right.left)
+            do_it += self.rob(root.right.right)
+        # 不抢，去下家看看
+        not_do = self.rob(root.left) + self.rob(root.right)
+        res = max(do_it, not_do)
+        self.memo[root] = res
+        return res
