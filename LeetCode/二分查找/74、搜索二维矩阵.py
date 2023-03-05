@@ -28,27 +28,20 @@ class Solution:
 class Solution2:
     def searchMatrix(self, matrix, target):
         # 空间复杂度O(1)
-        if not matrix or target is None:
-            return False
-
         rows, cols = len(matrix), len(matrix[0])
         low, high = 0, rows * cols - 1
-
         while low <= high:
-            mid = (low + high) / 2
-            num = matrix[mid / cols][mid % cols]  # 几行几列
-
+            mid = (low + high) // 2
+            num = matrix[mid // cols][mid % cols]  # 几行几列
             if num == target:
                 return True
             elif num < target:
                 low = mid + 1
             else:
                 high = mid - 1
-
         return False
 
 
 if __name__ == '__main__':
     a = Solution2()
-    print(a.searchMatrix(matrix=[[-10, -8, -6, -4, -3], [0, 2, 3, 4, 5], [8, 9, 10, 10, 12]], target=0
-                         ))
+    print(a.searchMatrix(matrix=[[-10, -8, -6, -4, -3], [0, 2, 3, 4, 5], [8, 9, 10, 10, 12]], target=13))
