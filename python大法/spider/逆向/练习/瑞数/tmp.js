@@ -34,6 +34,9 @@ window = {
         return {}
       }
 
+    },
+    getElementById: function (name) {
+      console.log('getElementById->', name)
     }
   },
   location: {
@@ -1442,6 +1445,308 @@ function _$rc(long_str) {
   _$v1 = _$wf(long_str).split(split_code);
 }
 
+//操作localstorage
+function _$P9() {
+  if (_$PV) {
+    try {
+      _$PV[_$v1[82]] = _$v1[82];
+      _$PV[_$v1[496]](_$v1[82]);
+      _$PV[_$v1[504]] = _$v1[17];
+    } catch (_$rc) {
+      _$PV = _$VT;
+    }
+  }
+}
+
+function _$2j(_$ph) {
+  var _$rc = _$ph.length
+    , _$6P = new _$xy(_$AB[_$v1[5]](_$rc * 3 / 4));
+  var _$3b, _$V9, _$9J, _$nE;
+  var _$Sa = 0
+    , _$lJ = 0
+    , _$vF = _$rc - 3;
+  for (_$Sa = 0; _$Sa < _$vF;) {
+    _$3b = _$GG[_$v1[0]](_$ph, _$Sa++);
+    _$V9 = _$GG[_$v1[0]](_$ph, _$Sa++);
+    _$9J = _$GG[_$v1[0]](_$ph, _$Sa++);
+    _$nE = _$GG[_$v1[0]](_$ph, _$Sa++);
+    _$6P[_$lJ++] = _$x3[_$3b] | _$QN[_$V9];
+    _$6P[_$lJ++] = _$Cx[_$V9] | _$0y[_$9J];
+    _$6P[_$lJ++] = _$Oo[_$9J] | _$rj[_$nE];
+  }
+  if (_$Sa < _$rc) {
+    _$3b = _$GG[_$v1[0]](_$ph, _$Sa++);
+    _$V9 = _$GG[_$v1[0]](_$ph, _$Sa++);
+    _$6P[_$lJ++] = _$x3[_$3b] | _$QN[_$V9];
+    if (_$Sa < _$rc) {
+      _$9J = _$GG[_$v1[0]](_$ph, _$Sa);
+      _$6P[_$lJ++] = _$Cx[_$V9] | _$0y[_$9J];
+    }
+  }
+  return _$6P;
+}
+
+function _$8O(_$ph) {
+  var _$rc = _$2j(_$ph), _$6P = (_$rc[0] << 8) + _$rc[1], _$3b = _$rc.length, _$V9;
+  for (_$V9 = 2; _$V9 < _$3b; _$V9 += 2) {
+    _$rc[_$V9] ^= (_$6P >> 8) & 0xFF;
+    if (_$V9 + 1 < _$3b)
+      _$rc[_$V9 + 1] ^= _$6P & 0xFF;
+    _$6P++;
+  }
+  return _$rc[_$v1[1]](2);
+}
+
+function _$2k(_$ph) {
+  var _$rc = [], _$6P, _$3b, _$V9, _$9J = _$GG[_$v1[0]]('?', 0);
+  for (_$6P = 0; _$6P < _$ph.length;) {
+    _$3b = _$ph[_$6P];
+    if (_$3b < 0x80) {
+      _$V9 = _$3b;
+    } else if (_$3b < 0xc0) {
+      _$V9 = _$9J;
+    } else if (_$3b < 0xe0) {
+      _$V9 = ((_$3b & 0x3F) << 6) | (_$ph[_$6P + 1] & 0x3F);
+      _$6P++;
+    } else if (_$3b < 0xf0) {
+      _$V9 = ((_$3b & 0x0F) << 12) | ((_$ph[_$6P + 1] & 0x3F) << 6) | (_$ph[_$6P + 2] & 0x3F);
+      _$6P += 2;
+    } else if (_$3b < 0xf8) {
+      _$V9 = _$9J;
+      _$6P += 3;
+    } else if (_$3b < 0xfc) {
+      _$V9 = _$9J;
+      _$6P += 4;
+    } else if (_$3b < 0xfe) {
+      _$V9 = _$9J;
+      _$6P += 5;
+    } else {
+      _$V9 = _$9J;
+    }
+    _$6P++;
+    _$rc.push(_$V9);
+  }
+  return _$9p(_$rc);
+}
+
+function _$2k(_$ph) {
+  var _$rc = [], _$6P, _$3b, _$V9, _$9J = _$GG[_$v1[0]]('?', 0);
+  for (_$6P = 0; _$6P < _$ph.length;) {
+    _$3b = _$ph[_$6P];
+    if (_$3b < 0x80) {
+      _$V9 = _$3b;
+    } else if (_$3b < 0xc0) {
+      _$V9 = _$9J;
+    } else if (_$3b < 0xe0) {
+      _$V9 = ((_$3b & 0x3F) << 6) | (_$ph[_$6P + 1] & 0x3F);
+      _$6P++;
+    } else if (_$3b < 0xf0) {
+      _$V9 = ((_$3b & 0x0F) << 12) | ((_$ph[_$6P + 1] & 0x3F) << 6) | (_$ph[_$6P + 2] & 0x3F);
+      _$6P += 2;
+    } else if (_$3b < 0xf8) {
+      _$V9 = _$9J;
+      _$6P += 3;
+    } else if (_$3b < 0xfc) {
+      _$V9 = _$9J;
+      _$6P += 4;
+    } else if (_$3b < 0xfe) {
+      _$V9 = _$9J;
+      _$6P += 5;
+    } else {
+      _$V9 = _$9J;
+    }
+    _$6P++;
+    _$rc.push(_$V9);
+  }
+  return _$9p(_$rc);
+}
+
+function _$9p(_$ph, _$DQ, _$Sw) {
+  _$DQ = _$DQ || 0;
+  if (_$Sw === _$VT)
+    _$Sw = _$ph.length;
+  var _$rc = new _$xy(_$AB[_$v1[55]](_$ph.length / 40960))
+    , _$6P = _$Sw - 40960
+    , _$3b = 0;
+  while (_$DQ < _$6P) {
+    _$rc[_$3b++] = _$eX[_$v1[32]](null, _$ph[_$v1[1]](_$DQ, _$DQ += 40960));
+  }
+  if (_$DQ < _$Sw)
+    _$rc[_$3b++] = _$eX[_$v1[32]](null, _$ph[_$v1[1]](_$DQ, _$Sw));
+  return _$rc.join('');
+}
+
+function _$sM(_$ph, _$DQ) {
+  _$H3 |= _$ph;
+  if (_$DQ)
+    _$J$ |= _$ph;
+}
+
+function _$FV(_$ph, _$DQ) {
+  return _$cU[_$v1[0]](_$ph, 0, _$DQ.length) === _$DQ;
+}
+
+function _$d6(_$ph) {
+  if (!_$PV)
+    return;
+  if (typeof _$ph === _$v1[66]) {
+    _$ph = _$h_(_$ph);
+  }
+  _$ph = _$v1[37] + _$ph;
+  return _$PV[_$ph];
+}
+
+function _$sa(_$ph, _$DQ) {
+  if (!_$PV)
+    return;
+  if (typeof _$ph === _$v1[66]) {
+    _$ph = _$h_(_$ph);
+  }
+  var _$rc = _$d6(_$ph);
+  if (_$rc)
+    _$DQ = _$8u(_$rc) + _$DQ;
+  _$ph = _$v1[37] + _$ph;
+  _$PV[_$ph] = _$DQ;
+}
+
+function _$zf(_$ph) {
+  if (_$zf) {
+    return;
+  }
+  _$zf = true;
+  _$he(_$9J, 0);
+  var _$rc = _$xa && new _$xa();
+  if (_$rc) {
+    var _$6P = _$rc[_$v1[428]];
+    if (!_$6P) {
+      return;
+    }
+    var _$3b = _$6P[_$v1[58]]();
+    var _$V9 = _$Uh[_$v1[0]](_$3b, '\n');
+    _$3b = _$V9.pop();
+    if (_$3b === '' && _$V9.length > 0)
+      _$3b = _$V9.pop();
+    if (_$5_[_$v1[0]](_$3b, _$v1[104]) !== -1 || _$FV(_$3b, _$v1[165]) || _$3b === _$v1[457]) {
+      _$sa(_$ph, 1);
+      return true;
+    }
+  }
+
+  function _$9J() {
+    _$zf = false;
+  }
+}
+
+function _$Lb(_$ph) {
+  return _$2k(_$8O(_$ph), _$sM(2, _$zf(9)));
+}
+
+function _$Dv(_$ph) {
+  var _$rc = _$2j(_$ph);
+  return _$2k(_$rc);
+}
+
+function _$iY(_$ph) {
+  return _$Dv(_$ph[_$v1[456]](1));
+}
+
+function _$yJ() {
+  for (_$ds = 0; _$ds <= 255; _$ds++) {
+    _$rj[_$ds] = -1;
+  }
+  for (_$ds = 0; _$ds < _$pI.length; _$ds++) {
+    var _$rc = _$GG[_$v1[0]](_$pI[_$ds], 0);
+    _$x3[_$rc] = _$ds << 2;
+    _$QN[_$rc] = _$ds >> 4;
+    _$Cx[_$rc] = (_$ds & 15) << 4;
+    _$0y[_$rc] = _$ds >> 2;
+    _$Oo[_$rc] = (_$ds & 3) << 6;
+    _$rj[_$rc] = _$ds;
+  }
+}
+
+function _$6Q() {
+  var _$rc = new _$xy(256), _$6P = new _$xy(256), _$3b;
+  for (var _$V9 = 0; _$V9 < 256; _$V9++) {
+    _$rc[_$V9] = _$eX(_$6P[_$V9] = _$V9);
+  }
+  var _$rD = 'w{"W%$b\'MvxF.3,~DcIy]s6g}*:C? [<@kY-ftN^;HLBV=0Xa1J#Z)GE8&i>\\m4d`!lQqOAU9K_T|RPhp+7S(orej2uz5n/';
+  for (_$V9 = 32; _$V9 < 127; _$V9++)
+    _$3b = _$V9 - 32,
+      _$rc[_$V9] = _$pd[_$v1[0]](_$rD, _$3b),
+      _$6P[_$V9] = _$GG[_$v1[0]](_$rD, _$3b);
+  _$rD = _$rc;
+  _$BQ = _$9J;
+  var _$74 = _$Uh[_$v1[0]]('=a"S%$Y\'tU9q.C,~NQy-^|6rXh:H?M[<@fK;0W+VI2RiJ(FencmskgL#OBT>\\4Gj`P&1_wD7oZxAb]}updv5Ez) *3{!l8/', '');
+  _$QW = _$nE;
+
+  function _$9J() {
+    return _$rD;
+  }
+
+  function _$nE() {
+    return _$74;
+  }
+}
+
+function _$zZ(_$ph) {
+  var _$rc, _$6P = _$ph.length, _$3b = new _$xy(_$6P - 1);
+  var _$V9 = _$GG[_$v1[0]](_$ph, 0) - 93;
+  for (var _$9J = 0, _$nE = 1; _$nE < _$6P; ++_$nE) {
+    _$rc = _$GG[_$v1[0]](_$ph, _$nE);
+    if (_$rc >= 40 && _$rc < 92) {
+      _$rc += _$V9;
+      if (_$rc >= 92)
+        _$rc = _$rc - 52;
+    } else if (_$rc >= 93 && _$rc < 127) {
+      _$rc += _$V9;
+      if (_$rc >= 127)
+        _$rc = _$rc - 34;
+    }
+    _$3b[_$9J++] = _$rc;
+  }
+  return _$eX[_$v1[32]](null, _$3b);
+}
+
+function _$hF(_$ph) {
+  var _$rc = _$ph.length, _$rD = 0, _$6P, _$3b = 0;
+  var _$V9 = _$9J();
+  var _$74 = new _$xy(_$V9);
+  while (_$rD < _$rc) {
+    _$6P = _$9J();
+    _$74[_$3b++] = _$ou[_$v1[0]](_$ph, _$rD, _$6P);
+    _$rD += _$6P;
+  }
+  _$WK = _$nE;
+
+  function _$9J() {
+    var _$rc = _$rj[_$GG[_$v1[0]](_$ph, _$rD++)];
+    if (_$rc < 0) {
+      return _$rj[_$GG[_$v1[0]](_$ph, _$rD++)] * 7396 + _$rj[_$GG[_$v1[0]](_$ph, _$rD++)] * 86 + _$rj[_$GG[_$v1[0]](_$ph, _$rD++)];
+    } else if (_$rc < 64) {
+      return _$rc;
+    } else if (_$rc <= 86) {
+      return _$rc * 86 + _$rj[_$GG[_$v1[0]](_$ph, _$rD++)] - 5440;
+    }
+  }
+
+  function _$nE(_$sw) {
+    var _$rc = _$sw % 64;
+    var _$6P = _$sw - _$rc;
+    _$rc = _$Cj(_$rc);
+    _$rc ^= _$xS._$ba;
+    _$6P += _$rc;
+    return _$74[_$6P];
+  }
+}
+
+function _$7h() {
+  var _$rc = _$QM[_$v1[51]](_$v1[251]);
+  var _$6P = _$rc[_$rc.length - 1];
+  var _$3b = _$6P[_$v1[210]];
+  _$6P.parentNode[_$v1[13]](_$6P);
+  return _$3b;
+}
 
 function _$Xa() {
   _$cM = _$F0(); //检查是否IE
