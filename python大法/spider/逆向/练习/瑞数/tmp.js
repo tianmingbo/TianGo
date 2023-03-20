@@ -55,6 +55,7 @@ window = {
     return this.location
   }
 }
+
 //原始_ts
 $_ts = window['$_ts'];
 if (!$_ts)
