@@ -518,10 +518,11 @@ dtavm.proxy = function (obj, objname, type) {
     }
     return new Proxy(obj, getObjhandler(objname));
 }
+
 // 保护伪造函数toString
 ;(() => {
-    const $toString = Function.toString
-    const myFunction_toString_symbol = Symbol('('.concat('', ')_', (Math.random()) + '').toString(36))
+    const $toString = Function.toString; 
+    const myFunction_toString_symbol = Symbol('('.concat('', ')_', (Math.random()) + '').toString(36)) //拼接方法名
     const myToString = function (){
         return typeof this === 'function' && this[myFunction_toString_symbol] || $toString.call(this)
     }
@@ -533,9 +534,9 @@ dtavm.proxy = function (obj, objname, type) {
             value: value
         })
     }
-    delete Function.prototype.toString
-    set_native(Function.prototype, "toString", myToString)
-    set_native(Function.prototype.toString, myFunction_toString_symbol, "function toString() { [native code] }")
+    delete Function.prototype.toString //删除原型上的toString
+    set_native(Function.prototype, "toString", myToString) //hook，自己定义的tostring
+    set_native(Function.prototype.toString, myFunction_toString_symbol, "function toString() { [native code] }") //套娃，保护自己定义的tostring
     globalThis.dtavm.func_set_native = (func, funcname) => {
         //todo 系统函数没名字 native code
         set_native(func, myFunction_toString_symbol, `function ${func.name || funcname || ''}() { [native code] }`)

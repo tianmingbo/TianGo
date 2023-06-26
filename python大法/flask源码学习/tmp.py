@@ -1,9 +1,13 @@
-from werkzeug.routing import Map, Rule
+from flask_t import request, Flask
 
-url_map = Map()  # 关键依赖: werkzeug.routing.Map
-static_path = '/static'
-# todo: 待深入 关键依赖: werkzeug.routing.Rule
-url_map.add(Rule(static_path + '/<filename>',
-                 build_only=True, endpoint='static'))
+app = Flask(__name__)
 
-print(url_map)
+
+@app.route('/')
+def index():
+    user_agent = request.headers.get('User-Agent')
+    return '<p>Your browser is %s</p>' % user_agent
+
+
+if __name__ == '__main__':
+    app.run(port=8080)

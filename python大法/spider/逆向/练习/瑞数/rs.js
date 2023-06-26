@@ -1,6 +1,6 @@
 dtavm = {
   config: {
-    proxy: true
+    proxy: false
   }
 }
 alert = function (a) {
@@ -2611,7 +2611,13 @@ dtavm.defineProperty(Navigator.prototype, 'maxTouchPoints', undefined, true, tru
 dtavm.defineProperty(Navigator.prototype, 'userActivation', undefined, true, true, undefined, function () { return {} },); dtavm.func_set_native(Object.getOwnPropertyDescriptors(Navigator.prototype)["userActivation"].get, "get userActivation");
 dtavm.defineProperty(Navigator.prototype, 'doNotTrack', undefined, true, true, undefined, function () { return null },); dtavm.func_set_native(Object.getOwnPropertyDescriptors(Navigator.prototype)["doNotTrack"].get, "get doNotTrack");
 dtavm.defineProperty(Navigator.prototype, 'geolocation', undefined, true, true, undefined, function () { return {} },); dtavm.func_set_native(Object.getOwnPropertyDescriptors(Navigator.prototype)["geolocation"].get, "get geolocation");
-dtavm.defineProperty(Navigator.prototype, 'connection', undefined, true, true, undefined, function () { return {} },); dtavm.func_set_native(Object.getOwnPropertyDescriptors(Navigator.prototype)["connection"].get, "get connection");
+dtavm.defineProperty(Navigator.prototype, 'connection', undefined, true, true, undefined, function () {
+  return {
+    value: { effectiveType: "WIFI", downlink: 10, rtt: 50 },
+    writable: true,
+    configurable: true
+  }
+}); dtavm.func_set_native(Object.getOwnPropertyDescriptors(Navigator.prototype)["connection"].get, "get connection");
 dtavm.defineProperty(Navigator.prototype, 'plugins', undefined, true, true, undefined, function () {
   let plugins = {}
   Object.setPrototypeOf(plugins, PluginArray.prototype)
@@ -2666,6 +2672,8 @@ delete global
 delete VMError
 delete GLOBAL
 
+Date.prototype.getTime = function(){return 1672931693};
+Math.random = function(){return 0.5};
 
 window = globalThis
 Object.setPrototypeOf(window, Window.prototype)
@@ -5859,11 +5867,11 @@ function _$6Q() {
 
 function _$4w(_$ph) {
   if (typeof _$ph != _$v1[6]) {
-      return [];
+    return [];
   }
   var _$rc = [];
   for (var _$6P = 0; _$6P < _$ph.length; _$6P++) {
-      _$rc.push(_$ph[_$v1[46]](_$6P));
+    _$rc.push(_$ph[_$v1[46]](_$6P));
   }
   return _$rc;
 }
@@ -6142,6 +6150,7 @@ function _$tw(_$zZ, _$ph, _$DQ, _$Sw) {
     return _$jl.apply(this, _$fA);
   }
   var _$D6, _$Xa, _$S3, _$t2, _$Iy, _$lJ, _$vF, _$Qs, _$4k, _$fX, _$rc, _$6P, _$3b, _$V9, _$9J, _$nE, _$Sa, _$rD, _$74, _$5i, _$lf;
+  // console.log('---->',_$zZ)
   var _$hF, _$uz, _$7h = _$zZ, _$2a = _$EQ[1];
   while (1) {
     _$uz = _$2a[_$7h++];
@@ -7809,6 +7818,7 @@ function _$tw(_$zZ, _$ph, _$DQ, _$Sw) {
             if (_$uz < 481) {
               _$V9[_$rc++] = _$nE;
             } else if (_$uz < 482) {
+              console.log('real cookie',_$rc)
               _$2x(_$4I(_$pl), _$rc);
             } else if (_$uz < 483) {
               _$rD[_$v1[24]]('id', _$v1[509]);
@@ -8772,7 +8782,7 @@ function _$d2(_$ph, _$DQ) {
 function _$FE() {
   var _$rc = new _$Gd();
   for (var _$6P = 0; _$6P < arguments.length; _$6P++) {
-      _$rc._$ou(arguments[_$6P]);
+    _$rc._$ou(arguments[_$6P]);
   }
   return _$rc._$Aj()[_$v1[1]](0, 16);
 }
@@ -8784,13 +8794,13 @@ function _$Dh() {
 function _$ES(_$ph) {
   var _$rc = _$ph[_$v1[1]](0);
   if (_$rc.length < 5) {
-      return;
+    return;
   }
   var _$6P = _$rc.pop();
   var _$3b = 0
     , _$V9 = _$rc.length;
   while (_$3b < _$V9) {
-      _$rc[_$3b++] ^= _$6P;
+    _$rc[_$3b++] ^= _$6P;
   }
   var _$9J = _$rc.length - 4;
   var _$nE = _$Dh() - _$6H(_$rc[_$v1[1]](_$9J))[0];
@@ -8800,7 +8810,7 @@ function _$ES(_$ph) {
   var _$vF = [0, _$xS._$wf][_$Nx];
   _$3b = 0;
   while (_$3b < _$lJ) {
-      _$rc[_$3b] = _$Sa | (_$rc[_$3b++] ^ _$vF);
+    _$rc[_$3b] = _$Sa | (_$rc[_$3b++] ^ _$vF);
   }
   _$sM(8, _$Sa);
   return _$rc;
@@ -8842,7 +8852,7 @@ function _$wf(_$ph) {
 
 function _$O3(_$ph, _$DQ, _$Sw) {
   if (typeof _$ph === _$v1[6])
-      _$ph = _$Rl(_$ph);
+    _$ph = _$Rl(_$ph);
   var _$rc = _$l$(_$DQ, _$Sw);
   return _$rc._$5_(_$ph, true);
 }
@@ -8850,62 +8860,62 @@ function _$O3(_$ph, _$DQ, _$Sw) {
 function _$9q(_$ph, _$DQ, _$Sw) {
   var _$rc = _$DQ[4], _$6P = _$Sw[4], _$3b, _$V9, _$9J, _$nE = [], _$Sa = [], _$lJ, _$vF, _$fX, _$lf, _$D6, _$Xa;
   for (_$3b = 0; _$3b < 256; _$3b++) {
-      _$Sa[(_$nE[_$3b] = _$3b << 1 ^ (_$3b >> 7) * 283) ^ _$3b] = _$3b;
+    _$Sa[(_$nE[_$3b] = _$3b << 1 ^ (_$3b >> 7) * 283) ^ _$3b] = _$3b;
   }
   for (_$V9 = _$9J = 0; !_$rc[_$V9]; _$V9 ^= _$lJ || 1,
-  _$9J = _$Sa[_$9J] || 1) {
-      _$lf = _$9J ^ _$9J << 1 ^ _$9J << 2 ^ _$9J << 3 ^ _$9J << 4;
-      _$lf = _$lf >> 8 ^ _$lf & 255 ^ 99;
-      _$rc[_$V9] = _$lf;
-      _$6P[_$lf] = _$V9;
-      _$lJ = _$nE[_$V9];
+    _$9J = _$Sa[_$9J] || 1) {
+    _$lf = _$9J ^ _$9J << 1 ^ _$9J << 2 ^ _$9J << 3 ^ _$9J << 4;
+    _$lf = _$lf >> 8 ^ _$lf & 255 ^ 99;
+    _$rc[_$V9] = _$lf;
+    _$6P[_$lf] = _$V9;
+    _$lJ = _$nE[_$V9];
   }
   for (_$3b = 0; _$3b < 256; _$3b++) {
-      _$6P[_$rc[_$3b]] = _$3b;
+    _$6P[_$rc[_$3b]] = _$3b;
   }
   for (_$V9 = 0; _$V9 < 256; _$V9++) {
-      _$lf = _$rc[_$V9];
-      _$fX = _$nE[_$vF = _$nE[_$lJ = _$nE[_$V9]]];
-      _$Xa = _$fX * 0x1010101 ^ _$vF * 0x10001 ^ _$lJ * 0x101 ^ _$V9 * 0x1010100;
-      _$D6 = _$nE[_$lf] * 0x101 ^ _$lf * 0x1010100;
-      for (_$3b = 0; _$3b < 4; _$3b++) {
-          _$DQ[_$3b][_$V9] = _$D6 = _$D6 << 24 ^ _$D6 >>> 8;
-          _$Sw[_$3b][_$lf] = _$Xa = _$Xa << 24 ^ _$Xa >>> 8;
-      }
+    _$lf = _$rc[_$V9];
+    _$fX = _$nE[_$vF = _$nE[_$lJ = _$nE[_$V9]]];
+    _$Xa = _$fX * 0x1010101 ^ _$vF * 0x10001 ^ _$lJ * 0x101 ^ _$V9 * 0x1010100;
+    _$D6 = _$nE[_$lf] * 0x101 ^ _$lf * 0x1010100;
+    for (_$3b = 0; _$3b < 4; _$3b++) {
+      _$DQ[_$3b][_$V9] = _$D6 = _$D6 << 24 ^ _$D6 >>> 8;
+      _$Sw[_$3b][_$lf] = _$Xa = _$Xa << 24 ^ _$Xa >>> 8;
+    }
   }
   for (_$3b = 0; _$3b < 5; _$3b++) {
-      _$DQ[_$3b] = _$DQ[_$3b][_$v1[1]](0);
-      _$Sw[_$3b] = _$Sw[_$3b][_$v1[1]](0);
+    _$DQ[_$3b] = _$DQ[_$3b][_$v1[1]](0);
+    _$Sw[_$3b] = _$Sw[_$3b][_$v1[1]](0);
   }
 }
 
 function _$k4(_$ph, _$DQ, _$Sw) {
   var _$rc = _$ph;
   if (_$ph.length % 16 !== 0)
-      _$rc = _$ES(_$ph);
+    _$rc = _$ES(_$ph);
   var _$6P = _$6H(_$rc);
   var _$3b, _$V9, _$9J, _$nE, _$Sa, _$lJ = _$DQ[4], _$vF = _$6P.length, _$fX = 1;
   var _$nE = _$6P[_$v1[1]](0);
   var _$Sa = [];
   for (_$3b = _$vF; _$3b < 4 * _$vF + 28; _$3b++) {
-      _$9J = _$nE[_$3b - 1];
-      if (_$3b % _$vF === 0 || (_$vF === 8 && _$3b % _$vF === 4)) {
-          _$9J = _$lJ[_$9J >>> 24] << 24 ^ _$lJ[_$9J >> 16 & 255] << 16 ^ _$lJ[_$9J >> 8 & 255] << 8 ^ _$lJ[_$9J & 255];
-          if (_$3b % _$vF === 0) {
-              _$9J = _$9J << 8 ^ _$9J >>> 24 ^ _$fX << 24;
-              _$fX = _$fX << 1 ^ (_$fX >> 7) * 283;
-          }
+    _$9J = _$nE[_$3b - 1];
+    if (_$3b % _$vF === 0 || (_$vF === 8 && _$3b % _$vF === 4)) {
+      _$9J = _$lJ[_$9J >>> 24] << 24 ^ _$lJ[_$9J >> 16 & 255] << 16 ^ _$lJ[_$9J >> 8 & 255] << 8 ^ _$lJ[_$9J & 255];
+      if (_$3b % _$vF === 0) {
+        _$9J = _$9J << 8 ^ _$9J >>> 24 ^ _$fX << 24;
+        _$fX = _$fX << 1 ^ (_$fX >> 7) * 283;
       }
-      _$nE[_$3b] = _$nE[_$3b - _$vF] ^ _$9J;
+    }
+    _$nE[_$3b] = _$nE[_$3b - _$vF] ^ _$9J;
   }
   for (_$V9 = 0; _$3b; _$V9++,
-  _$3b--) {
-      _$9J = _$nE[_$V9 & 3 ? _$3b : _$3b - 4];
-      if (_$3b <= 4 || _$V9 < 4) {
-          _$Sa[_$V9] = _$9J;
-      } else {
-          _$Sa[_$V9] = _$Sw[0][_$lJ[_$9J >>> 24]] ^ _$Sw[1][_$lJ[_$9J >> 16 & 255]] ^ _$Sw[2][_$lJ[_$9J >> 8 & 255]] ^ _$Sw[3][_$lJ[_$9J & 255]];
-      }
+    _$3b--) {
+    _$9J = _$nE[_$V9 & 3 ? _$3b : _$3b - 4];
+    if (_$3b <= 4 || _$V9 < 4) {
+      _$Sa[_$V9] = _$9J;
+    } else {
+      _$Sa[_$V9] = _$Sw[0][_$lJ[_$9J >>> 24]] ^ _$Sw[1][_$lJ[_$9J >> 16 & 255]] ^ _$Sw[2][_$lJ[_$9J >> 8 & 255]] ^ _$Sw[3][_$lJ[_$9J & 255]];
+    }
   }
   return [_$nE, _$Sa];
 }
@@ -8913,22 +8923,22 @@ function _$k4(_$ph, _$DQ, _$Sw) {
 function _$aV(_$ph, _$DQ, _$Sw, _$Zc) {
   var _$rc = _$ph[_$Sw], _$6P = _$DQ[0] ^ _$rc[0], _$3b = _$DQ[_$Sw ? 3 : 1] ^ _$rc[1], _$V9 = _$DQ[2] ^ _$rc[2], _$9J = _$DQ[_$Sw ? 1 : 3] ^ _$rc[3], _$nE, _$Sa, _$lJ, _$vF = _$rc.length / 4 - 2, _$fX, _$lf = 4, _$D6 = [0, 0, 0, 0], _$Xa = _$Zc[0], _$S3 = _$Zc[1], _$t2 = _$Zc[2], _$vR = _$Zc[3], _$6T = _$Zc[4];
   for (_$fX = 0; _$fX < _$vF; _$fX++) {
-      _$nE = _$Xa[_$6P >>> 24] ^ _$S3[_$3b >> 16 & 255] ^ _$t2[_$V9 >> 8 & 255] ^ _$vR[_$9J & 255] ^ _$rc[_$lf];
-      _$Sa = _$Xa[_$3b >>> 24] ^ _$S3[_$V9 >> 16 & 255] ^ _$t2[_$9J >> 8 & 255] ^ _$vR[_$6P & 255] ^ _$rc[_$lf + 1];
-      _$lJ = _$Xa[_$V9 >>> 24] ^ _$S3[_$9J >> 16 & 255] ^ _$t2[_$6P >> 8 & 255] ^ _$vR[_$3b & 255] ^ _$rc[_$lf + 2];
-      _$9J = _$Xa[_$9J >>> 24] ^ _$S3[_$6P >> 16 & 255] ^ _$t2[_$3b >> 8 & 255] ^ _$vR[_$V9 & 255] ^ _$rc[_$lf + 3];
-      _$lf += 4;
-      _$6P = _$nE;
-      _$3b = _$Sa;
-      _$V9 = _$lJ;
+    _$nE = _$Xa[_$6P >>> 24] ^ _$S3[_$3b >> 16 & 255] ^ _$t2[_$V9 >> 8 & 255] ^ _$vR[_$9J & 255] ^ _$rc[_$lf];
+    _$Sa = _$Xa[_$3b >>> 24] ^ _$S3[_$V9 >> 16 & 255] ^ _$t2[_$9J >> 8 & 255] ^ _$vR[_$6P & 255] ^ _$rc[_$lf + 1];
+    _$lJ = _$Xa[_$V9 >>> 24] ^ _$S3[_$9J >> 16 & 255] ^ _$t2[_$6P >> 8 & 255] ^ _$vR[_$3b & 255] ^ _$rc[_$lf + 2];
+    _$9J = _$Xa[_$9J >>> 24] ^ _$S3[_$6P >> 16 & 255] ^ _$t2[_$3b >> 8 & 255] ^ _$vR[_$V9 & 255] ^ _$rc[_$lf + 3];
+    _$lf += 4;
+    _$6P = _$nE;
+    _$3b = _$Sa;
+    _$V9 = _$lJ;
   }
   for (_$fX = 0; _$fX < 4; _$fX++) {
-      _$D6[_$Sw ? 3 & -_$fX : _$fX] = _$6T[_$6P >>> 24] << 24 ^ _$6T[_$3b >> 16 & 255] << 16 ^ _$6T[_$V9 >> 8 & 255] << 8 ^ _$6T[_$9J & 255] ^ _$rc[_$lf++];
-      _$nE = _$6P;
-      _$6P = _$3b;
-      _$3b = _$V9;
-      _$V9 = _$9J;
-      _$9J = _$nE;
+    _$D6[_$Sw ? 3 & -_$fX : _$fX] = _$6T[_$6P >>> 24] << 24 ^ _$6T[_$3b >> 16 & 255] << 16 ^ _$6T[_$V9 >> 8 & 255] << 8 ^ _$6T[_$9J & 255] ^ _$rc[_$lf++];
+    _$nE = _$6P;
+    _$6P = _$3b;
+    _$3b = _$V9;
+    _$V9 = _$9J;
+    _$9J = _$nE;
   }
   return _$D6;
 }
@@ -8941,7 +8951,7 @@ function _$MV(_$ph) {
   var _$rc = _$Ui() + _$ph * 24 * 60 * 60 * 1000;
   var _$6P = _$v1[243] + (new _$EM(_$rc))[_$v1[396]]();
   if (_$b1()[_$v1[47]] === _$v1[54]) {
-      _$6P += _$v1[256];
+    _$6P += _$v1[256];
   }
   return _$6P;
 }
@@ -8964,47 +8974,47 @@ function _$l$(_$ph, _$DQ) {
     , _$rD = _$rc[0]
     , _$74 = _$rc[1];
   if (!_$rD[0][0] && !_$rD[0][1]) {
-      _$9q(_$DQ, _$rD, _$74);
+    _$9q(_$DQ, _$rD, _$74);
   }
   var _$5i = _$k4(_$ph, _$rD, _$74);
   function _$6P(_$sw, _$s0) {
-      var _$rc = _$AB[_$v1[5]](_$sw.length / 16) + 1, _$6P, _$3b = [], _$V9 = 16 - (_$sw.length % 16), _$9J, _$nE;
-      if (_$s0) {
-          _$3b = _$9J = _$LE();
-      }
-      var _$Sa = _$sw[_$v1[1]](0);
-      _$nE = _$sw.length + _$V9;
-      for (_$6P = _$sw.length; _$6P < _$nE; )
-          _$Sa[_$6P++] = _$V9;
-      _$Sa = _$6H(_$Sa);
-      for (_$6P = 0; _$6P < _$rc; ) {
-          _$nE = _$Sa[_$v1[1]](_$6P << 2, (++_$6P) << 2);
-          _$nE = _$9J ? _$qT(_$nE, _$9J) : _$nE;
-          _$9J = _$aV(_$5i, _$nE, 0, _$rD);
-          _$3b = _$3b[_$v1[8]](_$9J);
-      }
-      return _$rY(_$3b);
+    var _$rc = _$AB[_$v1[5]](_$sw.length / 16) + 1, _$6P, _$3b = [], _$V9 = 16 - (_$sw.length % 16), _$9J, _$nE;
+    if (_$s0) {
+      _$3b = _$9J = _$LE();
+    }
+    var _$Sa = _$sw[_$v1[1]](0);
+    _$nE = _$sw.length + _$V9;
+    for (_$6P = _$sw.length; _$6P < _$nE;)
+      _$Sa[_$6P++] = _$V9;
+    _$Sa = _$6H(_$Sa);
+    for (_$6P = 0; _$6P < _$rc;) {
+      _$nE = _$Sa[_$v1[1]](_$6P << 2, (++_$6P) << 2);
+      _$nE = _$9J ? _$qT(_$nE, _$9J) : _$nE;
+      _$9J = _$aV(_$5i, _$nE, 0, _$rD);
+      _$3b = _$3b[_$v1[8]](_$9J);
+    }
+    return _$rY(_$3b);
   }
-  ;function _$3b(_$sw, _$s0) {
-      var _$rc, _$6P, _$3b, _$V9, _$9J = [], _$nE, _$Sa;
-      _$sw = _$6H(_$sw);
-      if (_$s0) {
-          _$Sa = _$sw[_$v1[1]](0, 4);
-          _$sw = _$sw[_$v1[1]](4);
-      }
-      _$rc = _$sw.length / 4;
-      for (_$6P = 0; _$6P < _$rc; ) {
-          _$V9 = _$sw[_$v1[1]](_$6P << 2, (++_$6P) << 2);
-          _$3b = _$aV(_$5i, _$V9, 1, _$74);
-          _$9J = _$9J[_$v1[8]](_$Sa ? _$qT(_$3b, _$Sa) : _$3b);
-          _$Sa = _$V9;
-      }
-      _$9J = _$rY(_$9J);
-      _$nE = _$9J[_$9J.length - 1];
-      _$9J[_$v1[64]](_$9J.length - _$nE, _$nE);
-      return _$9J;
+  ; function _$3b(_$sw, _$s0) {
+    var _$rc, _$6P, _$3b, _$V9, _$9J = [], _$nE, _$Sa;
+    _$sw = _$6H(_$sw);
+    if (_$s0) {
+      _$Sa = _$sw[_$v1[1]](0, 4);
+      _$sw = _$sw[_$v1[1]](4);
+    }
+    _$rc = _$sw.length / 4;
+    for (_$6P = 0; _$6P < _$rc;) {
+      _$V9 = _$sw[_$v1[1]](_$6P << 2, (++_$6P) << 2);
+      _$3b = _$aV(_$5i, _$V9, 1, _$74);
+      _$9J = _$9J[_$v1[8]](_$Sa ? _$qT(_$3b, _$Sa) : _$3b);
+      _$Sa = _$V9;
+    }
+    _$9J = _$rY(_$9J);
+    _$nE = _$9J[_$9J.length - 1];
+    _$9J[_$v1[64]](_$9J.length - _$nE, _$nE);
+    return _$9J;
   }
-  ;var _$V9 = {};
+  ; var _$V9 = {};
   _$V9._$5_ = _$6P;
   _$V9._$h_ = _$3b;
   return _$V9;
@@ -9018,11 +9028,11 @@ function _$rY(_$ph) {
   var _$rc = _$ph.length, _$6P = _$Py = 0, _$3b = _$ph.length * 4, _$V9, _$9J;
   _$9J = new _$xy(_$3b);
   while (_$6P < _$rc) {
-      _$V9 = _$ph[_$6P++];
-      _$9J[_$Py++] = (_$V9 >>> 24) & 0xFF;
-      _$9J[_$Py++] = (_$V9 >>> 16) & 0xFF;
-      _$9J[_$Py++] = (_$V9 >>> 8) & 0xFF;
-      _$9J[_$Py++] = _$V9 & 0xFF;
+    _$V9 = _$ph[_$6P++];
+    _$9J[_$Py++] = (_$V9 >>> 24) & 0xFF;
+    _$9J[_$Py++] = (_$V9 >>> 16) & 0xFF;
+    _$9J[_$Py++] = (_$V9 >>> 8) & 0xFF;
+    _$9J[_$Py++] = _$V9 & 0xFF;
   }
   return _$9J;
 }
@@ -9032,8 +9042,8 @@ function _$x2(_$ph) {
   _$xS._$VT(_$rc);
   _$V9 = _$rc.length;
   while (_$3b < _$V9) {
-      _$6P = _$AB[_$9J](_$rc[_$3b]);
-      _$rc[_$3b++] = _$6P > 256 ? 256 : _$6P;
+    _$6P = _$AB[_$9J](_$rc[_$3b]);
+    _$rc[_$3b++] = _$6P > 256 ? 256 : _$6P;
   }
   return _$rc;
 }
@@ -9073,19 +9083,19 @@ function _$Du() {
 
 function _$cR(_$ph) {
   if (typeof _$ph === _$v1[6])
-      _$ph = _$Rl(_$ph);
+    _$ph = _$Rl(_$ph);
   _$ph = _$ph[_$v1[8]](_$I$);
   return _$QD(_$ph);
 }
 function _$QD(_$ph) {
   if (typeof _$ph === _$v1[6])
-      _$ph = _$Rl(_$ph);
+    _$ph = _$Rl(_$ph);
   var _$rc = _$xS._$eX || (_$xS._$eX = _$53());
   var _$6P = 0
     , _$3b = _$ph.length
     , _$V9 = 0;
   while (_$V9 < _$3b) {
-      _$6P = _$rc[(_$6P ^ _$ph[_$V9++]) & 0xFF];
+    _$6P = _$rc[(_$6P ^ _$ph[_$V9++]) & 0xFF];
   }
   return _$6P;
 }
@@ -9093,14 +9103,14 @@ function _$QD(_$ph) {
 function _$53() {
   var _$rc = [];
   for (var _$6P = 0; _$6P < 256; ++_$6P) {
-      var _$3b = _$6P;
-      for (var _$V9 = 0; _$V9 < 8; ++_$V9) {
-          if ((_$3b & 0x80) !== 0)
-              _$3b = (_$3b << 1) ^ 7;
-          else
-              _$3b <<= 1;
-      }
-      _$rc[_$6P] = _$3b & 0xff;
+    var _$3b = _$6P;
+    for (var _$V9 = 0; _$V9 < 8; ++_$V9) {
+      if ((_$3b & 0x80) !== 0)
+        _$3b = (_$3b << 1) ^ 7;
+      else
+        _$3b <<= 1;
+    }
+    _$rc[_$6P] = _$3b & 0xff;
   }
   return _$rc;
 }
@@ -9131,7 +9141,9 @@ function getCookie() {
   if (_$PV) {
     _$PV[_$v1[543]] = _$WK(6);
   }
+  console.log('get real cookie')
   _$tw(767, 1);  //真cookie
+  console.log('done')
 }
 
 getCookie()
