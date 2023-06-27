@@ -356,7 +356,20 @@ int ll2string(char *dst, size_t dstlen, long long svalue) {
  *
  * Because of its strictness, it is safe to use this function to check if
  * you can convert a string into a long long, and obtain back the string
- * from the number without any loss in the string representation. */
+ * from the number without any loss in the string representation.
+ * 将字符串转换为 long long。 如果可以解析字符串则返回 1
+  * 转换为（非溢出）long long，否则为 0。 该值将被设置为
+  * 适当时解析的值。
+  *
+  * 注意该函数要求字符串严格表示
+  * a long long：字符串前后不能有空格或其他字符
+  * 代表接受的数字，如果不接受，则开头也不为零
+  * 为字符串“0”，表示零数。
+  *
+  * 由于其严格性，使用此函数来检查是否是安全的
+  * 可以将字符串转换为long long，并返回字符串
+  * 来自数字，字符串表示形式没有任何损失。
+  * */
 int string2ll(const char *s, size_t slen, long long *value) {
     const char *p = s;
     size_t plen = 0;

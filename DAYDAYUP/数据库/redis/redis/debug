@@ -1,0 +1,2 @@
+https://blog.csdn.net/qq_14855971/article/details/128195743
+make CFLAGS="-g -O0" MALLOC=jemalloc
