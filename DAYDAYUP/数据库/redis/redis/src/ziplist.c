@@ -391,8 +391,7 @@ int zipStorePrevEntryLengthLarge(unsigned char *p, unsigned int len) {
     return 1 + sizeof(len);
 }
 
-/* Encode the length of the previous entry and write it to "p". Return the
- * number of bytes needed to encode this length if "p" is NULL. */
+/* 对前一个条目的长度进行编码并将其写入“p”。 如果“p”为 NULL，则返回编码此长度所需的字节数。 */
 unsigned int zipStorePrevEntryLength(unsigned char *p, unsigned int len) {
     if (p == NULL) {
         return (len < ZIP_BIG_PREVLEN) ? 1 : sizeof(len) + 1;
@@ -578,8 +577,8 @@ unsigned char *ziplistNew(void) {
 unsigned char *ziplistResize(unsigned char *zl, size_t len) {
     assert(len < UINT32_MAX);
     zl = zrealloc(zl, len);
-    ZIPLIST_BYTES(zl) = intrev32ifbe(len);
-    zl[len - 1] = ZIP_END;
+    ZIPLIST_BYTES(zl) = intrev32ifbe(len); //更新zlbytes
+    zl[len - 1] = ZIP_END; //更新zlend
     return zl;
 }
 
@@ -771,18 +770,27 @@ unsigned char *__ziplistInsert(unsigned char *zl, unsigned char *p, unsigned cha
     int forcelarge = 0;
     nextdiff = (p[0] != ZIP_END) ? zipPrevLenByteDiff(p, reqlen) : 0;
     if (nextdiff == -4 && reqlen < 4) {
+        //只管扩大,缩小的情况不管
         nextdiff = 0;
         forcelarge = 1;
     }
 
     /* Store offset because a realloc may change the address of zl. */
-    offset = p - zl;
+    offset = p - zl; //offset是从zl起始到p的偏移量
     zl = ziplistResize(zl, curlen + reqlen + nextdiff);
-    p = zl + offset;
+    p = zl + offset; //p指向要被插入的节点后
 
     /* Apply memory move when necessary and update tail offset. */
     if (p[0] != ZIP_END) {
         /* Subtract one because of the ZIP_END bytes */
+        /*
+         * memmove(*dest, *src, size_t len)
+         * 为新插入的元素腾出空间.
+         * curlen:当前长度;
+         * offset相当于从zl起始到第一个entry的偏移;
+         * 1是zlend;
+         * nextdiff是可能存在的prev_entry_length的变化
+         * */
         memmove(p + reqlen, p - nextdiff, curlen - offset - 1 + nextdiff);
 
         /* Encode this entry's raw length in the next entry. */
@@ -817,14 +825,14 @@ unsigned char *__ziplistInsert(unsigned char *zl, unsigned char *p, unsigned cha
     }
 
     /* Write the entry */
-    p += zipStorePrevEntryLength(p, prevlen);
-    p += zipStoreEntryEncoding(p, encoding, slen);
+    p += zipStorePrevEntryLength(p, prevlen); //保存perv_len
+    p += zipStoreEntryEncoding(p, encoding, slen); //保存encoding
     if (ZIP_IS_STR(encoding)) {
-        memcpy(p, s, slen);
+        memcpy(p, s, slen); //保存content
     } else {
         zipSaveInteger(p, value, encoding);
     }
-    ZIPLIST_INCR_LENGTH(zl, 1);
+    ZIPLIST_INCR_LENGTH(zl, 1);//更新zllen
     return zl;
 }
 
