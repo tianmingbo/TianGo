@@ -553,7 +553,7 @@ int64_t zipLoadInteger(unsigned char *p, unsigned char encoding) {
     return ret;
 }
 
-/* Return a struct with all information about an entry. */
+/* 把p指向的entry信息放入e */
 void zipEntry(unsigned char *p, zlentry *e) {
 
     ZIP_DECODE_PREVLEN(p, e->prevrawlensize, e->prevrawlen);
@@ -582,26 +582,18 @@ unsigned char *ziplistResize(unsigned char *zl, size_t len) {
     return zl;
 }
 
-/* When an entry is inserted, we need to set the prevlen field of the next
- * entry to equal the length of the inserted entry. It can occur that this
- * length cannot be encoded in 1 byte and the next entry needs to be grow
- * a bit larger to hold the 5-byte encoded prevlen. This can be done for free,
- * because this only happens when an entry is already being inserted (which
- * causes a realloc and memmove). However, encoding the prevlen may require
- * that this entry is grown as well. This effect may cascade throughout
- * the ziplist when there are consecutive entries with a size close to
- * ZIP_BIG_PREVLEN, so we need to check that the prevlen can be encoded in
- * every consecutive entry.
+/* 当插入一个条目时，我们需要将下一个条目的 prevlen 字段设置为等于插入条目的长度。
+ * 可能会出现该长度无法用 1 字节编码的情况，并且下一个条目需要变大一点以容纳 5 字节编码的 prevlen。
+ * 这可以免费完成，因为这只在已经插入条目时发生（这会导致 realloc 和 memmove）。
+ * 然而，对 prevlen 进行编码可能也需要增加该条目。 当存在大小接近 ZIP_BIG_PREVLEN 的连续条目时，
+ * 这种效果可能会在整个 ziplist 中级联，因此我们需要检查 prevlen 是否可以在每个连续条目中进行编码。
+ * 请注意，这种效果也可能反向发生，即编码 prevlen 字段所需的字节可能会缩小。
+ * 故意忽略此效果，因为它可能会导致“抖动”效果，其中链 prevlen 字段首先增长，然后在连续插入后再次收缩。
+ * 相反，允许该字段保持大于必要的大小，因为大的 prevlen 字段意味着 ziplist 无论如何都保存着大的条目。
+ * 指针“p”指向不需要更新的第一个条目，即连续字段可能需要更新。
  *
- * Note that this effect can also happen in reverse, where the bytes required
- * to encode the prevlen field can shrink. This effect is deliberately ignored,
- * because it can cause a "flapping" effect where a chain prevlen fields is
- * first grown and then shrunk again after consecutive inserts. Rather, the
- * field is allowed to stay larger than necessary, because a large prevlen
- * field implies the ziplist is holding large entries anyway.
- *
- * The pointer "p" points to the first entry that does NOT need to be
- * updated, i.e. consecutive fields MAY need an update. */
+ * 总的来说，级联更新。prev 1->5 需要处理。5->1不处理
+ * */
 unsigned char *__ziplistCascadeUpdate(unsigned char *zl, unsigned char *p) {
     size_t curlen = intrev32ifbe(ZIPLIST_BYTES(zl)), rawlen, rawlensize;
     size_t offset, noffset, extra;
@@ -611,20 +603,21 @@ unsigned char *__ziplistCascadeUpdate(unsigned char *zl, unsigned char *p) {
     while (p[0] != ZIP_END) {
         zipEntry(p, &cur);
         rawlen = cur.headersize + cur.len;
-        rawlensize = zipStorePrevEntryLength(NULL, rawlen);
+        rawlensize = zipStorePrevEntryLength(NULL, rawlen); //编码rawlen长度需要的字节数
 
         /* Abort if there is no next entry. */
         if (p[rawlen] == ZIP_END) break;
         zipEntry(p + rawlen, &next);
 
         /* Abort when "prevlen" has not changed. */
-        if (next.prevrawlen == rawlen) break;
+        if (next.prevrawlen == rawlen) break; //下一个记录前置entry编码长度的字节数没有变化,break
 
         if (next.prevrawlensize < rawlensize) {
+            //后面的entry需要扩容
             /* The "prevlen" field of "next" needs more bytes to hold
              * the raw length of "cur". */
             offset = p - zl;
-            extra = rawlensize - next.prevrawlensize;
+            extra = rawlensize - next.prevrawlensize; //1-5
             zl = ziplistResize(zl, curlen + extra);
             p = zl + offset;
 
@@ -817,10 +810,12 @@ unsigned char *__ziplistInsert(unsigned char *zl, unsigned char *p, unsigned cha
     }
 
     /* When nextdiff != 0, the raw length of the next entry has changed, so
-     * we need to cascade the update throughout the ziplist */
+     * we need to cascade the update throughout the ziplist
+     * 级联更新
+     * */
     if (nextdiff != 0) {
         offset = p - zl;
-        zl = __ziplistCascadeUpdate(zl, p + reqlen);
+        zl = __ziplistCascadeUpdate(zl, p + reqlen); //上面已经插入新节点完事了, 所以p + reqlen就是指向原来的entry的指针
         p = zl + offset;
     }
 
@@ -828,7 +823,7 @@ unsigned char *__ziplistInsert(unsigned char *zl, unsigned char *p, unsigned cha
     p += zipStorePrevEntryLength(p, prevlen); //保存perv_len
     p += zipStoreEntryEncoding(p, encoding, slen); //保存encoding
     if (ZIP_IS_STR(encoding)) {
-        memcpy(p, s, slen); //保存content
+        memcpy(p, s, slen); //保存string类型的content
     } else {
         zipSaveInteger(p, value, encoding);
     }
@@ -964,29 +959,30 @@ unsigned char *ziplistPush(unsigned char *zl, unsigned char *s, unsigned int sle
     return __ziplistInsert(zl, p, s, slen);
 }
 
-/* Returns an offset to use for iterating with ziplistNext. When the given
- * index is negative, the list is traversed back to front. When the list
- * doesn't contain an element at the provided index, NULL is returned. */
+/* 返回用于使用 ziplistNext 进行迭代的偏移量。 当给定索引为负数时，列表将从后向前遍历。
+ * 当列表在提供的索引处不包含元素时，返回 NULL。
+ * O(N)
+ * */
 unsigned char *ziplistIndex(unsigned char *zl, int index) {
     unsigned char *p;
     unsigned int prevlensize, prevlen = 0;
     if (index < 0) {
         index = (-index) - 1;
-        p = ZIPLIST_ENTRY_TAIL(zl);
-        if (p[0] != ZIP_END) {
+        p = ZIPLIST_ENTRY_TAIL(zl); //获取zltail指向的位置
+        if (p[0] != ZIP_END) { //不为空
             ZIP_DECODE_PREVLEN(p, prevlensize, prevlen);
             while (prevlen > 0 && index--) {
-                p -= prevlen;
+                p -= prevlen; //指针前移,指向前一个entry开始位置
                 ZIP_DECODE_PREVLEN(p, prevlensize, prevlen);
             }
         }
     } else {
-        p = ZIPLIST_ENTRY_HEAD(zl);
+        p = ZIPLIST_ENTRY_HEAD(zl); //正向,指向第一个entry结构体的起始位置
         while (p[0] != ZIP_END && index--) {
-            p += zipRawEntryLength(p);
+            p += zipRawEntryLength(p); //指针移动到下一个entry开始位置
         }
     }
-    return (p[0] == ZIP_END || index > 0) ? NULL : p;
+    return (p[0] == ZIP_END || index > 0) ? NULL : p; //返回第index个entry的指针
 }
 
 /* Return pointer to next entry in ziplist.
@@ -1055,7 +1051,7 @@ unsigned int ziplistGet(unsigned char *p, unsigned char **sstr, unsigned int *sl
     return 1;
 }
 
-/* Insert an entry at "p". */
+//在zl的p插入slen长度的s
 unsigned char *ziplistInsert(unsigned char *zl, unsigned char *p, unsigned char *s, unsigned int slen) {
     return __ziplistInsert(zl, p, s, slen);
 }
@@ -1108,8 +1104,7 @@ unsigned int ziplistCompare(unsigned char *p, unsigned char *sstr, unsigned int 
     return 0;
 }
 
-/* Find pointer to the entry equal to the specified entry. Skip 'skip' entries
- * between every comparison. Returns NULL when the field could not be found. */
+/* 在压缩列表中查找并返回包含了给定值的节点 */
 unsigned char *ziplistFind(unsigned char *p, unsigned char *vstr, unsigned int vlen, unsigned int skip) {
     int skipcnt = 0;
     unsigned char vencoding = 0;
