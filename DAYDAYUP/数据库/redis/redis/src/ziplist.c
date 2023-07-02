@@ -197,19 +197,19 @@
 
 /* Utility macros.*/
 
-/* Return total bytes a ziplist is composed of. */
+// 定位到 ziplist 的 bytes 属性，该属性记录了整个 ziplist 所占用的内存字节数
+// 用于取出 bytes 属性的现有值，或者为 bytes 属性赋予新值
 #define ZIPLIST_BYTES(zl)       (*((uint32_t*)(zl)))
 
-/* Return the offset of the last item inside the ziplist. */
+// 定位到 ziplist 的 offset 属性，该属性记录了到达表尾节点的偏移量
+// 用于取出 offset 属性的现有值，或者为 offset 属性赋予新值
 #define ZIPLIST_TAIL_OFFSET(zl) (*((uint32_t*)((zl)+sizeof(uint32_t))))
 
-/* Return the length of a ziplist, or UINT16_MAX if the length cannot be
- * determined without scanning the whole ziplist. */
+// 定位到 ziplist 的 length 属性，该属性记录了 ziplist 包含的节点数量
+// 用于取出 length 属性的现有值，或者为 length 属性赋予新值
 #define ZIPLIST_LENGTH(zl)      (*((uint16_t*)((zl)+sizeof(uint32_t)*2)))
 
-/* The size of a ziplist header: two 32 bit integers for the total
- * bytes count and last item offset. One 16 bit integer for the number
- * of items field.  */
+// 返回 ziplist 表头的大小
 #define ZIPLIST_HEADER_SIZE     (sizeof(uint32_t)*2+sizeof(uint16_t))
 
 /* Size of the "end of ziplist" entry. Just one byte. 1字节*/
@@ -218,19 +218,15 @@
 /* 返回第一个entry指针 */
 #define ZIPLIST_ENTRY_HEAD(zl)  ((zl)+ZIPLIST_HEADER_SIZE)
 
-/* Return the pointer to the last entry of a ziplist, using the
- * last entry offset inside the ziplist header. */
+// 返回指向 ziplist 最后一个节点（的起始位置）的指
 #define ZIPLIST_ENTRY_TAIL(zl)  ((zl)+intrev32ifbe(ZIPLIST_TAIL_OFFSET(zl)))
 
-/* Return the pointer to the last byte of a ziplist, which is, the
- * end of ziplist FF entry. */
+// 返回指向 ziplist 末端 ZIP_END （的起始位置）的指针
 #define ZIPLIST_ENTRY_END(zl)   ((zl)+intrev32ifbe(ZIPLIST_BYTES(zl))-1)
 
-/* Increment the number of items field in the ziplist header. Note that this
- * macro should never overflow the unsigned 16 bit integer, since entries are
- * always pushed one at a time. When UINT16_MAX is reached we want the count
- * to stay there to signal that a full scan is needed to get the number of
- * items inside the ziplist. */
+/*
+ * 增加 ziplist 的节点数
+*/
 #define ZIPLIST_INCR_LENGTH(zl, incr) { \
     if (intrev16ifbe(ZIPLIST_LENGTH(zl)) < UINT16_MAX) \
         ZIPLIST_LENGTH(zl) = intrev16ifbe(intrev16ifbe(ZIPLIST_LENGTH(zl))+incr); \
@@ -507,7 +503,7 @@ void zipSaveInteger(unsigned char *p, int64_t value, unsigned char encoding) {
     } else if (encoding == ZIP_INT_24B) {
         i32 = value << 8;
         memrev32ifbe(&i32);
-        memcpy(p, ((uint8_t *) &i32) + 1, sizeof(i32) - sizeof(uint8_t));
+        memcpy(p, ((uint8_t * ) & i32) + 1, sizeof(i32) - sizeof(uint8_t));
     } else if (encoding == ZIP_INT_32B) {
         i32 = value;
         memcpy(p, &i32, sizeof(i32));
@@ -540,7 +536,7 @@ int64_t zipLoadInteger(unsigned char *p, unsigned char encoding) {
         ret = i32;
     } else if (encoding == ZIP_INT_24B) {
         i32 = 0;
-        memcpy(((uint8_t *) &i32) + 1, p, sizeof(i32) - sizeof(uint8_t));
+        memcpy(((uint8_t * ) & i32) + 1, p, sizeof(i32) - sizeof(uint8_t));
         memrev32ifbe(&i32);
         ret = i32 >> 8;
     } else if (encoding == ZIP_INT_64B) {
@@ -664,59 +660,60 @@ unsigned char *__ziplistDelete(unsigned char *zl, unsigned char *p, unsigned int
     size_t offset;
     int nextdiff = 0;
     zlentry first, tail;
-
-    zipEntry(p, &first);
+    zipEntry(p, &first);    //获取要删除的元素的首个节点
     for (i = 0; p[0] != ZIP_END && i < num; i++) {
-        p += zipRawEntryLength(p);
+        p += zipRawEntryLength(p); //计算要删除的元素占据的字节数
         deleted++;
     }
 
-    totlen = p - first.p; /* Bytes taken by the element(s) to delete. */
+    totlen = p - first.p; /* 需要删除的字节 */
     if (totlen > 0) {
         if (p[0] != ZIP_END) {
-            /* Storing `prevrawlen` in this entry may increase or decrease the
-             * number of bytes required compare to the current `prevrawlen`.
-             * There always is room to store this, because it was previously
-             * stored by an entry that is now being deleted. */
+            // 计算新的prevlen与旧的prevlen之间的字节数差
             nextdiff = zipPrevLenByteDiff(p, first.prevrawlen);
 
-            /* Note that there is always space when p jumps backward: if
-             * the new previous entry is large, one of the deleted elements
-             * had a 5 bytes prevlen header, so there is for sure at least
-             * 5 bytes free and we need just 4. */
+            // 如果有需要的话，将指针 p 后退 nextdiff 字节，为新 header 空出空间
             p -= nextdiff;
+            // 将 first 的前置节点的长度编码至 p 中
             zipStorePrevEntryLength(p, first.prevrawlen);
 
-            /* Update offset for tail */
+            // 更新尾部节点的偏移量
             ZIPLIST_TAIL_OFFSET(zl) =
                     intrev32ifbe(intrev32ifbe(ZIPLIST_TAIL_OFFSET(zl)) - totlen);
 
             /* When the tail contains more than one entry, we need to take
              * "nextdiff" in account as well. Otherwise, a change in the
              * size of prevlen doesn't have an effect on the *tail* offset. */
+            // 如果被删除节点之后，有多于一个节点
+            // 那么程序需要将 nextdiff 记录的字节数也计算到表尾偏移量中
+            // 这样才能让表尾偏移量正确对齐表尾节点
             zipEntry(p, &tail);
             if (p[tail.headersize + tail.len] != ZIP_END) {
                 ZIPLIST_TAIL_OFFSET(zl) =
                         intrev32ifbe(intrev32ifbe(ZIPLIST_TAIL_OFFSET(zl)) + nextdiff);
             }
 
-            /* Move tail to the front of the ziplist */
+            // 将尾部移动到ziplist的前端
             memmove(first.p, p,
                     intrev32ifbe(ZIPLIST_BYTES(zl)) - (p - zl) - 1);
         } else {
-            /* The entire tail was deleted. No need to move memory. */
+            /* 执行到这里，说明删除的是zlend前的那个entry，不需要移动内存 */
             ZIPLIST_TAIL_OFFSET(zl) =
                     intrev32ifbe((first.p - zl) - first.prevrawlen);
         }
 
         /* Resize and update length */
+        // 缩小并更新 ziplist 的长度
         offset = first.p - zl;
         zl = ziplistResize(zl, intrev32ifbe(ZIPLIST_BYTES(zl)) - totlen + nextdiff);
         ZIPLIST_INCR_LENGTH(zl, -deleted);
-        p = zl + offset;
+        p = zl + offset; //删除完毕后，更新p指向的位置
 
         /* When nextdiff != 0, the raw length of the next entry has changed, so
          * we need to cascade the update throughout the ziplist */
+        // 如果 p 所指向的节点的大小已经变更，那么进行级联更新
+        // 检查 p 之后的所有节点是否符合 ziplist 的编码要求
+        // T = O(N^2)
         if (nextdiff != 0)
             zl = __ziplistCascadeUpdate(zl, p);
     }
@@ -961,7 +958,7 @@ unsigned char *ziplistPush(unsigned char *zl, unsigned char *s, unsigned int sle
     return __ziplistInsert(zl, p, s, slen);
 }
 
-/* 返回用于使用 ziplistNext 进行迭代的偏移量。 当给定索引为负数时，列表将从后向前遍历。
+/* 返回给定索引上的节点。 当给定索引为负数时，列表将从后向前遍历。
  * 当列表在提供的索引处不包含元素时，返回 NULL。
  * O(N)
  * */
@@ -1061,22 +1058,21 @@ unsigned char *ziplistInsert(unsigned char *zl, unsigned char *p, unsigned char 
     return __ziplistInsert(zl, p, s, slen);
 }
 
-/* Delete a single entry from the ziplist, pointed to by *p.
- * Also update *p in place, to be able to iterate over the
- * ziplist, while deleting entries. */
+/* 从 ziplist 中删除 *p 指向的单个条目。同时更新 *p，以便能够在删除条目时迭代 ziplist。
+ * 平均O(N)，最坏O(N²)
+ * */
 unsigned char *ziplistDelete(unsigned char *zl, unsigned char **p) {
     size_t offset = *p - zl;
     zl = __ziplistDelete(zl, *p, 1);
 
-    /* Store pointer to current element in p, because ziplistDelete will
-     * do a realloc which might result in a different "zl"-pointer.
-     * When the delete direction is back to front, we might delete the last
-     * entry and end up with "p" pointing to ZIP_END, so check this. */
+    /* 将指向当前元素的指针存储在 p 中，因为 ziplistDelete 将执行重新分配，
+     * 这可能会导致不同的“zl”指针。 当删除方向是从后到前时，
+     * 我们可能会删除最后一个条目并最终得到“p”指向 ZIP_END 的结果，因此请检查这一点。 */
     *p = zl + offset;
     return zl;
 }
 
-/* Delete a range of entries from the ziplist. */
+/* 删除在给定范围的节点，存在级联更新 */
 unsigned char *ziplistDeleteRange(unsigned char *zl, int index, unsigned int num) {
     unsigned char *p = ziplistIndex(zl, index);
     return (p == NULL) ? zl : __ziplistDelete(zl, p, num);
@@ -1174,12 +1170,19 @@ unsigned char *ziplistFind(unsigned char *p, unsigned char *vstr, unsigned int v
     return NULL;
 }
 
-/* Return length of ziplist. */
+/*  * 返回 ziplist 中的节点个数
+ *
+ * T = O(N)
+ * */
 unsigned int ziplistLen(unsigned char *zl) {
     unsigned int len = 0;
+    //如果节点数小于UINT16_MAX,
+    //
+    // T=O(1)
     if (intrev16ifbe(ZIPLIST_LENGTH(zl)) < UINT16_MAX) {
         len = intrev16ifbe(ZIPLIST_LENGTH(zl));
     } else {
+        //一个一个遍历,获得节点数
         unsigned char *p = zl + ZIPLIST_HEADER_SIZE;
         while (*p != ZIP_END) {
             p += zipRawEntryLength(p);
@@ -1192,7 +1195,7 @@ unsigned int ziplistLen(unsigned char *zl) {
     return len;
 }
 
-/* Return ziplist blob size in bytes. */
+/* 返回压缩列表目前占用的字节数 */
 size_t ziplistBlobLen(unsigned char *zl) {
     return intrev32ifbe(ZIPLIST_BYTES(zl));
 }
