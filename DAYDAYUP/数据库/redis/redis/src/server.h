@@ -207,7 +207,7 @@ typedef long long ustime_t; /* microsecond time type. */
 #define CLIENT_CLOSE_AFTER_REPLY (1<<6) /* Close after writing entire reply. */
 #define CLIENT_UNBLOCKED (1<<7) /* This client was unblocked and is stored in
                                   server.unblocked_clients */
-#define CLIENT_LUA (1<<8) /* This is a non connected client used by Lua */
+#define CLIENT_LUA (1<<8) /* This is a non-connected client used by Lua */
 #define CLIENT_ASKING (1<<9)     /* Client issued the ASKING command */
 #define CLIENT_CLOSE_ASAP (1<<10)/* Close this client ASAP */
 #define CLIENT_UNIX_SOCKET (1<<11) /* Client connected via Unix domain socket */
@@ -622,18 +622,17 @@ typedef struct clientReplyBlock {
     char buf[];
 } clientReplyBlock;
 
-/* Redis database representation. There are multiple databases identified
- * by integers from 0 (the default database) up to the max configured
- * database. The database number is the 'id' field in the structure. */
+/* Redis数据库表示。有多个数据库，通过从0（默认数据库）到配置的最大数据库的整数进行标识。
+数据库编号是结构中的 'id' 字段。 */
 typedef struct redisDb {
-    dict *dict;                 /* The keyspace for this DB */
-    dict *expires;              /* Timeout of keys with a timeout set */
-    dict *blocking_keys;        /* Keys with clients waiting for data (BLPOP)*/
-    dict *ready_keys;           /* Blocked keys that received a PUSH */
-    dict *watched_keys;         /* WATCHED keys for MULTI/EXEC CAS */
-    int id;                     /* Database ID */
-    long long avg_ttl;          /* Average TTL, just for stats */
-    list *defrag_later;         /* List of key names to attempt to defrag one by one, gradually. */
+    dict *dict;                 /* 数据库的键空间 */
+    dict *expires;              /* 设置了超时的键的超时时间 */
+    dict *blocking_keys;        /* 有等待数据的客户端的键（BLPOP）*/
+    dict *ready_keys;           /* 收到PUSH的已阻塞键 */
+    dict *watched_keys;         /* MULTI/EXEC CAS中的WATCHED键 */
+    int id;                     /* 数据库ID */
+    long long avg_ttl;          /* 平均TTL，仅用于统计 */
+    list *defrag_later;         /* 逐个尝试逐渐整理的键名称列表。 */
 } redisDb;
 
 /* Client MULTI/EXEC state */
@@ -702,63 +701,58 @@ typedef struct readyList {
 /* With multiplexing we need to take per-client state.
  * Clients are taken in a linked list. */
 typedef struct client {
-    uint64_t id;            /* Client incremental unique ID. */
-    int fd;                 /* Client socket. */
-    redisDb *db;            /* Pointer to currently SELECTed DB. */
-    robj *name;             /* As set by CLIENT SETNAME. */
-    sds querybuf;           /* Buffer we use to accumulate client queries. */
-    size_t qb_pos;          /* The position we have read in querybuf. */
-    sds pending_querybuf;   /* If this client is flagged as master, this buffer
-                               represents the yet not applied portion of the
-                               replication stream that we are receiving from
-                               the master. */
-    size_t querybuf_peak;   /* Recent (100ms or more) peak of querybuf size. */
-    int argc;               /* Num of arguments of current command. */
-    robj **argv;            /* Arguments of current command. */
-    struct redisCommand *cmd, *lastcmd;  /* Last command executed. */
-    int reqtype;            /* Request protocol type: PROTO_REQ_* */
-    int multibulklen;       /* Number of multi bulk arguments left to read. */
-    long bulklen;           /* Length of bulk argument in multi bulk request. */
-    list *reply;            /* List of reply objects to send to the client. */
-    unsigned long long reply_bytes; /* Tot bytes of objects in reply list. */
-    size_t sentlen;         /* Amount of bytes already sent in the current
-                               buffer or object being sent. */
-    time_t ctime;           /* Client creation time. */
-    time_t lastinteraction; /* Time of the last interaction, used for timeout */
+    uint64_t id;            /* 客户端递增唯一ID。*/
+    int fd;                 /* 客户端套接字。*/
+    redisDb *db;            /* 指向当前选择的数据库。*/
+    robj *name;             /* 由 CLIENT SETNAME 设置的名称。*/
+    sds querybuf;           /* 用于累积客户端查询的缓冲区。*/
+    size_t qb_pos;          /* 我们在 querybuf 中读取的位置。*/
+    sds pending_querybuf;   /* 如果此客户端被标记为主节点，这个缓冲区表示我们从主节点接收到但尚未应用的部分复制流。*/
+    size_t querybuf_peak;   /* querybuf 大小的最近峰值（100毫秒或更长）。*/
+    int argc;               /* 当前命令的参数数量。*/
+    robj **argv;            /* 当前命令的参数。*/
+    struct redisCommand *cmd, *lastcmd; /* 最后执行的命令。*/
+    int reqtype;            /* 请求协议类型：PROTO_REQ_*。*/
+    int multibulklen;       /* 剩余要读取的多个 bulk 参数的数量。*/
+    long bulklen;           /* 多个 bulk 请求中的单个 bulk 参数长度。*/
+    list *reply;            /* 发送给客户端的回复对象列表。*/
+    unsigned long long reply_bytes; /* 回复列表中所有对象的总字节数。*/
+    size_t sentlen;         /* 当前缓冲区或正在发送的对象中已发送的字节数。*/
+    time_t ctime;           /* 客户端创建时间。*/
+    time_t lastinteraction; /* 最后交互的时间，用于超时。*/
     time_t obuf_soft_limit_reached_time;
-    int flags;              /* Client flags: CLIENT_* macros. */
-    int authenticated;      /* When requirepass is non-NULL. */
-    int replstate;          /* Replication state if this is a slave. */
-    int repl_put_online_on_ack; /* Install slave write handler on first ACK. */
-    int repldbfd;           /* Replication DB file descriptor. */
-    off_t repldboff;        /* Replication DB file offset. */
-    off_t repldbsize;       /* Replication DB file size. */
-    sds replpreamble;       /* Replication DB preamble. */
-    long long read_reploff; /* Read replication offset if this is a master. */
-    long long reploff;      /* Applied replication offset if this is a master. */
-    long long repl_ack_off; /* Replication ack offset, if this is a slave. */
-    long long repl_ack_time;/* Replication ack time, if this is a slave. */
-    long long psync_initial_offset; /* FULLRESYNC reply offset other slaves
-                                       copying this slave output buffer
-                                       should use. */
-    char replid[CONFIG_RUN_ID_SIZE + 1]; /* Master replication ID (if master). */
-    int slave_listening_port; /* As configured with: SLAVECONF listening-port */
-    char slave_ip[NET_IP_STR_LEN]; /* Optionally given by REPLCONF ip-address */
-    int slave_capa;         /* Slave capabilities: SLAVE_CAPA_* bitwise OR. */
-    multiState mstate;      /* MULTI/EXEC state */
-    int btype;              /* Type of blocking op if CLIENT_BLOCKED. */
-    blockingState bpop;     /* blocking state */
-    long long woff;         /* Last write global replication offset. */
-    list *watched_keys;     /* Keys WATCHED for MULTI/EXEC CAS */
-    dict *pubsub_channels;  /* channels a client is interested in (SUBSCRIBE) */
-    list *pubsub_patterns;  /* patterns a client is interested in (SUBSCRIBE) */
-    sds peerid;             /* Cached peer ID. */
-    listNode *client_list_node; /* list node in client list */
+    int flags;              /* 客户端标志：CLIENT_* 宏。*/
+    int authenticated;      /* 当 requirepass 非空时为1。*/
+    int replstate;          /* 如果是从节点，则为复制状态。*/
+    int repl_put_online_on_ack; /* 在第一次 ACK 上安装从节点的写处理程序。*/
+    int repldbfd;           /* 复制数据库文件描述符。*/
+    off_t repldboff;        /* 复制数据库文件偏移量。*/
+    off_t repldbsize;       /* 复制数据库文件大小。*/
+    sds replpreamble;       /* 复制数据库前导。*/
+    long long read_reploff; /* 如果是主节点，则为读取复制偏移量。*/
+    long long reploff;      /* 如果是主节点，则为应用的复制偏移量。*/
+    long long repl_ack_off; /* 如果是从节点，则为复制的确认偏移量。*/
+    long long repl_ack_time;/* 如果是从节点，则为复制的确认时间。*/
+    long long psync_initial_offset; /* 其他从节点复制此从节点输出缓冲区应该使用的 FULLRESYNC 回复偏移量。*/
+    char replid[CONFIG_RUN_ID_SIZE + 1]; /* 主服务器复制ID（如果是主服务器）。*/
+    int slave_listening_port; /* 配置的 SLAVECONF listening-port。*/
+    char slave_ip[NET_IP_STR_LEN]; /* 可选的，由REPLCONF ip-address 给出。*/
+    int slave_capa;         /* 从节点的能力：SLAVE_CAPA_* 按位 OR。*/
+    multiState mstate;      /* MULTI/EXEC 状态。*/
+    int btype;              /* 如果 CLIENT_BLOCKED，则为阻塞操作的类型。*/
+    blockingState bpop;     /* 阻塞状态。*/
+    long long woff;         /* 最后写入的全局复制偏移量。*/
+    list *watched_keys;     /* 用于 MULTI/EXEC CAS 的 WATCHED 键。*/
+    dict *pubsub_channels;  /* 客户端订阅的频道（SUBSCRIBE）。*/
+    list *pubsub_patterns;  /* 客户端订阅的模式（SUBSCRIBE）。*/
+    sds peerid;             /* 缓存的对等ID。*/
+    listNode *client_list_node; /* 客户端列表中的链表节点。*/
 
-    /* Response buffer */
+    /* 响应缓冲区 */
     int bufpos;
     char buf[PROTO_REPLY_CHUNK_BYTES];
 } client;
+
 
 struct saveparam {
     time_t seconds;
@@ -830,7 +824,7 @@ typedef struct redisOp {
 } redisOp;
 
 /* Defines an array of Redis operations. There is an API to add to this
- * structure in a easy way.
+ * structure in an easy way.
  *
  * redisOpArrayInit();
  * redisOpArrayAppend();
@@ -929,7 +923,7 @@ struct redisServer {
                                    the actual 'hz' field value if dynamic-hz
                                    is enabled. */
     int hz;                     /* serverCron() calls frequency in hertz */
-    redisDb *db;
+    redisDb *db;                //数组，保存服务器中的所有数据库
     dict *commands;             /* Command table */
     dict *orig_commands;        /* Command table before command renaming. */
     aeEventLoop *el;
@@ -1043,7 +1037,7 @@ struct redisServer {
     int active_defrag_cycle_max;       /* maximal effort for defrag in CPU percentage */
     unsigned long active_defrag_max_scan_fields; /* maximum number of fields of set/hash/zset/list to process from within the main dict scan */
     size_t client_max_querybuf_len; /* Limit for client query buffer length */
-    int dbnum;                      /* Total number of configured DBs */
+    int dbnum;                      /* 服务器的数据库数量 */
     int supervised;                 /* 1 if supervised, 0 otherwise. */
     int supervised_mode;            /* See SUPERVISED_* */
     int daemonize;                  /* True if running as a daemon */
@@ -1458,7 +1452,8 @@ void sendReplyToClient(aeEventLoop *el, int fd, void *privdata, int mask);
 
 void *addDeferredMultiBulkLength(client *c);
 
-void setDeferredMultiBulkLength(client *c, void *node, long length);
+void setDeferredMultiBulkLength(client *c, void *node, long
+length);
 
 void processInputBuffer(client *c);
 
@@ -1472,37 +1467,56 @@ void acceptUnixHandler(aeEventLoop *el, int fd, void *privdata, int mask);
 
 void readQueryFromClient(aeEventLoop *el, int fd, void *privdata, int mask);
 
-void addReplyString(client *c, const char *s, size_t len);
+void addReplyString(client *c,
+                    const char *s, size_t
+                    len);
 
 void AddReplyFromClient(client *c, client *src);
 
 void addReplyBulk(client *c, robj *obj);
 
-void addReplyBulkCString(client *c, const char *s);
+void addReplyBulkCString(client *c,
+                         const char *s
+);
 
-void addReplyBulkCBuffer(client *c, const void *p, size_t len);
+void addReplyBulkCBuffer(client *c,
+                         const void *p, size_t
+                         len);
 
-void addReplyBulkLongLong(client *c, long long ll);
+void addReplyBulkLongLong(client *c, long long
+ll);
 
 void addReply(client *c, robj *obj);
 
-void addReplySds(client *c, sds s);
+void addReplySds(client *c, sds
+s);
 
-void addReplyBulkSds(client *c, sds s);
+void addReplyBulkSds(client *c, sds
+s);
 
-void addReplyError(client *c, const char *err);
+void addReplyError(client *c,
+                   const char *err
+);
 
-void addReplyStatus(client *c, const char *status);
+void addReplyStatus(client *c,
+                    const char *status
+);
 
-void addReplyDouble(client *c, double d);
+void addReplyDouble(client *c, double
+d);
 
-void addReplyHumanLongDouble(client *c, long double d);
+void addReplyHumanLongDouble(client *c, long double
+d);
 
-void addReplyLongLong(client *c, long long ll);
+void addReplyLongLong(client *c, long long
+ll);
 
-void addReplyMultiBulkLen(client *c, long length);
+void addReplyMultiBulkLen(client *c, long
+length);
 
-void addReplyHelp(client *c, const char **help);
+void addReplyHelp(client *c,
+                  const char **help
+);
 
 void addReplySubcommandSyntaxError(client *c);
 
@@ -1525,11 +1539,18 @@ sds catClientInfoString(sds s, client *client);
 
 sds getAllClientsInfoString(int type);
 
-void rewriteClientCommandVector(client *c, int argc, ...);
+void rewriteClientCommandVector(client *c, int
+argc, ...);
 
-void rewriteClientCommandArgument(client *c, int i, robj *newval);
+void rewriteClientCommandArgument(client *c, int
+i,
+                                  robj *newval
+);
 
-void replaceClientCommandVector(client *c, int argc, robj **argv);
+void replaceClientCommandVector(client *c, int
+argc,
+                                robj **argv
+);
 
 unsigned long getClientOutputBufferMemoryUsage(client *c);
 
@@ -1579,9 +1600,13 @@ __attribute__((format(printf, 2, 3)));
 
 #else
 
-void addReplyErrorFormat(client *c, const char *fmt, ...);
+void addReplyErrorFormat(client *c,
+                         const char *fmt, ...
+);
 
-void addReplyStatusFormat(client *c, const char *fmt, ...);
+void addReplyStatusFormat(client *c,
+                          const char *fmt, ...
+);
 
 #endif
 
@@ -1612,7 +1637,8 @@ void listTypeConvert(robj *subject, int enc);
 
 void unblockClientWaitingData(client *c);
 
-void popGenericCommand(client *c, int where);
+void popGenericCommand(client *c, int
+where);
 
 /* MULTI/EXEC/WATCH... */
 void unwatchAllKeys(client *c);
@@ -1698,13 +1724,20 @@ robj *createStreamObject(void);
 
 robj *createModuleObject(moduleType *mt, void *value);
 
-int getLongFromObjectOrReply(client *c, robj *o, long *target, const char *msg);
+int getLongFromObjectOrReply(client *c, robj *o, long *target,
+                             const char *msg
+);
 
-int checkType(client *c, robj *o, int type);
+int checkType(client *c, robj *o, int
+type);
 
-int getLongLongFromObjectOrReply(client *c, robj *o, long long *target, const char *msg);
+int getLongLongFromObjectOrReply(client *c, robj *o, long long *target,
+                                 const char *msg
+);
 
-int getDoubleFromObjectOrReply(client *c, robj *o, double *target, const char *msg);
+int getDoubleFromObjectOrReply(client *c, robj *o, double *target,
+                               const char *msg
+);
 
 int getDoubleFromObject(const robj *o, double *target);
 
@@ -1712,7 +1745,9 @@ int getLongLongFromObject(robj *o, long long *target);
 
 int getLongDoubleFromObject(robj *o, long double *target);
 
-int getLongDoubleFromObjectOrReply(client *c, robj *o, long double *target, const char *msg);
+int getLongDoubleFromObjectOrReply(client *c, robj *o, long double *target,
+                                   const char *msg
+);
 
 char *strEncoding(int encoding);
 
@@ -1740,7 +1775,11 @@ void replicationFeedSlaves(list *slaves, int dictid, robj **argv, int argc);
 
 void replicationFeedSlavesFromMasterStream(list *slaves, char *buf, size_t buflen);
 
-void replicationFeedMonitors(client *c, list *monitors, int dictid, robj **argv, int argc);
+void replicationFeedMonitors(client *c, list *monitors, int
+dictid,
+                             robj **argv,
+                             int argc
+);
 
 void updateSlavesWaitingBgsave(int bgsaveerr, int type);
 
@@ -1780,7 +1819,8 @@ char *replicationGetSlaveName(client *c);
 
 long long getPsyncInitialOffset(void);
 
-int replicationSetupSlaveForFullResync(client *slave, long long offset);
+int replicationSetupSlaveForFullResync(client *slave, long long
+offset);
 
 void changeReplicationId(void);
 
@@ -1913,7 +1953,11 @@ long zsetRank(robj *zobj, sds ele, int reverse);
 
 int zsetDel(robj *zobj, sds ele);
 
-void genericZpopCommand(client *c, robj **keyv, int keyc, int where, int emitkey, robj *countarg);
+void genericZpopCommand(client *c, robj **keyv, int
+keyc,
+                        int where,
+                        int emitkey, robj
+                        *countarg);
 
 sds ziplistGetObject(unsigned char *sptr);
 
@@ -1960,7 +2004,8 @@ struct redisCommand *lookupCommandByCString(char *s);
 
 struct redisCommand *lookupCommandOrOriginal(sds name);
 
-void call(client *c, int flags);
+void call(client *c, int
+flags);
 
 void propagate(struct redisCommand *cmd, int dbid, robj **argv, int argc, int flags);
 
@@ -1970,7 +2015,8 @@ void redisOpArrayInit(redisOpArray *oa);
 
 void redisOpArrayFree(redisOpArray *oa);
 
-void forceCommandPropagation(client *c, int flags);
+void forceCommandPropagation(client *c, int
+flags);
 
 void preventCommandPropagation(client *c);
 
@@ -2036,11 +2082,14 @@ int restartServer(int flags, mstime_t delay);
 /* Set data type */
 robj *setTypeCreate(sds value);
 
-int setTypeAdd(robj *subject, sds value);
+int setTypeAdd(robj *subject, sds
+value);
 
-int setTypeRemove(robj *subject, sds value);
+int setTypeRemove(robj *subject, sds
+value);
 
-int setTypeIsMember(robj *subject, sds value);
+int setTypeIsMember(robj *subject, sds
+value);
 
 setTypeIterator *setTypeInitIterator(robj *subject);
 
@@ -2052,26 +2101,36 @@ sds setTypeNextObject(setTypeIterator *si);
 
 int setTypeRandomElement(robj *setobj, sds *sdsele, int64_t *llele);
 
-unsigned long setTypeRandomElements(robj *set, unsigned long count, robj *aux_set);
+unsigned long setTypeRandomElements(robj *set, unsigned long
+count,
+                                    robj *aux_set
+);
 
 unsigned long setTypeSize(const robj *subject);
 
-void setTypeConvert(robj *subject, int enc);
+void setTypeConvert(robj *subject, int
+enc);
 
 /* Hash data type */
 #define HASH_SET_TAKE_FIELD (1<<0)
 #define HASH_SET_TAKE_VALUE (1<<1)
 #define HASH_SET_COPY 0
 
-void hashTypeConvert(robj *o, int enc);
+void hashTypeConvert(robj *o, int
+enc);
 
-void hashTypeTryConversion(robj *subject, robj **argv, int start, int end);
+void hashTypeTryConversion(robj *subject, robj **argv, int
+start,
+                           int end
+);
 
 void hashTypeTryObjectEncoding(robj *subject, robj **o1, robj **o2);
 
-int hashTypeExists(robj *o, sds key);
+int hashTypeExists(robj *o, sds
+key);
 
-int hashTypeDelete(robj *o, sds key);
+int hashTypeDelete(robj *o, sds
+key);
 
 unsigned long hashTypeLength(const robj *o);
 
@@ -2094,14 +2153,21 @@ sds hashTypeCurrentObjectNewSds(hashTypeIterator *hi, int what);
 
 robj *hashTypeLookupWriteOrCreate(client *c, robj *key);
 
-robj *hashTypeGetValueObject(robj *o, sds field);
+robj *hashTypeGetValueObject(robj *o, sds
+field);
 
-int hashTypeSet(robj *o, sds field, sds value, int flags);
+int hashTypeSet(robj *o, sds
+field,
+                sds value,
+                int flags
+);
 
 /* Pub / Sub */
-int pubsubUnsubscribeAllChannels(client *c, int notify);
+int pubsubUnsubscribeAllChannels(client *c, int
+notify);
 
-int pubsubUnsubscribeAllPatterns(client *c, int notify);
+int pubsubUnsubscribeAllPatterns(client *c, int
+notify);
 
 void freePubsubPattern(void *p);
 
@@ -2137,7 +2203,8 @@ int expireIfNeeded(redisDb *db, robj *key);
 
 long long getExpire(redisDb *db, robj *key);
 
-void setExpire(client *c, redisDb *db, robj *key, long long when);
+void setExpire(client *c, redisDb *db, robj *key, long long
+when);
 
 int checkAlreadyExpired(long long when);
 
@@ -2157,8 +2224,11 @@ robj *objectCommandLookup(client *c, robj *key);
 
 robj *objectCommandLookupOrReply(client *c, robj *key, robj *reply);
 
-void objectSetLRUOrLFU(robj *val, long long lfu_freq, long long lru_idle,
-                       long long lru_clock);
+void objectSetLRUOrLFU(robj *val, long long
+lfu_freq,
+                       long long lru_idle,
+                       long long lru_clock
+);
 
 #define LOOKUP_NONE 0
 #define LOOKUP_NOTOUCH (1<<0)
@@ -2184,7 +2254,8 @@ robj *dbUnshareStringValue(redisDb *db, robj *key, robj *o);
 
 long long emptyDb(int dbnum, int flags, void(callback)(void *));
 
-int selectDb(client *c, int id);
+int selectDb(client *c, int
+id);
 
 void signalModifiedKey(redisDb *db, robj *key);
 
@@ -2198,7 +2269,8 @@ unsigned int delKeysInSlot(unsigned int hashslot);
 
 int verifyClusterConfigWithData(void);
 
-void scanGenericCommand(client *c, robj *o, unsigned long cursor);
+void scanGenericCommand(client *c, robj *o, unsigned long
+cursor);
 
 int parseScanCursorOrReply(client *c, robj *o, unsigned long *cursor);
 
@@ -2285,7 +2357,8 @@ sds luaCreateFunction(client *c, lua_State *lua, robj *body);
 /* Blocked clients */
 void processUnblockedClients(void);
 
-void blockClient(client *c, int btype);
+void blockClient(client *c, int
+btype);
 
 void unblockClient(client *c);
 
@@ -2293,7 +2366,8 @@ void queueClientForReprocessing(client *c);
 
 void replyToBlockedClientTimedOut(client *c);
 
-int getTimeoutFromObjectOrReply(client *c, robj *object, mstime_t *timeout, int unit);
+int getTimeoutFromObjectOrReply(client *c, robj *object, mstime_t *timeout, int
+unit);
 
 void disconnectAllBlockedClients(void);
 
@@ -2301,7 +2375,13 @@ void handleClientsBlockedOnKeys(void);
 
 void signalKeyAsReady(redisDb *db, robj *key);
 
-void blockForKeys(client *c, int btype, robj **keys, int numkeys, mstime_t timeout, robj *target, streamID *ids);
+void blockForKeys(client *c, int
+btype,
+                  robj **keys,
+                  int numkeys, mstime_t
+                  timeout,
+                  robj *target, streamID
+                  *ids);
 
 /* expire.c -- Handling of expired keys */
 void activeExpireCycle(int type);
