@@ -2034,6 +2034,7 @@ void initServer(void) {
     server.db = zmalloc(sizeof(redisDb) * server.dbnum);
 
     /* Open the TCP listening socket for the user commands. */
+    //开始监听设置的网络接口
     if (server.port != 0 &&
         listenToPort(server.port, server.ipfd, &server.ipfd_count) == C_ERR)
         exit(1);
@@ -2058,10 +2059,15 @@ void initServer(void) {
 
     /* Create the Redis databases, and initialize other internal state. */
     for (j = 0; j < server.dbnum; j++) {
+        //创建全局hash表
         server.db[j].dict = dictCreate(&dbDictType, NULL);
+        //创建过期key的信息表
         server.db[j].expires = dictCreate(&keyptrDictType, NULL);
+        //为被blpop阻塞的key创建信息表
         server.db[j].blocking_keys = dictCreate(&keylistDictType, NULL);
+        //为将执行push的阻塞key创建信息表
         server.db[j].ready_keys = dictCreate(&objectKeyPointerValueDictType, NULL);
+        //为被multi/watch操作监视的key创建信息表
         server.db[j].watched_keys = dictCreate(&keylistDictType, NULL);
         server.db[j].id = j;
         server.db[j].avg_ttl = 0;
@@ -2106,6 +2112,7 @@ void initServer(void) {
     /* Create the timer callback, this is our way to process many background
      * operations incrementally, like clients timeout, eviction of unaccessed
      * expired keys and so forth. */
+    //为server后台任务创建定时事件
     if (aeCreateTimeEvent(server.el, 1, serverCron, NULL, NULL) == AE_ERR) {
         serverPanic("Can't create event loop timers.");
         exit(1);
@@ -2113,6 +2120,7 @@ void initServer(void) {
 
     /* Create an event handler for accepting new connections in TCP and Unix
      * domain sockets. */
+    //为每一个监听的IP设置连接事件的处理函数acceptTcpHandler
     for (j = 0; j < server.ipfd_count; j++) {
         if (aeCreateFileEvent(server.el, server.ipfd[j], AE_READABLE,
                               acceptTcpHandler, NULL) == AE_ERR) {
@@ -3173,15 +3181,15 @@ sds genRedisInfoString(char *section) {
                             aeGetApiName(),
                             REDIS_ATOMIC_API,
 #ifdef __GNUC__
-                            __GNUC__, __GNUC_MINOR__, __GNUC_PATCHLEVEL__,
+                __GNUC__, __GNUC_MINOR__, __GNUC_PATCHLEVEL__,
 #else
-                0,0,0,
+                            0, 0, 0,
 #endif
                             (long) getpid(),
                             server.runid,
                             server.port,
                             (intmax_t) uptime,
-                            (intmax_t) (uptime / (3600 * 24)),
+                            (intmax_t)(uptime / (3600 * 24)),
                             server.hz,
                             server.config_hz,
                             (unsigned long) lruclock,
@@ -3349,15 +3357,15 @@ sds genRedisInfoString(char *section) {
                             (intmax_t) server.lastsave,
                             (server.lastbgsave_status == C_OK) ? "ok" : "err",
                             (intmax_t) server.rdb_save_time_last,
-                            (intmax_t) ((server.rdb_child_pid == -1) ?
-                                        -1 : time(NULL) - server.rdb_save_time_start),
+                            (intmax_t)((server.rdb_child_pid == -1) ?
+                                       -1 : time(NULL) - server.rdb_save_time_start),
                             server.stat_rdb_cow_bytes,
                             server.aof_state != AOF_OFF,
                             server.aof_child_pid != -1,
                             server.aof_rewrite_scheduled,
                             (intmax_t) server.aof_rewrite_time_last,
-                            (intmax_t) ((server.aof_child_pid == -1) ?
-                                        -1 : time(NULL) - server.aof_rewrite_time_start),
+                            (intmax_t)((server.aof_child_pid == -1) ?
+                                       -1 : time(NULL) - server.aof_rewrite_time_start),
                             (server.aof_lastbgrewrite_status == C_OK) ? "ok" : "err",
                             (server.aof_last_write_status == C_OK) ? "ok" : "err",
                             server.stat_aof_cow_bytes);
@@ -4153,8 +4161,9 @@ int redisSupervisedSystemd(void) {
 
     memset(&hdr, 0, sizeof(hdr));
     hdr.msg_name = &su;
-    hdr.msg_namelen = offsetof(struct sockaddr_un, sun_path) +
-                      strlen(notify_socket);
+    hdr.msg_namelen = offsetof(
+    struct sockaddr_un, sun_path) +
+            strlen(notify_socket);
     hdr.msg_iov = &iov;
     hdr.msg_iovlen = 1;
 
@@ -4408,7 +4417,7 @@ int main(int argc, char **argv) {
                   server.maxmemory);
     }
 
-    aeSetBeforeSleepProc(server.el, beforeSleep);
+    aeSetBeforeSleepProc(server.el, beforeSleep); //进入事件循环前server需要执行的操作
     aeSetAfterSleepProc(server.el, afterSleep);
     aeMain(server.el);
     aeDeleteEventLoop(server.el);
