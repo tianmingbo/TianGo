@@ -729,7 +729,9 @@ size_t rdbSaveStreamConsumers(rio *rdb, streamCG *cg) {
 }
 
 /* Save a Redis object.
- * Returns -1 on error, number of bytes written on success. */
+ * Returns -1 on error, number of bytes written on success.
+ * rdb文件分类型写入
+ * */
 ssize_t rdbSaveObject(rio *rdb, robj *o, robj *key) {
     ssize_t n = 0, nwritten = 0;
 
@@ -1119,7 +1121,9 @@ ssize_t rdbSaveSingleModuleAux(rio *rdb, int when, moduleType *mt) {
  *
  * When the function returns C_ERR and if 'error' is not NULL, the
  * integer pointed by 'error' is set to the value of errno just after the I/O
- * error. */
+ * error.
+ * rdb保存到磁盘
+ * */
 int rdbSaveRio(rio *rdb, int *error, int flags, rdbSaveInfo *rsi) {
     dictIterator *di = NULL;
     dictEntry *de;
@@ -1164,6 +1168,7 @@ int rdbSaveRio(rio *rdb, int *error, int flags, rdbSaveInfo *rsi) {
 
             initStaticStringObject(key, keystr);
             expire = getExpire(db, &key);
+            //键值写入
             if (rdbSaveKeyValuePair(rdb, &key, o, expire) == -1) goto werr;
 
             /* When this RDB is produced as part of an AOF rewrite, move
