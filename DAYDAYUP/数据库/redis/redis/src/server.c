@@ -1244,6 +1244,7 @@ int serverCron(struct aeEventLoop *eventLoop, long long id, void *clientData) {
              * the given amount of seconds, and if the latest bgsave was
              * successful or if, in case of an error, at least
              * CONFIG_BGSAVE_RETRY_DELAY seconds already elapsed. */
+            //如果数据库状态的修改次数超过条件所设置的次数,并且距离上次保存的时间超过条件所设置的时间
             if (server.dirty >= sp->changes &&
                 server.unixtime - server.lastsave > sp->seconds &&
                 (server.unixtime - server.lastbgsave_try >
