@@ -1,32 +1,10 @@
-/*
- * Copyright (c) 2009-2012, Salvatore Sanfilippo <antirez at gmail dot com>
- * All rights reserved.
+/**
+ * rdb组成：
+ * 文件头：这部分内容保存了 Redis 的魔数、RDB 版本、Redis 版本、RDB 文件创建时间、键值对占用的内存大小等信息。
+ * 文件数据部分：这部分保存了 Redis 数据库实际的所有键值对。
+ * 文件尾：这部分保存了 RDB 文件的结束标识符，以及整个文件的校验值。这个校验值用来在 Redis server 加载 RDB 文件后，检查文件是否被篡改过。
  *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
- *
- *   * Redistributions of source code must retain the above copyright notice,
- *     this list of conditions and the following disclaimer.
- *   * Redistributions in binary form must reproduce the above copyright
- *     notice, this list of conditions and the following disclaimer in the
- *     documentation and/or other materials provided with the distribution.
- *   * Neither the name of Redis nor the names of its contributors may be used
- *     to endorse or promote products derived from this software without
- *     specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
- */
-
+ * */
 #ifndef __RDB_H
 #define __RDB_H
 
@@ -98,14 +76,14 @@
 
 /* Special RDB opcodes (saved/loaded with rdbSaveType/rdbLoadType). */
 #define RDB_OPCODE_MODULE_AUX 247   /* Module auxiliary data. */
-#define RDB_OPCODE_IDLE       248   /* LRU idle time. */
-#define RDB_OPCODE_FREQ       249   /* LFU frequency. */
-#define RDB_OPCODE_AUX        250   /* RDB aux field. */
+#define RDB_OPCODE_IDLE       248   /*标识LRU空闲时间 */
+#define RDB_OPCODE_FREQ       249   /* 标识LFU访问频率信息 */
+#define RDB_OPCODE_AUX        250   /* 标识RDB文件头的属性信息 */
 #define RDB_OPCODE_RESIZEDB   251   /* Hash table resize hint. */
-#define RDB_OPCODE_EXPIRETIME_MS 252    /* Expire time in milliseconds. */
+#define RDB_OPCODE_EXPIRETIME_MS 252    /* 标识以毫秒记录的过期时间 */
 #define RDB_OPCODE_EXPIRETIME 253       /* Old expire time in seconds. */
-#define RDB_OPCODE_SELECTDB   254   /* DB number of the following keys. */
-#define RDB_OPCODE_EOF        255   /* End of the RDB file. */
+#define RDB_OPCODE_SELECTDB   254   /* 标识文件中后续键值对所属的数据库编号 */
+#define RDB_OPCODE_EOF        255   /* 标识RDB文件结束，用在文件尾 */
 
 /* Module serialized values sub opcodes */
 #define RDB_MODULE_OPCODE_EOF   0   /* End of module value. */
@@ -125,37 +103,69 @@
 #define RDB_SAVE_AOF_PREAMBLE (1<<0)
 
 int rdbSaveType(rio *rdb, unsigned char type);
+
 int rdbLoadType(rio *rdb);
+
 int rdbSaveTime(rio *rdb, time_t t);
+
 time_t rdbLoadTime(rio *rdb);
+
 int rdbSaveLen(rio *rdb, uint64_t len);
+
 int rdbSaveMillisecondTime(rio *rdb, long long t);
+
 long long rdbLoadMillisecondTime(rio *rdb, int rdbver);
+
 uint64_t rdbLoadLen(rio *rdb, int *isencoded);
+
 int rdbLoadLenByRef(rio *rdb, int *isencoded, uint64_t *lenptr);
+
 int rdbSaveObjectType(rio *rdb, robj *o);
+
 int rdbLoadObjectType(rio *rdb);
+
 int rdbLoad(char *filename, rdbSaveInfo *rsi);
+
 int rdbSaveBackground(char *filename, rdbSaveInfo *rsi);
+
 int rdbSaveToSlavesSockets(rdbSaveInfo *rsi);
+
 void rdbRemoveTempFile(pid_t childpid);
+
 int rdbSave(char *filename, rdbSaveInfo *rsi);
+
 ssize_t rdbSaveObject(rio *rdb, robj *o, robj *key);
+
 size_t rdbSavedObjectLen(robj *o);
+
 robj *rdbLoadObject(int type, rio *rdb, robj *key);
+
 void backgroundSaveDoneHandler(int exitcode, int bysignal);
+
 int rdbSaveKeyValuePair(rio *rdb, robj *key, robj *val, long long expiretime);
+
 ssize_t rdbSaveSingleModuleAux(rio *rdb, int when, moduleType *mt);
+
 robj *rdbLoadCheckModuleValue(rio *rdb, char *modulename);
+
 robj *rdbLoadStringObject(rio *rdb);
+
 ssize_t rdbSaveStringObject(rio *rdb, robj *obj);
+
 ssize_t rdbSaveRawString(rio *rdb, unsigned char *s, size_t len);
+
 void *rdbGenericLoadStringObject(rio *rdb, int flags, size_t *lenptr);
+
 int rdbSaveBinaryDoubleValue(rio *rdb, double val);
+
 int rdbLoadBinaryDoubleValue(rio *rdb, double *val);
+
 int rdbSaveBinaryFloatValue(rio *rdb, float val);
+
 int rdbLoadBinaryFloatValue(rio *rdb, float *val);
+
 int rdbLoadRio(rio *rdb, rdbSaveInfo *rsi, int loading_aof);
+
 rdbSaveInfo *rdbPopulateSaveInfo(rdbSaveInfo *rsi);
 
 #endif

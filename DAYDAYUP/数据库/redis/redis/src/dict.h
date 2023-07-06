@@ -57,10 +57,15 @@ typedef struct dictEntry {
 
 typedef struct dictType {
     uint64_t (*hashFunction)(const void *key);
+
     void *(*keyDup)(void *privdata, const void *key);
+
     void *(*valDup)(void *privdata, const void *obj);
+
     int (*keyCompare)(void *privdata, const void *key1, const void *key2);
+
     void (*keyDestructor)(void *privdata, void *key);
+
     void (*valDestructor)(void *privdata, void *obj);
 } dictType;
 
@@ -95,6 +100,7 @@ typedef struct dictIterator {
 } dictIterator;
 
 typedef void (dictScanFunction)(void *privdata, const dictEntry *de);
+
 typedef void (dictScanBucketFunction)(void *privdata, dictEntry **bucketref);
 
 /* This is the initial size of every hash table */
@@ -149,36 +155,68 @@ typedef void (dictScanBucketFunction)(void *privdata, dictEntry **bucketref);
 
 /* API */
 dict *dictCreate(dictType *type, void *privDataPtr);
+
 int dictExpand(dict *d, unsigned long size);
+
 int dictAdd(dict *d, void *key, void *val);
+
 dictEntry *dictAddRaw(dict *d, void *key, dictEntry **existing);
+
 dictEntry *dictAddOrFind(dict *d, void *key);
+
 int dictReplace(dict *d, void *key, void *val);
+
 int dictDelete(dict *d, const void *key);
+
 dictEntry *dictUnlink(dict *ht, const void *key);
+
 void dictFreeUnlinkedEntry(dict *d, dictEntry *he);
+
 void dictRelease(dict *d);
-dictEntry * dictFind(dict *d, const void *key);
+
+dictEntry *dictFind(dict *d, const void *key);
+
 void *dictFetchValue(dict *d, const void *key);
+
 int dictResize(dict *d);
+
 dictIterator *dictGetIterator(dict *d);
+
 dictIterator *dictGetSafeIterator(dict *d);
+
 dictEntry *dictNext(dictIterator *iter);
+
 void dictReleaseIterator(dictIterator *iter);
+
 dictEntry *dictGetRandomKey(dict *d);
+
 unsigned int dictGetSomeKeys(dict *d, dictEntry **des, unsigned int count);
+
 void dictGetStats(char *buf, size_t bufsize, dict *d);
+
 uint64_t dictGenHashFunction(const void *key, int len);
+
 uint64_t dictGenCaseHashFunction(const unsigned char *buf, int len);
-void dictEmpty(dict *d, void(callback)(void*));
+
+void dictEmpty(dict *d, void(callback)(void *));
+
 void dictEnableResize(void);
+
 void dictDisableResize(void);
+
 int dictRehash(dict *d, int n);
+
 int dictRehashMilliseconds(dict *d, int ms);
+
 void dictSetHashFunctionSeed(uint8_t *seed);
+
 uint8_t *dictGetHashFunctionSeed(void);
-unsigned long dictScan(dict *d, unsigned long v, dictScanFunction *fn, dictScanBucketFunction *bucketfn, void *privdata);
+
+unsigned long
+dictScan(dict *d, unsigned long v, dictScanFunction *fn, dictScanBucketFunction *bucketfn, void *privdata);
+
 uint64_t dictGetHash(dict *d, const void *key);
+
 dictEntry **dictFindEntryRefByPtrAndHash(dict *d, const void *oldptr, uint64_t hash);
 
 /* Hash table types */

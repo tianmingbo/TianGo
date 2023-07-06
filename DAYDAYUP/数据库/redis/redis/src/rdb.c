@@ -1024,10 +1024,13 @@ int rdbSaveKeyValuePair(rio *rdb, robj *key, robj *val, long long expiretime) {
 /* Save an AUX field. */
 ssize_t rdbSaveAuxField(rio *rdb, void *key, size_t keylen, void *val, size_t vallen) {
     ssize_t ret, len = 0;
+    //写入操作码
     if ((ret = rdbSaveType(rdb, RDB_OPCODE_AUX)) == -1) return -1;
     len += ret;
+    //写入属性信息的键
     if ((ret = rdbSaveRawString(rdb, key, keylen)) == -1) return -1;
     len += ret;
+    //写入属性信息的值
     if ((ret = rdbSaveRawString(rdb, val, vallen)) == -1) return -1;
     len += ret;
     return len;
@@ -1048,28 +1051,40 @@ ssize_t rdbSaveAuxFieldStrInt(rio *rdb, char *key, long long val) {
 
 /* Save a few default AUX fields with information about the RDB generated. */
 int rdbSaveInfoAuxFields(rio *rdb, int flags, rdbSaveInfo *rsi) {
+    // 根据指针大小确定 Redis 版本中指针的位数（64位或32位）
     int redis_bits = (sizeof(void *) == 8) ? 64 : 32;
+    // 检查是否包含 AOF 头部预留字段的标志
     int aof_preamble = (flags & RDB_SAVE_AOF_PREAMBLE) != 0;
 
-    /* Add a few fields about the state when the RDB was created. */
-    if (rdbSaveAuxFieldStrStr(rdb, "redis-ver", REDIS_VERSION) == -1) return -1;
-    if (rdbSaveAuxFieldStrInt(rdb, "redis-bits", redis_bits) == -1) return -1;
-    if (rdbSaveAuxFieldStrInt(rdb, "ctime", time(NULL)) == -1) return -1;
-    if (rdbSaveAuxFieldStrInt(rdb, "used-mem", zmalloc_used_memory()) == -1) return -1;
+    /* 添加一些关于创建 RDB 时的状态信息字段 */
+    // 保存 Redis 版本号信息
+    if (rdbSaveAuxFieldStrStr(rdb, "redis-ver", REDIS_VERSION) == -1)
+        return -1;
+    // 保存 Redis 指针位数信息
+    if (rdbSaveAuxFieldStrInt(rdb, "redis-bits", redis_bits) == -1)
+        return -1;
+    // 保存创建 RDB 文件的时间信息
+    if (rdbSaveAuxFieldStrInt(rdb, "ctime", time(NULL)) == -1)
+        return -1;
+    // 保存当前内存使用量信息
+    if (rdbSaveAuxFieldStrInt(rdb, "used-mem", zmalloc_used_memory()) == -1)
+        return -1;
 
-    /* Handle saving options that generate aux fields. */
+    /* 处理生成辅助字段的保存选项 */
     if (rsi) {
-        if (rdbSaveAuxFieldStrInt(rdb, "repl-stream-db", rsi->repl_stream_db)
-            == -1)
+        // 保存复制流所使用的数据库编号信息
+        if (rdbSaveAuxFieldStrInt(rdb, "repl-stream-db", rsi->repl_stream_db) == -1)
             return -1;
-        if (rdbSaveAuxFieldStrStr(rdb, "repl-id", server.replid)
-            == -1)
+        // 保存当前服务器的复制 ID 信息
+        if (rdbSaveAuxFieldStrStr(rdb, "repl-id", server.replid) == -1)
             return -1;
-        if (rdbSaveAuxFieldStrInt(rdb, "repl-offset", server.master_repl_offset)
-            == -1)
+        // 保存主节点偏移量信息
+        if (rdbSaveAuxFieldStrInt(rdb, "repl-offset", server.master_repl_offset) == -1)
             return -1;
     }
-    if (rdbSaveAuxFieldStrInt(rdb, "aof-preamble", aof_preamble) == -1) return -1;
+    // 保存 AOF 头部预留字段的信息
+    if (rdbSaveAuxFieldStrInt(rdb, "aof-preamble", aof_preamble) == -1)
+        return -1;
     return 1;
 }
 
@@ -1134,19 +1149,21 @@ int rdbSaveRio(rio *rdb, int *error, int flags, rdbSaveInfo *rsi) {
 
     if (server.rdb_checksum)
         rdb->update_cksum = rioGenericUpdateChecksum;
-    snprintf(magic, sizeof(magic), "REDIS%04d", RDB_VERSION);
-    if (rdbWriteRaw(rdb, magic, 9) == -1) goto werr;
-    if (rdbSaveInfoAuxFields(rdb, flags, rsi) == -1) goto werr;
+    snprintf(magic, sizeof(magic), "REDIS%04d", RDB_VERSION);//把REDIS0009写入magic
+    if (rdbWriteRaw(rdb, magic, 9) == -1) goto werr; //把magic写入rdb
+    if (rdbSaveInfoAuxFields(rdb, flags, rsi) == -1) goto werr; //写入属性信息
     if (rdbSaveModulesAux(rdb, REDISMODULE_AUX_BEFORE_RDB) == -1) goto werr;
 
+    //循环遍历每一个db
     for (j = 0; j < server.dbnum; j++) {
         redisDb *db = server.db + j;
         dict *d = db->dict;
         if (dictSize(d) == 0) continue;
         di = dictGetSafeIterator(d);
 
-        /* Write the SELECT DB opcode */
+        /* 写入select db操作码 */
         if (rdbSaveType(rdb, RDB_OPCODE_SELECTDB) == -1) goto werr;
+        //写入当前数据库编号
         if (rdbSaveLen(rdb, j) == -1) goto werr;
 
         /* Write the RESIZE DB opcode. We trim the size to UINT32_MAX, which
@@ -1154,11 +1171,11 @@ int rdbSaveRio(rio *rdb, int *error, int flags, rdbSaveInfo *rsi) {
          * However this does not limit the actual size of the DB to load since
          * these sizes are just hints to resize the hash tables. */
         uint64_t db_size, expires_size;
-        db_size = dictSize(db->dict);
-        expires_size = dictSize(db->expires);
-        if (rdbSaveType(rdb, RDB_OPCODE_RESIZEDB) == -1) goto werr;
-        if (rdbSaveLen(rdb, db_size) == -1) goto werr;
-        if (rdbSaveLen(rdb, expires_size) == -1) goto werr;
+        db_size = dictSize(db->dict); //获取全局hash表大小
+        expires_size = dictSize(db->expires); //获取过期hash表大小
+        if (rdbSaveType(rdb, RDB_OPCODE_RESIZEDB) == -1) goto werr; //写入RESIZEDB 操作码
+        if (rdbSaveLen(rdb, db_size) == -1) goto werr;//写入全局hash表大小
+        if (rdbSaveLen(rdb, expires_size) == -1) goto werr;//写入过期hash表大小
 
         /* Iterate this DB writing every entry */
         while ((de = dictNext(di)) != NULL) {
@@ -2305,7 +2322,9 @@ void backgroundSaveDoneHandler(int exitcode, int bysignal) {
 }
 
 /* Spawn an RDB child that writes the RDB to the sockets of the slaves
- * that are currently in SLAVE_STATE_WAIT_BGSAVE_START state. */
+ * that are currently in SLAVE_STATE_WAIT_BGSAVE_START state.
+ * 主从复制时调用
+ * */
 int rdbSaveToSlavesSockets(rdbSaveInfo *rsi) {
     int *fds;
     uint64_t *clientids;
