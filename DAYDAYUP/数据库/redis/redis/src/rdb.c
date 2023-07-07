@@ -988,8 +988,9 @@ int rdbSaveKeyValuePair(rio *rdb, robj *key, robj *val, long long expiretime) {
     int savelru = server.maxmemory_policy & MAXMEMORY_FLAG_LRU;
     int savelfu = server.maxmemory_policy & MAXMEMORY_FLAG_LFU;
 
-    /* Save the expire time */
+    /* 保存过期时间 */
     if (expiretime != -1) {
+        //写入过期时间操作码
         if (rdbSaveType(rdb, RDB_OPCODE_EXPIRETIME_MS) == -1) return -1;
         if (rdbSaveMillisecondTime(rdb, expiretime) == -1) return -1;
     }
@@ -998,11 +999,12 @@ int rdbSaveKeyValuePair(rio *rdb, robj *key, robj *val, long long expiretime) {
     if (savelru) {
         uint64_t idletime = estimateObjectIdleTime(val);
         idletime /= 1000; /* Using seconds is enough and requires less space.*/
+        //写入LRU空闲时间操作码
         if (rdbSaveType(rdb, RDB_OPCODE_IDLE) == -1) return -1;
         if (rdbSaveLen(rdb, idletime) == -1) return -1;
     }
 
-    /* Save the LFU info. */
+    /* 存储LFU访问频率 */
     if (savelfu) {
         uint8_t buf[1];
         buf[0] = LFUDecrAndReturn(val);
@@ -1015,9 +1017,9 @@ int rdbSaveKeyValuePair(rio *rdb, robj *key, robj *val, long long expiretime) {
     }
 
     /* Save type, key, value */
-    if (rdbSaveObjectType(rdb, val) == -1) return -1;
-    if (rdbSaveStringObject(rdb, key) == -1) return -1;
-    if (rdbSaveObject(rdb, val, key) == -1) return -1;
+    if (rdbSaveObjectType(rdb, val) == -1) return -1; //写入val 编码类型,便于恢复时获取编码类型
+    if (rdbSaveStringObject(rdb, key) == -1) return -1; //写入key,key只有字符串类型
+    if (rdbSaveObject(rdb, val, key) == -1) return -1; //写入val
     return 1;
 }
 
@@ -1179,12 +1181,12 @@ int rdbSaveRio(rio *rdb, int *error, int flags, rdbSaveInfo *rsi) {
 
         /* Iterate this DB writing every entry */
         while ((de = dictNext(di)) != NULL) {
-            sds keystr = dictGetKey(de);
-            robj key, *o = dictGetVal(de);
+            sds keystr = dictGetKey(de); //获取key
+            robj key, *o = dictGetVal(de); //获取valu
             long long expire;
 
-            initStaticStringObject(key, keystr);
-            expire = getExpire(db, &key);
+            initStaticStringObject(key, keystr); //key生成OBJ_STRING对象
+            expire = getExpire(db, &key); //获取过期时间
             //键值写入
             if (rdbSaveKeyValuePair(rdb, &key, o, expire) == -1) goto werr;
 
@@ -1218,11 +1220,11 @@ int rdbSaveRio(rio *rdb, int *error, int flags, rdbSaveInfo *rsi) {
 
     if (rdbSaveModulesAux(rdb, REDISMODULE_AUX_AFTER_RDB) == -1) goto werr;
 
-    /* EOF opcode */
+    /* rdb文件结束标识符 */
     if (rdbSaveType(rdb, RDB_OPCODE_EOF) == -1) goto werr;
 
     /* CRC64 checksum. It will be zero if checksum computation is disabled, the
-     * loading code skips the check in this case. */
+     * loading code skips the check in this case. 写入校验和 */
     cksum = rdb->cksum;
     memrev64ifbe(&cksum);
     if (rioWrite(rdb, &cksum, 8) == 0) goto werr;
@@ -1652,7 +1654,7 @@ robj *rdbLoadObject(int rdbtype, rio *rdb, robj *key) {
                 while ((zi = zipmapNext(zi, &fstr, &flen, &vstr, &vlen)) != NULL) {
                     if (flen > maxlen) maxlen = flen;
                     if (vlen > maxlen) maxlen = vlen;
-                    if (!ziplistSafeToAdd(zl, (size_t)flen + vlen)) {
+                    if (!ziplistSafeToAdd(zl, (size_t) flen + vlen)) {
                         rdbExitReportCorruptRDB("Hash zipmap too big (%u)", flen);
                     }
 
