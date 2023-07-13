@@ -2009,7 +2009,7 @@ void initServer(void) {
     server.pid = getpid();
     server.current_client = NULL;
     server.fixed_time_expire = 0;
-    server.clients = listCreate();
+    server.clients = listCreate(); //一个链表,保存了所有客户端状态
     server.clients_index = raxNew();
     server.clients_to_close = listCreate();
     server.slaves = listCreate();

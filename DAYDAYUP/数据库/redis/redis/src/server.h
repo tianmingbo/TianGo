@@ -698,13 +698,12 @@ typedef struct readyList {
     robj *key;
 } readyList;
 
-/* With multiplexing we need to take per-client state.
- * Clients are taken in a linked list. */
+/* redis客户端 */
 typedef struct client {
     uint64_t id;            /* 客户端递增唯一ID。*/
     int fd;                 /* 客户端套接字。*/
     redisDb *db;            /* 指向当前选择的数据库。*/
-    robj *name;             /* 由 CLIENT SETNAME 设置的名称。*/
+    robj *name;             /* 由 CLIENT SETNAME 设置的名称。 client setname xx */
     sds querybuf;           /* 用于累积客户端查询的缓冲区。*/
     size_t qb_pos;          /* 我们在 querybuf 中读取的位置。*/
     sds pending_querybuf;   /* 如果此客户端被标记为主节点，这个缓冲区表示我们从主节点接收到但尚未应用的部分复制流。*/
@@ -721,7 +720,7 @@ typedef struct client {
     time_t ctime;           /* 客户端创建时间。*/
     time_t lastinteraction; /* 最后交互的时间，用于超时。*/
     time_t obuf_soft_limit_reached_time;
-    int flags;              /* 客户端标志：CLIENT_* 宏。*/
+    int flags;              /* 客户端标志：CLIENT_* 宏。记录了客户端的角色*/
     int authenticated;      /* 当 requirepass 非空时为1。*/
     int replstate;          /* 如果是从节点，则为复制状态。*/
     int repl_put_online_on_ack; /* 在第一次 ACK 上安装从节点的写处理程序。*/
