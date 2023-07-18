@@ -4045,7 +4045,7 @@ int checkForSentinelMode(int argc, char **argv) {
     return 0;
 }
 
-/* Function called at startup to load RDB or AOF file in memory. */
+/* 从磁盘上加载 AOF 或者是 RDB 文件 */
 void loadDataFromDisk(void) {
     long long start = ustime();
     if (server.aof_state == AOF_ON) {
@@ -4239,14 +4239,14 @@ int main(int argc, char **argv) {
     setlocale(LC_COLLATE, "");
     tzset(); /* Populates 'timezone' global. */
     zmalloc_set_oom_handler(redisOutOfMemoryHandler);
-    srand(time(NULL) ^ getpid());
-    gettimeofday(&tv, NULL);
+    srand(time(NULL) ^ getpid()); //函数设置随机数生成器的种子
+    gettimeofday(&tv, NULL); //tv：用于存储获取的时间和日期信息的结构体指针，包含了秒数和微秒。
     //设置随机种子
     char hashseed[16];
     getRandomHexChars(hashseed, sizeof(hashseed));
     dictSetHashFunctionSeed((uint8_t *) hashseed);
     server.sentinel_mode = checkForSentinelMode(argc, argv);
-    initServerConfig();
+    initServerConfig(); //为参数设置默认值
     moduleInitModulesSystem();
 
     /* Store the executable path and arguments in a safe place in order
@@ -4274,6 +4274,7 @@ int main(int argc, char **argv) {
         redis_check_aof_main(argc, argv);
 
     if (argc >= 2) {
+        //对运行时参数进行解析
         j = 1; /* First option to parse in argv[] */
         sds options = sdsempty();
         char *configfile = NULL;
@@ -4420,7 +4421,7 @@ int main(int argc, char **argv) {
 
     aeSetBeforeSleepProc(server.el, beforeSleep); //进入事件循环前server需要执行的操作
     aeSetAfterSleepProc(server.el, afterSleep);
-    aeMain(server.el);
+    aeMain(server.el); //执行事件循环
     aeDeleteEventLoop(server.el);
     return 0;
 }

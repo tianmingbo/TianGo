@@ -51,13 +51,13 @@ typedef long long ustime_t; /* microsecond time type. */
 
 /* Static server configuration */
 #define CONFIG_DEFAULT_DYNAMIC_HZ 1             /* Adapt hz to # of clients.*/
-#define CONFIG_DEFAULT_HZ        10             /* Time interrupt calls/sec. */
+#define CONFIG_DEFAULT_HZ        10             /* server后台任务的默认运行频率 1s10次 */
 #define CONFIG_MIN_HZ            1
 #define CONFIG_MAX_HZ            500
 #define MAX_CLIENTS_PER_CLOCK_TICK 200          /* HZ is adapted based on that. */
 #define CONFIG_DEFAULT_SERVER_PORT        6379  /* TCP port. */
 #define CONFIG_DEFAULT_TCP_BACKLOG       511    /* TCP listen backlog. */
-#define CONFIG_DEFAULT_CLIENT_TIMEOUT       0   /* Default client timeout: infinite */
+#define CONFIG_DEFAULT_CLIENT_TIMEOUT       0   /* 客户端超时时间，默认为0，表示没有超时限制 */
 #define CONFIG_DEFAULT_DBNUM     16
 #define CONFIG_MAX_LINE    1024
 #define CRON_DBS_PER_CALL 16
@@ -711,7 +711,7 @@ typedef struct client {
     size_t querybuf_peak;   /* querybuf 大小的最近峰值（100毫秒或更长）。*/
     int argc;               /* 当前命令的参数数量。*/
     robj **argv;            /* 当前命令的参数。*/
-    struct redisCommand *cmd, *lastcmd; /* 最后执行的命令。*/
+    struct redisCommand *cmd, *lastcmd; /* cmd指向命令对应的redisCommand结构*/
     int reqtype;            /* 请求协议类型：PROTO_REQ_*。*/
     int multibulklen;       /* 剩余要读取的多个 bulk 参数的数量。*/
     long bulklen;           /* 多个 bulk 请求中的单个 bulk 参数长度。*/
@@ -927,7 +927,7 @@ struct redisServer {
     dict *commands;             /* Command table */
     dict *orig_commands;        /* Command table before command renaming. */
     aeEventLoop *el;
-    unsigned int lruclock;      /* Clock for LRU eviction */
+    unsigned int lruclock;      /* 用于计算键的空转时长 */
     int shutdown_asap;          /* SHUTDOWN needed ASAP */
     int activerehashing;        /* Incremental rehash in serverCron() */
     int active_defrag_running;  /* Active defragmentation running (holds current scan aggressiveness) */
@@ -1000,7 +1000,7 @@ struct redisServer {
     long long stat_active_defrag_key_hits;  /* number of keys with moved allocations */
     long long stat_active_defrag_key_misses;/* number of keys scanned and not moved */
     long long stat_active_defrag_scanned;   /* number of dictEntries scanned */
-    size_t stat_peak_memory;        /* Max used memory record */
+    size_t stat_peak_memory;        /* 记录了服务器的内存峰值 */
     long long stat_fork_time;       /* Time needed to perform latest fork() */
     double stat_fork_rate;          /* Fork rate in GB/sec. */
     long long stat_rejected_conn;   /* Clients rejected because of maxclients */
@@ -1019,10 +1019,10 @@ struct redisServer {
     /* The following two are used to track instantaneous metrics, like
      * number of operations per second, network traffic. */
     struct {
-        long long last_sample_time; /* Timestamp of last sample in ms */
-        long long last_sample_count;/* Count in last sample */
-        long long samples[STATS_METRIC_SAMPLES];
-        int idx;
+        long long last_sample_time; /* 上一次抽样的时间 ms */
+        long long last_sample_count;/* 上一次抽样时,服务器已执行命令的数量 */
+        long long samples[STATS_METRIC_SAMPLES]; //环形数组,每一项都记录了一次抽样结果
+        int idx; //数组的索引值,每次抽样后+1
     } inst_metric[STATS_METRIC_COUNT];
     /* Configuration */
     int verbosity;                  /* Loglevel in redis.conf */
@@ -1282,24 +1282,56 @@ typedef struct pubsubPattern {
     robj *pattern;
 } pubsubPattern;
 
+/**
+1.redisCommandProc 是类型名,用于定义一个函数指针类型
+2.void 表示这个函数指针所指向的函数返回值为 void,即没有返回值
+3.函数参数为一个 client* 类型,名为 c
+4.所以 redisCommandProc 类型定义了一个指向这样函数的指针:void 函数名(client* c)
+5.在 Redis 中,这个函数指针类型被用来声明命令处理函数,这些函数的参数是客户端连接,没有返回值。
+6.定义这样的函数指针类型是为了实现 Redis 的命令分发,根据命令字在函数指针数组中查找对应命令的处理函数。
+总结一下,它定义了一个指向无返回值,单客户端参数的函数指针类型,用于 Redis 中实现命令分发。
+ *
+ * */
 typedef void redisCommandProc(client *c);
 
 typedef int *redisGetKeysProc(struct redisCommand *cmd, robj **argv, int argc, int *numkeys);
 
+
+/**
+ * 常见的sflags有:
+'w' - 写命令(可能修改数据)
+'r' - 读命令(不修改数据)
+'m' - 可能会阻塞的命令
+'a' - 管理员命令,仅管理员可以调用
+'p' - 发布订阅相关的命令
+'s' - 只能在从节点调用的命令
+'R' - 只在从节点空闲时调用的命令
+'S' - 只在主节点调用的命令
+'M' - 不会失败的命令
+'k' - 包含关键字(key)的参数
+'v' - 包含标准字符串(value)的参数
+'f' - 使用快速开闭(fast open/close)
+'A' - 对无效cluster slots返回ask错误
+'L' - 回复可以包含大量信息
+'F' - FAST 命令 - 直接进程,无命令队列
+'C' - 使REDIS_CMD_CONCURRENT标志生效
+'X' - 写命令标志可由DISABLE_DENY_COMMAND选项关闭
+ * */
 struct redisCommand {
-    char *name;
-    redisCommandProc *proc;
-    int arity;
-    char *sflags; /* Flags as string representation, one char per flag. */
-    int flags;    /* The actual flags, obtained from the 'sflags' field. */
+    char *name; //命令的名字,比如set
+    redisCommandProc *proc; //函数指针,执行命令的实现函数,比如setCommand
+    int arity; //命令参数的个数
+    char *sflags; /* 命令标志的字符串表示(每个标志一个字符) */
+    int flags;    /* 从_sflags派生的实际的整数标志。 */
     /* Use a function to determine keys arguments in a command line.
      * Used for Redis Cluster redirect. */
-    redisGetKeysProc *getkeys_proc;
+    redisGetKeysProc *getkeys_proc; //指向一个根据命令行确定键参数的函数的指针。用于Redis集群重定向。
     /* What keys should be loaded in background when calling this command? */
-    int firstkey; /* The first argument that's a key (0 = no keys) */
-    int lastkey;  /* The last argument that's a key */
-    int keystep;  /* The step between first and last key */
-    long long microseconds, calls;
+    int firstkey; /* 第一个键参数的位置,如果没有键参数则为0。*/
+    int lastkey;  /* 最后一个键参数的位置。 */
+    int keystep;  /* 第一个键和最后一个键参数位置之间的步长/间隔。 */
+    long long microseconds, calls; //microseconds: 执行该命令所花费的微秒数。calls: 调用该命令的次数。用于统计。
+
 };
 
 struct redisFunctionSym {
