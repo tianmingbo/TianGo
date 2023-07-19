@@ -1409,6 +1409,7 @@ void afterSleep(struct aeEventLoop *eventLoop) {
 /* =========================== Server initialization ======================== */
 
 void createSharedObjects(void) {
+    //避免重复创建对象
     int j;
 
     shared.crlf = createObject(OBJ_STRING, sdsnew("\r\n"));
@@ -1503,6 +1504,8 @@ void createSharedObjects(void) {
     shared.maxstring = sdsnew("maxstring");
 }
 
+
+//初始化server变量
 void initServerConfig(void) {
     int j;
 
@@ -1511,29 +1514,41 @@ void initServerConfig(void) {
     pthread_mutex_init(&server.unixtime_mutex, NULL);
 
     updateCachedTime(1);
+    //设置服务器运行id
     getRandomHexChars(server.runid, CONFIG_RUN_ID_SIZE);
+    // 追加结束符
     server.runid[CONFIG_RUN_ID_SIZE] = '\0';
     changeReplicationId();
     clearReplicationId2();
     server.timezone = getTimeZone(); /* Initialized by tzset(). */
-    server.configfile = NULL;
+    server.configfile = NULL; //配置文件路径
     server.executable = NULL;
-    server.hz = server.config_hz = CONFIG_DEFAULT_HZ;
+    server.hz = server.config_hz = CONFIG_DEFAULT_HZ; //10HZ
     server.dynamic_hz = CONFIG_DEFAULT_DYNAMIC_HZ;
+    // 保存主机字长
     server.arch_bits = (sizeof(long) == 8) ? 64 : 32;
     server.port = CONFIG_DEFAULT_SERVER_PORT;
+    // 默认tcp监听backlog大小
     server.tcp_backlog = CONFIG_DEFAULT_TCP_BACKLOG;
     server.bindaddr_count = 0;
     server.unixsocket = NULL;
     server.unixsocketperm = CONFIG_DEFAULT_UNIX_SOCKET_PERM;
+    // 已使用ip描述符数量为0
     server.ipfd_count = 0;
+    // unix socket描述符为初始值-1
     server.sofd = -1;
+    // 默认保护模式
     server.protected_mode = CONFIG_DEFAULT_PROTECTED_MODE;
     server.dbnum = CONFIG_DEFAULT_DBNUM;
+    // 默认日志级别
     server.verbosity = CONFIG_DEFAULT_VERBOSITY;
+    // 默认客户端超时秒数
     server.maxidletime = CONFIG_DEFAULT_CLIENT_TIMEOUT;
+    // 默认开启keepalive
     server.tcpkeepalive = CONFIG_DEFAULT_TCP_KEEPALIVE;
+    // 默认开启过期功能
     server.active_expire_enabled = 1;
+    // 默认开启活动碎片整理
     server.active_defrag_enabled = CONFIG_DEFAULT_ACTIVE_DEFRAG;
     server.active_defrag_ignore_bytes = CONFIG_DEFAULT_DEFRAG_IGNORE_BYTES;
     server.active_defrag_threshold_lower = CONFIG_DEFAULT_DEFRAG_THRESHOLD_LOWER;
@@ -1545,39 +1560,58 @@ void initServerConfig(void) {
     server.client_max_querybuf_len = PROTO_MAX_QUERYBUF_LEN;
     server.saveparams = NULL;
     server.loading = 0;
+    // 默认日志文件
     server.logfile = zstrdup(CONFIG_DEFAULT_LOGFILE);
     server.syslog_enabled = CONFIG_DEFAULT_SYSLOG_ENABLED;
     server.syslog_ident = zstrdup(CONFIG_DEFAULT_SYSLOG_IDENT);
     server.ignore_warnings = zstrdup(CONFIG_DEFAULT_IGNORE_WARNINGS);
     server.syslog_facility = LOG_LOCAL0;
+    // 默认是否作为守护进程
     server.daemonize = CONFIG_DEFAULT_DAEMONIZE;
     server.supervised = 0;
     server.supervised_mode = SUPERVISED_NONE;
+    // 默认AOF关闭
     server.aof_state = AOF_OFF;
+    // 默认AOF fsync策略
     server.aof_fsync = CONFIG_DEFAULT_AOF_FSYNC;
     server.aof_no_fsync_on_rewrite = CONFIG_DEFAULT_AOF_NO_FSYNC_ON_REWRITE;
+    // 默认AOF重写比例
     server.aof_rewrite_perc = AOF_REWRITE_PERC;
+    // 默认AOF重写最小大小
     server.aof_rewrite_min_size = AOF_REWRITE_MIN_SIZE;
+    // AOF上次重写或启动大小还未知
     server.aof_rewrite_base_size = 0;
+    // AOF重写未计划
     server.aof_rewrite_scheduled = 0;
+    // 初始化最后fsync为当前时间
     server.aof_last_fsync = time(NULL);
     server.aof_rewrite_time_last = -1;
     server.aof_rewrite_time_start = -1;
+    // 最后bgrewrite未知
     server.aof_lastbgrewrite_status = C_OK;
+    // 延迟fsync计数器为0
     server.aof_delayed_fsync = 0;
+    // AOF文件描述符为初始值-1
     server.aof_fd = -1;
+    // AOF当前选择数据库为初始值-1
     server.aof_selected_db = -1; /* Make sure the first time will not match */
     server.aof_flush_postponed_start = 0;
+    // 默认AOF重写增量fsync
     server.aof_rewrite_incremental_fsync = CONFIG_DEFAULT_AOF_REWRITE_INCREMENTAL_FSYNC;
+    // 默认RDB增量fsync
     server.rdb_save_incremental_fsync = CONFIG_DEFAULT_RDB_SAVE_INCREMENTAL_FSYNC;
     server.aof_load_truncated = CONFIG_DEFAULT_AOF_LOAD_TRUNCATED;
     server.aof_use_rdb_preamble = CONFIG_DEFAULT_AOF_USE_RDB_PREAMBLE;
     server.pidfile = NULL;
+    // 默认RDB文件
     server.rdb_filename = zstrdup(CONFIG_DEFAULT_RDB_FILENAME);
+    // 默认AOF文件
     server.aof_filename = zstrdup(CONFIG_DEFAULT_AOF_FILENAME);
+    // 未设置密码
     server.requirepass = NULL;
     server.rdb_compression = CONFIG_DEFAULT_RDB_COMPRESSION;
     server.rdb_checksum = CONFIG_DEFAULT_RDB_CHECKSUM;
+    // 默认bgsave出错停止写
     server.stop_writes_on_bgsave_err = CONFIG_DEFAULT_STOP_WRITES_ON_BGSAVE_ERROR;
     server.activerehashing = CONFIG_DEFAULT_ACTIVE_REHASHING;
     server.active_defrag_running = 0;
@@ -1586,23 +1620,38 @@ void initServerConfig(void) {
     server.blocked_clients = 0;
     memset(server.blocked_clients_by_type, 0,
            sizeof(server.blocked_clients_by_type));
+    // 默认最大内存
     server.maxmemory = CONFIG_DEFAULT_MAXMEMORY;
+    // 默认内存淘汰策略
     server.maxmemory_policy = CONFIG_DEFAULT_MAXMEMORY_POLICY;
+    // 默认采样次数
     server.maxmemory_samples = CONFIG_DEFAULT_MAXMEMORY_SAMPLES;
     server.lfu_log_factor = CONFIG_DEFAULT_LFU_LOG_FACTOR;
     server.lfu_decay_time = CONFIG_DEFAULT_LFU_DECAY_TIME;
+    // 默认hash中最大ziplist条目数
     server.hash_max_ziplist_entries = OBJ_HASH_MAX_ZIPLIST_ENTRIES;
+    // 默认hash中最大ziplist值大小
     server.hash_max_ziplist_value = OBJ_HASH_MAX_ZIPLIST_VALUE;
+    // 默认list中最大ziplist大小
     server.list_max_ziplist_size = OBJ_LIST_MAX_ZIPLIST_SIZE;
     server.list_compress_depth = OBJ_LIST_COMPRESS_DEPTH;
+    // 默认set种最大intset条目数
     server.set_max_intset_entries = OBJ_SET_MAX_INTSET_ENTRIES;
+    // 默认zset种最大ziplist条目数
     server.zset_max_ziplist_entries = OBJ_ZSET_MAX_ZIPLIST_ENTRIES;
+    // 默认zset种最大ziplist值大小
     server.zset_max_ziplist_value = OBJ_ZSET_MAX_ZIPLIST_VALUE;
+    // 默认HyperLogLog最大内存
     server.hll_sparse_max_bytes = CONFIG_DEFAULT_HLL_SPARSE_MAX_BYTES;
+    // 默认stream节点最大内存
     server.stream_node_max_bytes = OBJ_STREAM_NODE_MAX_BYTES;
+    // 默认stream节点最大条目数
     server.stream_node_max_entries = OBJ_STREAM_NODE_MAX_ENTRIES;
+    // 默认不要尽快关闭
     server.shutdown_asap = 0;
+    // 默认集群未开启
     server.cluster_enabled = 0;
+    // 默认集群节点超时时间
     server.cluster_node_timeout = CLUSTER_DEFAULT_NODE_TIMEOUT;
     server.cluster_migration_barrier = CLUSTER_DEFAULT_MIGRATION_BARRIER;
     server.cluster_slave_validity_factor = CLUSTER_DEFAULT_SLAVE_VALIDITY;
@@ -1614,6 +1663,7 @@ void initServerConfig(void) {
     server.cluster_announce_bus_port = CONFIG_DEFAULT_CLUSTER_ANNOUNCE_BUS_PORT;
     server.cluster_module_flags = CLUSTER_MODULE_FLAG_NONE;
     server.migrate_cached_sockets = dictCreate(&migrateCacheDictType, NULL);
+    // 下一个客户端ID为1
     server.next_client_id = 1; /* Client IDs, start from 1 .*/
     server.loading_process_events_interval_bytes = (1024 * 1024 * 2);
     server.lazyfree_lazy_eviction = CONFIG_DEFAULT_LAZYFREE_LAZY_EVICTION;
@@ -1622,12 +1672,17 @@ void initServerConfig(void) {
     server.always_show_logo = CONFIG_DEFAULT_ALWAYS_SHOW_LOGO;
     server.lua_time_limit = LUA_SCRIPT_TIME_LIMIT;
 
+    // 获取当前LRU时间
     unsigned int lruclock = getLRUClock();
+    // 保存到原子变量
     atomicSet(server.lruclock, lruclock);
+    // 重置服务器保存条件
     resetServerSaveParams();
-
+    // 增加保存条件:1小时后且至少1个key修改
     appendServerSaveParams(60 * 60, 1);  /* save after 1 hour and 1 change */
+    // 增加保存条件:5分钟后且至少100个key修改
     appendServerSaveParams(300, 100);  /* save after 5 minutes and 100 changes */
+    // 增加保存条件:1分钟后且至少10000个key修改
     appendServerSaveParams(60, 10000); /* save after 1 minute and 10000 changes */
 
     /* Replication related */
@@ -1678,9 +1733,13 @@ void initServerConfig(void) {
     /* Command table -- we initiialize it here as it is part of the
      * initial configuration, since command names may be changed via
      * redis.conf using the rename-command directive. */
+    /* 命令表,根据配置文件重命名前的原始命令表 */
     server.commands = dictCreate(&commandTableDictType, NULL);
     server.orig_commands = dictCreate(&commandTableDictType, NULL);
+    // 填充命令表
     populateCommandTable();
+
+    // 快速指针指向常用命令
     server.delCommand = lookupCommandByCString("del");
     server.multiCommand = lookupCommandByCString("multi");
     server.lpushCommand = lookupCommandByCString("lpush");
@@ -1695,11 +1754,12 @@ void initServerConfig(void) {
     server.xclaimCommand = lookupCommandByCString("xclaim");
     server.xgroupCommand = lookupCommandByCString("xgroup");
 
-    /* Slow log */
+    /* 默认慢日志时间限制10000毫秒*/
     server.slowlog_log_slower_than = CONFIG_DEFAULT_SLOWLOG_LOG_SLOWER_THAN;
+    // 默认慢日志长度128
     server.slowlog_max_len = CONFIG_DEFAULT_SLOWLOG_MAX_LEN;
 
-    /* Latency monitor */
+    // 默认延迟监控阈值0毫秒
     server.latency_monitor_threshold = CONFIG_DEFAULT_LATENCY_MONITOR_THRESHOLD;
 
     /* Debugging */
@@ -2006,6 +2066,7 @@ void initServer(void) {
 
     signal(SIGHUP, SIG_IGN);
     signal(SIGPIPE, SIG_IGN);
+    // 设置其他信号处理函数
     setupSignalHandlers();
 
     if (server.syslog_enabled) {
@@ -2029,17 +2090,18 @@ void initServer(void) {
     server.clients_waiting_acks = listCreate();
     server.get_ack_from_slaves = 0;
     server.clients_paused = 0;
-    server.system_memory_size = zmalloc_get_memory_size();
-
+    server.system_memory_size = zmalloc_get_memory_size();     // 获取系统内存大小
+    // 创建共享对象
     createSharedObjects();
+    // 调整打开文件数量限制
     adjustOpenFilesLimit();
+    // 创建事件处理循环
     server.el = aeCreateEventLoop(server.maxclients + CONFIG_FDSET_INCR);
     if (server.el == NULL) {
-        serverLog(LL_WARNING,
-                  "Failed creating the event loop. Error message: '%s'",
-                  strerror(errno));
+        serverLog(LL_WARNING, "Failed creating the event loop. Error message: '%s'", strerror(errno));
         exit(1);
     }
+    // 为数据库分配空间
     server.db = zmalloc(sizeof(redisDb) * server.dbnum);
 
     /* Open the TCP listening socket for the user commands. */
@@ -2048,11 +2110,10 @@ void initServer(void) {
         listenToPort(server.port, server.ipfd, &server.ipfd_count) == C_ERR)
         exit(1);
 
-    /* Open the listening Unix domain socket. */
+    // 打开Unix Socket
     if (server.unixsocket != NULL) {
-        unlink(server.unixsocket); /* don't care if this fails */
-        server.sofd = anetUnixServer(server.neterr, server.unixsocket,
-                                     server.unixsocketperm, server.tcp_backlog);
+        unlink(server.unixsocket);
+        server.sofd = anetUnixServer(server.neterr, server.unixsocket, server.unixsocketperm, server.tcp_backlog);
         if (server.sofd == ANET_ERR) {
             serverLog(LL_WARNING, "Opening Unix socket: %s", server.neterr);
             exit(1);
@@ -2060,7 +2121,7 @@ void initServer(void) {
         anetNonBlock(NULL, server.sofd);
     }
 
-    /* Abort if there are no listening sockets at all. */
+    // 如果没有监听端口,退出
     if (server.ipfd_count == 0 && server.sofd < 0) {
         serverLog(LL_WARNING, "Configured to not listen anywhere, exiting.");
         exit(1);
@@ -2137,27 +2198,23 @@ void initServer(void) {
                     "Unrecoverable error creating server.ipfd file event.");
         }
     }
-    if (server.sofd > 0 && aeCreateFileEvent(server.el, server.sofd, AE_READABLE,
-                                             acceptUnixHandler, NULL) == AE_ERR)
+// 为Unix Socket创建连接接受处理函数
+    if (server.sofd > 0 && aeCreateFileEvent(server.el, server.sofd, AE_READABLE, acceptUnixHandler, NULL) == AE_ERR)
         serverPanic("Unrecoverable error creating server.sofd file event.");
-
 
     /* Register a readable event for the pipe used to awake the event loop
      * when a blocked client in a module needs attention. */
-    if (aeCreateFileEvent(server.el, server.module_blocked_pipe[0], AE_READABLE,
-                          moduleBlockedClientPipeReadable, NULL) == AE_ERR) {
-        serverPanic(
-                "Error registering the readable event for the module "
-                "blocked clients subsystem.");
+    // 为模块客户端创建可读事件
+    if (aeCreateFileEvent(server.el, server.module_blocked_pipe[0], AE_READABLE, moduleBlockedClientPipeReadable,
+                          NULL) == AE_ERR) {
+        serverPanic("Error registering the readable event for the module blocked clients subsystem.");
     }
 
-    /* Open the AOF file if needed. */
+    // 如果AOF开启,打开AOF文件
     if (server.aof_state == AOF_ON) {
-        server.aof_fd = open(server.aof_filename,
-                             O_WRONLY | O_APPEND | O_CREAT, 0644);
+        server.aof_fd = open(server.aof_filename, O_WRONLY | O_APPEND | O_CREAT, 0644);
         if (server.aof_fd == -1) {
-            serverLog(LL_WARNING, "Can't open the append-only file: %s",
-                      strerror(errno));
+            serverLog(LL_WARNING, "Can't open the append-only file: %s", strerror(errno));
             exit(1);
         }
     }
@@ -2166,17 +2223,27 @@ void initServer(void) {
      * no explicit limit in the user provided configuration we set a limit
      * at 3 GB using maxmemory with 'noeviction' policy'. This avoids
      * useless crashes of the Redis instance for out of memory. */
+    // 32位系统内存限制为3GB
     if (server.arch_bits == 32 && server.maxmemory == 0) {
         serverLog(LL_WARNING,
                   "Warning: 32 bit instance detected but no memory limit set. Setting 3 GB maxmemory limit with 'noeviction' policy now.");
-        server.maxmemory = 3072LL * (1024 * 1024); /* 3 GB */
+        server.maxmemory = 3072LL * (1024 * 1024);
         server.maxmemory_policy = MAXMEMORY_NO_EVICTION;
     }
 
+    // 如果启用了集群,初始化集群状态
     if (server.cluster_enabled) clusterInit();
+
+    // 初始化复制脚本缓存
     replicationScriptCacheInit();
+
+    // 初始化脚本环境
     scriptingInit(1);
+
+    // 初始化慢日志
     slowlogInit();
+
+    // 初始化延迟监视器
     latencyMonitorInit();
 }
 
@@ -2186,7 +2253,9 @@ void initServer(void) {
  * Thread Local Storage initialization collides with dlopen call.
  * see: https://sourceware.org/bugzilla/show_bug.cgi?id=19329 */
 void InitServerLast() {
+    //bioInit(): 初始化后台IO线程,用于处理AOF文件写入、RDB文件生成等后台任务的IO操作。这个函数会启动一个新的线程来执行后台IO操作。
     bioInit();
+    //获取zmalloc库当前已经分配的内存数量,并保存到server.initial_memory_usage字段。这个字段记录了服务器初始化完毕时zmalloc内存分配的字节数。
     server.initial_memory_usage = zmalloc_used_memory();
 }
 
@@ -3190,15 +3259,15 @@ sds genRedisInfoString(char *section) {
                             aeGetApiName(),
                             REDIS_ATOMIC_API,
 #ifdef __GNUC__
-                            __GNUC__, __GNUC_MINOR__, __GNUC_PATCHLEVEL__,
+                __GNUC__, __GNUC_MINOR__, __GNUC_PATCHLEVEL__,
 #else
-                0, 0, 0,
+                            0, 0, 0,
 #endif
                             (long) getpid(),
                             server.runid,
                             server.port,
                             (intmax_t) uptime,
-                            (intmax_t) (uptime / (3600 * 24)),
+                            (intmax_t)(uptime / (3600 * 24)),
                             server.hz,
                             server.config_hz,
                             (unsigned long) lruclock,
@@ -3366,15 +3435,15 @@ sds genRedisInfoString(char *section) {
                             (intmax_t) server.lastsave,
                             (server.lastbgsave_status == C_OK) ? "ok" : "err",
                             (intmax_t) server.rdb_save_time_last,
-                            (intmax_t) ((server.rdb_child_pid == -1) ?
-                                        -1 : time(NULL) - server.rdb_save_time_start),
+                            (intmax_t)((server.rdb_child_pid == -1) ?
+                                       -1 : time(NULL) - server.rdb_save_time_start),
                             server.stat_rdb_cow_bytes,
                             server.aof_state != AOF_OFF,
                             server.aof_child_pid != -1,
                             server.aof_rewrite_scheduled,
                             (intmax_t) server.aof_rewrite_time_last,
-                            (intmax_t) ((server.aof_child_pid == -1) ?
-                                        -1 : time(NULL) - server.aof_rewrite_time_start),
+                            (intmax_t)((server.aof_child_pid == -1) ?
+                                       -1 : time(NULL) - server.aof_rewrite_time_start),
                             (server.aof_lastbgrewrite_status == C_OK) ? "ok" : "err",
                             (server.aof_last_write_status == C_OK) ? "ok" : "err",
                             server.stat_aof_cow_bytes);
@@ -4172,8 +4241,8 @@ int redisSupervisedSystemd(void) {
     memset(&hdr, 0, sizeof(hdr));
     hdr.msg_name = &su;
     hdr.msg_namelen = offsetof(
-                              struct sockaddr_un, sun_path) +
-                      strlen(notify_socket);
+    struct sockaddr_un, sun_path) +
+            strlen(notify_socket);
     hdr.msg_iov = &iov;
     hdr.msg_iovlen = 1;
 
@@ -4430,8 +4499,8 @@ int main(int argc, char **argv) {
 
     aeSetBeforeSleepProc(server.el, beforeSleep); //进入事件循环前server需要执行的操作
     aeSetAfterSleepProc(server.el, afterSleep);
-    aeMain(server.el); //执行事件循环
-    aeDeleteEventLoop(server.el);
+    aeMain(server.el); //进入事件循环
+    aeDeleteEventLoop(server.el); //停止事件循环
     return 0;
 }
 
