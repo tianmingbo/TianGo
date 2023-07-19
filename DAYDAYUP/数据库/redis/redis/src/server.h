@@ -927,13 +927,13 @@ struct redisServer {
     dict *orig_commands;        /* Command table before command renaming. */
     aeEventLoop *el;
     unsigned int lruclock;      /* 用于计算键的空转时长 */
-    int shutdown_asap;          /* SHUTDOWN needed ASAP */
+    int shutdown_asap;          /* 根据这个值决定是否关闭服务器,值为1关闭服务器 */
     int activerehashing;        /* Incremental rehash in serverCron() */
     int active_defrag_running;  /* Active defragmentation running (holds current scan aggressiveness) */
     char *requirepass;          /* Pass for AUTH command, or NULL */
     char *pidfile;              /* PID file path */
     int arch_bits;              /* 32 or 64 depending on sizeof(long) */
-    int cronloops;              /* Number of times the cron function run */
+    int cronloops;              /* 定时任务执行的次数 */
     char runid[CONFIG_RUN_ID_SIZE + 1];  /* ID always different at every exec. */
     int sentinel_mode;          /* True if this instance is a Sentinel. */
     size_t initial_memory_usage; /* Bytes used after initialization. */
@@ -1051,8 +1051,8 @@ struct redisServer {
     off_t aof_rewrite_base_size;    /* AOF size on latest startup or rewrite. */
     off_t aof_current_size;         /* AOF current size. */
     off_t aof_fsync_offset;         /* AOF offset which is already synced to disk. */
-    int aof_rewrite_scheduled;      /* Rewrite once BGSAVE terminates. */
-    pid_t aof_child_pid;            /* PID if rewriting process */
+    int aof_rewrite_scheduled;      /* 在服务器执行BGSAVE的期间，如果客户端向服务器发来了bgrewriteaofmingl ,aof_rewrite_scheduled用来是否延迟执行该命令*/
+    pid_t aof_child_pid;            /* 执行bgrewriteaof子进程的id，没有在执行该命令，则为-1 */
     list *aof_rewrite_buf_blocks;   /* Hold changes during an AOF rewrite. */
     sds aof_buf;      /* AOF buffer, written before entering the event loop */
     int aof_fd;       /* File descriptor of currently selected AOF file */
@@ -1082,7 +1082,7 @@ struct redisServer {
     /* RDB persistence */
     long long dirty;                /* 上一次save后的修改量 */
     long long dirty_before_bgsave;  /* Used to restore dirty on failed BGSAVE */
-    pid_t rdb_child_pid;            /* PID of RDB saving child */
+    pid_t rdb_child_pid;            /* 执行bgsave的子进程id */
     struct saveparam *saveparams;   /* 保存rdb的触发条件*/
     int saveparamslen;              /* Number of saving points */
     char *rdb_filename;             /* Name of RDB file */
