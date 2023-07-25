@@ -165,8 +165,8 @@ typedef struct sentinelRedisInstance {
     int flags;      /* See SRI_... defines 实例名称,状态的标记 */
     char *name;     /* 实例的名称 */
     char *runid;    /* 实例id*/
-    uint64_t config_epoch;  /* Configuration epoch. */
-    sentinelAddr *addr; /* Master host. */
+    uint64_t config_epoch;  /* 配置纪元,用于实现故障转移 */
+    sentinelAddr *addr; /* 实例的地址 */
     instanceLink *link; /* Link to the instance, may be shared for Sentinels. */
     mstime_t last_pub_time;   /* Last time we sent hello via Pub/Sub. */
     mstime_t last_hello_time; /* Only used if SRI_SENTINEL is set. Last time
@@ -176,7 +176,7 @@ typedef struct sentinelRedisInstance {
                                              SENTINEL is-master-down command. */
     mstime_t s_down_since_time; /* Subjectively down since time. */
     mstime_t o_down_since_time; /* Objectively down since time. */
-    mstime_t down_after_period; /* Consider it down after that period. */
+    mstime_t down_after_period; /* 实例无响应多少毫秒后才会判断为主观下线 */
     mstime_t info_refresh;  /* Time at which we received INFO output from it. */
     dict *renamed_commands;     /* Commands renamed in this instance:
                                    Sentinel will use the alternative commands
@@ -195,8 +195,8 @@ typedef struct sentinelRedisInstance {
     /* Master specific. */
     dict *sentinels;    /* Other sentinels monitoring the same master. */
     dict *slaves;       /* Slaves for this master instance. */
-    unsigned int quorum;/* Number of sentinels that need to agree on failure. */
-    int parallel_syncs; /* How many slaves to reconfigure at same time. */
+    unsigned int quorum;/* 判断这个实例为客观下线所需的支持投票数量 */
+    int parallel_syncs; /* 在执行故障转移操作时,可以同时对新的主服务器进行同步的从服务器数量 */
     char *auth_pass;    /* Password to use for AUTH against master & slaves. */
 
     /* Slave specific. */
@@ -218,7 +218,7 @@ typedef struct sentinelRedisInstance {
     int failover_state; /* See SENTINEL_FAILOVER_STATE_* defines. */
     mstime_t failover_state_change_time;
     mstime_t failover_start_time;   /* Last failover attempt start time. */
-    mstime_t failover_timeout;      /* Max time to refresh failover state. */
+    mstime_t failover_timeout;      /* 刷新故障迁移状态的最大时限 */
     mstime_t failover_delay_logged; /* For what failover_start_time value we
                                        logged the failover delay. */
     struct sentinelRedisInstance *promoted_slave; /* Promoted slave instance. */
@@ -627,6 +627,27 @@ int sentinelAddrIsEqual(sentinelAddr *a, sentinelAddr *b) {
  *  @ <master name> <master ip> <master port>
  *
  *  Any other specifier after "%@" is processed by printf itself.
+ *
+ *  将事件发送到日志、发布/订阅、用户通知脚本。
+  *
+  * 'level' 是日志记录的日志级别。 只有 LL_WARNING 事件才会触发
+  * 用户通知脚本的执行。
+  *
+  * 'type' 是消息类型，也用作发布/订阅通道名称。
+  *
+  * 'ri'，是该事件的redis实例目标（如果适用），用于获取要执行的通知脚本的路径。
+  *
+  * 其余参数与 printf 类似。
+  * 如果格式说明符以两个字符“%@”开头，则 ri 不为 NULL，并且消息以实例标识符为前缀
+  * 以下格式：
+  *
+  * <实例类型> <实例名称> <ip> <端口>
+  *
+  * 如果实例类型不是主实例，则添加附加字符串来指定原始主实例：
+  *
+  * @ <主控名称> <主控IP> <主控端口>
+  *
+  * “%@”之后的任何其他说明符均由 printf 本身处理。
  */
 void sentinelEvent(int level, char *type, sentinelRedisInstance *ri,
                    const char *fmt, ...) {
@@ -635,11 +656,14 @@ void sentinelEvent(int level, char *type, sentinelRedisInstance *ri,
     robj *channel, *payload;
 
     /* Handle %@ */
+    //如果传递消息以"%"和"@"开头，就判断实例是否为主节点
     if (fmt[0] == '%' && fmt[1] == '@') {
+        //判断实例的flags标签是否为SRI_MASTER，如果是，就表明实例是主节点
         sentinelRedisInstance *master = (ri->flags & SRI_MASTER) ?
                                         NULL : ri->master;
 
         if (master) {
+            //如果当前实例是主节点，根据实例的名称、IP地址、端口号等信息调用snprintf生成传递的消息msg
             snprintf(msg, sizeof(msg), "%s %s %s %d @ %s %s %d",
                      sentinelRedisInstanceTypeStr(ri),
                      ri->name, ri->addr->ip, ri->addr->port,
@@ -695,6 +719,7 @@ void sentinelGenerateInitialMonitorEvents(void) {
 
     di = dictGetIterator(sentinel.masters);//获取master的迭代器
     while ((de = dictNext(di)) != NULL) { //获取被监听的主节点
+        //每个sentinelRedisInstance结构代表一个呗Sentinel监视的redis实例,这个实例可以是主服务器,从服务器,或者另外一个Sentinel
         sentinelRedisInstance *ri = dictGetVal(de);
         sentinelEvent(LL_WARNING, "+monitor", ri, "%@ quorum %d", ri->quorum); //发送+monitor事件
     }
@@ -722,7 +747,8 @@ void sentinelScheduleScriptExecution(char *path, ...) {
 
     va_start(ap, path);
     while (argc < SENTINEL_SCRIPT_MAX_ARGS) {
-        argv[argc] = va_arg(ap, char*);
+        argv[argc] = va_arg(ap,
+        char*);
         if (!argv[argc]) break;
         argv[argc] = sdsnew(argv[argc]); /* Copy the string. */
         argc++;
@@ -1634,6 +1660,7 @@ char *sentinelInstanceMapCommand(sentinelRedisInstance *ri, char *command) {
 }
 
 /* ============================ Config handling ============================= */
+//解析sentinel配置
 char *sentinelHandleConfiguration(char **argv, int argc) {
     sentinelRedisInstance *ri;
 
