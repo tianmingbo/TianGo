@@ -3259,15 +3259,15 @@ sds genRedisInfoString(char *section) {
                             aeGetApiName(),
                             REDIS_ATOMIC_API,
 #ifdef __GNUC__
-                __GNUC__, __GNUC_MINOR__, __GNUC_PATCHLEVEL__,
+                            __GNUC__, __GNUC_MINOR__, __GNUC_PATCHLEVEL__,
 #else
-                            0, 0, 0,
+                0, 0, 0,
 #endif
                             (long) getpid(),
                             server.runid,
                             server.port,
                             (intmax_t) uptime,
-                            (intmax_t)(uptime / (3600 * 24)),
+                            (intmax_t) (uptime / (3600 * 24)),
                             server.hz,
                             server.config_hz,
                             (unsigned long) lruclock,
@@ -3435,15 +3435,15 @@ sds genRedisInfoString(char *section) {
                             (intmax_t) server.lastsave,
                             (server.lastbgsave_status == C_OK) ? "ok" : "err",
                             (intmax_t) server.rdb_save_time_last,
-                            (intmax_t)((server.rdb_child_pid == -1) ?
-                                       -1 : time(NULL) - server.rdb_save_time_start),
+                            (intmax_t) ((server.rdb_child_pid == -1) ?
+                                        -1 : time(NULL) - server.rdb_save_time_start),
                             server.stat_rdb_cow_bytes,
                             server.aof_state != AOF_OFF,
                             server.aof_child_pid != -1,
                             server.aof_rewrite_scheduled,
                             (intmax_t) server.aof_rewrite_time_last,
-                            (intmax_t)((server.aof_child_pid == -1) ?
-                                       -1 : time(NULL) - server.aof_rewrite_time_start),
+                            (intmax_t) ((server.aof_child_pid == -1) ?
+                                        -1 : time(NULL) - server.aof_rewrite_time_start),
                             (server.aof_lastbgrewrite_status == C_OK) ? "ok" : "err",
                             (server.aof_last_write_status == C_OK) ? "ok" : "err",
                             server.stat_aof_cow_bytes);
@@ -4112,8 +4112,11 @@ void closeClildUnusedResourceAfterFork() {
 
 void memtest(size_t megabytes, int passes);
 
-/* Returns 1 if there is --sentinel among the arguments or if
- * argv[0] contains "redis-sentinel". */
+/*
+ * argv[0]执行的命令本身是否为redis-sentinel
+ * 如果参数中有 --sentinel 或 argv[0] 包含“redis-sentinel”，则返回 1。
+ * 检查哨兵模式
+ * */
 int checkForSentinelMode(int argc, char **argv) {
     int j;
 
@@ -4241,8 +4244,8 @@ int redisSupervisedSystemd(void) {
     memset(&hdr, 0, sizeof(hdr));
     hdr.msg_name = &su;
     hdr.msg_namelen = offsetof(
-    struct sockaddr_un, sun_path) +
-            strlen(notify_socket);
+                              struct sockaddr_un, sun_path) +
+                      strlen(notify_socket);
     hdr.msg_iov = &iov;
     hdr.msg_iovlen = 1;
 
