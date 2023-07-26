@@ -1312,7 +1312,7 @@ int serverCron(struct aeEventLoop *eventLoop, long long id, void *clientData) {
         if (server.cluster_enabled) clusterCron();
     }
 
-    /* Run the Sentinel timer if we are in sentinel mode. */
+    /* 如果当前是哨兵模式,则运行哨兵的时间处理函数 */
     if (server.sentinel_mode) sentinelTimer();
 
     /* Cleanup expired MIGRATE cached sockets. */
@@ -3259,15 +3259,15 @@ sds genRedisInfoString(char *section) {
                             aeGetApiName(),
                             REDIS_ATOMIC_API,
 #ifdef __GNUC__
-                            __GNUC__, __GNUC_MINOR__, __GNUC_PATCHLEVEL__,
+                __GNUC__, __GNUC_MINOR__, __GNUC_PATCHLEVEL__,
 #else
-                0, 0, 0,
+                            0, 0, 0,
 #endif
                             (long) getpid(),
                             server.runid,
                             server.port,
                             (intmax_t) uptime,
-                            (intmax_t) (uptime / (3600 * 24)),
+                            (intmax_t)(uptime / (3600 * 24)),
                             server.hz,
                             server.config_hz,
                             (unsigned long) lruclock,
@@ -3435,15 +3435,15 @@ sds genRedisInfoString(char *section) {
                             (intmax_t) server.lastsave,
                             (server.lastbgsave_status == C_OK) ? "ok" : "err",
                             (intmax_t) server.rdb_save_time_last,
-                            (intmax_t) ((server.rdb_child_pid == -1) ?
-                                        -1 : time(NULL) - server.rdb_save_time_start),
+                            (intmax_t)((server.rdb_child_pid == -1) ?
+                                       -1 : time(NULL) - server.rdb_save_time_start),
                             server.stat_rdb_cow_bytes,
                             server.aof_state != AOF_OFF,
                             server.aof_child_pid != -1,
                             server.aof_rewrite_scheduled,
                             (intmax_t) server.aof_rewrite_time_last,
-                            (intmax_t) ((server.aof_child_pid == -1) ?
-                                        -1 : time(NULL) - server.aof_rewrite_time_start),
+                            (intmax_t)((server.aof_child_pid == -1) ?
+                                       -1 : time(NULL) - server.aof_rewrite_time_start),
                             (server.aof_lastbgrewrite_status == C_OK) ? "ok" : "err",
                             (server.aof_last_write_status == C_OK) ? "ok" : "err",
                             server.stat_aof_cow_bytes);
@@ -4244,8 +4244,8 @@ int redisSupervisedSystemd(void) {
     memset(&hdr, 0, sizeof(hdr));
     hdr.msg_name = &su;
     hdr.msg_namelen = offsetof(
-                              struct sockaddr_un, sun_path) +
-                      strlen(notify_socket);
+    struct sockaddr_un, sun_path) +
+            strlen(notify_socket);
     hdr.msg_iov = &iov;
     hdr.msg_iovlen = 1;
 
