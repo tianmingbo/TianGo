@@ -215,7 +215,7 @@ typedef struct sentinelRedisInstance {
                            that this Sentinel voted as leader. */
     uint64_t leader_epoch; /* Epoch of the 'leader' field. */
     uint64_t failover_epoch; /* Epoch of the currently started failover. */
-    int failover_state; /* See SENTINEL_FAILOVER_STATE_* defines. */
+    int failover_state; /* See SENTINEL_FAILOVER_STATE_* defines. 记录故障切换的状态 */
     mstime_t failover_state_change_time;
     mstime_t failover_start_time;   /* Last failover attempt start time. */
     mstime_t failover_timeout;      /* 刷新故障迁移状态的最大时限 */
@@ -748,7 +748,7 @@ void sentinelScheduleScriptExecution(char *path, ...) {
     va_start(ap, path);
     while (argc < SENTINEL_SCRIPT_MAX_ARGS) {
         argv[argc] = va_arg(ap,
-                            char*);
+        char*);
         if (!argv[argc]) break;
         argv[argc] = sdsnew(argv[argc]); /* Copy the string. */
         argc++;
@@ -3098,18 +3098,24 @@ void sentinelCommand(client *c) {
             getLongLongFromObjectOrReply(c, c->argv[4], &req_epoch, NULL)
             != C_OK)
             return;
+        //根据命令中的主节点ip和端口号,获取主节点对应的sentinelRedisInstance结构体
         ri = getSentinelRedisInstanceByAddrAndRunID(sentinel.masters,
                                                     c->argv[2]->ptr, port, NULL);
 
         /* It exists? Is actually a master? Is subjectively down? It's down.
-         * Note: if we are in tilt mode we always reply with "0". */
+         * Note: if we are in tilt mode we always reply with "0".
+         * 检查是否是主节点,以及哨兵是否已经将该节点标记为主观下线了
+         * */
         if (!sentinel.tilt && ri && (ri->flags & SRI_S_DOWN) &&
             (ri->flags & SRI_MASTER))
             isdown = 1;
 
         /* Vote for the master (or fetch the previous vote) if the request
-         * includes a runid, otherwise the sender is not seeking for a vote. */
+         * includes a runid, otherwise the sender is not seeking for a vote.
+         * 如果当前实例为主节点,并且sentinel命令的实例id不等于*号
+         * */
         if (ri && ri->flags & SRI_MASTER && strcasecmp(c->argv[5]->ptr, "*")) {
+            //进行哨兵leader选举
             leader = sentinelVoteLeader(ri, (uint64_t) req_epoch,
                                         c->argv[5]->ptr,
                                         &leader_epoch);
@@ -3117,10 +3123,10 @@ void sentinelCommand(client *c) {
 
         /* Reply with a three-elements multi-bulk reply:
          * down state, leader, vote epoch. */
-        addReplyMultiBulkLen(c, 3);
-        addReply(c, isdown ? shared.cone : shared.czero);
-        addReplyBulkCString(c, leader ? leader : "*");
-        addReplyLongLong(c, (long long) leader_epoch);
+        addReplyMultiBulkLen(c, 3);//哨兵返回的sentinel命令处理结果中包含三部分内容
+        addReply(c, isdown ? shared.cone : shared.czero); // 如果哨兵判断为主观下线,为1.否则为0
+        addReplyBulkCString(c, leader ? leader : "*"); // 第二部分是Leader id或者是*
+        addReplyLongLong(c, (long long) leader_epoch); //第三部分为leader的纪元
         if (leader) sdsfree(leader);
     } else if (!strcasecmp(c->argv[1]->ptr, "reset")) {
         /* SENTINEL RESET <pattern> */
@@ -3740,7 +3746,9 @@ void sentinelCheckObjectivelyDown(sentinelRedisInstance *master) {
 }
 
 /* Receive the SENTINEL is-master-down-by-addr reply, see the
- * sentinelAskMasterStateToOtherSentinels() function for more information. */
+ * sentinelAskMasterStateToOtherSentinels() function for more information.
+ * 接收其他哨兵对主节点的状态判断
+ * */
 void sentinelReceiveIsMasterDownReply(redisAsyncContext *c, void *reply, void *privdata) {
     sentinelRedisInstance *ri = privdata;
     instanceLink *link = c->data;
@@ -3759,6 +3767,7 @@ void sentinelReceiveIsMasterDownReply(redisAsyncContext *c, void *reply, void *p
         r->element[2]->type == REDIS_REPLY_INTEGER) {
         ri->last_master_down_reply_time = mstime();
         if (r->element[0]->integer == 1) {
+            //检查哨兵对主节点的判断,如果为1,当前哨兵就会把自己记录的对应哨兵的flags设置为SRI_MASTER_DOWN
             ri->flags |= SRI_MASTER_DOWN;
         } else {
             ri->flags &= ~SRI_MASTER_DOWN;
@@ -3816,6 +3825,7 @@ void sentinelAskMasterStateToOtherSentinels(sentinelRedisInstance *master, int f
 
         /* Ask */
         ll2string(port, sizeof(port), master->addr->port);
+        //发送is-master-down-by-addr命令
         retval = redisAsyncCommand(ri->link->cc,
                                    sentinelReceiveIsMasterDownReply, ri,
                                    "%s is-master-down-by-addr %s %s %llu %s",
@@ -3850,7 +3860,10 @@ char *sentinelVoteLeader(sentinelRedisInstance *master, uint64_t req_epoch, char
         sentinelEvent(LL_WARNING, "+new-epoch", master, "%llu",
                       (unsigned long long) sentinel.current_epoch);
     }
-
+   /*
+    * A哨兵让B哨兵投票的条件是:
+    * master记录的leader纪元小于哨兵A的纪元, 同时哨兵A的纪元大于等于哨兵B的纪元.这两个条件保证了哨兵B还没有投过票
+    * */
     if (master->leader_epoch < req_epoch && sentinel.current_epoch <= req_epoch) {
         sdsfree(master->leader);
         master->leader = sdsnew(req_runid);
@@ -3952,11 +3965,11 @@ char *sentinelGetLeader(sentinelRedisInstance *master, uint64_t epoch) {
             winner = myvote;
         }
     }
-
+    //voters是所有哨兵的个数
     voters_quorum = voters / 2 + 1;
     if (winner && (max_votes < voters_quorum || max_votes < master->quorum))
         winner = NULL;
-
+    //确定最终的leader
     winner = winner ? sdsnew(winner) : NULL;
     sdsfree(myvote);
     dictRelease(counters);
@@ -4035,12 +4048,14 @@ int sentinelSendSlaveOf(sentinelRedisInstance *ri, char *host, int port) {
     return C_OK;
 }
 
-/* Setup the master state to start a failover. */
+/* Setup the master state to start a failover.
+ * 开始故障切换
+ * */
 void sentinelStartFailover(sentinelRedisInstance *master) {
     serverAssert(master->flags & SRI_MASTER);
 
     master->failover_state = SENTINEL_FAILOVER_STATE_WAIT_START;
-    master->flags |= SRI_FAILOVER_IN_PROGRESS;
+    master->flags |= SRI_FAILOVER_IN_PROGRESS; //表示已经开始故障切换
     master->failover_epoch = ++sentinel.current_epoch;
     sentinelEvent(LL_WARNING, "+new-epoch", master, "%llu",
                   (unsigned long long) sentinel.current_epoch);
@@ -4063,13 +4078,17 @@ void sentinelStartFailover(sentinelRedisInstance *master) {
  * 判断是否启动故障切换
  * */
 int sentinelStartFailoverIfNeeded(sentinelRedisInstance *master) {
-    /* We can't failover if the master is not in O_DOWN state. */
+    /* We can't failover if the master is not in O_DOWN state.
+     * 不在下线状态,直接退出
+     * */
     if (!(master->flags & SRI_O_DOWN)) return 0;
 
-    /* Failover already in progress? */
+    /* 如果当前正在执行故障切换,退出 */
     if (master->flags & SRI_FAILOVER_IN_PROGRESS) return 0;
 
-    /* Last failover attempt started too little time ago? */
+    /* Last failover attempt started too little time ago?
+     * 如果已经开始了故障切换,那么开始时间距离当前时间,需要超过sentinel.conf文件中failover_timeout的2倍
+     * */
     if (mstime() - master->failover_start_time <
         master->failover_timeout * 2) {
         if (master->failover_delay_logged != master->failover_start_time) {
@@ -4200,7 +4219,9 @@ void sentinelFailoverWaitStart(sentinelRedisInstance *ri) {
     char *leader;
     int isleader;
 
-    /* Check if we are the leader for the failover epoch. */
+    /* Check if we are the leader for the failover epoch.
+     * 判断发起投票的哨兵是否为哨兵leader
+     * */
     leader = sentinelGetLeader(ri, ri->failover_epoch);
     isleader = leader && strcasecmp(leader, sentinel.myid) == 0;
     sdsfree(leader);
