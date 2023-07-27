@@ -748,7 +748,7 @@ void sentinelScheduleScriptExecution(char *path, ...) {
     va_start(ap, path);
     while (argc < SENTINEL_SCRIPT_MAX_ARGS) {
         argv[argc] = va_arg(ap,
-        char*);
+                            char*);
         if (!argv[argc]) break;
         argv[argc] = sdsnew(argv[argc]); /* Copy the string. */
         argc++;
@@ -3705,28 +3705,31 @@ void sentinelCheckObjectivelyDown(sentinelRedisInstance *master) {
     dictIterator *di;
     dictEntry *de;
     unsigned int quorum = 0, odown = 0;
-
+    //当前主节点已经被当前哨兵判断为主观下线
     if (master->flags & SRI_S_DOWN) {
         /* Is down for enough sentinels? */
-        quorum = 1; /* the current sentinel. */
+        quorum = 1; /* the current sentinel.自身投票 */
         /* Count all the other sentinels. */
         di = dictGetIterator(master->sentinels);
         while ((de = dictNext(di)) != NULL) {
+            //遍历监听同一主节点的其它哨兵
             sentinelRedisInstance *ri = dictGetVal(de);
 
             if (ri->flags & SRI_MASTER_DOWN) quorum++;
         }
         dictReleaseIterator(di);
+        //如果票数足够,则标记为down
         if (quorum >= master->quorum) odown = 1;
     }
 
     /* Set the flag accordingly to the outcome. */
     if (odown) {
+        //如果没有设置SRI_O_DOWN标记
         if ((master->flags & SRI_O_DOWN) == 0) {
             sentinelEvent(LL_WARNING, "+odown", master, "%@ #quorum %d/%d",
-                          quorum, master->quorum);
-            master->flags |= SRI_O_DOWN;
-            master->o_down_since_time = mstime();
+                          quorum, master->quorum); //发送+odown事件消息
+            master->flags |= SRI_O_DOWN; //标记主节点状态
+            master->o_down_since_time = mstime(); //记录客观下线时间
         }
     } else {
         if (master->flags & SRI_O_DOWN) {
