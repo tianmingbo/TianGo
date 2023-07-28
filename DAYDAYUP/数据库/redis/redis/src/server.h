@@ -1210,8 +1210,8 @@ struct redisServer {
     mstime_t mstime;            /* 'unixtime' in milliseconds. */
     ustime_t ustime;            /* 'unixtime' in microseconds. */
     /* Pubsub */
-    dict *pubsub_channels;  /* Map channels to list of subscribed clients */
-    list *pubsub_patterns;  /* A list of pubsub_patterns */
+    dict *pubsub_channels;  /*所有频道的订阅关系，键是被订阅的频道，值是一个链表，记录了所有订阅这个频道的客户端 */
+    list *pubsub_patterns;  /* 所有模式订阅关系 */
     int notify_keyspace_events; /* Events to propagate via Pub/Sub. This is an
                                    xor of NOTIFY_... flags. */
     /* Cluster */
@@ -1277,8 +1277,8 @@ struct redisServer {
 };
 
 typedef struct pubsubPattern {
-    client *client;
-    robj *pattern;
+    client *client; //订阅模式的客户端
+    robj *pattern; //记录被订阅的模式
 } pubsubPattern;
 
 /**
