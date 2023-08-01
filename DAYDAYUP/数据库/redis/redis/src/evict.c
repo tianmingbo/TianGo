@@ -188,13 +188,7 @@ void evictionPoolPopulate(int dbid, dict *sampledict, dict *keydict, struct evic
             //计算采样集合中的每一个键值对的空闲时间
             idle = estimateObjectIdleTime(o);
         } else if (server.maxmemory_policy & MAXMEMORY_FLAG_LFU) {
-            /* When we use an LRU policy, we sort the keys by idle time
-             * so that we expire keys starting from greater idle time.
-             * However when the policy is an LFU one, we have a frequency
-             * estimation, and we want to evict keys with lower frequency
-             * first. So inside the pool we put objects using the inverted
-             * frequency subtracting the actual frequency to the maximum
-             * frequency of 255. */
+            /* 键值对访问次数越大, idle越小 */
             idle = 255 - LFUDecrAndReturn(o);
         } else if (server.maxmemory_policy == MAXMEMORY_VOLATILE_TTL) {
             /* In this case the sooner the expire the better. */
