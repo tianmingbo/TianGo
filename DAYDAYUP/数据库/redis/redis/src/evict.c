@@ -258,46 +258,24 @@ void evictionPoolPopulate(int dbid, dict *sampledict, dict *keydict, struct evic
     }
 }
 
-/* ----------------------------------------------------------------------------
- * LFU (Least Frequently Used) implementation.
+/*
+ * LFU复用了LRU字段，高16位是以1分钟为精度的UNIX时间戳。低8位是一个对数计数器，提供访问频率。
+ *
+ * Redis中LFU(Least Frequently Used)的实现原理如下:
+1.每个key都维护一个频次计数器frequency,初始为1。
+2.有一个全局的最小频次变量minfreq,初始为1。
+3.当一个key被访问时,其frequency自增1。
+4.当访问次数达到预设阈值后,触发下面操作:
+    减半频次计数器:将所有key的frequency除以2。
+    更新minfreq为减半后最小的frequency。
+    删除frequency小于minfreq的部分key。
+5.重复以上步骤,使得访问频率最少的key会被删除。
+6.当内存不足时,会提前触发上述操作,删除更多的低频key。
+所以Redis通过频次计数器和全局最小频次的配合,实现了LFU缓存淘汰策略。
+它期望删除访问频率最低的key,以保留热点数据,提高缓存命中率。
+ * */
 
- * We have 24 total bits of space in each object in order to implement
- * an LFU (Least Frequently Used) eviction policy, since we re-use the
- * LRU field for this purpose.
- *
- * We split the 24 bits into two fields:
- *
- *          16 bits      8 bits
- *     +----------------+--------+
- *     + Last decr time | LOG_C  |
- *     +----------------+--------+
- *
- * LOG_C is a logarithmic counter that provides an indication of the access
- * frequency. However this field must also be decremented otherwise what used
- * to be a frequently accessed key in the past, will remain ranked like that
- * forever, while we want the algorithm to adapt to access pattern changes.
- *
- * So the remaining 16 bits are used in order to store the "decrement time",
- * a reduced-precision Unix time (we take 16 bits of the time converted
- * in minutes since we don't care about wrapping around) where the LOG_C
- * counter is halved if it has an high value, or just decremented if it
- * has a low value.
- *
- * New keys don't start at zero, in order to have the ability to collect
- * some accesses before being trashed away, so they start at COUNTER_INIT_VAL.
- * The logarithmic increment performed on LOG_C takes care of COUNTER_INIT_VAL
- * when incrementing the key, so that keys starting at COUNTER_INIT_VAL
- * (or having a smaller value) have a very high chance of being incremented
- * on access.
- *
- * During decrement, the value of the logarithmic counter is halved if
- * its current value is greater than two times the COUNTER_INIT_VAL, otherwise
- * it is just decremented by one.
- * --------------------------------------------------------------------------*/
-
-/* Return the current time in minutes, just taking the least significant
- * 16 bits. The returned time is suitable to be stored as LDT (last decrement
- * time) for the LFU implementation. */
+/* 返回当前时间（以分钟为单位），仅取最低有效 16 位。 返回的时间适合存储为 LDT（最后递减时间）以供 LFU 实现。 */
 unsigned long LFUGetTimeInMinutes(void) {
     return (server.unixtime / 60) & 65535;
 }
@@ -312,35 +290,35 @@ unsigned long LFUTimeElapsed(unsigned long ldt) {
     return 65535 - ldt + now;
 }
 
-/* Logarithmically increment a counter. The greater is the current counter value
- * the less likely is that it gets really implemented. Saturate it at 255. */
+/* counter越大, 增长越困难 */
 uint8_t LFULogIncr(uint8_t counter) {
-    if (counter == 255) return 255;
-    double r = (double) rand() / RAND_MAX;
-    double baseval = counter - LFU_INIT_VAL;
+    if (counter == 255) return 255; //判断计数器当前值为255,已经达到最大,直接返回255。
+    double r = (double) rand() / RAND_MAX; //生成一个0-1随机数r。
+    double baseval = counter - LFU_INIT_VAL; //计算出计数器距离初始值LFU_INIT_VAL的基础值baseval。
     if (baseval < 0) baseval = 0;
+    /*
+     * 阈值p的大小就决定了访问次数增加的难度.阈值p越小, r<p的概率越小.
+     * 阈值p的大小,由baseval 和 server.lfu_log_factor决定, 两者越大, p越小.
+     * baseval是访问次数的多少,通过这种随机增长方式,随着计数器值的增大,其增长速度会越来越慢。
+     * 比如计数器在100时,增长速度会比在10时慢。这样实现了LFU算法的另一个关键点,使高频访问的key增长到一个稳定区间,避免单调增长导致的问题。
+     * */
     double p = 1.0 / (baseval * server.lfu_log_factor + 1);
     if (r < p) counter++;
     return counter;
 }
 
-/* If the object decrement time is reached decrement the LFU counter but
- * do not update LFU fields of the object, we update the access time
- * and counter in an explicit way when the object is really accessed.
- * And we will times halve the counter according to the times of
- * elapsed time than server.lfu_decay_time.
- * Return the object frequency counter.
- *
- * This function is used in order to scan the dataset for the best object
- * to fit: as we check for the candidate, we incrementally decrement the
- * counter of the scanned objects if needed. */
+/* 衰减访问次数,LFU的访问频率需要考虑到键值对是在多长时间段内发生的 */
 unsigned long LFUDecrAndReturn(robj *o) {
+    //从key的lru字段中取出最后访问时间ldt和计数器值counter。
     unsigned long ldt = o->lru >> 8;
     unsigned long counter = o->lru & 255;
+    //计算从上次访问到现在过去了多少个周期num_periods。server.lfu_decay_time是预设的周期时长。
     unsigned long num_periods = server.lfu_decay_time ? LFUTimeElapsed(ldt) / server.lfu_decay_time : 0;
     if (num_periods)
+        //如果过期周期数不为0,且大于计数器值,则计数器减去周期数。
+        //如果减去周期数后计数器小于0,则直接设置为0。
         counter = (num_periods > counter) ? 0 : counter - num_periods;
-    return counter;
+    return counter;//返回减少后的计数器值。
 }
 
 /* ----------------------------------------------------------------------------

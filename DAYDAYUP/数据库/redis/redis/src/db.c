@@ -17,7 +17,7 @@ int keyIsExpired(redisDb *db, robj *key);
 void updateLFU(robj *val) {
     unsigned long counter = LFUDecrAndReturn(val);
     counter = LFULogIncr(counter);
-    val->lru = (LFUGetTimeInMinutes() << 8) | counter;
+    val->lru = (LFUGetTimeInMinutes() << 8) | counter; //更新访问频率信息
 }
 
 /* Low level key lookup API, not actually called directly from commands
@@ -35,7 +35,7 @@ robj *lookupKey(redisDb *db, robj *key, int flags) {
             server.aof_child_pid == -1 &&
             !(flags & LOOKUP_NOTOUCH)) {
             if (server.maxmemory_policy & MAXMEMORY_FLAG_LFU) {
-                updateLFU(val);
+                updateLFU(val);//使用LFU算法时，更新访问频率
             } else {
                 val->lru = LRU_CLOCK();//更新lru时钟
             }
