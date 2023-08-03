@@ -4113,9 +4113,9 @@ void closeClildUnusedResourceAfterFork() {
 void memtest(size_t megabytes, int passes);
 
 /*
+ * 检查哨兵模式,检查启动命令
  * argv[0]执行的命令本身是否为redis-sentinel
  * 如果参数中有 --sentinel 或 argv[0] 包含“redis-sentinel”，则返回 1。
- * 检查哨兵模式
  * */
 int checkForSentinelMode(int argc, char **argv) {
     int j;

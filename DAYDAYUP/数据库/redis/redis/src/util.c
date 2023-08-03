@@ -242,7 +242,7 @@ uint32_t sdigits10(int64_t v) {
     if (v < 0) {
         /* Abs value of LLONG_MIN requires special handling. */
         uint64_t uv = (v != LLONG_MIN) ?
-                      (uint64_t) - v : ((uint64_t) LLONG_MAX) + 1;
+                      (uint64_t) -v : ((uint64_t) LLONG_MAX) + 1;
         return digits10(uv) + 1; /* +1 for the minus. */
     } else {
         return digits10(v);
@@ -485,11 +485,11 @@ int d2string(char *buf, size_t len, double value) {
          * integer printing function that is much faster. */
         double min = -4503599627370495; /* (2^52)-1 */
         double max = 4503599627370496; /* -(2^52) */
-        if (value > min && value < max && value == ((double)((long long)value)))
-            len = ll2string(buf,len,(long long)value);
+        if (value > min && value < max && value == ((double) ((long long) value)))
+            len = ll2string(buf, len, (long long) value);
         else
 #endif
-        len = snprintf(buf, len, "%.17g", value);
+            len = snprintf(buf, len, "%.17g", value);
     }
 
     return len;
@@ -541,14 +541,15 @@ int ld2string(char *buf, size_t len, long double value, int humanfriendly) {
     return l;
 }
 
-/* Get random bytes, attempts to get an initial seed from /dev/urandom and
- * the uses a one way hash function in counter mode to generate a random
- * stream. However if /dev/urandom is not available, a weaker seed is used.
- *
- * This function is not thread safe, since the state is global. */
+
+/* 1. 尝试从/dev/urandom获取种子
+ 2. 使用基于计数器的哈希算法生成随机字节流
+ 3. 如果/dev/urandom不可用,降级为使用弱种子
+ 4. 由于使用了全局状态,不是线程安全的*/
 void getRandomBytes(unsigned char *p, size_t len) {
     /* Global state. */
     static int seed_initialized = 0;
+    // 用于保存从/dev/urandom读取的种子
     static unsigned char seed[20]; /* The SHA1 seed, from /dev/urandom. */
     static uint64_t counter = 0; /* The counter we hash with the seed. */
 
@@ -559,8 +560,7 @@ void getRandomBytes(unsigned char *p, size_t len) {
          * cryptographic security needs. */
         FILE *fp = fopen("/dev/urandom", "r");
         if (fp == NULL || fread(seed, sizeof(seed), 1, fp) != 1) {
-            /* Revert to a weaker seed, and in this case reseed again
-             * at every call.*/
+            // 如果读取/dev/urandom失败,使用弱种子,并在每次调用时重新生成种子
             for (unsigned int j = 0; j < sizeof(seed); j++) {
                 struct timeval tv;
                 gettimeofday(&tv, NULL);

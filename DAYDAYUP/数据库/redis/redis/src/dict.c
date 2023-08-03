@@ -44,7 +44,10 @@ static int _dictInit(dict *ht, dictType *type, void *privDataPtr);
 
 static uint8_t dict_hash_function_seed[16];
 
+// 设置字典哈希函数使用的种子
 void dictSetHashFunctionSeed(uint8_t *seed) {
+    /*复制seed到全局静态数组dict_hash_function_seed,
+    该数组保存了字典哈希函数使用的种子*/
     memcpy(dict_hash_function_seed, seed, sizeof(dict_hash_function_seed));
 }
 
