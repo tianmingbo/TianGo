@@ -82,11 +82,12 @@ aeEventLoop *aeCreateEventLoop(int setsize) {
     eventLoop->maxfd = -1;//最大文件描述符
     eventLoop->beforesleep = NULL;//事件循环休眠前的回调函数
     eventLoop->aftersleep = NULL; //事件循环休眠后的回调函数
+    //aeApiCreate函数实际调用os的IO多路复用函数
     if (aeApiCreate(eventLoop) == -1) goto err;
     /* Events with mask == AE_NONE are not set. So let's initialize the
      * vector with it. */
     for (i = 0; i < setsize; i++)
-        eventLoop->events[i].mask = AE_NONE; //初始化,表示事件未设置
+        eventLoop->events[i].mask = AE_NONE; //初始化,表示暂时不对任何事件进行监听
     return eventLoop;
 
     err:
@@ -341,30 +342,26 @@ static int processTimeEvents(aeEventLoop *eventLoop) {
 }
 
 
-/* Process every pending time event, then every pending file event
- * (that may be registered by time event callbacks just processed).
- * Without special flags the function sleeps until some file event
- * fires, or when the next time event occurs (if any).
- *
- * If flags is 0, the function does nothing and returns.
- * if flags has AE_ALL_EVENTS set, all the kind of events are processed.
- * if flags has AE_FILE_EVENTS set, file events are processed.
- * if flags has AE_TIME_EVENTS set, time events are processed.
- * if flags has AE_DONT_WAIT set the function returns ASAP until all
- * if flags has AE_CALL_AFTER_SLEEP set, the aftersleep callback is called.
- * the events that's possible to process without to wait are processed.
- *
- * The function returns the number of events processed. */
+/* 处理每个挂起时间事件，然后处理每个挂起文件事件
+  *（可以通过刚刚处理的时间事件回调来注册）。
+  * 如果没有特殊标志，该函数将休眠，直到某些文件事件触发，或者下次事件发生时（如果有）。
+  *
+  * 如果 flags 为 0，则该函数不执行任何操作并返回。
+  * 如果标志设置了 AE_ALL_EVENTS，则处理所有类型的事件。
+  * 如果标志设置了 AE_FILE_EVENTS，则处理文件事件。
+  * 如果标志设置了 AE_TIME_EVENTS，则处理时间事件。
+  * 如果标志设置了 AE_DONT_WAIT，则函数会尽快返回，直到所有
+  * 如果 flags 设置了 AE_CALL_AFTER_SLEEP，则调用 aftersleep 回调。
+  * 处理无需等待即可处理的事件。
+  *
+  * 该函数返回已处理的事件数。 */
 int aeProcessEvents(aeEventLoop *eventLoop, int flags) {
     int processed = 0, numevents;
 
-    /* Nothing to do? return ASAP */
+    /* 若没有事件处理,立即返回 */
     if (!(flags & AE_TIME_EVENTS) && !(flags & AE_FILE_EVENTS)) return 0;
 
-    /* Note that we want call select() even if there are no
-     * file events to process as long as we want to process time
-     * events, in order to sleep until the next time event is ready
-     * to fire. */
+    /* 如果有IO事件发生,或者紧急的时间事件发生,则开始处理 */
     if (eventLoop->maxfd != -1 ||
         ((flags & AE_TIME_EVENTS) && !(flags & AE_DONT_WAIT))) {
         int j;
@@ -405,8 +402,7 @@ int aeProcessEvents(aeEventLoop *eventLoop, int flags) {
             }
         }
 
-        /* Call the multiplexing API, will return only on timeout or when
-         * some event fires. */
+        /* 调用aeApiPoll函数捕获事件*/
         numevents = aeApiPoll(eventLoop, tvp);
 
         /* After sleep callback. */
@@ -463,7 +459,7 @@ int aeProcessEvents(aeEventLoop *eventLoop, int flags) {
             processed++;
         }
     }
-    /* Check time events */
+    /* 检查是否有时间事件 */
     if (flags & AE_TIME_EVENTS)
         processed += processTimeEvents(eventLoop);
 

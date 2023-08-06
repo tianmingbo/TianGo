@@ -41,8 +41,8 @@ typedef void aeBeforeSleepProc(struct aeEventLoop *eventLoop);
 /* File event structure */
 typedef struct aeFileEvent {
     int mask; /* one of AE_(READABLE|WRITABLE|BARRIER) */
-    aeFileProc *rfileProc;
-    aeFileProc *wfileProc;
+    aeFileProc *rfileProc; //AE_READABLE处理函数
+    aeFileProc *wfileProc;//AE_WRITABLE处理函数
     void *clientData;
 } aeFileEvent;
 
@@ -70,12 +70,12 @@ typedef struct aeEventLoop {
     int setsize; /* max number of file descriptors tracked */
     long long timeEventNextId;
     time_t lastTime;     /* Used to detect system clock skew */
-    aeFileEvent *events; /* Registered events */
-    aeFiredEvent *fired; /* Fired events */
-    aeTimeEvent *timeEventHead;
+    aeFileEvent *events; /* Registered events IO事件数组 */
+    aeFiredEvent *fired; /* 记录已触发事件对应的文件描述符信息 */
+    aeTimeEvent *timeEventHead; //记录时间事件的链表头
     int stop;
-    void *apidata; /* This is used for polling API specific data */
-    aeBeforeSleepProc *beforesleep;
+    void *apidata; /* 和API调用接口相关的数据 */
+    aeBeforeSleepProc *beforesleep; //进入事件循环流程前执行的函数
     aeBeforeSleepProc *aftersleep;
 } aeEventLoop;
 

@@ -1026,21 +1026,12 @@ void databasesCron(void) {
     }
 }
 
-/* We take a cached value of the unix time in the global state because with
- * virtual memory and aging there is to store the current time in objects at
- * every object access, and accuracy is not needed. To access a global var is
- * a lot faster than calling time(NULL).
- *
- * This function should be fast because it is called at every command execution
- * in call(), so it is possible to decide if to update the daylight saving
- * info or not using the 'update_daylight_info' argument. Normally we update
- * such info only when calling this function from serverCron() but not when
- * calling it from call(). */
+/* 更新系统时间 */
 void updateCachedTime(int update_daylight_info) {
-    server.ustime = ustime();
-    server.mstime = server.ustime / 1000;
-    time_t unixtime = server.mstime / 1000;
-    atomicSet(server.unixtime, unixtime);
+    server.ustime = ustime();   // 更新server的微秒时间戳
+    server.mstime = server.ustime / 1000;   // 更新毫秒时间戳
+    time_t unixtime = server.mstime / 1000;   // 从毫秒时间戳计算秒时间戳
+    atomicSet(server.unixtime, unixtime);   // 用原子操作更新server的秒时间戳
 
     /* To get information about daylight saving time, we need to call
      * localtime_r and cache the result. However calling localtime_r in this
@@ -1509,7 +1500,7 @@ void createSharedObjects(void) {
 void initServerConfig(void) {
     int j;
 
-    pthread_mutex_init(&server.next_client_id_mutex, NULL);
+    pthread_mutex_init(&server.next_client_id_mutex, NULL); //初始化互斥锁,访问next_client_id_mutex需要加锁
     pthread_mutex_init(&server.lruclock_mutex, NULL);
     pthread_mutex_init(&server.unixtime_mutex, NULL);
 
@@ -1840,14 +1831,11 @@ int restartServer(int flags, mstime_t delay) {
     return C_ERR; /* Never reached. */
 }
 
-/* This function will try to raise the max number of open files accordingly to
- * the configured max number of clients. It also reserves a number of file
- * descriptors (CONFIG_MIN_RESERVED_FDS) for extra operations of
- * persistence, listening sockets, log files and so forth.
+/* 此函数将尝试根据配置的最大客户端数来提高打开文件的最大数量。
+ * 它还保留了一些文件描述符（CONFIG_MIN_RESERVED_FDS）用于持久性、监听套接字、日志文件等额外操作。
  *
- * If it will not be possible to set the limit accordingly to the configured
- * max number of clients, the function will do the reverse setting
- * server.maxclients to the value that we can actually handle. */
+ * 如果无法根据配置的最大客户端数设置限制，该函数会将 server.maxclients 设置为我们实际可以处理的值。
+*/
 void adjustOpenFilesLimit(void) {
     rlim_t maxfiles = server.maxclients + CONFIG_MIN_RESERVED_FDS;
     struct rlimit limit;
@@ -1943,45 +1931,38 @@ void checkTcpBacklogSettings(void) {
 #endif
 }
 
-/* Initialize a set of file descriptors to listen to the specified 'port'
- * binding the addresses specified in the Redis server configuration.
- *
- * The listening file descriptors are stored in the integer array 'fds'
- * and their number is set in '*count'.
- *
- * The addresses to bind are specified in the global server.bindaddr array
- * and their number is server.bindaddr_count. If the server configuration
- * contains no specific addresses to bind, this function will try to
- * bind * (all addresses) for both the IPv4 and IPv6 protocols.
- *
- * On success the function returns C_OK.
- *
- * On error the function returns C_ERR. For the function to be on
- * error, at least one of the server.bindaddr addresses was
- * impossible to bind, or no bind addresses were specified in the server
- * configuration but the function is not able to bind * for at least
- * one of the IPv4 or IPv6 protocols. */
+/*
+ * 监听指定端口,并将监听的Socket返回。
+ * port:要监听的端口号
+ * fds: 用来返回监听Socket的文件描述符数组
+ * count: fds数组中已有的文件描述符数量,函数会在这个基础上增加新建的监听Socket
+ */
 int listenToPort(int port, int *fds, int *count) {
     int j;
 
     /* Force binding of 0.0.0.0 if no bind address is specified, always
      * entering the loop if j == 0. */
+    // 如果没有指定bind地址,强制绑定到0.0.0.0
     if (server.bindaddr_count == 0) server.bindaddr[0] = NULL;
+    // 遍历所有要bind的地址
     for (j = 0; j < server.bindaddr_count || j == 0; j++) {
         if (server.bindaddr[j] == NULL) {
+            // 没有指定地址,尝试绑定IPv6和IPv4
             int unsupported = 0;
             /* Bind * for both IPv6 and IPv4, we enter here only if
              * server.bindaddr_count == 0. */
+            // 绑定IPv6
             fds[*count] = anetTcp6Server(server.neterr, port, NULL,
                                          server.tcp_backlog);
             if (fds[*count] != ANET_ERR) {
                 anetNonBlock(NULL, fds[*count]);
                 (*count)++;
             } else if (errno == EAFNOSUPPORT) {
+                // IPv6不支持
                 unsupported++;
                 serverLog(LL_WARNING, "Not listening to IPv6: unsupproted");
             }
-
+            // 如果只绑定了IPv6,也尝试绑定IPv4
             if (*count == 1 || unsupported) {
                 /* Bind the IPv4 address as well. */
                 fds[*count] = anetTcpServer(server.neterr, port, NULL,
@@ -1994,11 +1975,10 @@ int listenToPort(int port, int *fds, int *count) {
                     serverLog(LL_WARNING, "Not listening to IPv4: unsupproted");
                 }
             }
-            /* Exit the loop if we were able to bind * on IPv4 and IPv6,
-             * otherwise fds[*count] will be ANET_ERR and we'll print an
-             * error and return to the caller with an error. */
+            // 如果IPv4和IPv6至少一个绑定成功,退出循环
             if (*count + unsupported == 2) break;
         } else if (strchr(server.bindaddr[j], ':')) {
+            // 包含冒号,绑定IPv6地址
             /* Bind IPv6 address. */
             fds[*count] = anetTcp6Server(server.neterr, port, server.bindaddr[j],
                                          server.tcp_backlog);
@@ -2018,6 +1998,7 @@ int listenToPort(int port, int *fds, int *count) {
                 continue;
             return C_ERR;
         }
+        // 设置非阻塞模式
         anetNonBlock(NULL, fds[*count]);
         (*count)++;
     }
@@ -2064,7 +2045,7 @@ void resetServerStats(void) {
 void initServer(void) {
     int j;
 
-    signal(SIGHUP, SIG_IGN);
+    signal(SIGHUP, SIG_IGN); //设置当收到SIGHUP信号时,忽略该信号,不对进程做任何操作
     signal(SIGPIPE, SIG_IGN);
     // 设置其他信号处理函数
     setupSignalHandlers();
@@ -2198,7 +2179,7 @@ void initServer(void) {
                     "Unrecoverable error creating server.ipfd file event.");
         }
     }
-// 为Unix Socket创建连接接受处理函数
+    // 为Unix Socket创建连接接受处理函数
     if (server.sofd > 0 && aeCreateFileEvent(server.el, server.sofd, AE_READABLE, acceptUnixHandler, NULL) == AE_ERR)
         serverPanic("Unrecoverable error creating server.sofd file event.");
 
@@ -3259,15 +3240,15 @@ sds genRedisInfoString(char *section) {
                             aeGetApiName(),
                             REDIS_ATOMIC_API,
 #ifdef __GNUC__
-                __GNUC__, __GNUC_MINOR__, __GNUC_PATCHLEVEL__,
+                            __GNUC__, __GNUC_MINOR__, __GNUC_PATCHLEVEL__,
 #else
-                            0, 0, 0,
+                0, 0, 0,
 #endif
                             (long) getpid(),
                             server.runid,
                             server.port,
                             (intmax_t) uptime,
-                            (intmax_t)(uptime / (3600 * 24)),
+                            (intmax_t) (uptime / (3600 * 24)),
                             server.hz,
                             server.config_hz,
                             (unsigned long) lruclock,
@@ -3435,15 +3416,15 @@ sds genRedisInfoString(char *section) {
                             (intmax_t) server.lastsave,
                             (server.lastbgsave_status == C_OK) ? "ok" : "err",
                             (intmax_t) server.rdb_save_time_last,
-                            (intmax_t)((server.rdb_child_pid == -1) ?
-                                       -1 : time(NULL) - server.rdb_save_time_start),
+                            (intmax_t) ((server.rdb_child_pid == -1) ?
+                                        -1 : time(NULL) - server.rdb_save_time_start),
                             server.stat_rdb_cow_bytes,
                             server.aof_state != AOF_OFF,
                             server.aof_child_pid != -1,
                             server.aof_rewrite_scheduled,
                             (intmax_t) server.aof_rewrite_time_last,
-                            (intmax_t)((server.aof_child_pid == -1) ?
-                                       -1 : time(NULL) - server.aof_rewrite_time_start),
+                            (intmax_t) ((server.aof_child_pid == -1) ?
+                                        -1 : time(NULL) - server.aof_rewrite_time_start),
                             (server.aof_lastbgrewrite_status == C_OK) ? "ok" : "err",
                             (server.aof_last_write_status == C_OK) ? "ok" : "err",
                             server.stat_aof_cow_bytes);
@@ -4244,8 +4225,8 @@ int redisSupervisedSystemd(void) {
     memset(&hdr, 0, sizeof(hdr));
     hdr.msg_name = &su;
     hdr.msg_namelen = offsetof(
-    struct sockaddr_un, sun_path) +
-            strlen(notify_socket);
+                              struct sockaddr_un, sun_path) +
+                      strlen(notify_socket);
     hdr.msg_iov = &iov;
     hdr.msg_iovlen = 1;
 
@@ -4378,7 +4359,7 @@ int main(int argc, char **argv) {
             }
         }
 
-        /* First argument is the config file name? */
+        /* 处理配置文件 */
         if (argv[j][0] != '-' || argv[j][1] != '-') {
             configfile = argv[j];
             server.configfile = getAbsolutePath(configfile);
@@ -4419,7 +4400,7 @@ int main(int argc, char **argv) {
                       "Sentinel needs config file on disk to save state.  Exiting...");
             exit(1);
         }
-        resetServerSaveParams();
+        resetServerSaveParams(); //置空保存条件
         loadServerConfig(configfile, options);
         sdsfree(options);
     }

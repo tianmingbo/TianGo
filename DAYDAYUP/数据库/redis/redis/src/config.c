@@ -176,16 +176,16 @@ void loadServerConfigFromString(char *config) {
     int slaveof_linenum = 0;
     sds *lines;
 
-    lines = sdssplitlen(config, strlen(config), "\n", 1, &totlines);
+    lines = sdssplitlen(config, strlen(config), "\n", 1, &totlines); // 按照\n split,totlines是总行数
 
     for (i = 0; i < totlines; i++) {
         sds *argv;
         int argc;
 
         linenum = i + 1;
-        lines[i] = sdstrim(lines[i], " \t\r\n");
+        lines[i] = sdstrim(lines[i], " \t\r\n"); //移除\t\r\n
 
-        /* Skip comments and blank lines */
+        /* 跳过注释和空行 */
         if (lines[i][0] == '#' || lines[i][0] == '\0') continue;
 
         /* Split into arguments */
@@ -202,7 +202,7 @@ void loadServerConfigFromString(char *config) {
         }
         sdstolower(argv[0]);
 
-        /* Execute config directives */
+        /* 参数处理 */
         if (!strcasecmp(argv[0], "timeout") && argc == 2) {
             server.maxidletime = atoi(argv[1]);
             if (server.maxidletime < 0) {
@@ -847,13 +847,10 @@ void loadServerConfigFromString(char *config) {
     exit(1);
 }
 
-/* Load the server configuration from the specified filename.
- * The function appends the additional configuration directives stored
- * in the 'options' string to the config file before loading.
- *
- * Both filename and options can be NULL, in such a case are considered
- * empty. This way loadServerConfig can be used to just load a file or
- * just load a string. */
+/*
+ * filename : 文件名
+ * options: 命令行参数解析出来的字符串
+ * */
 void loadServerConfig(char *filename, char *options) {
     sds config = sdsempty();
     char buf[CONFIG_MAX_LINE + 1];
