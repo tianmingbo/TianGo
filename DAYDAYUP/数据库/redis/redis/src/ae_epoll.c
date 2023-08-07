@@ -5,6 +5,7 @@ typedef struct aeApiState {
     struct epoll_event *events; //epoll_event结构体数组,记录监听事件
 } aeApiState;
 
+//初始化IO复用机制的上下文环境
 static int aeApiCreate(aeEventLoop *eventLoop) {
     aeApiState *state = zmalloc(sizeof(aeApiState));
 
@@ -39,6 +40,7 @@ static void aeApiFree(aeEventLoop *eventLoop) {
     zfree(state);
 }
 
+//添加一个监听对象
 static int aeApiAddEvent(aeEventLoop *eventLoop, int fd, int mask) {
     aeApiState *state = eventLoop->apidata;
     struct epoll_event ee = {0}; /* 创建epoll_event类型变量 */
@@ -76,6 +78,7 @@ static void aeApiDelEvent(aeEventLoop *eventLoop, int fd, int delmask) {
     }
 }
 
+//阻塞进程,等待事件就绪或给定时间到期
 static int aeApiPoll(aeEventLoop *eventLoop, struct timeval *tvp) {
     aeApiState *state = eventLoop->apidata;
     int retval, numevents = 0;

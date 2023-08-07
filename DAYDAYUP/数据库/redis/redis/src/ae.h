@@ -43,7 +43,7 @@ typedef struct aeFileEvent {
     int mask; /* one of AE_(READABLE|WRITABLE|BARRIER) */
     aeFileProc *rfileProc; //AE_READABLE处理函数
     aeFileProc *wfileProc;//AE_WRITABLE处理函数
-    void *clientData;
+    void *clientData; //附加数据
 } aeFileEvent;
 
 /* Time event structure */
@@ -60,20 +60,20 @@ typedef struct aeTimeEvent {
 
 /* A fired event */
 typedef struct aeFiredEvent {
-    int fd;
-    int mask;
+    int fd; //产生事件的文件描述符
+    int mask; //产生的事件类型
 } aeFiredEvent;
 
 /* State of an event based program */
 typedef struct aeEventLoop {
-    int maxfd;   /* highest file descriptor currently registered */
-    int setsize; /* max number of file descriptors tracked */
-    long long timeEventNextId;
-    time_t lastTime;     /* Used to detect system clock skew */
-    aeFileEvent *events; /* Registered events IO事件数组 */
-    aeFiredEvent *fired; /* 记录已触发事件对应的文件描述符信息 */
+    int maxfd;   /* 当前已注册的最大文件描述符 */
+    int setsize; /* 该事件循环器允许监听的最大的文件描述符 */
+    long long timeEventNextId; //下一个时间事件ID
+    time_t lastTime;     /* 上一次执行时间事件的时间,用于判断是否发生系统时间偏移 */
+    aeFileEvent *events; /* 已注册的文件事件表 */
+    aeFiredEvent *fired; /* 已就绪的事件表 */
     aeTimeEvent *timeEventHead; //记录时间事件的链表头
-    int stop;
+    int stop; //事件循环器是否停止
     void *apidata; /* 和API调用接口相关的数据 */
     aeBeforeSleepProc *beforesleep; //进入事件循环流程前执行的函数
     aeBeforeSleepProc *aftersleep;

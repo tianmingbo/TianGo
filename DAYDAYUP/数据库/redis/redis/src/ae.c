@@ -246,14 +246,10 @@ static int processTimeEvents(aeEventLoop *eventLoop) {
     long long maxId;
     time_t now = time(NULL);
 
-    /* If the system clock is moved to the future, and then set back to the
-     * right value, time events may be delayed in a random way. Often this
-     * means that scheduled operations will not be performed soon enough.
-     *
-     * Here we try to detect system clock skews, and force all the time
-     * events to be processed ASAP when this happens: the idea is that
-     * processing events earlier is less dangerous than delaying them
-     * indefinitely, and practice suggests it is. */
+    /* 上一次执行事件的时间比当前还大,说明系统时间出问题了.
+     * 将所有时间事件when_sec设置为0,这样会导致事件提前执行,由于提前执行比延后执行的危害小,
+     * 所以选择提前执行.
+     * */
     if (now < eventLoop->lastTime) {
         te = eventLoop->timeEventHead;
         while (te) {
@@ -269,7 +265,7 @@ static int processTimeEvents(aeEventLoop *eventLoop) {
         long now_sec, now_ms;
         long long id;
 
-        /* Remove events scheduled for deletion. */
+        /* AE_DELETED_EVENT_ID代表该事件已经删除,从链表中移除 */
         if (te->id == AE_DELETED_EVENT_ID) {
             aeTimeEvent *next = te->next;
             if (te->prev)
@@ -297,15 +293,17 @@ static int processTimeEvents(aeEventLoop *eventLoop) {
         aeGetTime(&now_sec, &now_ms); //获取当前时间
         if (now_sec > te->when_sec ||
             (now_sec == te->when_sec && now_ms >= te->when_ms)) {
+            //如果当前时间已经到达执行时间
             int retval;
 
             id = te->id;
-            //调用注册的回调函数处理
+            //调用注册的回调函数处理,回调函数返回该事件下次执行的间隔时间
             retval = te->timeProc(eventLoop, id, te->clientData);
             processed++;
             if (retval != AE_NOMORE) {
                 aeAddMillisecondsToNow(retval, &te->when_sec, &te->when_ms);
             } else {
+                //下次执行间隔时间为AE_NOMORE,说明该事件需要删除
                 te->id = AE_DELETED_EVENT_ID;
             }
         }
@@ -335,10 +333,11 @@ int aeProcessEvents(aeEventLoop *eventLoop, int flags) {
     /* 若没有事件处理,立即返回 */
     if (!(flags & AE_TIME_EVENTS) && !(flags & AE_FILE_EVENTS)) return 0;
 
-    /* 如果有IO事件发生,或者紧急的时间事件发生,则开始处理 */
+    /* 阻塞进程,等待文件事件就绪或时间事件到达执行时间 */
     if (eventLoop->maxfd != -1 ||
         ((flags & AE_TIME_EVENTS) && !(flags & AE_DONT_WAIT))) {
         int j;
+        //进程最大阻塞时间
         aeTimeEvent *shortest = NULL;
         struct timeval tv, *tvp;
 
@@ -376,30 +375,24 @@ int aeProcessEvents(aeEventLoop *eventLoop, int flags) {
             }
         }
 
-        /* 调用aeApiPoll函数捕获事件*/
+        /* 调用aeApiPoll函数捕获事件,返回已就绪文件事件的数量*/
         numevents = aeApiPoll(eventLoop, tvp);
 
         /* After sleep callback. */
         if (eventLoop->aftersleep != NULL && flags & AE_CALL_AFTER_SLEEP)
             eventLoop->aftersleep(eventLoop);
 
+        //处理所有已就绪的文件事件
         for (j = 0; j < numevents; j++) {
             aeFileEvent *fe = &eventLoop->events[eventLoop->fired[j].fd];
             int mask = eventLoop->fired[j].mask;
             int fd = eventLoop->fired[j].fd;
             int fired = 0; /* Number of events fired for current fd. */
 
-            /* Normally we execute the readable event first, and the writable
-             * event laster. This is useful as sometimes we may be able
-             * to serve the reply of a query immediately after processing the
-             * query.
-             *
-             * However if AE_BARRIER is set in the mask, our application is
-             * asking us to do the reverse: never fire the writable event
-             * after the readable. In such a case, we invert the calls.
-             * This is useful when, for instance, we want to do things
-             * in the beforeSleep() hook, like fsynching a file to disk,
-             * before replying to a client. */
+            /* 如果就绪的是AE_READABLE事件,则调用rfileProc函数处理.
+             * 通常先处理AE_READABLE,再处理AE_WRITABLE事件,是为了服务器尽快处理请求并回复.
+             * 如果mask设置了AE_BARRIER,则优先处理AE_WRITABLE
+             * */
             int invert = fe->mask & AE_BARRIER;
 
             /* 如果触发的是可读事件，调用事件注册时设置的读事件回调处理函数 */
@@ -408,7 +401,7 @@ int aeProcessEvents(aeEventLoop *eventLoop, int flags) {
                 fired++;
             }
 
-            /* Fire the writable event. */
+            /* 写事件就绪 */
             if (fe->mask & mask & AE_WRITABLE) {
                 if (!fired || fe->wfileProc != fe->rfileProc) {
                     fe->wfileProc(eventLoop, fd, fe->clientData, mask);
@@ -430,13 +423,13 @@ int aeProcessEvents(aeEventLoop *eventLoop, int flags) {
     }
     /* 检查是否有时间事件 */
     if (flags & AE_TIME_EVENTS)
+        //processTimeEvents处理时间事件
         processed += processTimeEvents(eventLoop);
 
     return processed; /* return the number of processed file/time events */
 }
 
-/* Wait for milliseconds until the given file descriptor becomes
- * writable/readable/exception */
+/* 在给定的时间内阻塞并等待套接字的给定类型事件产生,当事件产生或超时,函数返回 */
 int aeWait(int fd, int mask, long long milliseconds) {
     struct pollfd pfd;
     int retmask = 0, retval;
