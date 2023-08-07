@@ -1,35 +1,3 @@
-/* A simple event-driven programming library. Originally I wrote this code
- * for the Jim's event-loop (Jim is a Tcl interpreter) but later translated
- * it in form of a library for easy reuse.
- *
- * Copyright (c) 2006-2010, Salvatore Sanfilippo <antirez at gmail dot com>
- * All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
- *
- *   * Redistributions of source code must retain the above copyright notice,
- *     this list of conditions and the following disclaimer.
- *   * Redistributions in binary form must reproduce the above copyright
- *     notice, this list of conditions and the following disclaimer in the
- *     documentation and/or other materials provided with the distribution.
- *   * Neither the name of Redis nor the names of its contributors may be used
- *     to endorse or promote products derived from this software without
- *     specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
- */
-
 #include <stdio.h>
 #include <sys/time.h>
 #include <sys/types.h>
@@ -209,6 +177,10 @@ static void aeAddMillisecondsToNow(long long milliseconds, long *sec, long *ms) 
     *ms = when_ms;
 }
 
+/*
+ * milliseconds: 创建的时间事件的触发时间距离当前时间的时长
+ * *proc: 触发的回调函数
+ * */
 long long aeCreateTimeEvent(aeEventLoop *eventLoop, long long milliseconds,
                             aeTimeProc *proc, void *clientData,
                             aeEventFinalizerProc *finalizerProc) {
@@ -291,7 +263,7 @@ static int processTimeEvents(aeEventLoop *eventLoop) {
     }
     eventLoop->lastTime = now;
 
-    te = eventLoop->timeEventHead;
+    te = eventLoop->timeEventHead; //从时间链表中取出事件
     maxId = eventLoop->timeEventNextId - 1;
     while (te) {
         long now_sec, now_ms;
@@ -322,12 +294,13 @@ static int processTimeEvents(aeEventLoop *eventLoop) {
             te = te->next;
             continue;
         }
-        aeGetTime(&now_sec, &now_ms);
+        aeGetTime(&now_sec, &now_ms); //获取当前时间
         if (now_sec > te->when_sec ||
             (now_sec == te->when_sec && now_ms >= te->when_ms)) {
             int retval;
 
             id = te->id;
+            //调用注册的回调函数处理
             retval = te->timeProc(eventLoop, id, te->clientData);
             processed++;
             if (retval != AE_NOMORE) {
@@ -336,6 +309,7 @@ static int processTimeEvents(aeEventLoop *eventLoop) {
                 te->id = AE_DELETED_EVENT_ID;
             }
         }
+        //获取下一个时间事件
         te = te->next;
     }
     return processed;
@@ -428,12 +402,7 @@ int aeProcessEvents(aeEventLoop *eventLoop, int flags) {
              * before replying to a client. */
             int invert = fe->mask & AE_BARRIER;
 
-            /* Note the "fe->mask & mask & ..." code: maybe an already
-             * processed event removed an element that fired and we still
-             * didn't processed, so we check if the event is still valid.
-             *
-             * Fire the readable event if the call sequence is not
-             * inverted. */
+            /* 如果触发的是可读事件，调用事件注册时设置的读事件回调处理函数 */
             if (!invert && fe->mask & mask & AE_READABLE) {
                 fe->rfileProc(eventLoop, fd, fe->clientData, mask);
                 fired++;

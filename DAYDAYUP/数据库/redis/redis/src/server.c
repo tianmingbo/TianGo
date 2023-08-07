@@ -1146,8 +1146,7 @@ int serverCron(struct aeEventLoop *eventLoop, long long id, void *clientData) {
             server.cron_malloc_stats.allocator_allocated = server.cron_malloc_stats.zmalloc_used;
     }
 
-    /* We received a SIGTERM, shutting down here in a safe way, as it is
-     * not ok doing so inside the signal handler. */
+    /* 如果收到进程结束信号,关闭server */
     if (server.shutdown_asap) {
         if (prepareForShutdown(SHUTDOWN_NOFLAGS) == C_OK) exit(0);
         serverLog(LL_WARNING,
@@ -1279,10 +1278,7 @@ int serverCron(struct aeEventLoop *eventLoop, long long id, void *clientData) {
      * completed. */
     if (server.aof_flush_postponed_start) flushAppendOnlyFile(0);
 
-    /* AOF write errors: in this case we have a buffer to flush as well and
-     * clear the AOF error in case of success to make the DB writable again,
-     * however to try every second is enough in case of 'hz' is set to
-     * an higher frequency. */
+    /* 每一秒执行1次,检查AOF是否有写错误 */
     run_with_period(1000) {
         if (server.aof_last_write_status == C_ERR)
             flushAppendOnlyFile(0);
@@ -1332,9 +1328,7 @@ int serverCron(struct aeEventLoop *eventLoop, long long id, void *clientData) {
     return 1000 / server.hz;
 }
 
-/* This function gets called every time Redis is entering the
- * main loop of the event driven library, that is, before to sleep
- * for ready file descriptors. */
+/*每次 Redis 进入事件驱动库的主循环时（即在休眠准备就绪的文件描述符之前）都会调用此函数。 */
 void beforeSleep(struct aeEventLoop *eventLoop) {
     UNUSED(eventLoop);
 
@@ -1344,8 +1338,7 @@ void beforeSleep(struct aeEventLoop *eventLoop) {
      * later in this function. */
     if (server.cluster_enabled) clusterBeforeSleep();
 
-    /* Run a fast expire cycle (the called function will return
-     * ASAP if a fast cycle is not needed). */
+    /* 过期key */
     if (server.active_expire_enabled && server.masterhost == NULL)
         activeExpireCycle(ACTIVE_EXPIRE_CYCLE_FAST);
 
@@ -1380,7 +1373,7 @@ void beforeSleep(struct aeEventLoop *eventLoop) {
     /* Write the AOF buffer on disk */
     flushAppendOnlyFile(0);
 
-    /* Handle writes with pending output buffers. */
+    // 处理带有输出缓冲的客户端
     handleClientsWithPendingWrites();
 
     /* Before we are going to sleep, let the threads access the dataset by
@@ -2624,29 +2617,21 @@ void call(client *c, int flags) {
     server.stat_numcommands++;
 }
 
-/* If this function gets called we already read a whole
- * command, arguments are in the client argv/argc fields.
- * processCommand() execute the command or prepare the
- * server for a bulk read from the client.
- *
- * If C_OK is returned the client is still alive and valid and
- * other operations can be performed by the caller. Otherwise
- * if C_ERR is returned the client was destroyed (i.e. after QUIT). */
+/* 这个函数在整个命令被读取后被调用,命令参数存储在客户端的 argv/argc 中。
+processCommand 执行命令或者为bulk读命令做准备。
+如果返回 C_OK ,表示客户端仍然alive,调用者可以继续其他操作。
+如果返回 C_ERR,表示客户端已销毁(如在 QUIT 命令后)。*/
 int processCommand(client *c) {
     moduleCallCommandFilters(c);
 
-    /* The QUIT command is handled separately. Normal command procs will
-     * go through checking for replication and QUIT will cause trouble
-     * when FORCE_REPLICATION is enabled and would be implemented in
-     * a regular command proc. */
+    // QUIT 命令需要特殊处理
     if (!strcasecmp(c->argv[0]->ptr, "quit")) {
         addReply(c, shared.ok);
         c->flags |= CLIENT_CLOSE_AFTER_REPLY;
         return C_ERR;
     }
 
-    /* Now lookup the command and check ASAP about trivial error conditions
-     * such as wrong arity, bad command name and so forth. */
+    // 查找命令,进行简单的参数错误检查
     c->cmd = c->lastcmd = lookupCommand(c->argv[0]->ptr);
     if (!c->cmd) {
         flagTransaction(c);
@@ -2666,23 +2651,21 @@ int processCommand(client *c) {
         return C_OK;
     }
 
-    /* Check if the user is authenticated */
+    // 需要认证但未认证
     if (server.requirepass && !c->authenticated && c->cmd->proc != authCommand) {
         flagTransaction(c);
         addReply(c, shared.noautherr);
         return C_OK;
     }
 
-    /* If cluster is enabled perform the cluster redirection here.
-     * However we don't perform the redirection if:
-     * 1) The sender of this command is our master.
-     * 2) The command has no key arguments. */
+    // 集群重定向
     if (server.cluster_enabled &&
         !(c->flags & CLIENT_MASTER) &&
         !(c->flags & CLIENT_LUA &&
           server.lua_caller->flags & CLIENT_MASTER) &&
         !(c->cmd->getkeys_proc == NULL && c->cmd->firstkey == 0 &&
           c->cmd->proc != execCommand)) {
+        // 执行集群重定向逻辑
         int hashslot;
         int error_code;
         clusterNode *n = getNodeByQuery(c, c->cmd, c->argv, c->argc,
@@ -2698,12 +2681,7 @@ int processCommand(client *c) {
         }
     }
 
-    /* Handle the maxmemory directive.
-     *
-     * Note that we do not want to reclaim memory if we are here re-entering
-     * the event loop since there is a busy Lua script running in timeout
-     * condition, to avoid mixing the propagation of scripts with the
-     * propagation of DELs due to eviction. */
+    // 根据 maxmemory 释放内存
     if (server.maxmemory && !server.lua_timedout) {
         int out_of_memory = freeMemoryIfNeededAndSafe() == C_ERR;
         /* freeMemoryIfNeeded may flush slave output buffers. This may result
@@ -2729,8 +2707,7 @@ int processCommand(client *c) {
         }
     }
 
-    /* Don't accept write commands if there are problems persisting on disk
-     * and if this is a master instance. */
+    // AOF 写错误时拒绝写命令
     int deny_write_type = writeCommandsDeniedByDiskError();
     if (deny_write_type != DISK_ERROR_TYPE_NONE &&
         server.masterhost == NULL &&
@@ -2759,8 +2736,7 @@ int processCommand(client *c) {
         return C_OK;
     }
 
-    /* Don't accept write commands if this is a read only slave. But
-     * accept write commands if this is our master. */
+    // 只读模式下拒绝写操作
     if (server.masterhost && server.repl_slave_ro &&
         !(c->flags & CLIENT_MASTER) &&
         c->cmd->flags & CMD_WRITE) {
@@ -2768,7 +2744,7 @@ int processCommand(client *c) {
         return C_OK;
     }
 
-    /* Only allow SUBSCRIBE and UNSUBSCRIBE in the context of Pub/Sub */
+    // 接受订阅相关命令
     if (c->flags & CLIENT_PUBSUB &&
         c->cmd->proc != pingCommand &&
         c->cmd->proc != subscribeCommand &&
@@ -2779,9 +2755,7 @@ int processCommand(client *c) {
         return C_OK;
     }
 
-    /* Only allow commands with flag "t", such as INFO, SLAVEOF and so on,
-     * when slave-serve-stale-data is no and we are a slave with a broken
-     * link with master. */
+    // 事务中的命令入队
     if (server.masterhost && server.repl_state != REPL_STATE_CONNECTED &&
         server.repl_serve_stale_data == 0 &&
         !(c->cmd->flags & CMD_STALE)) {

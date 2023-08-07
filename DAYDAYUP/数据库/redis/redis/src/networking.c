@@ -1079,10 +1079,7 @@ void sendReplyToClient(aeEventLoop *el, int fd, void *privdata, int mask) {
     writeToClient(fd, privdata, 1);
 }
 
-/* This function is called just before entering the event loop, in the hope
- * we can just write the replies to the client output buffer without any
- * need to use a syscall in order to install the writable event handler,
- * get it called, and so forth. */
+/*将redis server客户端缓冲区中的数据写回客户端 */
 int handleClientsWithPendingWrites(void) {
     listIter li;
     listNode *ln;
@@ -1098,22 +1095,20 @@ int handleClientsWithPendingWrites(void) {
          * that may trigger write error or recreate handler. */
         if (c->flags & CLIENT_PROTECTED) continue;
 
-        /* Try to write buffers to the client socket. */
+        /* 调用writeToClient将当前客户端的输出缓冲区数据写回 */
         if (writeToClient(c->fd, c, 0) == C_ERR) continue;
 
-        /* If after the synchronous writes above we still have data to
-         * output to the client, we need to install the writable handler. */
+        /* 如果还有待写回数据 */
         if (clientHasPendingReplies(c)) {
             int ae_flags = AE_WRITABLE;
-            /* For the fsync=always policy, we want that a given FD is never
-             * served for reading and writing in the same event loop iteration,
-             * so that in the middle of receiving the query, and serving it
-             * to the client, we'll call beforeSleep() that will do the
-             * actual fsync of AOF to disk. AE_BARRIER ensures that. */
+            /* 对于 fsync=always 策略，我们希望给定的 FD 永远不会在同一个事件循环迭代中用于读取和写入，
+             * 因此在接收查询并将其提供给客户端的过程中，我们将调用 beforeSleep( )，
+             * 这将执行 AOF 到磁盘的实际 fsync。 AE_BARRIER 确保了这一点。 */
             if (server.aof_state == AOF_ON &&
                 server.aof_fsync == AOF_FSYNC_ALWAYS) {
                 ae_flags |= AE_BARRIER;
             }
+            //创建可写事件的监听，以及设置回调函数
             if (aeCreateFileEvent(server.el, c->fd, ae_flags,
                                   sendReplyToClient, c) == AE_ERR) {
                 freeClientAsync(c);
@@ -1425,35 +1420,26 @@ int processMultibulkBuffer(client *c) {
     return C_ERR;
 }
 
-/* This function is called every time, in the client structure 'c', there is
- * more query buffer to process, because we read more data from the socket
- * or because a client was blocked and later reactivated, so there could be
- * pending query buffer, already representing a full command, to process. */
+/* 这个函数在客户端查询缓冲区有更多命令待处理时被调用 */
 void processInputBuffer(client *c) {
+    // 设置当前客户端
     server.current_client = c;
 
-    /* Keep processing while there is something in the input buffer */
+    // 持续处理缓冲区数据
     while (c->qb_pos < sdslen(c->querybuf)) {
-        /* Return if clients are paused. */
+        // 客户端被暂停,跳出循环
         if (!(c->flags & CLIENT_SLAVE) && clientsArePaused()) break;
 
-        /* Immediately abort if the client is in the middle of something. */
+        // 客户端正忙,跳出循环
         if (c->flags & CLIENT_BLOCKED) break;
 
-        /* Don't process input from the master while there is a busy script
-         * condition on the slave. We want just to accumulate the replication
-         * stream (instead of replying -BUSY like we do with other clients) and
-         * later resume the processing. */
+        // 主服务器有脚本正在执行,仅积累命令
         if (server.lua_timedout && c->flags & CLIENT_MASTER) break;
 
-        /* CLIENT_CLOSE_AFTER_REPLY closes the connection once the reply is
-         * written to the client. Make sure to not let the reply grow after
-         * this flag has been set (i.e. don't process more commands).
-         *
-         * The same applies for clients we want to terminate ASAP. */
+        // 要关闭连接的客户端,跳出循环
         if (c->flags & (CLIENT_CLOSE_AFTER_REPLY | CLIENT_CLOSE_ASAP)) break;
 
-        /* Determine request type when unknown. */
+        // 确定还未知的请求类型
         if (!c->reqtype) {
             if (c->querybuf[c->qb_pos] == '*') {
                 c->reqtype = PROTO_REQ_MULTIBULK;
@@ -1461,7 +1447,7 @@ void processInputBuffer(client *c) {
                 c->reqtype = PROTO_REQ_INLINE;
             }
         }
-
+        // 处理不同类型请求
         if (c->reqtype == PROTO_REQ_INLINE) {
             if (processInlineBuffer(c) != C_OK) break;
         } else if (c->reqtype == PROTO_REQ_MULTIBULK) {
@@ -1481,16 +1467,11 @@ void processInputBuffer(client *c) {
                     c->reploff = c->read_reploff - sdslen(c->querybuf) + c->qb_pos;
                 }
 
-                /* Don't reset the client structure for clients blocked in a
-                 * module blocking command, so that the reply callback will
-                 * still be able to access the client argv and argc field.
-                 * The client will be reset in unblockClientFromModule(). */
+                // 重设客户端状态
                 if (!(c->flags & CLIENT_BLOCKED) || c->btype != BLOCKED_MODULE)
                     resetClient(c);
             }
-            /* freeMemoryIfNeeded may flush slave output buffers. This may
-             * result into a slave, that may be the active client, to be
-             * freed. */
+            // 跳过已释放客户端
             if (server.current_client == NULL) break;
         }
     }
@@ -1500,7 +1481,7 @@ void processInputBuffer(client *c) {
         sdsrange(c->querybuf, c->qb_pos, -1);
         c->qb_pos = 0;
     }
-
+    // 重置当前客户端
     server.current_client = NULL;
 }
 
@@ -1527,7 +1508,7 @@ void readQueryFromClient(aeEventLoop *el, int fd, void *privdata, int mask) {
     client *c = (client *) privdata;
     int nread, readlen;
     size_t qblen;
-    UNUSED(el);
+    UNUSED(el); //避免无用参数警告
     UNUSED(mask);
 
     readlen = PROTO_IOBUF_LEN;
@@ -1545,10 +1526,12 @@ void readQueryFromClient(aeEventLoop *el, int fd, void *privdata, int mask) {
          * for example once we resume a blocked client after CLIENT PAUSE. */
         if (remaining > 0 && remaining < readlen) readlen = remaining;
     }
-
+    // 计算已有查询缓冲数据大小
     qblen = sdslen(c->querybuf);
+    // 更新峰值记录
     if (c->querybuf_peak < qblen) c->querybuf_peak = qblen;
     c->querybuf = sdsMakeRoomFor(c->querybuf, readlen);
+    // 从socket读取到缓冲区
     nread = read(fd, c->querybuf + qblen, readlen);
     if (nread == -1) {
         if (errno == EAGAIN) {
@@ -1569,7 +1552,7 @@ void readQueryFromClient(aeEventLoop *el, int fd, void *privdata, int mask) {
         c->pending_querybuf = sdscatlen(c->pending_querybuf,
                                         c->querybuf + qblen, nread);
     }
-
+    // 更新状态
     sdsIncrLen(c->querybuf, nread);
     c->lastinteraction = server.unixtime;
     if (c->flags & CLIENT_MASTER) c->read_reploff += nread;
