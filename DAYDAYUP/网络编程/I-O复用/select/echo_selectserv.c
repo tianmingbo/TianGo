@@ -44,7 +44,7 @@ int main(int argc, char *argv[]) {
         error_handling("listen() error");
 
     FD_ZERO(&reads);//将fd_set变量的所有位初始化为0
-    FD_SET(serv_sock, &reads);
+    FD_SET(serv_sock, &reads); //
     fd_max = serv_sock;
 
     while (1) {
@@ -64,12 +64,13 @@ int main(int argc, char *argv[]) {
             continue;
 
         for (i = 0; i < fd_max + 1; i++) {
+            //FD_ISSET 查找发生变化的文件描述符
             if (FD_ISSET(i, &cpy_reads)) {
                 if (i == serv_sock)     // connection request!服务端套接字发生变化
                 {
                     adr_sz = sizeof(clnt_adr);
                     clnt_sock = accept(serv_sock, (struct sockaddr *) &clnt_adr, &adr_sz);
-                    FD_SET(clnt_sock, &reads); //新建一个文件描述符
+                    FD_SET(clnt_sock, &reads); //新建一个与客户端连接的文件描述符
                     if (fd_max < clnt_sock)
                         fd_max = clnt_sock;
                     printf("connected client: %d \n", clnt_sock);
@@ -78,7 +79,7 @@ int main(int argc, char *argv[]) {
                     str_len = read(i, buf, BUF_SIZE);
                     if (str_len == 0)    // close request!
                     {
-                        //EOF
+                        //接收数据为EOF时需要关闭套接字,并从reads中删除相应信息
                         FD_CLR(i, &reads);
                         close(i);
                         printf("closed client: %d \n", i);

@@ -1,8 +1,3 @@
-//
-// Created by 田明博 on 2023/2/11.
-//
-
-
 #include <stdio.h>
 #include <unistd.h>
 #include <sys/time.h>
