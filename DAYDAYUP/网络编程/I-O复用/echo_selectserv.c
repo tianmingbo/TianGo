@@ -1,6 +1,10 @@
-//
-// Created by 田明博 on 2023/2/11.
-//
+/**
+ * FD_ZERO(fd_set *fdset) 将fdset变量的所有位初始化为0
+ * FD_SET(int fd, fd_set *fdset) 从参数fdset指向的变量中注册恩建描述符fd的信息
+ * FD_CLR(int fd, fd_set *fdset) 从参数fdset指向的变量中清除文件描述符fd的信息
+ * FD_ISSET(int fd, fd_set * fdset) fdset指向的变量中是否包含fd的信息
+ *
+ * */
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -39,7 +43,7 @@ int main(int argc, char *argv[]) {
     if (listen(serv_sock, 5) == -1)
         error_handling("listen() error");
 
-    FD_ZERO(&reads);
+    FD_ZERO(&reads);//将fd_set变量的所有位初始化为0
     FD_SET(serv_sock, &reads);
     fd_max = serv_sock;
 
@@ -48,6 +52,9 @@ int main(int argc, char *argv[]) {
         timeout.tv_sec = 5;
         timeout.tv_usec = 5000;
 
+        /*
+         * select()成功时返回大于0的值，失败时返回-1
+         * */
         if ((fd_num = select(fd_max + 1, &cpy_reads, 0, 0, &timeout)) == -1)
             //select 失败
             break;
