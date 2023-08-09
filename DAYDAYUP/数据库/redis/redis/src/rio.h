@@ -48,11 +48,8 @@ struct _rio {
 
     int (*flush)(struct _rio *);
 
-    /* The update_cksum method if not NULL is used to compute the checksum of
-     * all the data that was read or written so far. The method should be
-     * designed so that can be called with the current checksum, and the buf
-     * and len fields pointing to the new block of data to add to the checksum
-     * computation. */
+    /* 如果不为 NULL，则 update_cksum 方法用于计算迄今为止读取或写入的所有数据的校验和。
+     * 该方法应设计为可以使用当前校验和以及指向新数据块的 buf 和 len 字段来调用，以添加到校验和计算中。 */
     void (*update_cksum)(struct _rio *, const void *buf, size_t len);
 
     /* The current checksum */

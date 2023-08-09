@@ -438,19 +438,13 @@ ssize_t rdbSaveStringObject(rio *rdb, robj *obj) {
     }
 }
 
-/* Load a string object from an RDB file according to flags:
- *
- * RDB_LOAD_NONE (no flags): load an RDB object, unencoded.
- * RDB_LOAD_ENC: If the returned type is a Redis object, try to
- *               encode it in a special way to be more memory
- *               efficient. When this flag is passed the function
- *               no longer guarantees that obj->ptr is an SDS string.
- * RDB_LOAD_PLAIN: Return a plain string allocated with zmalloc()
- *                 instead of a Redis object with an sds in it.
- * RDB_LOAD_SDS: Return an SDS string instead of a Redis object.
- *
- * On I/O error NULL is returned.
- */
+/* 从RDB文件加载一个字符串对象,根据flags采用不同方式处理:
+ * RDB_LOAD_NONE: 原始加载对象,不编码
+ * RDB_LOAD_ENC: 尝试特殊编码以减少内存占用
+ * RDB_LOAD_PLAIN: 分配普通字符串,不使用Redis对象
+ * RDB_LOAD_SDS: 返回SDS字符串,不使用Redis对象
+ * 读取错误返回NULL
+*/
 void *rdbGenericLoadStringObject(rio *rdb, int flags, size_t *lenptr) {
     int encode = flags & RDB_LOAD_ENC;
     int plain = flags & RDB_LOAD_PLAIN;
@@ -1895,8 +1889,7 @@ void stopLoading(void) {
     server.loading = 0;
 }
 
-/* Track loading progress in order to serve client's from time to time
-   and if needed calculate rdb checksum  */
+/*跟踪加载进度，以便不时为客户端提供服务，并在需要时计算 RDB 校验和 */
 void rdbLoadProgressCallback(rio *r, const void *buf, size_t len) {
     if (server.rdb_checksum)
         rioGenericUpdateChecksum(r, buf, len);
@@ -1924,14 +1917,14 @@ int rdbLoadRio(rio *rdb, rdbSaveInfo *rsi, int loading_aof) {
 
     rdb->update_cksum = rdbLoadProgressCallback;
     rdb->max_processing_chunk = server.loading_process_events_interval_bytes;
-    if (rioRead(rdb, buf, 9) == 0) goto eoferr;
+    if (rioRead(rdb, buf, 9) == 0) goto eoferr; //rioRead(rdb, buf, 9)读取rdb文件标志REDIS0009
     buf[9] = '\0';
-    if (memcmp(buf, "REDIS", 5) != 0) {
+    if (memcmp(buf, "REDIS", 5) != 0) { //前5位是不是REDIS,校验magic
         serverLog(LL_WARNING, "Wrong signature trying to load DB from file");
         errno = EINVAL;
         return C_ERR;
     }
-    rdbver = atoi(buf + 5);
+    rdbver = atoi(buf + 5); //rdb版本号
     if (rdbver < 1 || rdbver > RDB_VERSION) {
         serverLog(LL_WARNING, "Can't handle RDB format version %d", rdbver);
         errno = EINVAL;
@@ -2000,11 +1993,10 @@ int rdbLoadRio(rio *rdb, rdbSaveInfo *rsi, int loading_aof) {
             dictExpand(db->expires, expires_size);
             continue; /* Read next opcode. */
         } else if (type == RDB_OPCODE_AUX) {
-            /* AUX: generic string-string fields. Use to add state to RDB
-             * which is backward compatible. Implementations of RDB loading
-             * are requierd to skip AUX fields they don't understand.
-             *
-             * An AUX field is composed of two strings: key and value. */
+            /* AUX：通用字符串-字符串字段。 用于向向后兼容的 RDB 添加状态。
+             * RDB加载的实现需要跳过他们不理解的AUX字段。
+             * AUX 字段由两个字符串组成：键和值。
+             * */
             robj *auxkey, *auxval;
             if ((auxkey = rdbLoadStringObject(rdb)) == NULL) goto eoferr;
             if ((auxval = rdbLoadStringObject(rdb)) == NULL) goto eoferr;
@@ -2164,7 +2156,7 @@ int rdbLoadRio(rio *rdb, rdbSaveInfo *rsi, int loading_aof) {
  *
  * If you pass an 'rsi' structure initialied with RDB_SAVE_OPTION_INIT, the
  * loading code will fiil the information fields in the structure.
- * 加载人rdb文件
+ * 加载rdb文件
  * */
 int rdbLoad(char *filename, rdbSaveInfo *rsi) {
     FILE *fp;
