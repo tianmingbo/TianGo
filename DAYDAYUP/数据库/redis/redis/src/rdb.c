@@ -1867,8 +1867,7 @@ robj *rdbLoadObject(int rdbtype, rio *rdb, robj *key) {
     return o;
 }
 
-/* Mark that we are loading in the global state and setup the fields
- * needed to provide loading stats. */
+/* 标记我们正在全局状态下加载，并设置提供加载统计信息所需的字段。 */
 void startLoading(FILE *fp) {
     struct stat sb;
 

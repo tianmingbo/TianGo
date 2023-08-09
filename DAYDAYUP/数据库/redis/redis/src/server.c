@@ -4430,7 +4430,7 @@ int main(int argc, char **argv) {
 #endif /* __linux__ */
         moduleLoadFromQueue();
         InitServerLast();
-        loadDataFromDisk();
+        loadDataFromDisk(); //加载 AOF 或者是 RDB 文件
         if (server.cluster_enabled) {
             if (verifyClusterConfigWithData() == C_ERR) {
                 serverLog(LL_WARNING,
