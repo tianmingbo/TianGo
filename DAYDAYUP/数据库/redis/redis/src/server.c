@@ -1207,7 +1207,10 @@ int serverCron(struct aeEventLoop *eventLoop, long long id, void *clientData) {
         if ((pid = wait3(&statloc, WNOHANG, NULL)) != 0) {
             int exitcode = WEXITSTATUS(statloc);
             int bysignal = 0;
-
+            /*
+             * WIFSIGNALED 如果因为信号而结束,则为真
+             * WTERMSIG 如果子进程因信号而终止,则获取该信号
+             * */
             if (WIFSIGNALED(statloc)) bysignal = WTERMSIG(statloc);
 
             if (pid == -1) {
@@ -4055,17 +4058,14 @@ void setupSignalHandlers(void) {
     return;
 }
 
-/* After fork, the child process will inherit the resources
- * of the parent process, e.g. fd(socket or flock) etc.
- * should close the resources not used by the child process, so that if the
- * parent restarts it can bind/lock despite the child possibly still running. */
+/* fork后，子进程将继承父进程的资源，例如 fd(socket或flock)等。
+ * 应关闭子进程未使用的资源，以便如果父进程重新启动，它可以绑定/锁定，尽管子进程可能仍在运行。 */
 void closeClildUnusedResourceAfterFork() {
-    closeListeningSockets(0);
+    closeListeningSockets(0); //关闭监听socket,子进程不处理请求。
     if (server.cluster_enabled && server.cluster_config_file_lock_fd != -1)
         close(server.cluster_config_file_lock_fd);  /* don't care if this fails */
 
-    /* Clear server.pidfile, this is the parent pidfile which should not
-     * be touched (or deleted) by the child (on exit / crash) */
+    //清空pidfile变量,这个是父进程的pid文件,子进程不应处理。
     zfree(server.pidfile);
     server.pidfile = NULL;
 }
@@ -4130,6 +4130,7 @@ void redisOutOfMemoryHandler(size_t allocation_size) {
 }
 
 void redisSetProcTitle(char *title) {
+    //设置进程title
 #ifdef USE_SETPROCTITLE
     char *server_mode = "";
     if (server.cluster_enabled) server_mode = " [cluster]";
@@ -4402,6 +4403,7 @@ int main(int argc, char **argv) {
     }
 
     server.supervised = redisIsSupervised(server.supervised_mode);
+    //如果配置参数daemonize为1，supervised值为0，那么设置background值为1，否则，设置其为0。
     int background = server.daemonize && !server.supervised;
     if (background) daemonize();
 

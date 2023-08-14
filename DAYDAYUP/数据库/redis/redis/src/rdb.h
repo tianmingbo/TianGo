@@ -3,7 +3,7 @@
  * 文件头：这部分内容保存了 Redis 的魔数、RDB 版本、Redis 版本、RDB 文件创建时间、键值对占用的内存大小等信息。
  * 文件数据部分：这部分保存了 Redis 数据库实际的所有键值对。
  * 文件尾：这部分保存了 RDB 文件的结束标识符，以及整个文件的校验值。这个校验值用来在 Redis server 加载 RDB 文件后，检查文件是否被篡改过。
- *
+ * od -A x -t x1c -v dump.rdb
  * */
 #ifndef __RDB_H
 #define __RDB_H
@@ -22,13 +22,15 @@
  * keys requires a lot of space, so we check the most significant 2 bits of
  * the first byte to interpreter the length:
  *
- * 00|XXXXXX => if the two MSB are 00 the len is the 6 bits of this byte
+ * 00|XXXXXX => 数组长度小于2**6,存放在第一个数组的低6bit
  * 01|XXXXXX XXXXXXXX =>  01, the len is 14 byes, 6 bits + 8 bits of next byte
- * 10|000000 [32 bit integer] => A full 32 bit len in net byte order will follow
+ * 10|000000 [32 bit integer] => 第一个字节为10000000, 数组长度小于等于2**32,存放在后4个字节中
  * 10|000001 [64 bit integer] => A full 64 bit len in net byte order will follow
- * 11|OBKIND this means: specially encoded object will follow. The six bits
- *           number specify the kind of object that follows.
- *           See the RDB_ENC_* defines.
+ * 11|OBKIND : 如果字符数组长度不大于11,并且可以转换为数值,那么redis会把字符串转为数值保存
+ *       11000000: 对应RDB_ENC_INT8, 后面1个字节存放数值
+ *       11000001
+ *       11000002: 对应RDB_ENC_INT32,后面4字节存放数值
+ *       RDB_ENC_LZF 数值字符串太长啦
  *
  * Lengths up to 63 are stored using a single byte, most DB keys, and may
  * values, will fit inside. */
@@ -62,6 +64,7 @@
 /* NOTE: WHEN ADDING NEW RDB TYPE, UPDATE rdbIsObjectType() BELOW */
 
 /* Object types for encoded objects. */
+
 #define RDB_TYPE_HASH_ZIPMAP    9
 #define RDB_TYPE_LIST_ZIPLIST  10
 #define RDB_TYPE_SET_INTSET    11

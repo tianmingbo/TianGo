@@ -1243,11 +1243,11 @@ int rdbSaveRioWithEOFMark(rio *rdb, int *error, rdbSaveInfo *rsi) {
 
     getRandomHexChars(eofmark, RDB_EOF_MARK_SIZE);
     if (error) *error = 0;
-    if (rioWrite(rdb, "$EOF:", 5) == 0) goto werr;
-    if (rioWrite(rdb, eofmark, RDB_EOF_MARK_SIZE) == 0) goto werr;
-    if (rioWrite(rdb, "\r\n", 2) == 0) goto werr;
-    if (rdbSaveRio(rdb, error, RDB_SAVE_NONE, rsi) == C_ERR) goto werr;
-    if (rioWrite(rdb, eofmark, RDB_EOF_MARK_SIZE) == 0) goto werr;
+    if (rioWrite(rdb, "$EOF:", 5) == 0) goto werr; //写入$EOF
+    if (rioWrite(rdb, eofmark, RDB_EOF_MARK_SIZE) == 0) goto werr; //写入40字节的16进制字符串
+    if (rioWrite(rdb, "\r\n", 2) == 0) goto werr; //写入\r\n
+    if (rdbSaveRio(rdb, error, RDB_SAVE_NONE, rsi) == C_ERR) goto werr;//生成rdb内容
+    if (rioWrite(rdb, eofmark, RDB_EOF_MARK_SIZE) == 0) goto werr; //再次写入40字节16进制字符串
     return C_OK;
 
     werr: /* Write error. */
@@ -1332,7 +1332,7 @@ int rdbSaveBackground(char *filename, rdbSaveInfo *rsi) {
 
     start = ustime();
     if ((childpid = fork()) == 0) {
-        //创建子进程
+        //创建子进程,子进程的代码执行分支
         int retval;
 
         /* Child */
@@ -1352,6 +1352,7 @@ int rdbSaveBackground(char *filename, rdbSaveInfo *rsi) {
             server.child_info_data.cow_size = private_dirty;
             sendChildInfo(CHILD_INFO_TYPE_RDB);
         }
+        //子进程退出
         exitFromChild((retval == C_OK) ? 0 : 1);
     } else {
         /* Parent */
@@ -1969,7 +1970,7 @@ int rdbLoadRio(rio *rdb, rdbSaveInfo *rsi, int loading_aof) {
             /* EOF: End of file, exit the main loop. */
             break;
         } else if (type == RDB_OPCODE_SELECTDB) {
-            /* SELECTDB: Select the specified database. */
+            /* SELECTDB: 获取db id */
             if ((dbid = rdbLoadLen(rdb, NULL)) == RDB_LENERR) goto eoferr;
             if (dbid >= (unsigned) server.dbnum) {
                 serverLog(LL_WARNING,
@@ -1984,12 +1985,12 @@ int rdbLoadRio(rio *rdb, rdbSaveInfo *rsi, int loading_aof) {
             /* RESIZEDB: Hint about the size of the keys in the currently
              * selected data base, in order to avoid useless rehashing. */
             uint64_t db_size, expires_size;
-            if ((db_size = rdbLoadLen(rdb, NULL)) == RDB_LENERR)
+            if ((db_size = rdbLoadLen(rdb, NULL)) == RDB_LENERR) //db中键值对个数
                 goto eoferr;
-            if ((expires_size = rdbLoadLen(rdb, NULL)) == RDB_LENERR)
+            if ((expires_size = rdbLoadLen(rdb, NULL)) == RDB_LENERR)//带有过期键值对个数
                 goto eoferr;
-            dictExpand(db->dict, db_size);
-            dictExpand(db->expires, expires_size);
+            dictExpand(db->dict, db_size); //创建全局hash表
+            dictExpand(db->expires, expires_size); //创建过期键hash表
             continue; /* Read next opcode. */
         } else if (type == RDB_OPCODE_AUX) {
             /* AUX：通用字符串-字符串字段。 用于向向后兼容的 RDB 添加状态。
@@ -2092,7 +2093,7 @@ int rdbLoadRio(rio *rdb, rdbSaveInfo *rsi, int loading_aof) {
             }
         }
 
-        /* Read key */
+        /* 开始读key */
         if ((key = rdbLoadStringObject(rdb)) == NULL) goto eoferr;
         /* Read value */
         if ((val = rdbLoadObject(type, rdb, key)) == NULL) goto eoferr;
