@@ -1186,8 +1186,7 @@ int serverCron(struct aeEventLoop *eventLoop, long long id, void *clientData) {
     /* Handle background operations on Redis databases. */
     databasesCron();
 
-    /* Start a scheduled AOF rewrite if this was requested by the user while
-     * a BGSAVE was in progress. */
+    /* 如果没有rdb子进程,也没有aof重写子进程,并且aof重写被设置为待调度执行 */
     if (server.rdb_child_pid == -1 && server.aof_child_pid == -1 &&
         server.aof_rewrite_scheduled) {
         rewriteAppendOnlyFileBackground();
@@ -1260,15 +1259,19 @@ int serverCron(struct aeEventLoop *eventLoop, long long id, void *clientData) {
             }
         }
 
-        /* Trigger an AOF rewrite if needed. */
+        /* 如果aof功能启用,且没有rdb和aof重写子进程、aof文件大小设定了阈值,
+         * 以及aof文件大小绝对值超过了阈值
+         * */
         if (server.aof_state == AOF_ON &&
             server.rdb_child_pid == -1 &&
             server.aof_child_pid == -1 &&
             server.aof_rewrite_perc &&
             server.aof_current_size > server.aof_rewrite_min_size) {
+            //计算aof文件大小超出基础大小的比例
             long long base = server.aof_rewrite_base_size ?
                              server.aof_rewrite_base_size : 1;
             long long growth = (server.aof_current_size * 100 / base) - 100;
+            //如果aof文件当前大小超出基础大小的比例已经超出预设阈值,那么执行aof重写
             if (growth >= server.aof_rewrite_perc) {
                 serverLog(LL_NOTICE, "Starting automatic rewriting of AOF on %lld%% growth", growth);
                 rewriteAppendOnlyFileBackground();

@@ -1,32 +1,3 @@
-/*
- * Copyright (c) 2009-2012, Salvatore Sanfilippo <antirez at gmail dot com>
- * All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
- *
- *   * Redistributions of source code must retain the above copyright notice,
- *     this list of conditions and the following disclaimer.
- *   * Redistributions in binary form must reproduce the above copyright
- *     notice, this list of conditions and the following disclaimer in the
- *     documentation and/or other materials provided with the distribution.
- *   * Neither the name of Redis nor the names of its contributors may be used
- *     to endorse or promote products derived from this software without
- *     specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
- */
-
 #include "server.h"
 #include "bio.h"
 #include "rio.h"
@@ -244,8 +215,7 @@ void stopAppendOnly(void) {
     killAppendOnlyChild();
 }
 
-/* Called when the user switches from "appendonly no" to "appendonly yes"
- * at runtime using the CONFIG command. */
+/* config set appendonly yes 时调用 */
 int startAppendOnly(void) {
     char cwd[MAXPATHLEN]; /* Current working dir path for error messages. */
     int newfd;
@@ -264,7 +234,8 @@ int startAppendOnly(void) {
         return C_ERR;
     }
     if (server.rdb_child_pid != -1) {
-        server.aof_rewrite_scheduled = 1;
+        //是否有rdb子进程
+        server.aof_rewrite_scheduled = 1; //将aof重写设置为待调度执行
         serverLog(LL_WARNING,
                   "AOF was enabled but there is already a child process saving an RDB file on disk. An AOF background was scheduled to start when possible.");
     } else {
@@ -272,6 +243,7 @@ int startAppendOnly(void) {
          * start a new one: the old one cannot be reused because it is not
          * accumulating the AOF buffer. */
         if (server.aof_child_pid != -1) {
+            //检测到有aof重写子进程在执行,先kill子进程
             serverLog(LL_WARNING,
                       "AOF was enabled but there is already an AOF rewriting in background. Stopping background AOF and starting a rewrite now.");
             killAppendOnlyChild();
@@ -1393,8 +1365,6 @@ int rewriteAppendOnlyFile(char *filename) {
     char tmpfile[256];
     char byte;
 
-    /* Note that we have to use a different temp name here compared to the
-     * one used by rewriteAppendOnlyFileBackground() function. */
     snprintf(tmpfile, 256, "temp-rewriteaof-%d.aof", (int) getpid());
     fp = fopen(tmpfile, "w");
     if (!fp) {
@@ -1407,7 +1377,11 @@ int rewriteAppendOnlyFile(char *filename) {
 
     if (server.aof_rewrite_incremental_fsync)
         rioSetAutoSync(&aof, REDIS_AUTOSYNC_BYTES);
-
+    /*
+     * aof_use_rdb_preamble是一个Redis配置参数,用于控制AOF文件的格式。
+     * 当参数值为yes时,在AOF重写时,新AOF会使用RDB格式的文件头。
+     * 之后的数据部分使用常规的AOF格式,即Redis命令的文本表示。
+     * */
     if (server.aof_use_rdb_preamble) {
         int error;
         if (rdbSaveRio(&aof, &error, RDB_SAVE_AOF_PREAMBLE, NULL) == C_ERR) {
@@ -1468,8 +1442,7 @@ int rewriteAppendOnlyFile(char *filename) {
     if (fsync(fileno(fp)) == -1) goto werr;
     if (fclose(fp) == EOF) goto werr;
 
-    /* Use RENAME to make sure the DB file is changed atomically only
-     * if the generate DB file is ok. */
+    /* rename功能等同于Unix中的mv命令 */
     if (rename(tmpfile, filename) == -1) {
         serverLog(LL_WARNING, "Error moving temp append only file on the final destination: %s", strerror(errno));
         unlink(tmpfile);
@@ -1589,6 +1562,7 @@ int rewriteAppendOnlyFileBackground(void) {
         /* Child */
         closeClildUnusedResourceAfterFork();
         redisSetProcTitle("redis-aof-rewrite");
+        //创建一个临时aof文件
         snprintf(tmpfile, 256, "temp-rewriteaof-bg-%d.aof", (int) getpid());
         if (rewriteAppendOnlyFile(tmpfile) == C_OK) {
             size_t private_dirty = zmalloc_get_private_dirty(-1);
@@ -1623,8 +1597,8 @@ int rewriteAppendOnlyFileBackground(void) {
                   "Background append only file rewriting started by pid %d", childpid);
         server.aof_rewrite_scheduled = 0;
         server.aof_rewrite_time_start = time(NULL);
-        server.aof_child_pid = childpid;
-        updateDictResizePolicy();
+        server.aof_child_pid = childpid; //记录重写子进程的pid
+        updateDictResizePolicy();//关闭rehash功能
         /* We set appendseldb to -1 in order to force the next call to the
          * feedAppendOnlyFile() to issue a SELECT command, so the differences
          * accumulated by the parent into server.aof_rewrite_buf will start
@@ -1637,9 +1611,11 @@ int rewriteAppendOnlyFileBackground(void) {
 }
 
 void bgrewriteaofCommand(client *c) {
+    //aof重写子进程正在运行?
     if (server.aof_child_pid != -1) {
         addReplyError(c, "Background append only file rewriting already in progress");
     } else if (server.rdb_child_pid != -1) {
+        //是否有创建rdb的子进程正在执行
         server.aof_rewrite_scheduled = 1;
         addReplyStatus(c, "Background append only file rewriting scheduled");
     } else if (rewriteAppendOnlyFileBackground() == C_OK) {

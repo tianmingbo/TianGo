@@ -261,14 +261,16 @@ void rioGenericUpdateChecksum(rio *r, const void *buf, size_t len) {
     r->cksum = crc64(r->cksum, buf, len);
 }
 
-/* Set the file-based rio object to auto-fsync every 'bytes' file written.
- * By default this is set to zero that means no automatic file sync is
- * performed.
- *
- * This feature is useful in a few contexts since when we rely on OS write
- * buffers sometimes the OS buffers way too much, resulting in too many
- * disk I/O concentrated in very little time. When we fsync in an explicit
- * way instead the I/O pressure is more distributed across time. */
+/*
+ * 这段代码是设置基于文件(file-based)的rio对象的自动fsync行为,主要功能是:
+ * rio对象r需要是文件IO类型的rio,通过read函数指针检查。
+ * 设置r->io.file.autosync属性为bytes大小。
+ * 当通过rio写入了autosync指定的bytes后,将立即执行fsync同步文件内容。
+ * 默认情况下autosync为0,意味着不自动同步。
+ * 这可以确保每写入一定量的数据后强制调用fsync,而不是依赖OS的缓冲。
+ * 因为有时OS会缓冲太多数据,导致IO调用在很短时间内都集中在一起。
+ * 而自动同步可以将IO压力分散开来。
+ * */
 void rioSetAutoSync(rio *r, off_t bytes) {
     serverAssert(r->read == rioFileIO.read);
     r->io.file.autosync = bytes;
