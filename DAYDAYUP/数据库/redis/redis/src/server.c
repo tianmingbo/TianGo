@@ -1376,7 +1376,7 @@ void beforeSleep(struct aeEventLoop *eventLoop) {
     if (listLength(server.unblocked_clients))
         processUnblockedClients();
 
-    /* Write the AOF buffer on disk */
+    /* 将aof缓冲区内容写入aof文件 */
     flushAppendOnlyFile(0);
 
     // 处理带有输出缓冲的客户端
