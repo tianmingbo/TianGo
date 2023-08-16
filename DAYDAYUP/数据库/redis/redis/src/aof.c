@@ -554,6 +554,7 @@ sds catAppendOnlyExpireAtCommand(sds buf, struct redisCommand *cmd, robj *key, r
     return buf;
 }
 
+//追加写请求到aof文件
 void feedAppendOnlyFile(struct redisCommand *cmd, int dictid, robj **argv, int argc) {
     sds buf = sdsempty();
     robj *tmpargv[3];
@@ -1488,11 +1489,11 @@ void aofChildPipeReadable(aeEventLoop *el, int fd, void *privdata, int mask) {
     aeDeleteFileEvent(server.el, server.aof_pipe_read_ack_from_child, AE_READABLE);
 }
 
-/* Create the pipes used for parent - child process IPC during rewrite.
- * We have a data pipe used to send AOF incremental diffs to the child,
- * and two other pipes used by the children to signal it finished with
- * the rewrite so no more data should be written, and another for the
- * parent to acknowledge it understood this new condition. */
+/* 创建三个管道，用于aof重写时使用
+ * 1： 父进程将增量数据发给子进程 0读1写
+ * 2： 子进程通知父进程重写done
+ * 3： 父进程通知子进程收到了done
+ * */
 int aofCreatePipes(void) {
     int fds[6] = {-1, -1, -1, -1, -1, -1};
     int j;
@@ -1500,9 +1501,10 @@ int aofCreatePipes(void) {
     if (pipe(fds) == -1) goto error; /* parent -> children data. */
     if (pipe(fds + 2) == -1) goto error; /* children -> parent ack. */
     if (pipe(fds + 4) == -1) goto error; /* parent -> children ack. */
-    /* Parent -> children data is non blocking. */
+    /* 将第一个和第二个文件描述符设置为非阻塞 */
     if (anetNonBlock(NULL, fds[0]) != ANET_OK) goto error;
     if (anetNonBlock(NULL, fds[1]) != ANET_OK) goto error;
+    //在第三个描述符注册读事件监听
     if (aeCreateFileEvent(server.el, fds[2], AE_READABLE, aofChildPipeReadable, NULL) == AE_ERR) goto error;
 
     server.aof_pipe_write_data_to_child = fds[1];
@@ -1536,17 +1538,15 @@ void aofClosePipes(void) {
  * AOF background rewrite
  * ------------------------------------------------------------------------- */
 
-/* This is how rewriting of the append only file in background works:
+/* aof重写:
  *
- * 1) The user calls BGREWRITEAOF
- * 2) Redis calls this function, that forks():
- *    2a) the child rewrite the append only file in a temp file.
- *    2b) the parent accumulates differences in server.aof_rewrite_buf.
- * 3) When the child finished '2a' exists.
- * 4) The parent will trap the exit code, if it's OK, will append the
- *    data accumulated into server.aof_rewrite_buf into the temp file, and
- *    finally will rename(2) the temp file in the actual file name.
- *    The the new file is reopened as the new append only file. Profit!
+ * 1) 调用 BGREWRITEAOF命令
+ * 2) fork创建一个重写子进程:
+ *    2a) 子进程重写aof到一个临时文件.
+ *    2b) 父进程在 server.aof_rewrite_buf 中记录新产生的log。
+ * 3) 子进程完成后，退出.
+ * 4) 父进程将捕获退出代码，然后将 server.aof_rewrite_buf 中累积的数据追加到临时文件中，最后以实际文件名重命名(2) 临时文件。
+ *    产生的临时文件替换原来的aof文件，perfect
  */
 int rewriteAppendOnlyFileBackground(void) {
     pid_t childpid;
