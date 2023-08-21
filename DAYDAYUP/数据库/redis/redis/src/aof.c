@@ -296,6 +296,7 @@ ssize_t aofWrite(int fd, const char *buf, size_t len) {
  */
 #define AOF_WRITE_LOG_ERROR_RATE 30 /* Seconds between errors logging. */
 
+//将apf缓冲区内容写入aof文件
 void flushAppendOnlyFile(int force) {
     ssize_t nwritten;
     int sync_in_progress = 0;
@@ -570,9 +571,7 @@ void feedAppendOnlyFile(struct redisCommand *cmd, int dictid, robj **argv, int a
             buf = catAppendOnlyExpireAtCommand(buf, server.pexpireCommand, argv[1],
                                                pxarg);
     } else {
-        /* All the other commands don't need translation or need the
-         * same translation already operated in the command vector
-         * for the replication itself. */
+        /*  其它命令,直接写入缓冲区 */
         buf = catAppendOnlyGenericCommand(buf, argc, argv);
     }
 
@@ -649,14 +648,12 @@ int loadAppendOnlyFile(char *filename) {
     off_t valid_before_multi = 0; /* Offset before MULTI command loaded. */
 
     if (fp == NULL) {
+        //打开aof失败
         serverLog(LL_WARNING, "Fatal error: can't open the append log file for reading: %s", strerror(errno));
         exit(1);
     }
 
-    /* Handle a zero-length AOF file as a special case. An empty AOF file
-     * is a valid AOF because an empty server with AOF enabled will create
-     * a zero length file at startup, that will remain like that if no write
-     * operation is received. */
+    /* 处理空aof的情况,空aof也是正常情况 */
     if (fp && redis_fstat(fileno(fp), &sb) != -1 && sb.st_size == 0) {
         server.aof_current_size = 0;
         server.aof_fsync_offset = server.aof_current_size;
@@ -664,15 +661,13 @@ int loadAppendOnlyFile(char *filename) {
         return C_ERR;
     }
 
-    /* Temporarily disable AOF, to prevent EXEC from feeding a MULTI
-     * to the same file we're about to read. */
+    /* 暂时禁用 AOF，以防止 EXEC 将 MULTI 提供给我们即将读取的同一文件。 */
     server.aof_state = AOF_OFF;
 
     fakeClient = createFakeClient();
     startLoading(fp);
 
-    /* Check if this AOF file has an RDB preamble. In that case we need to
-     * load the RDB file and later continue loading the AOF tail. */
+    /* 如果aof文件以REDIS开头,则表示使用的混合持久化,先加载rdb,再加载aof */
     char sig[5]; /* "REDIS" */
     if (fread(sig, 1, 5, fp) != 5 || memcmp(sig, "REDIS", 5) != 0) {
         /* No RDB preamble, seek back at 0 offset. */
@@ -692,7 +687,7 @@ int loadAppendOnlyFile(char *filename) {
         }
     }
 
-    /* Read the actual AOF file, in REPL format, command by command. */
+    /* 开始真正加载aof文件 */
     while (1) {
         int argc, j;
         unsigned long len;
@@ -1484,6 +1479,7 @@ int aofCreatePipes(void) {
     return C_ERR;
 }
 
+//关闭管道,删除事件
 void aofClosePipes(void) {
     aeDeleteFileEvent(server.el, server.aof_pipe_read_ack_from_child, AE_READABLE);
     aeDeleteFileEvent(server.el, server.aof_pipe_write_data_to_child, AE_WRITABLE);
@@ -1593,15 +1589,14 @@ void aofRemoveTempFile(pid_t childpid) {
     unlink(tmpfile);
 }
 
-/* Update the server.aof_current_size field explicitly using stat(2)
- * to check the size of the file. This is useful after a rewrite or after
- * a restart, normally the size is updated just adding the write length
- * to the current length, that is much faster. */
+/* 使用fstat函数更新aof_current_size的大小 */
 void aofUpdateCurrentSize(void) {
     struct redis_stat sb;
     mstime_t latency;
 
     latencyStartMonitor(latency);
+    //int fstat(int fd, struct stat *statbuf);
+    //statbuf的结构包含了文件大小、时间、权限等信息
     if (redis_fstat(server.aof_fd, &sb) == -1) {
         serverLog(LL_WARNING, "Unable to obtain the AOF file length. stat: %s",
                   strerror(errno));
@@ -1612,8 +1607,9 @@ void aofUpdateCurrentSize(void) {
     latencyAddSampleIfNeeded("aof-fstat", latency);
 }
 
-/* A background append only file rewriting (BGREWRITEAOF) terminated its work.
- * Handle this. */
+/* aof子进程完成,
+ * 替换原有的aof文件
+ * */
 void backgroundRewriteDoneHandler(int exitcode, int bysignal) {
     if (!bysignal && exitcode == 0) {
         int newfd, oldfd;
@@ -1627,6 +1623,7 @@ void backgroundRewriteDoneHandler(int exitcode, int bysignal) {
         /* Flush the differences accumulated by the parent to the
          * rewritten AOF. */
         latencyStartMonitor(latency);
+        //打开aof进程创建的临时aof文件
         snprintf(tmpfile, 256, "temp-rewriteaof-bg-%d.aof",
                  (int) server.aof_child_pid);
         newfd = open(tmpfile, O_WRONLY | O_APPEND);
@@ -1635,7 +1632,7 @@ void backgroundRewriteDoneHandler(int exitcode, int bysignal) {
                       "Unable to open the temporary AOF produced by the child: %s", strerror(errno));
             goto cleanup;
         }
-
+        //再次将重写缓冲区的数据写入临时文件.因为当主进程不再发送命令道管道后,主进程执行的增量命令会暂存在缓冲区
         if (aofRewriteBufferWrite(newfd) == -1) {
             serverLog(LL_WARNING,
                       "Error trying to flush the parent diff to the rewritten AOF: %s", strerror(errno));
@@ -1649,39 +1646,8 @@ void backgroundRewriteDoneHandler(int exitcode, int bysignal) {
                   "Residual parent diff successfully flushed to the rewritten AOF (%.2f MB)",
                   (double) aofRewriteBufferSize() / (1024 * 1024));
 
-        /* The only remaining thing to do is to rename the temporary file to
-         * the configured file and switch the file descriptor used to do AOF
-         * writes. We don't want close(2) or rename(2) calls to block the
-         * server on old file deletion.
-         *
-         * There are two possible scenarios:
-         *
-         * 1) AOF is DISABLED and this was a one time rewrite. The temporary
-         * file will be renamed to the configured file. When this file already
-         * exists, it will be unlinked, which may block the server.
-         *
-         * 2) AOF is ENABLED and the rewritten AOF will immediately start
-         * receiving writes. After the temporary file is renamed to the
-         * configured file, the original AOF file descriptor will be closed.
-         * Since this will be the last reference to that file, closing it
-         * causes the underlying file to be unlinked, which may block the
-         * server.
-         *
-         * To mitigate the blocking effect of the unlink operation (either
-         * caused by rename(2) in scenario 1, or by close(2) in scenario 2), we
-         * use a background thread to take care of this. First, we
-         * make scenario 1 identical to scenario 2 by opening the target file
-         * when it exists. The unlink operation after the rename(2) will then
-         * be executed upon calling close(2) for its descriptor. Everything to
-         * guarantee atomicity for this switch has already happened by then, so
-         * we don't care what the outcome or duration of that close operation
-         * is, as long as the file descriptor is released again. */
         if (server.aof_fd == -1) {
-            /* AOF disabled */
-
-            /* Don't care if this fails: oldfd will be -1 and we handle that.
-             * One notable case of -1 return is if the old file does
-             * not exist. */
+            /*aof未开启,以下open aof会返回-1 */
             oldfd = open(server.aof_filename, O_RDONLY | O_NONBLOCK);
         } else {
             /* AOF enabled */
@@ -1691,6 +1657,7 @@ void backgroundRewriteDoneHandler(int exitcode, int bysignal) {
         /* Rename the temporary file. This will not unlink the target file if
          * it exists, because we reference it with "oldfd". */
         latencyStartMonitor(latency);
+        //将临时文件重命名为aof_filename
         if (rename(tmpfile, server.aof_filename) == -1) {
             serverLog(LL_WARNING,
                       "Error trying to rename the temporary AOF file %s into %s: %s",
@@ -1705,11 +1672,9 @@ void backgroundRewriteDoneHandler(int exitcode, int bysignal) {
         latencyAddSampleIfNeeded("aof-rename", latency);
 
         if (server.aof_fd == -1) {
-            /* AOF disabled, we don't need to set the AOF file descriptor
-             * to this new file, so we can close it. */
+            /* aof没开启,直接关闭newfd */
             close(newfd);
         } else {
-            /* AOF enabled, replace the old fd with the new one. */
             oldfd = server.aof_fd;
             server.aof_fd = newfd;
             if (server.aof_fsync == AOF_FSYNC_ALWAYS)
@@ -1734,7 +1699,7 @@ void backgroundRewriteDoneHandler(int exitcode, int bysignal) {
         if (server.aof_state == AOF_WAIT_REWRITE)
             server.aof_state = AOF_ON;
 
-        /* Asynchronously close the overwritten AOF. */
+        /* 旧aof在后台线程关闭,避免阻塞主进程 */
         if (oldfd != -1) bioCreateBackgroundJob(BIO_CLOSE_FILE, (void *) (long) oldfd, NULL, NULL);
 
         serverLog(LL_VERBOSE,
