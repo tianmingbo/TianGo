@@ -255,26 +255,25 @@ typedef long long ustime_t; /* microsecond time type. */
                                     buffer configuration. Just the first
                                     three: normal, slave, pubsub. */
 
-/* Slave replication state. Used in server.repl_state for slaves to remember
- * what to do next. */
-#define REPL_STATE_NONE 0 /* No active replication */
-#define REPL_STATE_CONNECT 1 /* Must connect to master */
-#define REPL_STATE_CONNECTING 2 /* Connecting to master */
+/* 这些宏定义描述了Redis复制(replication)的各种状态:*/
+#define REPL_STATE_NONE 0 /* 未进行复制 */
+#define REPL_STATE_CONNECT 1 /* 需要连接到主服务器 */
+#define REPL_STATE_CONNECTING 2 /* 正在连接到主服务器 */
 /* --- Handshake states, must be ordered --- */
-#define REPL_STATE_RECEIVE_PONG 3 /* Wait for PING reply */
-#define REPL_STATE_SEND_AUTH 4 /* Send AUTH to master */
-#define REPL_STATE_RECEIVE_AUTH 5 /* Wait for AUTH reply */
-#define REPL_STATE_SEND_PORT 6 /* Send REPLCONF listening-port */
-#define REPL_STATE_RECEIVE_PORT 7 /* Wait for REPLCONF reply */
-#define REPL_STATE_SEND_IP 8 /* Send REPLCONF ip-address */
-#define REPL_STATE_RECEIVE_IP 9 /* Wait for REPLCONF reply */
-#define REPL_STATE_SEND_CAPA 10 /* Send REPLCONF capa */
-#define REPL_STATE_RECEIVE_CAPA 11 /* Wait for REPLCONF reply */
-#define REPL_STATE_SEND_PSYNC 12 /* Send PSYNC */
-#define REPL_STATE_RECEIVE_PSYNC 13 /* Wait for PSYNC reply */
+#define REPL_STATE_RECEIVE_PONG 3 /* 等待主服务器的PING命令响应 */
+#define REPL_STATE_SEND_AUTH 4 /* 发送AUTH命令进行身份验证 */
+#define REPL_STATE_RECEIVE_AUTH 5 /* 等待主服务器对AUTH命令的回复 */
+#define REPL_STATE_SEND_PORT 6 /*发送从服务器的监听端口 */
+#define REPL_STATE_RECEIVE_PORT 7 /* 等待主服务器对端口的回复 */
+#define REPL_STATE_SEND_IP 8 /* 发送从服务器的IP地址 */
+#define REPL_STATE_RECEIVE_IP 9 /* 等待主服务器对IP的回复 */
+#define REPL_STATE_SEND_CAPA 10 /* 发送从服务器的功能标识 */
+#define REPL_STATE_RECEIVE_CAPA 11 /* 等待主服务器对功能的回复 */
+#define REPL_STATE_SEND_PSYNC 12 /* 发送PSYNC部分重同步 */
+#define REPL_STATE_RECEIVE_PSYNC 13 /* 等待PSYNC的回复 */
 /* --- End of handshake states --- */
-#define REPL_STATE_TRANSFER 14 /* Receiving .rdb from master */
-#define REPL_STATE_CONNECTED 15 /* Connected to master */
+#define REPL_STATE_TRANSFER 14 /* 接收主服务器的RDB文件 */
+#define REPL_STATE_CONNECTED 15 /* 连接到主服务器,接收命令流 */
 
 /* State of slaves from the POV of the master. Used in client->replstate.
  * In SEND_BULK and ONLINE state the slave receives new updates
