@@ -1113,7 +1113,7 @@ struct redisServer {
     int syslog_facility;            /* Syslog facility */
     /* Replication (master) */
     char replid[CONFIG_RUN_ID_SIZE + 1];  /* My current replication ID. */
-    char replid2[CONFIG_RUN_ID_SIZE + 1]; /* replid inherited from master*/
+    char replid2[CONFIG_RUN_ID_SIZE + 1]; /* 从master继承的replid */
     long long master_repl_offset;   /* My current replication offset */
     long long second_replid_offset; /* Accept offsets up to this for replid2. */
     int slaveseldb;                 /* Last SELECTed DB in replication output */
