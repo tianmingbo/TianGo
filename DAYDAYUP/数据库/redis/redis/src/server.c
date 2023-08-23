@@ -1297,8 +1297,7 @@ int serverCron(struct aeEventLoop *eventLoop, long long id, void *clientData) {
     /* Clear the paused clients flag if needed. */
     clientsArePaused(); /* Don't check return value, just use the side effect.*/
 
-    /* Replication cron function -- used to reconnect to master,
-     * detect transfer failures, start background RDB transfers and so forth. */
+    /* replicationCron——用于重新连接到主服务器、检测传输失败、启动后台 RDB 传输等。 */
     run_with_period(1000) replicationCron();
 
     /* Run the Redis Cluster cron. */

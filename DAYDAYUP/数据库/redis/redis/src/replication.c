@@ -1971,28 +1971,35 @@ int cancelReplicationHandshake(void) {
     return 1;
 }
 
-/* Set replication to the specified master address and port. */
+/* 设置复制指定的ip和端口的master */
 void replicationSetMaster(char *ip, int port) {
+    //保存原来是否为主实例的状态到was_master
     int was_master = server.masterhost == NULL;
 
     sdsfree(server.masterhost);
+    //释放并更新server.masterhost为新的主服务器IP
     server.masterhost = sdsnew(ip);
     server.masterport = port;
+    /*
+     * 从实例中的 server.master 指向主实例,可用于读取主实例信息。
+     * 主实例中的 server.master 为 NULL。
+     * */
     if (server.master) {
+        //释放原来的server.master客户端连接对象
         freeClient(server.master);
     }
-    disconnectAllBlockedClients(); /* Clients blocked in master, now slave. */
+    disconnectAllBlockedClients(); /* 断开所有由旧主服务器阻塞的客户端 */
 
-    /* Force our slaves to resync with us as well. They may hopefully be able
-     * to partially resync with us, but we can notify the replid change. */
+    /* 断开实例的所有从服务器连接,强制重新同步 */
     disconnectSlaves();
+    //取消当前任何复制握手状态
     cancelReplicationHandshake();
-    /* Before destroying our master state, create a cached master using
-     * our own parameters, to later PSYNC with the new master. */
+    /* 如果原本是一个主实例,则清除主服务器缓存,并使用自己的参数创建新缓存 */
     if (was_master) {
         replicationDiscardCachedMaster();
         replicationCacheMasterUsingMyself();
     }
+    //将repl_state设置为CONNECT状态,准备连接新的主服务器
     server.repl_state = REPL_STATE_CONNECT;
 }
 
@@ -2058,7 +2065,7 @@ void replicaofCommand(client *c) {
         if ((getLongFromObjectOrReply(c, c->argv[2], &port, NULL) != C_OK))
             return;
 
-        /* Check if we are already attached to the specified slave */
+        /* 检查是否已记录主库信息，如果已经记录了，那么直接返回连接已建立的消息  */
         if (server.masterhost && !strcasecmp(server.masterhost, c->argv[1]->ptr)
             && server.masterport == port) {
             serverLog(LL_NOTICE,
@@ -2066,8 +2073,7 @@ void replicaofCommand(client *c) {
             addReplySds(c, sdsnew("+OK Already connected to specified master\r\n"));
             return;
         }
-        /* There was no previous master or the user specified a different one,
-         * we can continue. */
+        /* 如果没有记录，continue */
         replicationSetMaster(c->argv[1]->ptr, port);
         sds client = catClientInfoString(sdsempty(), c);
         serverLog(LL_NOTICE, "REPLICAOF %s:%d enabled (user request from '%s')",
@@ -2218,18 +2224,9 @@ void replicationCacheMaster(client *c) {
     replicationHandleMasterDisconnection();
 }
 
-/* This function is called when a master is turend into a slave, in order to
- * create from scratch a cached master for the new client, that will allow
- * to PSYNC with the slave that was promoted as the new master after a
- * failover.
- *
- * Assuming this instance was previously the master instance of the new master,
- * the new master will accept its replication ID, and potentiall also the
- * current offset if no data was lost during the failover. So we use our
- * current replication ID and offset in order to synthesize a cached master. */
+/* 实现了当一个主服务器节点降级成从服务器时,如何利用自身信息来创建一个缓存主服务器. */
 void replicationCacheMasterUsingMyself(void) {
-    /* The master client we create can be set to any DBID, because
-     * the new master will start its replication stream with SELECT. */
+    /* 设置当前实例的offset为master_initial_offset */
     server.master_initial_offset = server.master_repl_offset;
     replicationCreateMasterClient(-1, -1);
 
@@ -2240,6 +2237,7 @@ void replicationCacheMasterUsingMyself(void) {
     unlinkClient(server.master);
     server.cached_master = server.master;
     server.master = NULL;
+    //尝试使用自己的master信息来进行部分重同步
     serverLog(LL_NOTICE,
               "Before turning into a replica, using my master parameters to synthesize a cached master: I may be able to synchronize with the new master with just a partial transfer.");
 }
@@ -2557,7 +2555,7 @@ long long replicationGetSlaveOffset(void) {
 
 /* --------------------------- REPLICATION CRON  ---------------------------- */
 
-/* Replication cron function, called 1 time per second. */
+/* 1s 1次 */
 void replicationCron(void) {
     static long long replication_cron_loops = 0;
 
