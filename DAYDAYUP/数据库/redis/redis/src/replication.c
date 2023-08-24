@@ -1358,27 +1358,22 @@ void readSyncBulkPayload(aeEventLoop *el, int fd, void *privdata, int mask) {
     return;
 }
 
-/* Send a synchronous command to the master. Used to send AUTH and
- * REPLCONF commands before starting the replication with SYNC.
- *
- * The command returns an sds string representing the result of the
- * operation. On error the first byte is a "-".
+/* 向主库发送同步命令。 在 SYNC 之前发送 AUTH 和 REPLCONF 命令。
+ * 该命令返回表示操作结果的 sds 字符串。 出错时第一个字节是“-”。
  */
 #define SYNC_CMD_READ (1<<0)
 #define SYNC_CMD_WRITE (1<<1)
 #define SYNC_CMD_FULL (SYNC_CMD_READ|SYNC_CMD_WRITE)
 
 char *sendSynchronousCommand(int flags, int fd, ...) {
-
-    /* Create the command to send to the master, we use redis binary
-     * protocol to make sure correct arguments are sent. This function
-     * is not safe for all binary data. */
+    //构造要发送到主库的命令
     if (flags & SYNC_CMD_WRITE) {
         char *arg;
         va_list ap;
         sds cmd = sdsempty();
         sds cmdargs = sdsempty();
         size_t argslen = 0;
+        /* 解析可变参数列表,拼接为Redis协议命令 */
         va_start(ap, fd);
 
         while (1) {
@@ -1395,24 +1390,20 @@ char *sendSynchronousCommand(int flags, int fd, ...) {
         cmd = sdscatsds(cmd, cmdargs);
         sdsfree(cmdargs);
 
-        /* Transfer command to the server. */
-        if (syncWrite(fd, cmd, sdslen(cmd), server.repl_syncio_timeout * 1000)
-            == -1) {
+        /* 发送命令到主库 */
+        if (syncWrite(fd, cmd, sdslen(cmd), server.repl_syncio_timeout * 1000) == -1) {
             sdsfree(cmd);
-            return sdscatprintf(sdsempty(), "-Writing to master: %s",
-                                strerror(errno));
+            return sdscatprintf(sdsempty(), "-Writing to master: %s", strerror(errno));
         }
         sdsfree(cmd);
     }
 
-    /* Read the reply from the server. */
+    /* 读取主库回复 */
     if (flags & SYNC_CMD_READ) {
         char buf[256];
 
-        if (syncReadLine(fd, buf, sizeof(buf), server.repl_syncio_timeout * 1000)
-            == -1) {
-            return sdscatprintf(sdsempty(), "-Reading from master: %s",
-                                strerror(errno));
+        if (syncReadLine(fd, buf, sizeof(buf), server.repl_syncio_timeout * 1000) == -1) {
+            return sdscatprintf(sdsempty(), "-Reading from master: %s", strerror(errno));
         }
         server.repl_transfer_lastio = server.unixtime;
         return sdsnew(buf);
@@ -1475,18 +1466,15 @@ char *sendSynchronousCommand(int flags, int fd, ...) {
 #define PSYNC_NOT_SUPPORTED 4
 #define PSYNC_TRY_LATER 5
 
+/*主库收到命令后,会根据从库发送的主库ID和复制偏移量,来判断是全量复制还是增量复制,或是返回错误*/
 int slaveTryPartialResynchronization(int fd, int read_reply) {
     char *psync_replid;
     char psync_offset[32];
     sds reply;
 
-    /* Writing half */
+    /* 发送psync命令 */
     if (!read_reply) {
-        /* Initially set master_initial_offset to -1 to mark the current
-         * master run_id and offset as not valid. Later if we'll be able to do
-         * a FULL resync using the PSYNC command we'll set the offset at the
-         * right value, so that this information will be propagated to the
-         * client structure representing the master into server.master. */
+        /* 从库第一次和主库同步时,设置offset为-1 */
         server.master_initial_offset = -1;
 
         if (server.cached_master) {
@@ -1499,7 +1487,7 @@ int slaveTryPartialResynchronization(int fd, int read_reply) {
             memcpy(psync_offset, "-1", 3);
         }
 
-        /* Issue the PSYNC command */
+        /* 发送psync命令 */
         reply = sendSynchronousCommand(SYNC_CMD_WRITE, fd, "PSYNC", psync_replid, psync_offset, NULL);
         if (reply != NULL) {
             serverLog(LL_WARNING, "Unable to send PSYNC to master: %s", reply);
@@ -1507,10 +1495,11 @@ int slaveTryPartialResynchronization(int fd, int read_reply) {
             aeDeleteFileEvent(server.el, fd, AE_READABLE);
             return PSYNC_WRITE_ERROR;
         }
+        //等待主库响应
         return PSYNC_WAIT_REPLY;
     }
 
-    /* Reading half */
+    /* 读取主库的响应 */
     reply = sendSynchronousCommand(SYNC_CMD_READ, fd, NULL);
     if (sdslen(reply) == 0) {
         /* The master may send empty newlines after it receives PSYNC
@@ -1520,7 +1509,7 @@ int slaveTryPartialResynchronization(int fd, int read_reply) {
     }
 
     aeDeleteFileEvent(server.el, fd, AE_READABLE);
-
+    //主库返回+FULLRESYNC,全量复制
     if (!strncmp(reply, "+FULLRESYNC", 11)) {
         char *replid = NULL, *offset = NULL;
 
@@ -1533,8 +1522,7 @@ int slaveTryPartialResynchronization(int fd, int read_reply) {
             if (offset) offset++;
         }
         if (!replid || !offset || (offset - replid - 1) != CONFIG_RUN_ID_SIZE) {
-            serverLog(LL_WARNING,
-                      "Master replied with wrong +FULLRESYNC syntax.");
+            serverLog(LL_WARNING, "Master replied with wrong +FULLRESYNC syntax.");
             /* This is an unexpected condition, actually the +FULLRESYNC
              * reply means that the master supports PSYNC, but the reply
              * format seems wrong. To stay safe we blank the master
@@ -1548,16 +1536,14 @@ int slaveTryPartialResynchronization(int fd, int read_reply) {
                       server.master_replid,
                       server.master_initial_offset);
         }
-        /* We are going to full resync, discard the cached master structure. */
+        /* 将全量同步，丢弃cached_master。 */
         replicationDiscardCachedMaster();
         sdsfree(reply);
         return PSYNC_FULLRESYNC;
     }
-
+    //主库返回+CONTINUE, 表示增量复制
     if (!strncmp(reply, "+CONTINUE", 9)) {
-        /* Partial resync was accepted. */
-        serverLog(LL_NOTICE,
-                  "Successful partial resynchronization with master.");
+        serverLog(LL_NOTICE, "Successful partial resynchronization with master.");
 
         /* Check the new replication ID advertised by the master. If it
          * changed, we need to set the new ID as primary ID, and set or
@@ -1620,8 +1606,7 @@ int slaveTryPartialResynchronization(int fd, int read_reply) {
 
     if (strncmp(reply, "-ERR", 4)) {
         /* If it's not an error, log the unexpected event. */
-        serverLog(LL_WARNING,
-                  "Unexpected reply to PSYNC from master: %s", reply);
+        serverLog(LL_WARNING, "Unexpected reply to PSYNC from master: %s", reply);
     } else {
         serverLog(LL_NOTICE,
                   "Master does not support PSYNC or is in "
@@ -1632,8 +1617,7 @@ int slaveTryPartialResynchronization(int fd, int read_reply) {
     return PSYNC_NOT_SUPPORTED;
 }
 
-/* This handler fires when the non blocking connect was able to
- * establish a connection with the master. */
+/* 当与主服务器建立连接后,触发此回调 */
 void syncWithMaster(aeEventLoop *el, int fd, void *privdata, int mask) {
     char tmpfile[256], *err = NULL;
     int dfd = -1, maxtries = 5;
@@ -1643,29 +1627,32 @@ void syncWithMaster(aeEventLoop *el, int fd, void *privdata, int mask) {
     UNUSED(privdata);
     UNUSED(mask);
 
-    /* If this event fired after the user turned the instance into a master
-     * with SLAVEOF NO ONE we must just return ASAP. */
+    /* 在用户将实例转为主实例且 SLAVEOF NO ONE 后触发此事件 */
     if (server.repl_state == REPL_STATE_NONE) {
         close(fd);
         return;
     }
 
-    /* Check for errors in the socket: after a non blocking connect() we
-     * may find that the socket is in error state. */
+    /* 检查socket状态
+     * fd: 要获取错误的socket描述符。
+     * SOL_SOCKET: 表示操作的协议层为Socket层。
+     * SO_ERROR: 选项名,表示获取socket的错误状态码。
+     * &sockerr: 输出缓冲区指针,用于保存获取到的错误码。
+     * &errlen: 输入/输出参数,指定了sockerr缓冲区的大小
+     * */
     if (getsockopt(fd, SOL_SOCKET, SO_ERROR, &sockerr, &errlen) == -1)
         sockerr = errno;
     if (sockerr) {
-        serverLog(LL_WARNING, "Error condition on socket for SYNC: %s",
-                  strerror(sockerr));
+        serverLog(LL_WARNING, "Error condition on socket for SYNC: %s", strerror(sockerr));
         goto error;
     }
 
-    /* Send a PING to check the master is able to reply without errors. */
+    /* 发送ping给主库 */
     if (server.repl_state == REPL_STATE_CONNECTING) {
         serverLog(LL_NOTICE, "Non blocking connect for SYNC fired the event.");
-        /* Delete the writable event so that the readable event remains
-         * registered and we can wait for the PONG reply. */
+        /* 删除写事件 */
         aeDeleteFileEvent(server.el, fd, AE_WRITABLE);
+        //设置当前装填为REPL_STATE_RECEIVE_PONG
         server.repl_state = REPL_STATE_RECEIVE_PONG;
         /* Send the PING, don't check for errors at all, we have the timeout
          * that will take care about this. */
@@ -1674,15 +1661,11 @@ void syncWithMaster(aeEventLoop *el, int fd, void *privdata, int mask) {
         return;
     }
 
-    /* Receive the PONG command. */
+    /* 收到pong消息 */
     if (server.repl_state == REPL_STATE_RECEIVE_PONG) {
         err = sendSynchronousCommand(SYNC_CMD_READ, fd, NULL);
 
-        /* We accept only two replies as valid, a positive +PONG reply
-         * (we just check for "+") or an authentication error.
-         * Note that older versions of Redis replied with "operation not
-         * permitted" instead of using a proper error code, so we test
-         * both. */
+        /*只接受两个回复, +PONG(只校验+) 和 -NOAUTH*/
         if (err[0] != '+' &&
             strncmp(err, "-NOAUTH", 7) != 0 &&
             strncmp(err, "-ERR operation not permitted", 28) != 0) {
@@ -1690,16 +1673,18 @@ void syncWithMaster(aeEventLoop *el, int fd, void *privdata, int mask) {
             sdsfree(err);
             goto error;
         } else {
-            serverLog(LL_NOTICE,
-                      "Master replied to PING, replication can continue...");
+            serverLog(LL_NOTICE, "Master replied to PING, replication can continue...");
         }
         sdsfree(err);
+        //设置为REPL_STATE_SEND_AUTH状态
         server.repl_state = REPL_STATE_SEND_AUTH;
     }
 
-    /* AUTH with the master if required. */
+    /*  */
     if (server.repl_state == REPL_STATE_SEND_AUTH) {
+        //如果需要auth
         if (server.masterauth) {
+            //发送auth命令到主库
             err = sendSynchronousCommand(SYNC_CMD_WRITE, fd, "AUTH", server.masterauth, NULL);
             if (err) goto write_error;
             server.repl_state = REPL_STATE_RECEIVE_AUTH;
@@ -1721,13 +1706,11 @@ void syncWithMaster(aeEventLoop *el, int fd, void *privdata, int mask) {
         server.repl_state = REPL_STATE_SEND_PORT;
     }
 
-    /* Set the slave port, so that Master's INFO command can list the
-     * slave listening port correctly. */
+    /* 设置slave端口，以便Master的INFO命令能够正确列出slave监听端口 */
     if (server.repl_state == REPL_STATE_SEND_PORT) {
         sds port = sdsfromlonglong(server.slave_announce_port ?
                                    server.slave_announce_port : server.port);
-        err = sendSynchronousCommand(SYNC_CMD_WRITE, fd, "REPLCONF",
-                                     "listening-port", port, NULL);
+        err = sendSynchronousCommand(SYNC_CMD_WRITE, fd, "REPLCONF", "listening-port", port, NULL);
         sdsfree(port);
         if (err) goto write_error;
         sdsfree(err);
@@ -1738,8 +1721,7 @@ void syncWithMaster(aeEventLoop *el, int fd, void *privdata, int mask) {
     /* Receive REPLCONF listening-port reply. */
     if (server.repl_state == REPL_STATE_RECEIVE_PORT) {
         err = sendSynchronousCommand(SYNC_CMD_READ, fd, NULL);
-        /* Ignore the error if any, not all the Redis versions support
-         * REPLCONF listening-port. */
+        /* 忽略错误,有的redis保本不支持REPLCONF */
         if (err[0] == '-') {
             serverLog(LL_NOTICE, "(Non critical) Master does not understand "
                                  "REPLCONF listening-port: %s", err);
@@ -1748,14 +1730,13 @@ void syncWithMaster(aeEventLoop *el, int fd, void *privdata, int mask) {
         server.repl_state = REPL_STATE_SEND_IP;
     }
 
-    /* Skip REPLCONF ip-address if there is no slave-announce-ip option set. */
+    /* 如果没有设置slave-announce-ip 选项，则跳过REPLCONF ip-address。 */
     if (server.repl_state == REPL_STATE_SEND_IP &&
         server.slave_announce_ip == NULL) {
         server.repl_state = REPL_STATE_SEND_CAPA;
     }
 
-    /* Set the slave ip, so that Master's INFO command can list the
-     * slave IP address port correctly in case of port forwarding or NAT. */
+    /* 设置从库ip，以便在端口转发或者NAT的情况下，Master的INFO命令能够正确列出从机IP地址端口。 */
     if (server.repl_state == REPL_STATE_SEND_IP) {
         err = sendSynchronousCommand(SYNC_CMD_WRITE, fd, "REPLCONF",
                                      "ip-address", server.slave_announce_ip, NULL);
@@ -1778,12 +1759,12 @@ void syncWithMaster(aeEventLoop *el, int fd, void *privdata, int mask) {
         server.repl_state = REPL_STATE_SEND_CAPA;
     }
 
-    /* Inform the master of our (slave) capabilities.
-     *
-     * EOF: supports EOF-style RDB transfer for diskless replication.
-     * PSYNC2: supports PSYNC v2, so understands +CONTINUE <new repl ID>.
-     *
-     * The master will ignore capabilities it does not understand. */
+    /* 告知master我们（slave）的能力。
+    *
+    * EOF：支持 EOF 式 RDB 传输以进行无盘复制。
+    * PSYNC2：支持 PSYNC v2，因此理解 +CONTINUE <new repl ID>。
+    *
+    * 主机将忽略它不理解的功能。 */
     if (server.repl_state == REPL_STATE_SEND_CAPA) {
         err = sendSynchronousCommand(SYNC_CMD_WRITE, fd, "REPLCONF",
                                      "capa", "eof", "capa", "psync2", NULL);
@@ -1806,11 +1787,7 @@ void syncWithMaster(aeEventLoop *el, int fd, void *privdata, int mask) {
         server.repl_state = REPL_STATE_SEND_PSYNC;
     }
 
-    /* Try a partial resynchonization. If we don't have a cached master
-     * slaveTryPartialResynchronization() will at least try to use PSYNC
-     * to start a full resynchronization so that we get the master run id
-     * and the global offset, to try a partial resync at the next
-     * reconnection attempt. */
+    /* 从库状态变为REPL_STATE_SEND_PSYNC后,开始向主库发送PSYNC命令 */
     if (server.repl_state == REPL_STATE_SEND_PSYNC) {
         if (slaveTryPartialResynchronization(fd, 0) == PSYNC_WRITE_ERROR) {
             err = sdsnew("Write error sending the PSYNC command.");
@@ -1831,16 +1808,15 @@ void syncWithMaster(aeEventLoop *el, int fd, void *privdata, int mask) {
     psync_result = slaveTryPartialResynchronization(fd, 1);
     if (psync_result == PSYNC_WAIT_REPLY) return; /* Try again later... */
 
-    /* If the master is in an transient error, we should try to PSYNC
-     * from scratch later, so go to the error path. This happens when
-     * the server is loading the dataset or is not connected with its
-     * master and so forth. */
+    /* 如果master出现暂时性错误，我们应该稍后尝试从头开始PSYNC，从而转到错误路径。
+     * 当服务器正在加载数据集或未与其主服务器连接等时，会发生这种情况。 */
     if (psync_result == PSYNC_TRY_LATER) goto error;
 
     /* Note: if PSYNC does not return WAIT_REPLY, it will take care of
      * uninstalling the read handler from the file descriptor. */
 
     if (psync_result == PSYNC_CONTINUE) {
+        //如果是PSYNC_CONTINUE, 从syncWithMaster返回,后续执行增量复制
         serverLog(LL_NOTICE, "MASTER <-> REPLICA sync: Master accepted a Partial Resynchronization.");
         return;
     }
@@ -1878,15 +1854,14 @@ void syncWithMaster(aeEventLoop *el, int fd, void *privdata, int mask) {
         goto error;
     }
 
-    /* Setup the non blocking download of the bulk file. */
+    /* 如果是全量复制, 针对连接上的读事件, 创建readSyncBulkPayload回调 */
     if (aeCreateFileEvent(server.el, fd, AE_READABLE, readSyncBulkPayload, NULL)
         == AE_ERR) {
-        serverLog(LL_WARNING,
-                  "Can't create readable event for SYNC: %s (fd=%d)",
+        serverLog(LL_WARNING, "Can't create readable event for SYNC: %s (fd=%d)",
                   strerror(errno), fd);
         goto error;
     }
-
+    //状态设置为REPL_STATE_TRANSFER
     server.repl_state = REPL_STATE_TRANSFER;
     server.repl_transfer_size = -1;
     server.repl_transfer_read = 0;
@@ -1912,17 +1887,14 @@ void syncWithMaster(aeEventLoop *el, int fd, void *privdata, int mask) {
 
 int connectWithMaster(void) {
     int fd;
-
-    fd = anetTcpNonBlockBestEffortBindConnect(NULL,
-                                              server.masterhost, server.masterport, NET_FIRST_BIND_ADDR);
+    //从库和主库建立连接
+    fd = anetTcpNonBlockBestEffortBindConnect(NULL, server.masterhost, server.masterport, NET_FIRST_BIND_ADDR);
     if (fd == -1) {
-        serverLog(LL_WARNING, "Unable to connect to MASTER: %s",
-                  strerror(errno));
+        serverLog(LL_WARNING, "Unable to connect to MASTER: %s", strerror(errno));
         return C_ERR;
     }
-
-    if (aeCreateFileEvent(server.el, fd, AE_READABLE | AE_WRITABLE, syncWithMaster, NULL) ==
-        AE_ERR) {
+    //在建立的连接上注册读写事件, 回调函数为syncWithMaster
+    if (aeCreateFileEvent(server.el, fd, AE_READABLE | AE_WRITABLE, syncWithMaster, NULL) == AE_ERR) {
         close(fd);
         serverLog(LL_WARNING, "Can't create readable event for SYNC");
         return C_ERR;
@@ -1930,6 +1902,7 @@ int connectWithMaster(void) {
 
     server.repl_transfer_lastio = server.unixtime;
     server.repl_transfer_s = fd;
+    //完成连接后,将状态设置为REPL_STATE_CONNECTING
     server.repl_state = REPL_STATE_CONNECTING;
     return C_OK;
 }
@@ -2583,7 +2556,7 @@ void replicationCron(void) {
         freeClient(server.master);
     }
 
-    /* Check if we should connect to a MASTER */
+    /* 如果从库实例的状态是REPL_STATE_CONNECT,那么开始和主库建立连接 */
     if (server.repl_state == REPL_STATE_CONNECT) {
         serverLog(LL_NOTICE, "Connecting to MASTER %s:%d",
                   server.masterhost, server.masterport);
