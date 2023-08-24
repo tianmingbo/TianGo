@@ -1126,9 +1126,10 @@ void restartAOFAfterSYNC() {
     }
 }
 
-/* Asynchronously read the SYNC payload we receive from a master */
+/* 异步读取我们从主机收到的rdb文件 */
 #define REPL_MAX_WRITTEN_BEFORE_FSYNC (1024*1024*8) /* 8 MB */
 
+//实现了主从同步中的 bulk 数据传输过程,主要功能是从主节点读取RDB文件并写入到从节点
 void readSyncBulkPayload(aeEventLoop *el, int fd, void *privdata, int mask) {
     char buf[4096];
     ssize_t nread, readlen, nwritten;
@@ -1821,11 +1822,7 @@ void syncWithMaster(aeEventLoop *el, int fd, void *privdata, int mask) {
         return;
     }
 
-    /* PSYNC failed or is not supported: we want our slaves to resync with us
-     * as well, if we have any sub-slaves. The master may transfer us an
-     * entirely different data set and we have no way to incrementally feed
-     * our slaves after that. */
-    disconnectSlaves(); /* Force our slaves to resync with us as well. */
+    disconnectSlaves(); /* 强制从库重新同步 */
     freeReplicationBacklog(); /* Don't allow our chained slaves to PSYNC. */
 
     /* Fall back to SYNC if needed. Otherwise psync_result == PSYNC_FULLRESYNC
@@ -1840,10 +1837,10 @@ void syncWithMaster(aeEventLoop *el, int fd, void *privdata, int mask) {
         }
     }
 
-    /* Prepare a suitable temp file for bulk transfer */
+    /* 创建一个临时文件,用于传输rdb */
     while (maxtries--) {
-        snprintf(tmpfile, 256,
-                 "temp-%d.%ld.rdb", (int) server.unixtime, (long int) getpid());
+        snprintf(tmpfile, 256, "temp-%d.%ld.rdb", (int) server.unixtime, (long int) getpid());
+        //temp-1568715355.64358.rdb
         dfd = open(tmpfile, O_CREAT | O_WRONLY | O_EXCL, 0644);
         if (dfd != -1) break;
         sleep(1);
@@ -1855,10 +1852,8 @@ void syncWithMaster(aeEventLoop *el, int fd, void *privdata, int mask) {
     }
 
     /* 如果是全量复制, 针对连接上的读事件, 创建readSyncBulkPayload回调 */
-    if (aeCreateFileEvent(server.el, fd, AE_READABLE, readSyncBulkPayload, NULL)
-        == AE_ERR) {
-        serverLog(LL_WARNING, "Can't create readable event for SYNC: %s (fd=%d)",
-                  strerror(errno), fd);
+    if (aeCreateFileEvent(server.el, fd, AE_READABLE, readSyncBulkPayload, NULL) == AE_ERR) {
+        serverLog(LL_WARNING, "Can't create readable event for SYNC: %s (fd=%d)", strerror(errno), fd);
         goto error;
     }
     //状态设置为REPL_STATE_TRANSFER
