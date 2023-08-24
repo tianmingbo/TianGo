@@ -1,4 +1,5 @@
 /*
+ * REPLICAOF和SLAVEOF的功能是一样的.
 Redis主从复制相关的命令非常丰富,主要包括:
 
 SLAVEOF - 将服务器设置为其他服务器的从服务器。
@@ -1138,26 +1139,21 @@ void readSyncBulkPayload(aeEventLoop *el, int fd, void *privdata, int mask) {
     UNUSED(privdata);
     UNUSED(mask);
 
-    /* Static vars used to hold the EOF mark, and the last bytes received
-     * form the server: when they match, we reached the end of the transfer. */
+    /* 用于检测EOF的标记和最近接收的字节 */
     static char eofmark[CONFIG_RUN_ID_SIZE];
     static char lastbytes[CONFIG_RUN_ID_SIZE];
     static int usemark = 0;
 
-    /* If repl_transfer_size == -1 we still have to read the bulk length
-     * from the master reply. */
+    /* repl_transfer_size == -1 尚未读取到rdb长度 */
     if (server.repl_transfer_size == -1) {
+        // 读取bulk长度
         if (syncReadLine(fd, buf, 1024, server.repl_syncio_timeout * 1000) == -1) {
-            serverLog(LL_WARNING,
-                      "I/O error reading bulk count from MASTER: %s",
-                      strerror(errno));
+            serverLog(LL_WARNING, "I/O error reading bulk count from MASTER: %s", strerror(errno));
             goto error;
         }
 
         if (buf[0] == '-') {
-            serverLog(LL_WARNING,
-                      "MASTER aborted replication with an error: %s",
-                      buf + 1);
+            serverLog(LL_WARNING, "MASTER aborted replication with an error: %s", buf + 1);
             goto error;
         } else if (buf[0] == '\0') {
             /* At this stage just a newline works as a PING in order to take
@@ -1172,16 +1168,10 @@ void readSyncBulkPayload(aeEventLoop *el, int fd, void *privdata, int mask) {
             goto error;
         }
 
-        /* There are two possible forms for the bulk payload. One is the
-         * usual $<count> bulk format. The other is used for diskless transfers
-         * when the master does not know beforehand the size of the file to
-         * transfer. In the latter case, the following format is used:
-         *
-         * $EOF:<40 bytes delimiter>
-         *
-         * At the end of the file the announced delimiter is transmitted. The
-         * delimiter is long and random enough that the probability of a
-         * collision with the actual file content can be ignored. */
+        /* 主服务器在同步RDB文件时传来的协议头,主要有两种形式:
+         * 带有count的普通bulk格式:$<count>
+         * Diskless RDB格式:$EOF:<delimiter>
+         * */
         if (strncmp(buf + 1, "EOF:", 4) == 0 && strlen(buf + 5) >= CONFIG_RUN_ID_SIZE) {
             usemark = 1;
             memcpy(eofmark, buf + 5, CONFIG_RUN_ID_SIZE);
@@ -1189,8 +1179,7 @@ void readSyncBulkPayload(aeEventLoop *el, int fd, void *privdata, int mask) {
             /* Set any repl_transfer_size to avoid entering this code path
              * at the next call. */
             server.repl_transfer_size = 0;
-            serverLog(LL_NOTICE,
-                      "MASTER <-> REPLICA sync: receiving streamed RDB from master");
+            serverLog(LL_NOTICE, "MASTER <-> REPLICA sync: receiving streamed RDB from master");
         } else {
             usemark = 0;
             server.repl_transfer_size = strtol(buf + 1, NULL, 10);
@@ -1479,11 +1468,13 @@ int slaveTryPartialResynchronization(int fd, int read_reply) {
         server.master_initial_offset = -1;
 
         if (server.cached_master) {
+            //尝试部分同步流程
             psync_replid = server.cached_master->replid;
             snprintf(psync_offset, sizeof(psync_offset), "%lld", server.cached_master->reploff + 1);
             serverLog(LL_NOTICE, "Trying a partial resynchronization (request %s:%s).", psync_replid, psync_offset);
         } else {
             serverLog(LL_NOTICE, "Partial resynchronization not possible (no cached master)");
+            //server.cached_master不存在,只能使用全量同步机制
             psync_replid = "?";
             memcpy(psync_offset, "-1", 3);
         }
@@ -1503,8 +1494,7 @@ int slaveTryPartialResynchronization(int fd, int read_reply) {
     /* 读取主库的响应 */
     reply = sendSynchronousCommand(SYNC_CMD_READ, fd, NULL);
     if (sdslen(reply) == 0) {
-        /* The master may send empty newlines after it receives PSYNC
-         * and before to reply, just to keep the connection alive. */
+        /* 主库没有返回有效数据,退出流程,继续等待 */
         sdsfree(reply);
         return PSYNC_WAIT_REPLY;
     }
@@ -1514,8 +1504,7 @@ int slaveTryPartialResynchronization(int fd, int read_reply) {
     if (!strncmp(reply, "+FULLRESYNC", 11)) {
         char *replid = NULL, *offset = NULL;
 
-        /* FULL RESYNC, parse the reply in order to extract the run id
-         * and the replication offset. */
+        /* strchr找到第一个出现' '的位置,找到replid */
         replid = strchr(reply, ' ');
         if (replid) {
             replid++;
@@ -1524,10 +1513,7 @@ int slaveTryPartialResynchronization(int fd, int read_reply) {
         }
         if (!replid || !offset || (offset - replid - 1) != CONFIG_RUN_ID_SIZE) {
             serverLog(LL_WARNING, "Master replied with wrong +FULLRESYNC syntax.");
-            /* This is an unexpected condition, actually the +FULLRESYNC
-             * reply means that the master supports PSYNC, but the reply
-             * format seems wrong. To stay safe we blank the master
-             * replid to make sure next PSYNCs will fail. */
+            /* 异常处理 */
             memset(server.master_replid, 0, CONFIG_RUN_ID_SIZE + 1);
         } else {
             memcpy(server.master_replid, replid, offset - replid - 1);
@@ -1939,7 +1925,7 @@ int cancelReplicationHandshake(void) {
     return 1;
 }
 
-/* 设置复制指定的ip和端口的master */
+/* 设置复制指定的ip和端口的master,负责建立主从复制关系 */
 void replicationSetMaster(char *ip, int port) {
     //保存原来是否为主实例的状态到was_master
     int was_master = server.masterhost == NULL;
@@ -1958,7 +1944,7 @@ void replicationSetMaster(char *ip, int port) {
     }
     disconnectAllBlockedClients(); /* 断开所有由旧主服务器阻塞的客户端 */
 
-    /* 断开实例的所有从服务器连接,强制重新同步 */
+    /* 断开实例的所有从服务器连接,使这些节点重新发起同步请求*/
     disconnectSlaves();
     //取消当前任何复制握手状态
     cancelReplicationHandshake();
@@ -2000,6 +1986,7 @@ void replicationHandleMasterDisconnection(void) {
 }
 
 /*
+ * 从主节点发过来的,从节点处理该命令
  * replicaof masterip masterport
  * */
 void replicaofCommand(client *c) {

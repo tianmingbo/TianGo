@@ -1114,11 +1114,11 @@ struct redisServer {
     /* Replication (master) */
     char replid[CONFIG_RUN_ID_SIZE + 1];  /* My current replication ID. */
     char replid2[CONFIG_RUN_ID_SIZE + 1]; /* 从master继承的replid */
-    long long master_repl_offset;   /* My current replication offset */
+    long long master_repl_offset;   /* 记录当前服务器已执行命令的偏移量 */
     long long second_replid_offset; /* Accept offsets up to this for replid2. */
     int slaveseldb;                 /* Last SELECTed DB in replication output */
     int repl_ping_slave_period;     /* Master pings the slave every N seconds */
-    char *repl_backlog;             /* Replication backlog for partial syncs */
+    char *repl_backlog;             /* 复制积压缓冲区,主节点将最近的写命令写入复制积压缓冲区,用户实现增量复制 */
     long long repl_backlog_size;    /* Backlog circular buffer size */
     long long repl_backlog_histlen; /* Backlog actual data length */
     long long repl_backlog_idx;     /* Backlog circular buffer current offset,
@@ -1143,8 +1143,8 @@ struct redisServer {
     client *cached_master; /*从库上缓存的主库信息 */
     int repl_syncio_timeout; /* Timeout for synchronous I/O calls */
     int repl_state;          /* 从库的复制状态机 */
-    off_t repl_transfer_size; /* Size of RDB to read from master during sync. */
-    off_t repl_transfer_read; /* Amount of RDB read from master during sync. */
+    off_t repl_transfer_size; /* 同步期间从 master 读取的 RDB 大小 */
+    off_t repl_transfer_read; /* 同步期间从 master 读取的 RDB 数量 */
     off_t repl_transfer_last_fsync_off; /* Offset when we fsync-ed last time. */
     int repl_transfer_s;     /* Slave -> Master SYNC socket连接 */
     int repl_transfer_fd;    /* Slave -> Master SYNC temp file descriptor */
