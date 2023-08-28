@@ -662,6 +662,11 @@ int redisvAsyncCommand(redisAsyncContext *ac, redisCallbackFn *fn, void *privdat
     return status;
 }
 
+/*
+ * ac连接上下文
+ * fn回调函数
+ * privdata用于回调函数的附加参数
+ * */
 int redisAsyncCommand(redisAsyncContext *ac, redisCallbackFn *fn, void *privdata, const char *format, ...) {
     va_list ap;
     int status;
