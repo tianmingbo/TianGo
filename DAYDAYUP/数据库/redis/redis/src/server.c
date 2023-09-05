@@ -1300,7 +1300,7 @@ int serverCron(struct aeEventLoop *eventLoop, long long id, void *clientData) {
     /* replicationCron——用于重新连接到主服务器、检测传输失败、启动后台 RDB 传输等。 */
     run_with_period(1000) replicationCron();
 
-    /* Run the Redis Cluster cron. */
+    /* 100ms调用一次clusterCron */
     run_with_period(100) {
         if (server.cluster_enabled) clusterCron();
     }
@@ -2665,21 +2665,26 @@ int processCommand(client *c) {
     }
 
     // 集群重定向
+    //当前Redis server启用了Redis Cluster模式；收到的命令不是来自于当前的主节点；收到的命令包含了key参数，或者命令是EXEC
     if (server.cluster_enabled &&
         !(c->flags & CLIENT_MASTER) &&
-        !(c->flags & CLIENT_LUA &&
-          server.lua_caller->flags & CLIENT_MASTER) &&
-        !(c->cmd->getkeys_proc == NULL && c->cmd->firstkey == 0 &&
-          c->cmd->proc != execCommand)) {
+        !(c->flags & CLIENT_LUA && server.lua_caller->flags & CLIENT_MASTER) &&
+        !(c->cmd->getkeys_proc == NULL && c->cmd->firstkey == 0 && c->cmd->proc != execCommand)
+            ) {
         // 执行集群重定向逻辑
         int hashslot;
         int error_code;
         clusterNode *n = getNodeByQuery(c, c->cmd, c->argv, c->argc,
                                         &hashslot, &error_code);
+        //目标节点为空 or 不是自身
         if (n == NULL || n != server.cluster->myself) {
+            //查询的 key 不在当前实例且client执行的是exec
             if (c->cmd->proc == execCommand) {
                 discardTransaction(c);
             } else {
+                /* 给当前 client 打上一个标记 CLIENT_DIRTY_EXEC，
+                 * 如果后面执行了 EXEC，就会判断这个标记，
+                 * 随即也会放弃执行事务，给客户端返回错误*/
                 flagTransaction(c);
             }
             clusterRedirectClient(c, n, hashslot, error_code);
@@ -2792,11 +2797,13 @@ int processCommand(client *c) {
         return C_OK;
     }
 
-    /* Exec the command */
+    //客户端有CLIENT_MULTI标记，同时当前命令不是EXEC，DISCARD, MULTI和WATCH
     if (c->flags & CLIENT_MULTI &&
-        c->cmd->proc != execCommand && c->cmd->proc != discardCommand &&
-        c->cmd->proc != multiCommand && c->cmd->proc != watchCommand) {
-        queueMultiCommand(c);
+        c->cmd->proc != execCommand &&
+        c->cmd->proc != discardCommand &&
+        c->cmd->proc != multiCommand &&
+        c->cmd->proc != watchCommand) {
+        queueMultiCommand(c); //缓存命令
         addReply(c, shared.queued);
     } else {
         call(c, CMD_CALL_FULL);

@@ -1238,7 +1238,9 @@ int *getKeysUsingCommandTable(struct redisCommand *cmd, robj **argv, int argc, i
  * table, according to the command name in argv[0].
  *
  * This function uses the command table if a command-specific helper function
- * is not required, otherwise it calls the command-specific function. */
+ * is not required, otherwise it calls the command-specific function.
+ * 获取命令中的 key 位置和 key 个数
+ * */
 int *getKeysFromCommand(struct redisCommand *cmd, robj **argv, int argc, int *numkeys) {
     if (cmd->flags & CMD_MODULE_GETKEYS) {
         return moduleGetCommandKeysViaAPI(cmd, argv, argc, numkeys);

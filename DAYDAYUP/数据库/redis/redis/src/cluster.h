@@ -88,10 +88,10 @@ typedef struct clusterLink {
  * kind of packet. PONG is the reply to ping, in the exact format as a PING,
  * while MEET is a special PING that forces the receiver to add the sender
  * as a node (if it is not already in the list). */
-#define CLUSTERMSG_TYPE_PING 0          /* Ping */
-#define CLUSTERMSG_TYPE_PONG 1          /* Pong (reply to Ping) */
-#define CLUSTERMSG_TYPE_MEET 2          /* Meet "let's join" message */
-#define CLUSTERMSG_TYPE_FAIL 3          /* Mark node xxx as failing */
+#define CLUSTERMSG_TYPE_PING 0  //Ping消息，用来向其他节点发送当前节点信息
+#define CLUSTERMSG_TYPE_PONG 1  //Pong消息，对Ping消息的回复
+#define CLUSTERMSG_TYPE_MEET 2  //Meet消息，表示某个节点要加入集群
+#define CLUSTERMSG_TYPE_FAIL 3  //Fail消息，表示某个节点有故障
 #define CLUSTERMSG_TYPE_PUBLISH 4       /* Pub/Sub Publish propagation */
 #define CLUSTERMSG_TYPE_FAILOVER_AUTH_REQUEST 5 /* May I failover? */
 #define CLUSTERMSG_TYPE_FAILOVER_AUTH_ACK 6     /* Yes, you have my vote */
@@ -118,7 +118,7 @@ typedef struct clusterNode {
     char name[CLUSTER_NAMELEN]; /* Node name, hex string, sha1-size */
     int flags;      /* CLUSTER_NODE_... */
     uint64_t configEpoch; /* Last configEpoch observed for this node */
-    unsigned char slots[CLUSTER_SLOTS/8]; /* slots handled by this node */
+    unsigned char slots[CLUSTER_SLOTS / 8]; /* slots handled by this node */
     int numslots;   /* Number of slots handled by this node */
     int numslaves;  /* Number of slave nodes, if this is a master */
     struct clusterNode **slaves; /* pointers to slave nodes */
@@ -187,14 +187,14 @@ typedef struct clusterState {
  * to the first node, using the getsockname() function. Then we'll use this
  * address for all the next messages. */
 typedef struct {
-    char nodename[CLUSTER_NAMELEN];
-    uint32_t ping_sent;
-    uint32_t pong_received;
-    char ip[NET_IP_STR_LEN];  /* IP address last time it was seen */
-    uint16_t port;              /* base port last time it was seen */
-    uint16_t cport;             /* cluster port last time it was seen */
-    uint16_t flags;             /* node->flags copy */
-    uint32_t notused1;
+    char nodename[CLUSTER_NAMELEN]; //节点名称
+    uint32_t ping_sent;  //节点发送Ping的时间
+    uint32_t pong_received; //节点收到Pong的时间
+    char ip[NET_IP_STR_LEN];  //节点IP
+    uint16_t port;              //节点和客户端的通信端口
+    uint16_t cport;             //节点用于集群通信的端口
+    uint16_t flags;             //节点的标记
+    uint32_t notused1;    //未用字段
 } clusterMsgDataGossip;
 
 typedef struct {
@@ -210,7 +210,7 @@ typedef struct {
 typedef struct {
     uint64_t configEpoch; /* Config epoch of the specified instance. */
     char nodename[CLUSTER_NAMELEN]; /* Name of the slots owner. */
-    unsigned char slots[CLUSTER_SLOTS/8]; /* Slots bitmap. */
+    unsigned char slots[CLUSTER_SLOTS / 8]; /* Slots bitmap. */
 } clusterMsgDataUpdate;
 
 typedef struct {
@@ -221,38 +221,38 @@ typedef struct {
 } clusterMsgModule;
 
 union clusterMsgData {
-    /* PING, MEET and PONG */
+    //Ping、Pong和Meet消息类型对应的数据结构
+    /*一个 Ping 消息中会包含多个 clusterMsgDataGossip 结构体，每个结构体实际对应了一个节点的信息。*/
     struct {
-        /* Array of N clusterMsgDataGossip structures */
         clusterMsgDataGossip gossip[1];
     } ping;
 
-    /* FAIL */
+    //Fail消息类型对应的数据结构
     struct {
         clusterMsgDataFail about;
     } fail;
 
-    /* PUBLISH */
+    //Publish消息类型对应的数据结构
     struct {
         clusterMsgDataPublish msg;
     } publish;
 
-    /* UPDATE */
+    //Update消息类型对应的数据结构
     struct {
         clusterMsgDataUpdate nodecfg;
     } update;
 
-    /* MODULE */
+    //Module消息类型对应的数据结构
     struct {
         clusterMsgModule msg;
     } module;
 };
 
 #define CLUSTER_PROTO_VER 1 /* Cluster bus protocol version. */
-
+//表示节点间通信的一条消息
 typedef struct {
     char sig[4];        /* Signature "RCmb" (Redis Cluster message bus). */
-    uint32_t totlen;    /* Total length of this message */
+    uint32_t totlen;    /* 消息长度 */
     uint16_t ver;       /* Protocol version, currently set to 1. */
     uint16_t port;      /* TCP base port number. */
     uint16_t type;      /* Message type */
@@ -263,16 +263,16 @@ typedef struct {
                                slave. */
     uint64_t offset;    /* Master replication offset if node is a master or
                            processed replication offset if node is a slave. */
-    char sender[CLUSTER_NAMELEN]; /* Name of the sender node */
-    unsigned char myslots[CLUSTER_SLOTS/8];
+    char sender[CLUSTER_NAMELEN]; /* 发送消息节点的名称 */
+    unsigned char myslots[CLUSTER_SLOTS / 8]; //发送消息节点负责的slots
     char slaveof[CLUSTER_NAMELEN];
-    char myip[NET_IP_STR_LEN];    /* Sender IP, if not all zeroed. */
+    char myip[NET_IP_STR_LEN];    /* 发送消息节点的IP */
     char notused1[34];  /* 34 bytes reserved for future usage. */
-    uint16_t cport;      /* Sender TCP cluster bus port */
+    uint16_t cport;      /* 发送消息节点的通信端口 */
     uint16_t flags;      /* Sender node flags */
     unsigned char state; /* Cluster state from the POV of the sender */
     unsigned char mflags[3]; /* Message flags: CLUSTERMSG_FLAG[012]_... */
-    union clusterMsgData data;
+    union clusterMsgData data; //消息体
 } clusterMsg;
 
 #define CLUSTERMSG_MIN_LEN (sizeof(clusterMsg)-sizeof(union clusterMsgData))
@@ -285,7 +285,9 @@ typedef struct {
 
 /* ---------------------- API exported outside cluster.c -------------------- */
 clusterNode *getNodeByQuery(client *c, struct redisCommand *cmd, robj **argv, int argc, int *hashslot, int *ask);
+
 int clusterRedirectBlockedClientIfNeeded(client *c);
+
 void clusterRedirectClient(client *c, clusterNode *n, int hashslot, int error_code);
 
 #endif /* __CLUSTER_H */

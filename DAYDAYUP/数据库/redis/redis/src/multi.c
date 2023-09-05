@@ -44,7 +44,7 @@ void freeClientMultiState(client *c) {
 
     for (j = 0; j < c->mstate.count; j++) {
         int i;
-        multiCmd *mc = c->mstate.commands+j;
+        multiCmd *mc = c->mstate.commands + j;
 
         for (i = 0; i < mc->argc; i++)
             decrRefCount(mc->argv[i]);
@@ -59,22 +59,27 @@ void queueMultiCommand(client *c) {
     int j;
 
     c->mstate.commands = zrealloc(c->mstate.commands,
-            sizeof(multiCmd)*(c->mstate.count+1));
-    mc = c->mstate.commands+c->mstate.count;
+                                  sizeof(multiCmd) * (c->mstate.count + 1));
+    mc = c->mstate.commands + c->mstate.count;
     mc->cmd = c->cmd;
     mc->argc = c->argc;
-    mc->argv = zmalloc(sizeof(robj*)*c->argc);
-    memcpy(mc->argv,c->argv,sizeof(robj*)*c->argc);
+    mc->argv = zmalloc(sizeof(robj *) * c->argc);
+    memcpy(mc->argv, c->argv, sizeof(robj *) * c->argc);
     for (j = 0; j < c->argc; j++)
         incrRefCount(mc->argv[j]);
     c->mstate.count++;
     c->mstate.cmd_flags |= c->cmd->flags;
 }
 
+/*
+ * 放弃事务的执行
+ * 清空当前 client 之前缓存的命令，并对事务中的 key 执行 unWatch 操作，
+ * 最后重置 client 的事务标记
+*/
 void discardTransaction(client *c) {
     freeClientMultiState(c);
     initClientMultiState(c);
-    c->flags &= ~(CLIENT_MULTI|CLIENT_DIRTY_CAS|CLIENT_DIRTY_EXEC);
+    c->flags &= ~(CLIENT_MULTI | CLIENT_DIRTY_CAS | CLIENT_DIRTY_EXEC);
     unwatchAllKeys(c);
 }
 
@@ -87,29 +92,29 @@ void flagTransaction(client *c) {
 
 void multiCommand(client *c) {
     if (c->flags & CLIENT_MULTI) {
-        addReplyError(c,"MULTI calls can not be nested");
+        addReplyError(c, "MULTI calls can not be nested");
         return;
     }
     c->flags |= CLIENT_MULTI;
-    addReply(c,shared.ok);
+    addReply(c, shared.ok);
 }
 
 void discardCommand(client *c) {
     if (!(c->flags & CLIENT_MULTI)) {
-        addReplyError(c,"DISCARD without MULTI");
+        addReplyError(c, "DISCARD without MULTI");
         return;
     }
     discardTransaction(c);
-    addReply(c,shared.ok);
+    addReply(c, shared.ok);
 }
 
 /* Send a MULTI command to all the slaves and AOF file. Check the execCommand
  * implementation for more information. */
 void execCommandPropagateMulti(client *c) {
-    robj *multistring = createStringObject("MULTI",5);
+    robj *multistring = createStringObject("MULTI", 5);
 
-    propagate(server.multiCommand,c->db->id,&multistring,1,
-              PROPAGATE_AOF|PROPAGATE_REPL);
+    propagate(server.multiCommand, c->db->id, &multistring, 1,
+              PROPAGATE_AOF | PROPAGATE_REPL);
     decrRefCount(multistring);
 }
 
@@ -122,7 +127,7 @@ void execCommand(client *c) {
     int was_master = server.masterhost == NULL;
 
     if (!(c->flags & CLIENT_MULTI)) {
-        addReplyError(c,"EXEC without MULTI");
+        addReplyError(c, "EXEC without MULTI");
         return;
     }
 
@@ -132,9 +137,9 @@ void execCommand(client *c) {
      * A failed EXEC in the first case returns a multi bulk nil object
      * (technically it is not an error but a special behavior), while
      * in the second an EXECABORT error is returned. */
-    if (c->flags & (CLIENT_DIRTY_CAS|CLIENT_DIRTY_EXEC)) {
+    if (c->flags & (CLIENT_DIRTY_CAS | CLIENT_DIRTY_EXEC)) {
         addReply(c, c->flags & CLIENT_DIRTY_EXEC ? shared.execaborterr :
-                                                  shared.nullmultibulk);
+                    shared.nullmultibulk);
         discardTransaction(c);
         goto handle_monitor;
     }
@@ -145,11 +150,10 @@ void execCommand(client *c) {
      * then the configuration changed (for example instance was turned into
      * a replica). */
     if (!server.loading && server.masterhost && server.repl_slave_ro &&
-        !(c->flags & CLIENT_MASTER) && c->mstate.cmd_flags & CMD_WRITE)
-    {
+        !(c->flags & CLIENT_MASTER) && c->mstate.cmd_flags & CMD_WRITE) {
         addReplyError(c,
-            "Transaction contains write commands but instance "
-            "is now a read-only slave. EXEC aborted.");
+                      "Transaction contains write commands but instance "
+                      "is now a read-only slave. EXEC aborted.");
         discardTransaction(c);
         goto handle_monitor;
     }
@@ -159,7 +163,7 @@ void execCommand(client *c) {
     orig_argv = c->argv;
     orig_argc = c->argc;
     orig_cmd = c->cmd;
-    addReplyMultiBulkLen(c,c->mstate.count);
+    addReplyMultiBulkLen(c, c->mstate.count);
     for (j = 0; j < c->mstate.count; j++) {
         c->argc = c->mstate.commands[j].argc;
         c->argv = c->mstate.commands[j].argv;
@@ -170,12 +174,12 @@ void execCommand(client *c) {
          * This way we'll deliver the MULTI/..../EXEC block as a whole and
          * both the AOF and the replication link will have the same consistency
          * and atomicity guarantees. */
-        if (!must_propagate && !(c->cmd->flags & (CMD_READONLY|CMD_ADMIN))) {
+        if (!must_propagate && !(c->cmd->flags & (CMD_READONLY | CMD_ADMIN))) {
             execCommandPropagateMulti(c);
             must_propagate = 1;
         }
 
-        call(c,server.loading ? CMD_CALL_NONE : CMD_CALL_FULL);
+        call(c, server.loading ? CMD_CALL_NONE : CMD_CALL_FULL);
 
         /* Commands may alter argc/argv, restore mstate. */
         c->mstate.commands[j].argc = c->argc;
@@ -199,18 +203,18 @@ void execCommand(client *c) {
          * backlog with the final EXEC. */
         if (server.repl_backlog && was_master && !is_master) {
             char *execcmd = "*1\r\n$4\r\nEXEC\r\n";
-            feedReplicationBacklog(execcmd,strlen(execcmd));
+            feedReplicationBacklog(execcmd, strlen(execcmd));
         }
     }
 
-handle_monitor:
+    handle_monitor:
     /* Send EXEC to clients waiting data from MONITOR. We do it here
      * since the natural order of commands execution is actually:
      * MUTLI, EXEC, ... commands inside transaction ...
      * Instead EXEC is flagged as CMD_SKIP_MONITOR in the command
      * table, and we do it here with correct ordering. */
     if (listLength(server.monitors) && !server.loading)
-        replicationFeedMonitors(c,server.monitors,c->db->id,c->argv,c->argc);
+        replicationFeedMonitors(c, server.monitors, c->db->id, c->argv, c->argc);
 }
 
 /* ===================== WATCH (CAS alike for MULTI/EXEC) ===================
@@ -238,26 +242,26 @@ void watchForKey(client *c, robj *key) {
     watchedKey *wk;
 
     /* Check if we are already watching for this key */
-    listRewind(c->watched_keys,&li);
-    while((ln = listNext(&li))) {
+    listRewind(c->watched_keys, &li);
+    while ((ln = listNext(&li))) {
         wk = listNodeValue(ln);
-        if (wk->db == c->db && equalStringObjects(key,wk->key))
+        if (wk->db == c->db && equalStringObjects(key, wk->key))
             return; /* Key already watched */
     }
     /* This key is not already watched in this DB. Let's add it */
-    clients = dictFetchValue(c->db->watched_keys,key);
+    clients = dictFetchValue(c->db->watched_keys, key);
     if (!clients) {
         clients = listCreate();
-        dictAdd(c->db->watched_keys,key,clients);
+        dictAdd(c->db->watched_keys, key, clients);
         incrRefCount(key);
     }
-    listAddNodeTail(clients,c);
+    listAddNodeTail(clients, c);
     /* Add the new key to the list of keys watched by this client */
     wk = zmalloc(sizeof(*wk));
     wk->key = key;
     wk->db = c->db;
     incrRefCount(key);
-    listAddNodeTail(c->watched_keys,wk);
+    listAddNodeTail(c->watched_keys, wk);
 }
 
 /* Unwatch all the keys watched by this client. To clean the EXEC dirty
@@ -267,8 +271,8 @@ void unwatchAllKeys(client *c) {
     listNode *ln;
 
     if (listLength(c->watched_keys) == 0) return;
-    listRewind(c->watched_keys,&li);
-    while((ln = listNext(&li))) {
+    listRewind(c->watched_keys, &li);
+    while ((ln = listNext(&li))) {
         list *clients;
         watchedKey *wk;
 
@@ -276,13 +280,13 @@ void unwatchAllKeys(client *c) {
          * from the list */
         wk = listNodeValue(ln);
         clients = dictFetchValue(wk->db->watched_keys, wk->key);
-        serverAssertWithInfo(c,NULL,clients != NULL);
-        listDelNode(clients,listSearchKey(clients,c));
+        serverAssertWithInfo(c, NULL, clients != NULL);
+        listDelNode(clients, listSearchKey(clients, c));
         /* Kill the entry at all if this was the only client */
         if (listLength(clients) == 0)
             dictDelete(wk->db->watched_keys, wk->key);
         /* Remove this watched key from the client->watched list */
-        listDelNode(c->watched_keys,ln);
+        listDelNode(c->watched_keys, ln);
         decrRefCount(wk->key);
         zfree(wk);
     }
@@ -301,8 +305,8 @@ void touchWatchedKey(redisDb *db, robj *key) {
 
     /* Mark all the clients watching this key as CLIENT_DIRTY_CAS */
     /* Check if we are already watching for this key */
-    listRewind(clients,&li);
-    while((ln = listNext(&li))) {
+    listRewind(clients, &li);
+    while ((ln = listNext(&li))) {
         client *c = listNodeValue(ln);
 
         c->flags |= CLIENT_DIRTY_CAS;
@@ -318,11 +322,11 @@ void touchWatchedKeysOnFlush(int dbid) {
     listNode *ln;
 
     /* For every client, check all the waited keys */
-    listRewind(server.clients,&li1);
-    while((ln = listNext(&li1))) {
+    listRewind(server.clients, &li1);
+    while ((ln = listNext(&li1))) {
         client *c = listNodeValue(ln);
-        listRewind(c->watched_keys,&li2);
-        while((ln = listNext(&li2))) {
+        listRewind(c->watched_keys, &li2);
+        while ((ln = listNext(&li2))) {
             watchedKey *wk = listNodeValue(ln);
 
             /* For every watched key matching the specified DB, if the
@@ -340,16 +344,16 @@ void watchCommand(client *c) {
     int j;
 
     if (c->flags & CLIENT_MULTI) {
-        addReplyError(c,"WATCH inside MULTI is not allowed");
+        addReplyError(c, "WATCH inside MULTI is not allowed");
         return;
     }
     for (j = 1; j < c->argc; j++)
-        watchForKey(c,c->argv[j]);
-    addReply(c,shared.ok);
+        watchForKey(c, c->argv[j]);
+    addReply(c, shared.ok);
 }
 
 void unwatchCommand(client *c) {
     unwatchAllKeys(c);
     c->flags &= (~CLIENT_DIRTY_CAS);
-    addReply(c,shared.ok);
+    addReply(c, shared.ok);
 }
