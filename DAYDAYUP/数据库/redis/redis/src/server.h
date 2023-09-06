@@ -2254,11 +2254,8 @@ robj *objectCommandLookup(client *c, robj *key);
 
 robj *objectCommandLookupOrReply(client *c, robj *key, robj *reply);
 
-void objectSetLRUOrLFU(robj *val, long long
-lfu_freq,
-                       long long lru_idle,
-                       long long lru_clock
-);
+void objectSetLRUOrLFU(robj *val, long long lfu_freq, long long lru_idle,
+                       long long lru_clock);
 
 #define LOOKUP_NONE 0
 #define LOOKUP_NOTOUCH (1<<0)
