@@ -1,0 +1,43 @@
+63590:C 11 Sep 2023 13:11:37.495 # oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo
+63590:C 11 Sep 2023 13:11:37.495 # Redis version=6.2.5, bits=64, commit=00000000, modified=0, pid=63590, just started
+63590:C 11 Sep 2023 13:11:37.495 # Configuration loaded
+63590:M 11 Sep 2023 13:11:37.496 * monotonic clock: POSIX clock_gettime
+63590:M 11 Sep 2023 13:11:37.497 * No cluster configuration found, I'm 4f916565cc60435bf8d378db931a91bebfa4fa6c
+63590:M 11 Sep 2023 13:11:37.498 * Running mode=cluster, port=6104.
+63590:M 11 Sep 2023 13:11:37.498 # Server initialized
+63590:M 11 Sep 2023 13:11:37.498 * Ready to accept connections
+63590:signal-handler (1694409106) Received SIGINT scheduling shutdown...
+63590:M 11 Sep 2023 13:11:46.080 # User requested shutdown...
+63590:M 11 Sep 2023 13:11:46.080 * Saving the final RDB snapshot before exiting.
+63590:M 11 Sep 2023 13:11:46.081 * DB saved on disk
+63590:M 11 Sep 2023 13:11:46.081 # Redis is now ready to exit, bye bye...
+63602:C 11 Sep 2023 13:11:48.723 # oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo
+63602:C 11 Sep 2023 13:11:48.723 # Redis version=6.2.5, bits=64, commit=00000000, modified=0, pid=63602, just started
+63602:C 11 Sep 2023 13:11:48.723 # Configuration loaded
+63602:M 11 Sep 2023 13:11:48.723 * monotonic clock: POSIX clock_gettime
+63602:M 11 Sep 2023 13:11:48.724 * Node configuration loaded, I'm 4f916565cc60435bf8d378db931a91bebfa4fa6c
+63602:M 11 Sep 2023 13:11:48.724 * Running mode=cluster, port=6104.
+63602:M 11 Sep 2023 13:11:48.725 # Server initialized
+63602:M 11 Sep 2023 13:11:48.725 * Loading RDB produced by version 6.2.5
+63602:M 11 Sep 2023 13:11:48.725 * RDB age 2 seconds
+63602:M 11 Sep 2023 13:11:48.725 * RDB memory usage when created 1.47 Mb
+63602:M 11 Sep 2023 13:11:48.725 * DB loaded from disk: 0.000 seconds
+63602:M 11 Sep 2023 13:11:48.725 * Ready to accept connections
+63602:M 11 Sep 2023 13:18:13.562 # configEpoch set to 4 via CLUSTER SET-CONFIG-EPOCH
+63602:M 11 Sep 2023 13:18:13.732 # IP address for this node updated to 127.0.0.1
+63602:S 11 Sep 2023 13:18:16.573 * Before turning into a replica, using my own master parameters to synthesize a cached master: I may be able to synchronize with the new master with just a partial transfer.
+63602:S 11 Sep 2023 13:18:16.573 * Connecting to MASTER 127.0.0.1:6102
+63602:S 11 Sep 2023 13:18:16.573 * MASTER <-> REPLICA sync started
+63602:S 11 Sep 2023 13:18:16.573 # Cluster state changed: ok
+63602:S 11 Sep 2023 13:18:16.574 * Non blocking connect for SYNC fired the event.
+63602:S 11 Sep 2023 13:18:16.574 * Master replied to PING, replication can continue...
+63602:S 11 Sep 2023 13:18:16.575 * Trying a partial resynchronization (request a3cfcaf2d718517375b4df77a38b2fbbecf8571c:1).
+63602:S 11 Sep 2023 13:18:16.576 * Full resync from master: 00f6d34e7b26d9bd8b48a7b764cfd5668eb78182:0
+63602:S 11 Sep 2023 13:18:16.577 * Discarding previously cached master state.
+63602:S 11 Sep 2023 13:18:16.649 * MASTER <-> REPLICA sync: receiving 175 bytes from master to disk
+63602:S 11 Sep 2023 13:18:16.649 * MASTER <-> REPLICA sync: Flushing old data
+63602:S 11 Sep 2023 13:18:16.649 * MASTER <-> REPLICA sync: Loading DB in memory
+63602:S 11 Sep 2023 13:18:16.650 * Loading RDB produced by version 6.2.5
+63602:S 11 Sep 2023 13:18:16.650 * RDB age 0 seconds
+63602:S 11 Sep 2023 13:18:16.650 * RDB memory usage when created 2.66 Mb
+63602:S 11 Sep 2023 13:18:16.650 * MASTER <-> REPLICA sync: Finished with success

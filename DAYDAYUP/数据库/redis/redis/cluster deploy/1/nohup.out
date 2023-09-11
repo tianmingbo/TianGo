@@ -1,0 +1,25 @@
+63743:C 11 Sep 2023 13:15:07.196 # oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo
+63743:C 11 Sep 2023 13:15:07.196 # Redis version=6.2.5, bits=64, commit=00000000, modified=0, pid=63743, just started
+63743:C 11 Sep 2023 13:15:07.196 # Configuration loaded
+63743:M 11 Sep 2023 13:15:07.197 * monotonic clock: POSIX clock_gettime
+63743:M 11 Sep 2023 13:15:07.198 # Warning: Could not create server TCP listening socket *:6101: bind: Address already in use
+63743:M 11 Sep 2023 13:15:07.198 # Failed listening on port 6101 (TCP), aborting.
+63826:C 11 Sep 2023 13:16:43.032 # oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo
+63826:C 11 Sep 2023 13:16:43.032 # Redis version=6.2.5, bits=64, commit=00000000, modified=0, pid=63826, just started
+63826:C 11 Sep 2023 13:16:43.032 # Configuration loaded
+63826:M 11 Sep 2023 13:16:43.033 * monotonic clock: POSIX clock_gettime
+63826:M 11 Sep 2023 13:16:43.034 * No cluster configuration found, I'm cb35db16b93186c97aad0ff244d067bc75a67921
+63826:M 11 Sep 2023 13:16:43.036 * Running mode=cluster, port=6101.
+63826:M 11 Sep 2023 13:16:43.036 # Server initialized
+63826:M 11 Sep 2023 13:16:43.036 * Ready to accept connections
+63826:M 11 Sep 2023 13:18:13.561 # configEpoch set to 1 via CLUSTER SET-CONFIG-EPOCH
+63826:M 11 Sep 2023 13:18:13.615 # IP address for this node updated to 127.0.0.1
+63826:M 11 Sep 2023 13:18:16.576 * Replica 127.0.0.1:6106 asks for synchronization
+63826:M 11 Sep 2023 13:18:16.577 * Partial resynchronization not accepted: Replication ID mismatch (Replica asked for 'b8cab2c8fe00502d1dc21cfdebc3d54ad4adc773', my replication IDs are '6bae663bedd984e2080313835ca4c204720a9be0' and '0000000000000000000000000000000000000000')
+63826:M 11 Sep 2023 13:18:16.577 * Replication backlog created, my new replication IDs are 'b6a7558a0512d52e9045a95637078724b5d54d37' and '0000000000000000000000000000000000000000'
+63826:M 11 Sep 2023 13:18:16.577 * Starting BGSAVE for SYNC with target: disk
+63826:M 11 Sep 2023 13:18:16.578 * Background saving started by pid 63956
+63956:C 11 Sep 2023 13:18:16.580 * DB saved on disk
+63826:M 11 Sep 2023 13:18:16.660 * Background saving terminated with success
+63826:M 11 Sep 2023 13:18:16.660 * Synchronization with replica 127.0.0.1:6106 succeeded
+63826:M 11 Sep 2023 13:18:18.581 # Cluster state changed: ok

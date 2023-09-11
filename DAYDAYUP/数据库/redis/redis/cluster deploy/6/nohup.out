@@ -1,0 +1,26 @@
+63655:C 11 Sep 2023 13:12:23.121 # oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo
+63655:C 11 Sep 2023 13:12:23.121 # Redis version=6.2.5, bits=64, commit=00000000, modified=0, pid=63655, just started
+63655:C 11 Sep 2023 13:12:23.121 # Configuration loaded
+63655:M 11 Sep 2023 13:12:23.121 * monotonic clock: POSIX clock_gettime
+63655:M 11 Sep 2023 13:12:23.123 * No cluster configuration found, I'm 4cd8bfe2c067b1ce2e3aeca44f397fe377a37a4c
+63655:M 11 Sep 2023 13:12:23.124 * Running mode=cluster, port=6106.
+63655:M 11 Sep 2023 13:12:23.124 # Server initialized
+63655:M 11 Sep 2023 13:12:23.124 * Ready to accept connections
+63655:M 11 Sep 2023 13:18:13.563 # configEpoch set to 6 via CLUSTER SET-CONFIG-EPOCH
+63655:M 11 Sep 2023 13:18:13.732 # IP address for this node updated to 127.0.0.1
+63655:S 11 Sep 2023 13:18:16.575 * Before turning into a replica, using my own master parameters to synthesize a cached master: I may be able to synchronize with the new master with just a partial transfer.
+63655:S 11 Sep 2023 13:18:16.575 * Connecting to MASTER 127.0.0.1:6101
+63655:S 11 Sep 2023 13:18:16.575 * MASTER <-> REPLICA sync started
+63655:S 11 Sep 2023 13:18:16.575 # Cluster state changed: ok
+63655:S 11 Sep 2023 13:18:16.576 * Non blocking connect for SYNC fired the event.
+63655:S 11 Sep 2023 13:18:16.576 * Master replied to PING, replication can continue...
+63655:S 11 Sep 2023 13:18:16.576 * Trying a partial resynchronization (request b8cab2c8fe00502d1dc21cfdebc3d54ad4adc773:1).
+63655:S 11 Sep 2023 13:18:16.578 * Full resync from master: b6a7558a0512d52e9045a95637078724b5d54d37:0
+63655:S 11 Sep 2023 13:18:16.578 * Discarding previously cached master state.
+63655:S 11 Sep 2023 13:18:16.660 * MASTER <-> REPLICA sync: receiving 175 bytes from master to disk
+63655:S 11 Sep 2023 13:18:16.660 * MASTER <-> REPLICA sync: Flushing old data
+63655:S 11 Sep 2023 13:18:16.660 * MASTER <-> REPLICA sync: Loading DB in memory
+63655:S 11 Sep 2023 13:18:16.661 * Loading RDB produced by version 6.2.5
+63655:S 11 Sep 2023 13:18:16.661 * RDB age 0 seconds
+63655:S 11 Sep 2023 13:18:16.661 * RDB memory usage when created 2.66 Mb
+63655:S 11 Sep 2023 13:18:16.661 * MASTER <-> REPLICA sync: Finished with success

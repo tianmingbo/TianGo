@@ -1,0 +1,19 @@
+63875:C 11 Sep 2023 13:17:12.651 # oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo
+63875:C 11 Sep 2023 13:17:12.651 # Redis version=6.2.5, bits=64, commit=00000000, modified=0, pid=63875, just started
+63875:C 11 Sep 2023 13:17:12.651 # Configuration loaded
+63875:M 11 Sep 2023 13:17:12.652 * monotonic clock: POSIX clock_gettime
+63875:M 11 Sep 2023 13:17:12.653 * Node configuration loaded, I'm 0ce4827081bba778e410cb69e32ac444eab170a2
+63875:M 11 Sep 2023 13:17:12.653 * Running mode=cluster, port=6102.
+63875:M 11 Sep 2023 13:17:12.654 # Server initialized
+63875:M 11 Sep 2023 13:17:12.654 * Ready to accept connections
+63875:M 11 Sep 2023 13:18:13.561 # configEpoch set to 2 via CLUSTER SET-CONFIG-EPOCH
+63875:M 11 Sep 2023 13:18:13.630 # IP address for this node updated to 127.0.0.1
+63875:M 11 Sep 2023 13:18:16.575 * Replica 127.0.0.1:6104 asks for synchronization
+63875:M 11 Sep 2023 13:18:16.575 * Partial resynchronization not accepted: Replication ID mismatch (Replica asked for 'a3cfcaf2d718517375b4df77a38b2fbbecf8571c', my replication IDs are '2bebc0e829a6328fc5a02242c6e1aa60a9d0a53e' and '0000000000000000000000000000000000000000')
+63875:M 11 Sep 2023 13:18:16.575 * Replication backlog created, my new replication IDs are '00f6d34e7b26d9bd8b48a7b764cfd5668eb78182' and '0000000000000000000000000000000000000000'
+63875:M 11 Sep 2023 13:18:16.575 * Starting BGSAVE for SYNC with target: disk
+63875:M 11 Sep 2023 13:18:16.576 * Background saving started by pid 63954
+63954:C 11 Sep 2023 13:18:16.579 * DB saved on disk
+63875:M 11 Sep 2023 13:18:16.648 * Background saving terminated with success
+63875:M 11 Sep 2023 13:18:16.649 * Synchronization with replica 127.0.0.1:6104 succeeded
+63875:M 11 Sep 2023 13:18:18.569 # Cluster state changed: ok
