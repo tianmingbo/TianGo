@@ -2652,8 +2652,7 @@ int processCommand(client *c) {
     } else if ((c->cmd->arity > 0 && c->cmd->arity != c->argc) ||
                (c->argc < -c->cmd->arity)) {
         flagTransaction(c);
-        addReplyErrorFormat(c, "wrong number of arguments for '%s' command",
-                            c->cmd->name);
+        addReplyErrorFormat(c, "wrong number of arguments for '%s' command", c->cmd->name);
         return C_OK;
     }
 
@@ -2669,13 +2668,11 @@ int processCommand(client *c) {
     if (server.cluster_enabled &&
         !(c->flags & CLIENT_MASTER) &&
         !(c->flags & CLIENT_LUA && server.lua_caller->flags & CLIENT_MASTER) &&
-        !(c->cmd->getkeys_proc == NULL && c->cmd->firstkey == 0 && c->cmd->proc != execCommand)
-            ) {
+        !(c->cmd->getkeys_proc == NULL && c->cmd->firstkey == 0 && c->cmd->proc != execCommand)) {
         // 执行集群重定向逻辑
-        int hashslot;
+        int hash_slot;
         int error_code;
-        clusterNode *n = getNodeByQuery(c, c->cmd, c->argv, c->argc,
-                                        &hashslot, &error_code);
+        clusterNode *n = getNodeByQuery(c, c->cmd, c->argv, c->argc, &hash_slot, &error_code);
         //目标节点为空 or 不是自身
         if (n == NULL || n != server.cluster->myself) {
             //查询的 key 不在当前实例且client执行的是exec
@@ -2687,7 +2684,7 @@ int processCommand(client *c) {
                  * 随即也会放弃执行事务，给客户端返回错误*/
                 flagTransaction(c);
             }
-            clusterRedirectClient(c, n, hashslot, error_code);
+            clusterRedirectClient(c, n, hash_slot, error_code);
             return C_OK;
         }
     }

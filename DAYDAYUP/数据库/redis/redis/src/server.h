@@ -1214,17 +1214,16 @@ struct redisServer {
     int notify_keyspace_events; /* Events to propagate via Pub/Sub. This is an
                                    xor of NOTIFY_... flags. */
     /* Cluster */
-    int cluster_enabled;      /* Is cluster enabled? */
+    int cluster_enabled;      /* 是否启动集群模式 */
     mstime_t cluster_node_timeout; /* Cluster node timeout. */
-    char *cluster_configfile; /* Cluster auto-generated config file name. */
-    struct clusterState *cluster;  /* State of the cluster */
+    char *cluster_configfile; /* Cluster数据文件 */
+    struct clusterState *cluster;  /* 存储集群信息 */
     int cluster_migration_barrier; /* Cluster replicas migration barrier. */
     int cluster_slave_validity_factor; /* Slave max data age for failover. */
     int cluster_require_full_coverage; /* If true, put the cluster down if
                                           there is at least an uncovered slot.*/
-    int cluster_slave_no_failover;  /* Prevent slave from starting a failover
-                                       if the master is in failure state. */
-    char *cluster_announce_ip;  /* IP address to announce on cluster bus. */
+    int cluster_slave_no_failover;  /* 进制该节点执行故障转移*/
+    char *cluster_announce_ip;  /* 指定节点的ip地址 */
     int cluster_announce_port;     /* base port to announce on cluster bus. */
     int cluster_announce_bus_port; /* bus port to announce on cluster bus. */
     int cluster_module_flags;      /* Set of flags that Redis modules are able
@@ -2131,10 +2130,7 @@ sds setTypeNextObject(setTypeIterator *si);
 
 int setTypeRandomElement(robj *setobj, sds *sdsele, int64_t *llele);
 
-unsigned long setTypeRandomElements(robj *set, unsigned long
-count,
-                                    robj *aux_set
-);
+unsigned long setTypeRandomElements(robj *set, unsigned long count, robj *aux_set);
 
 unsigned long setTypeSize(const robj *subject);
 
@@ -2146,21 +2142,15 @@ enc);
 #define HASH_SET_TAKE_VALUE (1<<1)
 #define HASH_SET_COPY 0
 
-void hashTypeConvert(robj *o, int
-enc);
+void hashTypeConvert(robj *o, int enc);
 
-void hashTypeTryConversion(robj *subject, robj **argv, int
-start,
-                           int end
-);
+void hashTypeTryConversion(robj *subject, robj **argv, int start, int end);
 
 void hashTypeTryObjectEncoding(robj *subject, robj **o1, robj **o2);
 
-int hashTypeExists(robj *o, sds
-key);
+int hashTypeExists(robj *o, sds key);
 
-int hashTypeDelete(robj *o, sds
-key);
+int hashTypeDelete(robj *o, sds key);
 
 unsigned long hashTypeLength(const robj *o);
 
@@ -2183,8 +2173,7 @@ sds hashTypeCurrentObjectNewSds(hashTypeIterator *hi, int what);
 
 robj *hashTypeLookupWriteOrCreate(client *c, robj *key);
 
-robj *hashTypeGetValueObject(robj *o, sds
-field);
+robj *hashTypeGetValueObject(robj *o, sds field);
 
 int hashTypeSet(robj *o, sds
 field,

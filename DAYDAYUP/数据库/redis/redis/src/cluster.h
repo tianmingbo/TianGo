@@ -115,45 +115,46 @@ typedef struct clusterNodeFailReport {
 
 typedef struct clusterNode {
     mstime_t ctime; /* Node object creation time. */
-    char name[CLUSTER_NAMELEN]; /* Node name, hex string, sha1-size */
-    int flags;      /* CLUSTER_NODE_... */
-    uint64_t configEpoch; /* Last configEpoch observed for this node */
+    char name[CLUSTER_NAMELEN]; /* 40Byte 随机字节 */
+    int flags;      /* 存储节点的状态, CLUSTER_NODE_... */
+    uint64_t configEpoch; /* 最新写入数据文件的纪元, 可以理解为最新执行故障转移成功的纪元 */
     unsigned char slots[CLUSTER_SLOTS / 8]; /* 16384个槽,使用16384/8 个字节就可以表示 */
     int numslots;   /* Number of slots handled by this node */
     int numslaves;  /* Number of slave nodes, if this is a master */
-    struct clusterNode **slaves; /* pointers to slave nodes */
-    struct clusterNode *slaveof; /* pointer to the master node. Note that it
-                                    may be NULL even if the node is a slave
-                                    if we don't have the master node in our
-                                    tables. */
-    mstime_t ping_sent;      /* Unix time we sent latest ping */
+    struct clusterNode **slaves; /* 该节点从节点实例数组 */
+    struct clusterNode *slaveof; /* 该节点的主节点实例 */
+    mstime_t ping_sent;      /* 上次给该节点发送PING请求的时间*/
     mstime_t pong_received;  /* Unix time we received the pong */
     mstime_t data_received;  /* Unix time we received any data */
-    mstime_t fail_time;      /* Unix time when FAIL flag was set */
-    mstime_t voted_time;     /* Last time we voted for a slave of this master */
+    mstime_t fail_time;      /* 节点下线时间 */
+    mstime_t voted_time;     /* 上一次该节点的投票时间 */
     mstime_t repl_offset_time;  /* Unix time we received offset for this node */
     mstime_t orphaned_time;     /* Starting time of orphaned master condition */
     long long repl_offset;      /* Last known repl offset for this node. */
     char ip[NET_IP_STR_LEN];  /* Latest known IP address of this node */
     int port;                   /* Latest known clients port of this node */
     int cport;                  /* Latest known cluster port of this node. */
-    clusterLink *link;          /* TCP/IP link with this node */
-    list *fail_reports;         /* List of nodes signaling this as failing */
+    clusterLink *link;          /* 当前节点与该节点连接 */
+    list *fail_reports;         /* 下线报告列表,记录所有判定该节点主观下线的主节点,用于客观下线的统计 */
 } clusterNode;
 
+//去中心化,每个节点都维护了自己视角下的集群的状态
 typedef struct clusterState {
-    clusterNode *myself;  /* This node */
-    uint64_t currentEpoch;
-    int state;            /* CLUSTER_OK, CLUSTER_FAIL, ... */
+    clusterNode *myself;  /* 自身节点实例 */
+    uint64_t currentEpoch; //集群当前纪元,用于实现Raft算法选举
+    int state;            /* 集群状态CLUSTER_OK, CLUSTER_FAIL, ... */
     int size;             /* Num of master nodes with at least one slot */
-    dict *nodes;          /* Hash table of name -> clusterNode structures */
+    dict *nodes;          /* 集群节点实例字典, key为node id, value为clusterNode结构体*/
     dict *nodes_black_list; /* Nodes we don't re-add for a few seconds. */
+
     // 表示当前节点负责的 slot 正在迁往哪个节点。
     // 比如，migrating_slots_to[K] = node1，这就表示当前节点负责的 slot K，正在迁往 node1
     clusterNode *migrating_slots_to[CLUSTER_SLOTS];
+
     //表示当前节点正在从哪个节点迁入某个 slot。
     // 比如，importing_slots_from[L] = node3，这就表示当前节点正从 node3 迁入 slot L。
     clusterNode *importing_slots_from[CLUSTER_SLOTS];
+
     //表示 16384 个 slot 分别是由哪个节点负责的。
     // 比如，slots[M] = node2，这就表示 slot M 是由 node2 负责的
     clusterNode *slots[CLUSTER_SLOTS];

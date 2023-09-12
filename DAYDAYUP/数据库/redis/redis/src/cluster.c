@@ -2982,10 +2982,10 @@ void clusterHandleSlaveFailover(void) {
     /* Set data_age to the number of seconds we are disconnected from
      * the master. */
     if (server.repl_state == REPL_STATE_CONNECTED) {
-        data_age = (mstime_t) (server.unixtime - server.master->lastinteraction)
+        data_age = (mstime_t)(server.unixtime - server.master->lastinteraction)
                    * 1000;
     } else {
-        data_age = (mstime_t) (server.unixtime - server.repl_down_since) * 1000;
+        data_age = (mstime_t)(server.unixtime - server.repl_down_since) * 1000;
     }
 
     /* Remove the node timeout from the data age as it is fine that we are
@@ -4561,7 +4561,7 @@ void clusterCommand(client *c) {
         unsigned int keys_in_slot = countKeysInSlot(slot); //获取迁移slot中实际的key数量
         if (maxkeys > keys_in_slot) maxkeys = keys_in_slot;//如果实际的key数量小于maxkeys，将maxkeys更新为时间的key数量
 
-        keys = zmalloc(sizeof(robj *) * maxkeys); //给key分配空间
+        keys = zmalloc(sizeof(robj * ) * maxkeys); //给key分配空间
         //从迁移 slot 中获取实际的 key
         numkeys = getKeysInSlot(slot, keys, maxkeys);
         //将这些 key 返回给客户端
@@ -5076,6 +5076,7 @@ void migrateCloseTimedoutSockets(void) {
 }
 
 /*
+ * 一个slot中可能有多个键,要把每个键都迁移过去,迁入节点才能接管这个slot.
  * COPY: 目标节点存在key时,报错;
  * REPLACE: 无论目标节点存不存在,都进行迁移
  * 一次迁移1个key
@@ -5110,6 +5111,7 @@ void migrateCommand(client *c) {
         } else if (!strcasecmp(c->argv[j]->ptr, "replace")) {
             replace = 1;
         } else if (!strcasecmp(c->argv[j]->ptr, "auth")) {
+            //使用密码访问迁入节点
             if (!moreargs) {
                 addReply(c, shared.syntaxerr);
                 return;
@@ -5117,10 +5119,10 @@ void migrateCommand(client *c) {
             j++;
             password = c->argv[j]->ptr;
         } else if (!strcasecmp(c->argv[j]->ptr, "keys")) {
+            //keys存在,则key要为""
             if (sdslen(c->argv[3]->ptr) != 0) {
-                addReplyError(c,
-                              "When using MIGRATE KEYS option, the key argument"
-                              " must be set to the empty string");
+                addReplyError(c, "When using MIGRATE KEYS option, the key argument"
+                                 " must be set to the empty string");
                 return;
             }
             first_key = j + 1;
@@ -5132,18 +5134,13 @@ void migrateCommand(client *c) {
         }
     }
 
-    /* Sanity check */
+    /* 校验timeout和dbid */
     if (getLongFromObjectOrReply(c, c->argv[5], &timeout, NULL) != C_OK ||
         getLongFromObjectOrReply(c, c->argv[4], &dbid, NULL) != C_OK) {
         return;
     }
     if (timeout <= 0) timeout = 1000;
 
-    /* Check if the keys are here. If at least one key is to migrate, do it
-     * otherwise if all the keys are missing reply with "NOKEY" to signal
-     * the caller there was nothing to migrate. We don't return an error in
-     * this case, since often this is due to a normal condition like the key
-     * expiring in the meantime. */
     ov = zrealloc(ov, sizeof(robj *) * num_keys); //分配ov数组，保存要迁移的value
     kv = zrealloc(kv, sizeof(robj *) * num_keys);//分配kv数组，保存要迁移的key
     int oi = 0;
@@ -5157,6 +5154,7 @@ void migrateCommand(client *c) {
     }
     num_keys = oi;//要迁移的key数量等于实际存在的key数量
     if (num_keys == 0) {
+        //要迁移的key为0,返回NOKEY.正常情况,有可能所有key同时过期
         zfree(ov);
         zfree(kv);
         addReplySds(c, sdsnew("+NOKEY\r\n"));
@@ -5167,7 +5165,7 @@ void migrateCommand(client *c) {
     write_error = 0;
 
     //和目的节点建立连接
-    cs = migrateGetSocket(c, c->argv[1], c->argv[2], timeout);
+    cs = migrateGetSocket(c, c->argv[1], c->argv[2], timeout); //argv[1]:host argv[2]:port
     if (cs == NULL) {
         zfree(ov);
         zfree(kv);
@@ -5180,8 +5178,7 @@ void migrateCommand(client *c) {
     if (password) {
         serverAssertWithInfo(c, NULL, rioWriteBulkCount(&cmd, '*', 2));
         serverAssertWithInfo(c, NULL, rioWriteBulkString(&cmd, "AUTH", 4));
-        serverAssertWithInfo(c, NULL, rioWriteBulkString(&cmd, password,
-                                                         sdslen(password)));
+        serverAssertWithInfo(c, NULL, rioWriteBulkString(&cmd, password, sdslen(password)));
     }
 
     /* Send the SELECT command if the current DB is not already selected. */
@@ -5214,13 +5211,14 @@ void migrateCommand(client *c) {
          * positions to remove holes created by the keys that were present
          * in the first lookup but are now expired after the second lookup. */
         kv[non_expired++] = kv[j];
-
+        //例如: RESTORE key ttl serialized-value [REPLACE]
         serverAssertWithInfo(c, NULL, rioWriteBulkCount(&cmd, '*', replace ? 5 : 4));
 
         if (server.cluster_enabled)
             serverAssertWithInfo(c, NULL, rioWriteBulkString(&cmd, "RESTORE-ASKING", 14));
         else
             serverAssertWithInfo(c, NULL, rioWriteBulkString(&cmd, "RESTORE", 7));
+        //写入键内容,ttl. 如果该键没有设置过期时间,则ttl为0.
         serverAssertWithInfo(c, NULL, sdsEncodedObject(kv[j]));
         serverAssertWithInfo(c, NULL, rioWriteBulkString(&cmd, kv[j]->ptr,
                                                          sdslen(kv[j]->ptr)));
@@ -5259,7 +5257,7 @@ void migrateCommand(client *c) {
             pos += nwritten;
         }
     }
-
+    //调用restoreCommand处理
     char buf0[1024]; /* Auth reply. */
     char buf1[1024]; /* Select reply. */
     char buf2[1024]; /* Restore reply. */
@@ -5536,8 +5534,7 @@ clusterNode *getNodeByQuery(client *c, struct redisCommand *cmd,
                                        sdslen(thiskey->ptr));
 
             if (firstkey == NULL) {
-                /* This is the first key we see. Check what is the slot
-                 * and node. */
+                /* 如果处理的是第一个键,则记录slot和数据存储节点 */
                 firstkey = thiskey;
                 slot = thisslot;
                 n = server.cluster->slots[slot]; //查找key所属的slot对应的集群节点
@@ -5555,13 +5552,13 @@ clusterNode *getNodeByQuery(client *c, struct redisCommand *cmd,
                 if (n == myself && server.cluster->migrating_slots_to[slot] != NULL) {
                     migrating_slot = 1;
                 } else if (server.cluster->importing_slots_from[slot] != NULL) {
-                    /*key 所属的 slot 正在做数据迁入操作，
+                    /*
+                     * key 所属的 slot 正在做数据迁入操作，
                      * 此时，getNodeByQuery 函数会设置变量 importing_slot 为 1，表示正在做数据迁入*/
                     importing_slot = 1;
                 }
             } else {
-                /* If it is not the first key, make sure it is exactly
-                 * the same key as the first we saw. */
+                /* 如果处理的不是第一个键,则该键对应的slot必须和第一个键对应的slot一样 */
                 if (!equalStringObjects(firstkey, thiskey)) {
                     if (slot != thisslot) {
                         /* Error: multiple keys from different slots. */
@@ -5612,10 +5609,12 @@ clusterNode *getNodeByQuery(client *c, struct redisCommand *cmd,
         return server.cluster->migrating_slots_to[slot];
     }
 
-    /* If we are receiving the slot, and the client correctly flagged the
-     * request as "ASKING", we can serve the request. However if the request
-     * involves multiple keys and we don't have them all, the only option is
-     * to send a TRYAGAIN error. */
+    /* 如果键对应的slot数据正在迁入,而且该客户端开启了CLIENT_ASKING标志或命令中存在CMD_ASKING标志,
+     * 则返回当前节点,这时如果命令中有些键的数据仍不存在于当前节点,则直接返回错误.
+     *
+     * 如果数据正在迁入当前节点,而且查询的键已经迁入完成,如果要在当前节点查询该键,需要先执行ASKING命令(开启客户端CLIENT_ASKING标志).
+     * 如果不执行, 会重定向到迁出节点,因为当前的slot还挂载在迁出节点,配置还没更新.
+     * */
     if (importing_slot &&
         (c->flags & CLIENT_ASKING || cmd->flags & CMD_ASKING)) {
         if (multiple_keys && missing_keys) {

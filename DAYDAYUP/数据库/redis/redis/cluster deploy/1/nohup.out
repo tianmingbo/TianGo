@@ -23,3 +23,225 @@
 63826:M 11 Sep 2023 13:18:16.660 * Background saving terminated with success
 63826:M 11 Sep 2023 13:18:16.660 * Synchronization with replica 127.0.0.1:6106 succeeded
 63826:M 11 Sep 2023 13:18:18.581 # Cluster state changed: ok
+63826:M 11 Sep 2023 13:28:55.081 # Connection with replica 127.0.0.1:6106 lost.
+63826:M 11 Sep 2023 13:28:55.087 * Replica 127.0.0.1:6106 asks for synchronization
+63826:M 11 Sep 2023 13:28:55.087 * Partial resynchronization request from 127.0.0.1:6106 accepted. Sending 0 bytes of backlog starting from offset 743.
+63826:M 11 Sep 2023 13:32:45.218 # Connection with replica 127.0.0.1:6106 lost.
+63826:M 11 Sep 2023 13:32:45.219 * Replica 127.0.0.1:6106 asks for synchronization
+63826:M 11 Sep 2023 13:32:45.219 * Partial resynchronization request from 127.0.0.1:6106 accepted. Sending 0 bytes of backlog starting from offset 813.
+63826:M 11 Sep 2023 14:49:51.981 # Disconnecting timedout replica (streaming sync): 127.0.0.1:6106
+63826:M 11 Sep 2023 14:49:51.981 # Connection with replica 127.0.0.1:6106 lost.
+63826:M 11 Sep 2023 14:49:51.982 * Replica 127.0.0.1:6106 asks for synchronization
+63826:M 11 Sep 2023 14:49:51.982 * Partial resynchronization request from 127.0.0.1:6106 accepted. Sending 0 bytes of backlog starting from offset 883.
+63826:M 11 Sep 2023 15:27:21.836 # Disconnecting timedout replica (streaming sync): 127.0.0.1:6106
+63826:M 11 Sep 2023 15:27:21.836 # Connection with replica 127.0.0.1:6106 lost.
+63826:M 11 Sep 2023 15:27:21.837 * Replica 127.0.0.1:6106 asks for synchronization
+63826:M 11 Sep 2023 15:27:21.837 * Partial resynchronization request from 127.0.0.1:6106 accepted. Sending 0 bytes of backlog starting from offset 953.
+63826:M 11 Sep 2023 17:27:32.561 # Connection with replica 127.0.0.1:6106 lost.
+63826:M 11 Sep 2023 17:27:32.592 * Replica 127.0.0.1:6106 asks for synchronization
+63826:M 11 Sep 2023 17:27:32.598 * Partial resynchronization request from 127.0.0.1:6106 accepted. Sending 0 bytes of backlog starting from offset 995.
+63826:M 11 Sep 2023 19:28:22.362 # Connection with replica 127.0.0.1:6106 lost.
+63826:M 11 Sep 2023 19:28:22.363 * Replica 127.0.0.1:6106 asks for synchronization
+63826:M 11 Sep 2023 19:28:22.363 * Partial resynchronization request from 127.0.0.1:6106 accepted. Sending 0 bytes of backlog starting from offset 1065.
+63826:M 11 Sep 2023 20:39:02.992 # Connection with replica 127.0.0.1:6106 lost.
+63826:M 11 Sep 2023 20:39:03.002 * Replica 127.0.0.1:6106 asks for synchronization
+63826:M 11 Sep 2023 20:39:03.002 * Partial resynchronization request from 127.0.0.1:6106 accepted. Sending 0 bytes of backlog starting from offset 1121.
+63826:M 11 Sep 2023 20:58:35.728 # Disconnecting timedout replica (streaming sync): 127.0.0.1:6106
+63826:M 11 Sep 2023 20:58:35.728 # Connection with replica 127.0.0.1:6106 lost.
+63826:M 11 Sep 2023 20:58:35.733 * Replica 127.0.0.1:6106 asks for synchronization
+63826:M 11 Sep 2023 20:58:35.733 * Partial resynchronization request from 127.0.0.1:6106 accepted. Sending 0 bytes of backlog starting from offset 1247.
+63826:M 11 Sep 2023 21:03:06.450 # Connection with replica 127.0.0.1:6106 lost.
+63826:M 11 Sep 2023 21:03:06.451 * Replica 127.0.0.1:6106 asks for synchronization
+63826:M 11 Sep 2023 21:03:06.451 * Partial resynchronization request from 127.0.0.1:6106 accepted. Sending 0 bytes of backlog starting from offset 1317.
+63826:M 11 Sep 2023 21:15:46.498 # Disconnecting timedout replica (streaming sync): 127.0.0.1:6106
+63826:M 11 Sep 2023 21:15:46.498 # Connection with replica 127.0.0.1:6106 lost.
+63826:M 11 Sep 2023 21:15:46.507 * Replica 127.0.0.1:6106 asks for synchronization
+63826:M 11 Sep 2023 21:15:46.507 * Partial resynchronization request from 127.0.0.1:6106 accepted. Sending 0 bytes of backlog starting from offset 1387.
+63826:M 11 Sep 2023 22:23:38.546 # Connection with replica 127.0.0.1:6106 lost.
+63826:M 11 Sep 2023 22:23:38.547 * Replica 127.0.0.1:6106 asks for synchronization
+63826:M 11 Sep 2023 22:23:38.547 * Partial resynchronization request from 127.0.0.1:6106 accepted. Sending 0 bytes of backlog starting from offset 1527.
+63826:M 11 Sep 2023 22:42:42.813 # Connection with replica 127.0.0.1:6106 lost.
+63826:M 11 Sep 2023 22:42:42.814 * Replica 127.0.0.1:6106 asks for synchronization
+63826:M 11 Sep 2023 22:42:42.814 * Partial resynchronization request from 127.0.0.1:6106 accepted. Sending 0 bytes of backlog starting from offset 1625.
+63826:M 11 Sep 2023 22:50:31.890 # Disconnecting timedout replica (streaming sync): 127.0.0.1:6106
+63826:M 11 Sep 2023 22:50:31.890 # Connection with replica 127.0.0.1:6106 lost.
+63826:M 11 Sep 2023 22:50:31.892 * Replica 127.0.0.1:6106 asks for synchronization
+63826:M 11 Sep 2023 22:50:31.892 * Partial resynchronization request from 127.0.0.1:6106 accepted. Sending 0 bytes of backlog starting from offset 1667.
+63826:M 11 Sep 2023 22:53:19.659 # Connection with replica 127.0.0.1:6106 lost.
+63826:M 11 Sep 2023 22:53:19.664 * Replica 127.0.0.1:6106 asks for synchronization
+63826:M 11 Sep 2023 22:53:19.664 * Partial resynchronization request from 127.0.0.1:6106 accepted. Sending 0 bytes of backlog starting from offset 1807.
+63826:M 11 Sep 2023 23:02:56.167 # Disconnecting timedout replica (streaming sync): 127.0.0.1:6106
+63826:M 11 Sep 2023 23:02:56.168 # Connection with replica 127.0.0.1:6106 lost.
+63826:M 11 Sep 2023 23:02:56.173 * Replica 127.0.0.1:6106 asks for synchronization
+63826:M 11 Sep 2023 23:02:56.173 * Partial resynchronization request from 127.0.0.1:6106 accepted. Sending 0 bytes of backlog starting from offset 1863.
+63826:M 11 Sep 2023 23:19:14.567 # Disconnecting timedout replica (streaming sync): 127.0.0.1:6106
+63826:M 11 Sep 2023 23:19:14.589 # Connection with replica 127.0.0.1:6106 lost.
+63826:M 11 Sep 2023 23:19:14.591 * Replica 127.0.0.1:6106 asks for synchronization
+63826:M 11 Sep 2023 23:19:14.592 * Partial resynchronization request from 127.0.0.1:6106 accepted. Sending 0 bytes of backlog starting from offset 1933.
+63826:M 11 Sep 2023 23:30:27.055 # Disconnecting timedout replica (streaming sync): 127.0.0.1:6106
+63826:M 11 Sep 2023 23:30:27.056 # Connection with replica 127.0.0.1:6106 lost.
+63826:M 11 Sep 2023 23:30:27.057 * Replica 127.0.0.1:6106 asks for synchronization
+63826:M 11 Sep 2023 23:30:27.057 * Partial resynchronization request from 127.0.0.1:6106 accepted. Sending 0 bytes of backlog starting from offset 2003.
+63826:M 11 Sep 2023 23:38:17.431 # Disconnecting timedout replica (streaming sync): 127.0.0.1:6106
+63826:M 11 Sep 2023 23:38:17.432 # Connection with replica 127.0.0.1:6106 lost.
+63826:M 11 Sep 2023 23:38:17.436 * Replica 127.0.0.1:6106 asks for synchronization
+63826:M 11 Sep 2023 23:38:17.436 * Partial resynchronization request from 127.0.0.1:6106 accepted. Sending 14 bytes of backlog starting from offset 2059.
+63826:M 11 Sep 2023 23:43:53.877 # Connection with replica 127.0.0.1:6106 lost.
+63826:M 11 Sep 2023 23:43:53.879 * Replica 127.0.0.1:6106 asks for synchronization
+63826:M 11 Sep 2023 23:43:53.879 * Partial resynchronization request from 127.0.0.1:6106 accepted. Sending 0 bytes of backlog starting from offset 2129.
+63826:M 11 Sep 2023 23:49:31.414 # Disconnecting timedout replica (streaming sync): 127.0.0.1:6106
+63826:M 11 Sep 2023 23:49:31.415 # Connection with replica 127.0.0.1:6106 lost.
+63826:M 11 Sep 2023 23:49:31.421 * Replica 127.0.0.1:6106 asks for synchronization
+63826:M 11 Sep 2023 23:49:31.421 * Partial resynchronization request from 127.0.0.1:6106 accepted. Sending 0 bytes of backlog starting from offset 2199.
+63826:M 11 Sep 2023 23:55:07.616 # Disconnecting timedout replica (streaming sync): 127.0.0.1:6106
+63826:M 11 Sep 2023 23:55:07.622 # Connection with replica 127.0.0.1:6106 lost.
+63826:M 11 Sep 2023 23:55:07.649 * Replica 127.0.0.1:6106 asks for synchronization
+63826:M 11 Sep 2023 23:55:07.667 * Partial resynchronization request from 127.0.0.1:6106 accepted. Sending 0 bytes of backlog starting from offset 2269.
+63826:M 12 Sep 2023 00:00:46.003 # Disconnecting timedout replica (streaming sync): 127.0.0.1:6106
+63826:M 12 Sep 2023 00:00:46.004 # Connection with replica 127.0.0.1:6106 lost.
+63826:M 12 Sep 2023 00:00:46.006 * Replica 127.0.0.1:6106 asks for synchronization
+63826:M 12 Sep 2023 00:00:46.006 * Partial resynchronization request from 127.0.0.1:6106 accepted. Sending 14 bytes of backlog starting from offset 2325.
+63826:M 12 Sep 2023 00:06:21.432 # Disconnecting timedout replica (streaming sync): 127.0.0.1:6106
+63826:M 12 Sep 2023 00:06:21.433 # Connection with replica 127.0.0.1:6106 lost.
+63826:M 12 Sep 2023 00:06:21.460 * Replica 127.0.0.1:6106 asks for synchronization
+63826:M 12 Sep 2023 00:06:21.460 * Partial resynchronization request from 127.0.0.1:6106 accepted. Sending 0 bytes of backlog starting from offset 2395.
+63826:M 12 Sep 2023 00:12:00.854 # Connection with replica 127.0.0.1:6106 lost.
+63826:M 12 Sep 2023 00:12:00.857 * Replica 127.0.0.1:6106 asks for synchronization
+63826:M 12 Sep 2023 00:12:00.857 * Partial resynchronization request from 127.0.0.1:6106 accepted. Sending 0 bytes of backlog starting from offset 2465.
+63826:M 12 Sep 2023 00:17:36.244 # Disconnecting timedout replica (streaming sync): 127.0.0.1:6106
+63826:M 12 Sep 2023 00:17:36.256 # Connection with replica 127.0.0.1:6106 lost.
+63826:M 12 Sep 2023 00:17:36.447 * Replica 127.0.0.1:6106 asks for synchronization
+63826:M 12 Sep 2023 00:17:36.448 * Partial resynchronization request from 127.0.0.1:6106 accepted. Sending 0 bytes of backlog starting from offset 2535.
+63826:M 12 Sep 2023 00:23:12.747 # Connection with replica 127.0.0.1:6106 lost.
+63826:M 12 Sep 2023 00:23:12.761 * Replica 127.0.0.1:6106 asks for synchronization
+63826:M 12 Sep 2023 00:23:12.761 * Partial resynchronization request from 127.0.0.1:6106 accepted. Sending 0 bytes of backlog starting from offset 2591.
+63826:M 12 Sep 2023 00:28:49.142 # Connection with replica 127.0.0.1:6106 lost.
+63826:M 12 Sep 2023 00:28:49.143 * Replica 127.0.0.1:6106 asks for synchronization
+63826:M 12 Sep 2023 00:28:49.143 * Partial resynchronization request from 127.0.0.1:6106 accepted. Sending 0 bytes of backlog starting from offset 2661.
+63826:M 12 Sep 2023 00:34:27.669 # Connection with replica 127.0.0.1:6106 lost.
+63826:M 12 Sep 2023 00:34:27.671 * Replica 127.0.0.1:6106 asks for synchronization
+63826:M 12 Sep 2023 00:34:27.671 * Partial resynchronization request from 127.0.0.1:6106 accepted. Sending 0 bytes of backlog starting from offset 2731.
+63826:M 12 Sep 2023 00:40:04.522 # Connection with replica 127.0.0.1:6106 lost.
+63826:M 12 Sep 2023 00:40:04.662 * Replica 127.0.0.1:6106 asks for synchronization
+63826:M 12 Sep 2023 00:40:04.662 * Partial resynchronization request from 127.0.0.1:6106 accepted. Sending 0 bytes of backlog starting from offset 2801.
+63826:M 12 Sep 2023 00:45:41.869 # Disconnecting timedout replica (streaming sync): 127.0.0.1:6106
+63826:M 12 Sep 2023 00:45:41.870 # Connection with replica 127.0.0.1:6106 lost.
+63826:M 12 Sep 2023 00:45:41.874 * Replica 127.0.0.1:6106 asks for synchronization
+63826:M 12 Sep 2023 00:45:41.874 * Partial resynchronization request from 127.0.0.1:6106 accepted. Sending 0 bytes of backlog starting from offset 2857.
+63826:M 12 Sep 2023 00:51:18.558 # Disconnecting timedout replica (streaming sync): 127.0.0.1:6106
+63826:M 12 Sep 2023 00:51:18.559 # Connection with replica 127.0.0.1:6106 lost.
+63826:M 12 Sep 2023 00:51:18.562 * Replica 127.0.0.1:6106 asks for synchronization
+63826:M 12 Sep 2023 00:51:18.562 * Partial resynchronization request from 127.0.0.1:6106 accepted. Sending 0 bytes of backlog starting from offset 2927.
+63826:M 12 Sep 2023 00:56:54.998 # Disconnecting timedout replica (streaming sync): 127.0.0.1:6106
+63826:M 12 Sep 2023 00:56:54.998 # Connection with replica 127.0.0.1:6106 lost.
+63826:M 12 Sep 2023 00:56:55.001 * Replica 127.0.0.1:6106 asks for synchronization
+63826:M 12 Sep 2023 00:56:55.001 * Partial resynchronization request from 127.0.0.1:6106 accepted. Sending 0 bytes of backlog starting from offset 2997.
+63826:M 12 Sep 2023 01:02:30.298 # Disconnecting timedout replica (streaming sync): 127.0.0.1:6106
+63826:M 12 Sep 2023 01:02:30.309 # Connection with replica 127.0.0.1:6106 lost.
+63826:M 12 Sep 2023 01:02:30.479 * Replica 127.0.0.1:6106 asks for synchronization
+63826:M 12 Sep 2023 01:02:30.479 * Partial resynchronization request from 127.0.0.1:6106 accepted. Sending 0 bytes of backlog starting from offset 3053.
+63826:M 12 Sep 2023 01:08:07.056 # Disconnecting timedout replica (streaming sync): 127.0.0.1:6106
+63826:M 12 Sep 2023 01:08:07.083 # Connection with replica 127.0.0.1:6106 lost.
+63826:M 12 Sep 2023 01:08:07.110 * Replica 127.0.0.1:6106 asks for synchronization
+63826:M 12 Sep 2023 01:08:07.110 * Partial resynchronization request from 127.0.0.1:6106 accepted. Sending 0 bytes of backlog starting from offset 3123.
+63826:M 12 Sep 2023 01:13:44.530 # Disconnecting timedout replica (streaming sync): 127.0.0.1:6106
+63826:M 12 Sep 2023 01:13:44.531 # Connection with replica 127.0.0.1:6106 lost.
+63826:M 12 Sep 2023 01:13:44.551 * Replica 127.0.0.1:6106 asks for synchronization
+63826:M 12 Sep 2023 01:13:44.551 * Partial resynchronization request from 127.0.0.1:6106 accepted. Sending 0 bytes of backlog starting from offset 3193.
+63826:M 12 Sep 2023 01:19:21.009 # Disconnecting timedout replica (streaming sync): 127.0.0.1:6106
+63826:M 12 Sep 2023 01:19:21.038 # Connection with replica 127.0.0.1:6106 lost.
+63826:M 12 Sep 2023 01:19:21.043 * Replica 127.0.0.1:6106 asks for synchronization
+63826:M 12 Sep 2023 01:19:21.043 * Partial resynchronization request from 127.0.0.1:6106 accepted. Sending 0 bytes of backlog starting from offset 3249.
+63826:M 12 Sep 2023 01:24:57.409 # Disconnecting timedout replica (streaming sync): 127.0.0.1:6106
+63826:M 12 Sep 2023 01:24:57.419 # Connection with replica 127.0.0.1:6106 lost.
+63826:M 12 Sep 2023 01:24:57.531 * Replica 127.0.0.1:6106 asks for synchronization
+63826:M 12 Sep 2023 01:24:57.532 * Partial resynchronization request from 127.0.0.1:6106 accepted. Sending 0 bytes of backlog starting from offset 3319.
+63826:M 12 Sep 2023 01:30:33.859 # Disconnecting timedout replica (streaming sync): 127.0.0.1:6106
+63826:M 12 Sep 2023 01:30:33.860 # Connection with replica 127.0.0.1:6106 lost.
+63826:M 12 Sep 2023 01:30:33.862 * Replica 127.0.0.1:6106 asks for synchronization
+63826:M 12 Sep 2023 01:30:33.863 * Partial resynchronization request from 127.0.0.1:6106 accepted. Sending 0 bytes of backlog starting from offset 3389.
+63826:M 12 Sep 2023 01:36:10.338 # Disconnecting timedout replica (streaming sync): 127.0.0.1:6106
+63826:M 12 Sep 2023 01:36:10.338 # Connection with replica 127.0.0.1:6106 lost.
+63826:M 12 Sep 2023 01:36:10.341 * Replica 127.0.0.1:6106 asks for synchronization
+63826:M 12 Sep 2023 01:36:10.341 * Partial resynchronization request from 127.0.0.1:6106 accepted. Sending 14 bytes of backlog starting from offset 3445.
+63826:M 12 Sep 2023 01:41:46.898 # Connection with replica 127.0.0.1:6106 lost.
+63826:M 12 Sep 2023 01:41:46.900 * Replica 127.0.0.1:6106 asks for synchronization
+63826:M 12 Sep 2023 01:41:46.900 * Partial resynchronization request from 127.0.0.1:6106 accepted. Sending 0 bytes of backlog starting from offset 3515.
+63826:M 12 Sep 2023 03:42:36.986 # Disconnecting timedout replica (streaming sync): 127.0.0.1:6106
+63826:M 12 Sep 2023 03:42:36.986 # Connection with replica 127.0.0.1:6106 lost.
+63826:M 12 Sep 2023 03:42:36.988 * Replica 127.0.0.1:6106 asks for synchronization
+63826:M 12 Sep 2023 03:42:36.988 * Partial resynchronization request from 127.0.0.1:6106 accepted. Sending 0 bytes of backlog starting from offset 3585.
+63826:M 12 Sep 2023 05:43:28.011 # Disconnecting timedout replica (streaming sync): 127.0.0.1:6106
+63826:M 12 Sep 2023 05:43:28.011 # Connection with replica 127.0.0.1:6106 lost.
+63826:M 12 Sep 2023 05:43:28.012 * Replica 127.0.0.1:6106 asks for synchronization
+63826:M 12 Sep 2023 05:43:28.012 * Partial resynchronization request from 127.0.0.1:6106 accepted. Sending 0 bytes of backlog starting from offset 3655.
+63826:M 12 Sep 2023 07:16:02.385 # Disconnecting timedout replica (streaming sync): 127.0.0.1:6106
+63826:M 12 Sep 2023 07:16:02.386 # Connection with replica 127.0.0.1:6106 lost.
+63826:M 12 Sep 2023 07:16:02.387 * Replica 127.0.0.1:6106 asks for synchronization
+63826:M 12 Sep 2023 07:16:02.388 * Partial resynchronization request from 127.0.0.1:6106 accepted. Sending 0 bytes of backlog starting from offset 3711.
+63826:M 12 Sep 2023 08:40:44.120 # Connection with replica 127.0.0.1:6106 lost.
+63826:M 12 Sep 2023 08:40:44.124 * Replica 127.0.0.1:6106 asks for synchronization
+63826:M 12 Sep 2023 08:40:44.124 * Partial resynchronization request from 127.0.0.1:6106 accepted. Sending 0 bytes of backlog starting from offset 3781.
+63826:M 12 Sep 2023 11:42:37.868 # Connection with replica 127.0.0.1:6106 lost.
+63826:M 12 Sep 2023 11:42:37.870 * Replica 127.0.0.1:6106 asks for synchronization
+63826:M 12 Sep 2023 11:42:37.871 * Partial resynchronization request from 127.0.0.1:6106 accepted. Sending 0 bytes of backlog starting from offset 3865.
+63826:M 12 Sep 2023 12:06:38.584 # Connection with replica 127.0.0.1:6106 lost.
+63826:M 12 Sep 2023 12:06:39.075 * Replica 127.0.0.1:6106 asks for synchronization
+63826:M 12 Sep 2023 12:06:39.075 * Partial resynchronization request from 127.0.0.1:6106 accepted. Sending 0 bytes of backlog starting from offset 3907.
+63826:M 12 Sep 2023 12:09:37.371 # Disconnecting timedout replica (streaming sync): 127.0.0.1:6106
+63826:M 12 Sep 2023 12:09:37.754 # Connection with replica 127.0.0.1:6106 lost.
+63826:M 12 Sep 2023 12:09:37.775 * Replica 127.0.0.1:6106 asks for synchronization
+63826:M 12 Sep 2023 12:09:37.775 * Partial resynchronization request from 127.0.0.1:6106 accepted. Sending 0 bytes of backlog starting from offset 3977.
+63826:M 12 Sep 2023 12:23:07.545 # Disconnecting timedout replica (streaming sync): 127.0.0.1:6106
+63826:M 12 Sep 2023 12:23:07.545 # Connection with replica 127.0.0.1:6106 lost.
+63826:M 12 Sep 2023 12:23:07.546 * Replica 127.0.0.1:6106 asks for synchronization
+63826:M 12 Sep 2023 12:23:07.546 * Partial resynchronization request from 127.0.0.1:6106 accepted. Sending 0 bytes of backlog starting from offset 4033.
+63826:M 12 Sep 2023 12:27:17.409 # Disconnecting timedout replica (streaming sync): 127.0.0.1:6106
+63826:M 12 Sep 2023 12:27:17.409 # Connection with replica 127.0.0.1:6106 lost.
+63826:M 12 Sep 2023 12:27:17.413 * Replica 127.0.0.1:6106 asks for synchronization
+63826:M 12 Sep 2023 12:27:17.413 * Partial resynchronization request from 127.0.0.1:6106 accepted. Sending 0 bytes of backlog starting from offset 4103.
+63826:M 12 Sep 2023 12:39:33.935 # Disconnecting timedout replica (streaming sync): 127.0.0.1:6106
+63826:M 12 Sep 2023 12:39:33.935 # Connection with replica 127.0.0.1:6106 lost.
+63826:M 12 Sep 2023 12:39:33.939 * Replica 127.0.0.1:6106 asks for synchronization
+63826:M 12 Sep 2023 12:39:33.939 * Partial resynchronization request from 127.0.0.1:6106 accepted. Sending 0 bytes of backlog starting from offset 4173.
+63826:M 12 Sep 2023 13:25:58.492 # Connection with replica 127.0.0.1:6106 lost.
+63826:M 12 Sep 2023 13:25:58.498 * Replica 127.0.0.1:6106 asks for synchronization
+63826:M 12 Sep 2023 13:25:58.498 * Partial resynchronization request from 127.0.0.1:6106 accepted. Sending 0 bytes of backlog starting from offset 7939.
+63826:M 12 Sep 2023 15:26:45.352 # Disconnecting timedout replica (streaming sync): 127.0.0.1:6106
+63826:M 12 Sep 2023 15:26:45.637 # Connection with replica 127.0.0.1:6106 lost.
+63826:M 12 Sep 2023 15:26:45.656 * Replica 127.0.0.1:6106 asks for synchronization
+63826:M 12 Sep 2023 15:26:45.659 * Partial resynchronization request from 127.0.0.1:6106 accepted. Sending 0 bytes of backlog starting from offset 8009.
+63826:M 12 Sep 2023 15:29:02.999 # Disconnecting timedout replica (streaming sync): 127.0.0.1:6106
+63826:M 12 Sep 2023 15:29:02.999 # Connection with replica 127.0.0.1:6106 lost.
+63826:M 12 Sep 2023 15:29:03.000 * Replica 127.0.0.1:6106 asks for synchronization
+63826:M 12 Sep 2023 15:29:03.000 * Partial resynchronization request from 127.0.0.1:6106 accepted. Sending 0 bytes of backlog starting from offset 8079.
+63826:M 12 Sep 2023 16:24:49.099 # Disconnecting timedout replica (streaming sync): 127.0.0.1:6106
+63826:M 12 Sep 2023 16:24:49.099 # Connection with replica 127.0.0.1:6106 lost.
+63826:M 12 Sep 2023 16:24:49.101 * Replica 127.0.0.1:6106 asks for synchronization
+63826:M 12 Sep 2023 16:24:49.101 * Partial resynchronization request from 127.0.0.1:6106 accepted. Sending 14 bytes of backlog starting from offset 8135.
+63826:M 12 Sep 2023 18:24:58.404 # Disconnecting timedout replica (streaming sync): 127.0.0.1:6106
+63826:M 12 Sep 2023 18:24:58.480 # Connection with replica 127.0.0.1:6106 lost.
+63826:M 12 Sep 2023 18:24:58.671 * Replica 127.0.0.1:6106 asks for synchronization
+63826:M 12 Sep 2023 18:24:58.671 * Partial resynchronization request from 127.0.0.1:6106 accepted. Sending 0 bytes of backlog starting from offset 8191.
+63826:M 12 Sep 2023 20:03:02.927 # Disconnecting timedout replica (streaming sync): 127.0.0.1:6106
+63826:M 12 Sep 2023 20:03:02.927 # Connection with replica 127.0.0.1:6106 lost.
+63826:M 12 Sep 2023 20:03:02.931 * Replica 127.0.0.1:6106 asks for synchronization
+63826:M 12 Sep 2023 20:03:02.931 * Partial resynchronization request from 127.0.0.1:6106 accepted. Sending 0 bytes of backlog starting from offset 8261.
+63826:M 12 Sep 2023 20:42:30.351 # Disconnecting timedout replica (streaming sync): 127.0.0.1:6106
+63826:M 12 Sep 2023 20:42:30.352 # Connection with replica 127.0.0.1:6106 lost.
+63826:M 12 Sep 2023 20:42:30.356 * Replica 127.0.0.1:6106 asks for synchronization
+63826:M 12 Sep 2023 20:42:30.356 * Partial resynchronization request from 127.0.0.1:6106 accepted. Sending 0 bytes of backlog starting from offset 8345.
+63826:M 12 Sep 2023 20:48:07.013 # Disconnecting timedout replica (streaming sync): 127.0.0.1:6106
+63826:M 12 Sep 2023 20:48:07.013 # Connection with replica 127.0.0.1:6106 lost.
+63826:M 12 Sep 2023 20:48:07.015 * Replica 127.0.0.1:6106 asks for synchronization
+63826:M 12 Sep 2023 20:48:07.015 * Partial resynchronization request from 127.0.0.1:6106 accepted. Sending 0 bytes of backlog starting from offset 8415.
+63826:M 12 Sep 2023 21:04:25.566 # Disconnecting timedout replica (streaming sync): 127.0.0.1:6106
+63826:M 12 Sep 2023 21:04:25.567 # Connection with replica 127.0.0.1:6106 lost.
+63826:M 12 Sep 2023 21:04:25.571 * Replica 127.0.0.1:6106 asks for synchronization
+63826:M 12 Sep 2023 21:04:25.571 * Partial resynchronization request from 127.0.0.1:6106 accepted. Sending 0 bytes of backlog starting from offset 8471.
+63826:M 12 Sep 2023 21:15:38.217 # Connection with replica 127.0.0.1:6106 lost.
+63826:M 12 Sep 2023 21:15:38.220 * Replica 127.0.0.1:6106 asks for synchronization
+63826:M 12 Sep 2023 21:15:38.220 * Partial resynchronization request from 127.0.0.1:6106 accepted. Sending 0 bytes of backlog starting from offset 8541.
+63826:M 12 Sep 2023 21:22:19.160 # Connection with replica 127.0.0.1:6106 lost.
+63826:M 12 Sep 2023 21:22:19.161 * Replica 127.0.0.1:6106 asks for synchronization
+63826:M 12 Sep 2023 21:22:19.161 * Partial resynchronization request from 127.0.0.1:6106 accepted. Sending 0 bytes of backlog starting from offset 8611.
