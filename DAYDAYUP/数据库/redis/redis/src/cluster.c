@@ -438,13 +438,11 @@ int clusterLockConfig(char *filename) {
  * set of flags in myself->flags accordingly. */
 void clusterUpdateMyselfFlags(void) {
     int oldflags = myself->flags;
-    int nofailover = server.cluster_slave_no_failover ?
-                     CLUSTER_NODE_NOFAILOVER : 0;
+    int nofailover = server.cluster_slave_no_failover ? CLUSTER_NODE_NOFAILOVER : 0;
     myself->flags &= ~CLUSTER_NODE_NOFAILOVER;
     myself->flags |= nofailover;
     if (myself->flags != oldflags) {
-        clusterDoBeforeSleep(CLUSTER_TODO_SAVE_CONFIG |
-                             CLUSTER_TODO_UPDATE_STATE);
+        clusterDoBeforeSleep(CLUSTER_TODO_SAVE_CONFIG | CLUSTER_TODO_UPDATE_STATE);
     }
 }
 
@@ -474,8 +472,7 @@ void clusterInit(void) {
     memset(server.cluster->slots, 0, sizeof(server.cluster->slots));
     clusterCloseAllSlots();
 
-    /* Lock the cluster config file to make sure every node uses
-     * its own nodes.conf. */
+    /* 锁住配置文件,确保只有当前节点可以修改数据文件 */
     server.cluster_config_file_lock_fd = -1;
     if (clusterLockConfig(server.cluster_configfile) == C_ERR)
         exit(1);
@@ -720,6 +717,7 @@ clusterNode *createClusterNode(char *nodename, int flags) {
     if (nodename)
         memcpy(node->name, nodename, CLUSTER_NAMELEN);
     else
+        //没有指定目标节点的的name,则先随机生成一个,后续通信后,再更新name
         getRandomHexChars(node->name, CLUSTER_NAMELEN);
     node->ctime = mstime();
     node->configEpoch = 0;
@@ -1342,9 +1340,7 @@ int clusterStartHandshake(char *ip, int port, int cport) {
         return 0;
     }
 
-    /* Add the node with a random address (NULL as first argument to
-     * createClusterNode()). Everything will be fixed during the
-     * handshake. */
+    /* 创建一个节点实例,并添加到cluster.node实例字典中 */
     n = createClusterNode(NULL, CLUSTER_NODE_HANDSHAKE | CLUSTER_NODE_MEET);
     memcpy(n->ip, norm_ip, sizeof(n->ip));
     n->port = port;
@@ -1353,10 +1349,9 @@ int clusterStartHandshake(char *ip, int port, int cport) {
     return 1;
 }
 
-/* Process the gossip section of PING or PONG packets.
- * Note that this function assumes that the packet is already sanity-checked
- * by the caller, not in the content of the gossip section, but in the
- * length. */
+/* 负责处理clusterMsgDataGossip内容,当某个节点收到其他节点的消息时,如果消息的随机节点实例中包含该节点不认识的节点,
+ * 则会将这些节点实例添加到实例字典中
+ * */
 void clusterProcessGossipSection(clusterMsg *hdr, clusterLink *link) {
     uint16_t count = ntohs(hdr->count);
     clusterMsgDataGossip *g = (clusterMsgDataGossip *) hdr->data.ping.gossip;
@@ -1759,7 +1754,7 @@ int clusterProcessPacket(clusterLink *link) {
         }
     }
 
-    /* Initial processing of PING and MEET requests replying with a PONG. */
+    /* 收到 PING and MEET 消息统一回复PONG消息 */
     if (type == CLUSTERMSG_TYPE_PING || type == CLUSTERMSG_TYPE_MEET) {
         serverLog(LL_DEBUG, "Ping packet received: %p", (void *) link->node);
 
@@ -1819,6 +1814,7 @@ int clusterProcessPacket(clusterLink *link) {
                   type == CLUSTERMSG_TYPE_PING ? "ping" : "pong",
                   (void *) link->node);
         if (link->node) {
+            //发送消息的节点与当前节点正在握手?
             if (nodeInHandshake(link->node)) {
                 /* If we already have this node, try to change the
                  * IP/port of the node with the new one. */
@@ -1841,7 +1837,7 @@ int clusterProcessPacket(clusterLink *link) {
                 clusterRenameNode(link->node, hdr->sender);
                 serverLog(LL_DEBUG, "Handshake with node %.40s completed.",
                           link->node->name);
-                link->node->flags &= ~CLUSTER_NODE_HANDSHAKE;
+                link->node->flags &= ~CLUSTER_NODE_HANDSHAKE; //清除握手标志,标志握手完成
                 link->node->flags |= flags & (CLUSTER_NODE_MASTER | CLUSTER_NODE_SLAVE);
                 clusterDoBeforeSleep(CLUSTER_TODO_SAVE_CONFIG);
             } else if (memcmp(link->node->name, hdr->sender,
@@ -2982,10 +2978,10 @@ void clusterHandleSlaveFailover(void) {
     /* Set data_age to the number of seconds we are disconnected from
      * the master. */
     if (server.repl_state == REPL_STATE_CONNECTED) {
-        data_age = (mstime_t)(server.unixtime - server.master->lastinteraction)
+        data_age = (mstime_t) (server.unixtime - server.master->lastinteraction)
                    * 1000;
     } else {
-        data_age = (mstime_t)(server.unixtime - server.repl_down_since) * 1000;
+        data_age = (mstime_t) (server.unixtime - server.repl_down_since) * 1000;
     }
 
     /* Remove the node timeout from the data age as it is fine that we are
@@ -3303,19 +3299,19 @@ void clusterCron(void) {
     dictIterator *di;
     dictEntry *de;
     int update_state = 0;
-    int orphaned_masters; /* How many masters there are without ok slaves. */
+    int orphaned_masters; /* 没有从节点的主节点 */
     int max_slaves; /* Max number of ok slaves for a single master. */
     int this_slaves; /* Number of ok slaves for our master (if we are slave). */
     mstime_t min_pong = 0, now = mstime();
     clusterNode *min_pong_node = NULL;
-    static unsigned long long iteration = 0;
+    static unsigned long long iteration = 0; //静态局部变量,函数执行完后,该变量不会消失,负责统计cron执行的次数
     mstime_t handshake_timeout;
 
     iteration++; /* Number of times this function was called so far. */
 
-    /* We want to take myself->ip in sync with the cluster-announce-ip option.
-     * The option can be set at runtime via CONFIG SET, so we periodically check
-     * if the option changed to reflect this into myself->ip. */
+    /* 希望将 self->ip 与 cluster-announce-ip 选项同步。
+     * 该选项可以在运行时通过 CONFIG SET 设置，定期检查该选项是否更改以将其同步到 myself->ip
+     */
     {
         static char *prev_ip = NULL;
         char *curr_ip = server.cluster_announce_ip;
@@ -3352,16 +3348,13 @@ void clusterCron(void) {
     /* Update myself flags. */
     clusterUpdateMyselfFlags();
 
-    /* Check if we have disconnected nodes and re-establish the connection.
-     * Also update a few stats while we are here, that can be used to make
-     * better decisions in other part of the code. */
+    /* 遍历实例字典中的实例,如果其中某个节点连接信息为空,则与该节点建立连接 */
     di = dictGetSafeIterator(server.cluster->nodes);
     server.cluster->stats_pfail_nodes = 0;
     while ((de = dictNext(di)) != NULL) {
         clusterNode *node = dictGetVal(de);
 
-        /* Not interested in reconnecting the link with myself or nodes
-         * for which we have no address. */
+        /* 对自己或没有地址的节点不重新建立连接 */
         if (node->flags & (CLUSTER_NODE_MYSELF | CLUSTER_NODE_NOADDR)) continue;
 
         if (node->flags & CLUSTER_NODE_PFAIL)
@@ -3373,7 +3366,7 @@ void clusterCron(void) {
             clusterDelNode(node);
             continue;
         }
-        /*节点在调用 clusterSendPing 函数向其他节点发送 Ping 消息前，会检查它和其他节点连接情况，
+        /* 节点在调用 clusterSendPing 函数向其他节点发送 Ping 消息前，会检查它和其他节点连接情况，
          * 如果连接断开了，节点会重新建立连接*/
         if (node->link == NULL) {
             int fd;
@@ -3397,7 +3390,7 @@ void clusterCron(void) {
             link = createClusterLink(node);
             link->fd = fd;
             node->link = link;
-            //节点在和其他节点建立的连接上，设置的监听函数是 clusterReadHandler。
+            // 节点在和其他节点建立的连接上，设置的监听函数是 clusterReadHandler。
             // 所以，当一个节点收到 Ping 消息时，它就会在 clusterReadHandler 函数中进行处理
             aeCreateFileEvent(server.el, link->fd, AE_READABLE, clusterReadHandler, link);
             /* Queue a PING in the new connection ASAP: this is crucial
@@ -3407,6 +3400,7 @@ void clusterCron(void) {
              * of a PING one, to force the receiver to add us in its node
              * table. */
             old_ping_sent = node->ping_sent;
+            //发送PING消息
             clusterSendPing(link, node->flags & CLUSTER_NODE_MEET ?
                                   CLUSTERMSG_TYPE_MEET : CLUSTERMSG_TYPE_PING);
             if (old_ping_sent) {
@@ -3438,7 +3432,7 @@ void clusterCron(void) {
             de = dictGetRandomKey(server.cluster->nodes);
             clusterNode *this = dictGetVal(de);
 
-            /* Don't ping nodes disconnected or with a ping currently active. */
+            /* 过滤连接已断开,发送PING消息未收到回应,握手阶段的节点 */
             if (this->link == NULL || this->ping_sent != 0) continue;
             if (this->flags & (CLUSTER_NODE_MYSELF | CLUSTER_NODE_HANDSHAKE))
                 continue;
@@ -3695,10 +3689,7 @@ int clusterNodeGetSlotBit(clusterNode *n, int slot) {
     return bitmapTestBit(n->slots, slot);
 }
 
-/* Add the specified slot to the list of slots that node 'n' will
- * serve. Return C_OK if the operation ended with success.
- * If the slot is already assigned to another instance this is considered
- * an error and C_ERR is returned. */
+/* 更新实例slot位图 */
 int clusterAddSlot(clusterNode *n, int slot) {
     if (server.cluster->slots[slot]) return C_ERR;
     clusterNodeSetSlotBit(n, slot);
@@ -4197,6 +4188,7 @@ void clusterReplyMultiBulkSlots(client *c) {
     setDeferredMultiBulkLength(c, slot_replylen, num_masters);
 }
 
+//处理cluster命令
 void clusterCommand(client *c) {
     if (server.cluster_enabled == 0) {
         addReplyError(c, "This instance has cluster support disabled");
@@ -4231,7 +4223,9 @@ void clusterCommand(client *c) {
         };
         addReplyHelp(c, help);
     } else if (!strcasecmp(c->argv[1]->ptr, "meet") && (c->argc == 4 || c->argc == 5)) {
-        /* CLUSTER MEET <ip> <port> [cport] */
+        /* CLUSTER MEET <ip> <port> [cport]
+         * 可以让两个结点握手,互相认识
+         * */
         long long port, cport;
 
         if (getLongLongFromObject(c->argv[3], &port) != C_OK) {
@@ -4282,8 +4276,8 @@ void clusterCommand(client *c) {
         addReply(c, shared.ok);
     } else if ((!strcasecmp(c->argv[1]->ptr, "addslots") ||
                 !strcasecmp(c->argv[1]->ptr, "delslots")) && c->argc >= 3) {
-        /* CLUSTER ADDSLOTS <slot> [slot] ... */
-        /* CLUSTER DELSLOTS <slot> [slot] ... */
+        /* CLUSTER ADDSLOTS <slot> [slot] ... 添加slot*/
+        /* CLUSTER DELSLOTS <slot> [slot] ... 移除slot*/
         int j, slot;
         unsigned char *slots = zmalloc(CLUSTER_SLOTS);
         int del = !strcasecmp(c->argv[1]->ptr, "delslots");
@@ -4321,8 +4315,7 @@ void clusterCommand(client *c) {
                 if (server.cluster->importing_slots_from[j])
                     server.cluster->importing_slots_from[j] = NULL;
 
-                retval = del ? clusterDelSlot(j) :
-                         clusterAddSlot(myself, j);
+                retval = del ? clusterDelSlot(j) : clusterAddSlot(myself, j);
                 serverAssertWithInfo(c, NULL, retval == C_OK);
             }
         }
@@ -4561,7 +4554,7 @@ void clusterCommand(client *c) {
         unsigned int keys_in_slot = countKeysInSlot(slot); //获取迁移slot中实际的key数量
         if (maxkeys > keys_in_slot) maxkeys = keys_in_slot;//如果实际的key数量小于maxkeys，将maxkeys更新为时间的key数量
 
-        keys = zmalloc(sizeof(robj * ) * maxkeys); //给key分配空间
+        keys = zmalloc(sizeof(robj *) * maxkeys); //给key分配空间
         //从迁移 slot 中获取实际的 key
         numkeys = getKeysInSlot(slot, keys, maxkeys);
         //将这些 key 返回给客户端
@@ -4591,7 +4584,7 @@ void clusterCommand(client *c) {
                              CLUSTER_TODO_SAVE_CONFIG);
         addReply(c, shared.ok);
     } else if (!strcasecmp(c->argv[1]->ptr, "replicate") && c->argc == 3) {
-        /* CLUSTER REPLICATE <NODE ID> */
+        /* CLUSTER REPLICATE <NODE ID> 建立主从关系*/
         clusterNode *n = clusterLookupNode(c->argv[2]->ptr);
 
         /* Lookup the specified node in our table. */
@@ -4612,14 +4605,11 @@ void clusterCommand(client *c) {
             return;
         }
 
-        /* If the instance is currently a master, it should have no assigned
-         * slots nor keys to accept to replicate some other node.
-         * Slaves can switch to another master without issues. */
+        /* 要设置主节点，节点必须为空且没有分配的slot */
         if (nodeIsMaster(myself) &&
             (myself->numslots != 0 || dictSize(server.db[0].dict) != 0)) {
-            addReplyError(c,
-                          "To set a master the node must be empty and "
-                          "without assigned slots.");
+            addReplyError(c, "To set a master the node must be empty and "
+                             "without assigned slots.");
             return;
         }
 

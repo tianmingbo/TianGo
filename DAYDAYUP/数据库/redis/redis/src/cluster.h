@@ -54,7 +54,7 @@ typedef struct clusterLink {
 #define CLUSTER_NODE_MYSELF 16    /* This node is myself */
 #define CLUSTER_NODE_HANDSHAKE 32 /* We have still to exchange the first ping */
 #define CLUSTER_NODE_NOADDR   64  /* We don't know the address of this node */
-#define CLUSTER_NODE_MEET 128     /* Send a MEET message to this node */
+#define CLUSTER_NODE_MEET 128     /* 要求进行握手操作的消息 */
 #define CLUSTER_NODE_MIGRATE_TO 256 /* Master elegible for replica migration. */
 #define CLUSTER_NODE_NOFAILOVER 512 /* Slave will not try to failver. */
 #define CLUSTER_NODE_NULL_NAME "\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000"
@@ -93,8 +93,8 @@ typedef struct clusterLink {
 #define CLUSTERMSG_TYPE_MEET 2  //Meet消息，表示某个节点要加入集群
 #define CLUSTERMSG_TYPE_FAIL 3  //Fail消息，表示某个节点有故障
 #define CLUSTERMSG_TYPE_PUBLISH 4       /* Pub/Sub Publish propagation */
-#define CLUSTERMSG_TYPE_FAILOVER_AUTH_REQUEST 5 /* May I failover? */
-#define CLUSTERMSG_TYPE_FAILOVER_AUTH_ACK 6     /* Yes, you have my vote */
+#define CLUSTERMSG_TYPE_FAILOVER_AUTH_REQUEST 5 /* 故障转移选举时的投票请求消息 */
+#define CLUSTERMSG_TYPE_FAILOVER_AUTH_ACK 6     /* 故障转移选举时的同意投票响应消息 */
 #define CLUSTERMSG_TYPE_UPDATE 7        /* Another node slots configuration */
 #define CLUSTERMSG_TYPE_MFSTART 8       /* Pause clients for manual failover */
 #define CLUSTERMSG_TYPE_MODULE 9        /* Module cluster API message. */
@@ -235,7 +235,7 @@ union clusterMsgData {
         clusterMsgDataGossip gossip[1];
     } ping;
 
-    //Fail消息类型对应的数据结构
+    //Fail消息类型对应的数据结构,节点客观下线通知,存放客观下线节点name
     struct {
         clusterMsgDataFail about;
     } fail;
@@ -259,25 +259,23 @@ union clusterMsgData {
 #define CLUSTER_PROTO_VER 1 /* Cluster bus protocol version. */
 //表示节点间通信的一条消息
 typedef struct {
-    char sig[4];        /* Signature "RCmb" (Redis Cluster message bus). */
+    char sig[4];        /* 固定为 "RCmb" (表示这是cluster消息). */
     uint32_t totlen;    /* 消息长度 */
     uint16_t ver;       /* Protocol version, currently set to 1. */
     uint16_t port;      /* TCP base port number. */
-    uint16_t type;      /* Message type */
+    uint16_t type;      /* 消息类型 */
     uint16_t count;     /* Only used for some kind of messages. */
-    uint64_t currentEpoch;  /* The epoch accordingly to the sending node. */
-    uint64_t configEpoch;   /* The config epoch if it's a master, or the last
-                               epoch advertised by its master if it is a
-                               slave. */
+    uint64_t currentEpoch;  /* 发送节点最新纪元 */
+    uint64_t configEpoch;   /* 发送节点最新写入文件的纪元 */
     uint64_t offset;    /* Master replication offset if node is a master or
                            processed replication offset if node is a slave. */
     char sender[CLUSTER_NAMELEN]; /* 发送消息节点的名称 */
     unsigned char myslots[CLUSTER_SLOTS / 8]; //发送消息节点负责的slots
-    char slaveof[CLUSTER_NAMELEN];
+    char slaveof[CLUSTER_NAMELEN]; //主节点
     char myip[NET_IP_STR_LEN];    /* 发送消息节点的IP */
     char notused1[34];  /* 34 bytes reserved for future usage. */
     uint16_t cport;      /* 发送消息节点的通信端口 */
-    uint16_t flags;      /* Sender node flags */
+    uint16_t flags;      /* 发送节点标志 */
     unsigned char state; /* Cluster state from the POV of the sender */
     unsigned char mflags[3]; /* Message flags: CLUSTERMSG_FLAG[012]_... */
     union clusterMsgData data; //消息体

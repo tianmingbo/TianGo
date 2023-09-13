@@ -1222,7 +1222,7 @@ struct redisServer {
     int cluster_slave_validity_factor; /* Slave max data age for failover. */
     int cluster_require_full_coverage; /* If true, put the cluster down if
                                           there is at least an uncovered slot.*/
-    int cluster_slave_no_failover;  /* 进制该节点执行故障转移*/
+    int cluster_slave_no_failover;  /* 标志该节点执行故障转移*/
     char *cluster_announce_ip;  /* 指定节点的ip地址 */
     int cluster_announce_port;     /* base port to announce on cluster bus. */
     int cluster_announce_bus_port; /* bus port to announce on cluster bus. */
