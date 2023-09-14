@@ -14,10 +14,10 @@ typedef struct streamID {
 } streamID;
 
 typedef struct stream {
-    rax *rax;               /* The radix tree holding the stream. */
-    uint64_t length;        /* Number of elements inside this stream. */
-    streamID last_id;       /* Zero if there are yet no items. */
-    rax *cgroups;           /* Consumer groups dictionary: name -> streamCG */
+    rax *rax;               //保存消息的Radix Tree
+    uint64_t length;        //消息流中的消息个数
+    streamID last_id;       //当前消息流中最后插入的消息的ID
+    rax *cgroups;           //当前消息流的消费组信息，也是用Radix Tree保存
 } stream;
 
 /* We define an iterator to iterate stream items in an abstract way, without
@@ -102,19 +102,36 @@ struct client;
 #define SLC_NOREFRESH (1<<1) /* Do not update consumer's seen-time */
 
 stream *streamNew(void);
+
 void freeStream(stream *s);
+
 unsigned long streamLength(const robj *subject);
-size_t streamReplyWithRange(client *c, stream *s, streamID *start, streamID *end, size_t count, int rev, streamCG *group, streamConsumer *consumer, int flags, streamPropInfo *spi);
+
+size_t streamReplyWithRange(client *c, stream *s, streamID *start, streamID *end,
+                            size_t count, int rev, streamCG *group,
+                            streamConsumer *consumer, int flags, streamPropInfo *spi);
+
 void streamIteratorStart(streamIterator *si, stream *s, streamID *start, streamID *end, int rev);
+
 int streamIteratorGetID(streamIterator *si, streamID *id, int64_t *numfields);
-void streamIteratorGetField(streamIterator *si, unsigned char **fieldptr, unsigned char **valueptr, int64_t *fieldlen, int64_t *valuelen);
+
+void streamIteratorGetField(streamIterator *si, unsigned char **fieldptr, unsigned char **valueptr, int64_t *fieldlen,
+                            int64_t *valuelen);
+
 void streamIteratorStop(streamIterator *si);
+
 streamCG *streamLookupCG(stream *s, sds groupname);
+
 streamConsumer *streamLookupConsumer(streamCG *cg, sds name, int flags);
+
 streamCG *streamCreateCG(stream *s, char *name, size_t namelen, streamID *id);
+
 streamNACK *streamCreateNACK(streamConsumer *consumer);
+
 void streamDecodeID(void *buf, streamID *id);
+
 int streamCompareID(streamID *a, streamID *b);
+
 void streamIncrID(streamID *id);
 
 #endif

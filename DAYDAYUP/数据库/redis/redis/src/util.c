@@ -417,7 +417,7 @@ int string2l(const char *s, size_t slen, long *lval) {
     if (!string2ll(s, slen, &llval))
         return 0;
 
-    if (llval < LONG_MIN || llval > LONG_MAX)
+    if (llval < LONG_MIN || llval > LONG_MAX) //超出范围啦
         return 0;
 
     *lval = (long) llval;

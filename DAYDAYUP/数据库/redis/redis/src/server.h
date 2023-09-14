@@ -598,7 +598,7 @@ typedef struct redisObject {
                             * LFU data (least significant 8 bits frequency
                             * and most significant 16 bits access time). */
     int refcount; //引用计数
-    void *ptr;//指向底层数显数据结构的指针
+    void *ptr;//指向底层数据结构的指针
 } robj;
 
 /* Macro used to initialize a Redis object allocated on the stack.
@@ -1789,7 +1789,7 @@ int equalStringObjects(robj *a, robj *b);
 unsigned long long estimateObjectIdleTime(robj *o);
 
 void trimStringObjectIfNeeded(robj *o);
-
+//OBJ_ENCODING_RAW原始字符串与压缩字符串OBJ_ENCODING_EMBSTR
 #define sdsEncodedObject(objptr) (objptr->encoding == OBJ_ENCODING_RAW || objptr->encoding == OBJ_ENCODING_EMBSTR)
 
 /* Synchronous I/O with timeout */

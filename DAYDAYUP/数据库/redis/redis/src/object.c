@@ -79,12 +79,9 @@ robj *createEmbeddedStringObject(const char *ptr, size_t len) {
     return o;
 }
 
-/* Create a string object with EMBSTR encoding if it is smaller than
- * OBJ_ENCODING_EMBSTR_SIZE_LIMIT, otherwise the RAW encoding is
- * used.
- *
- * The current limit of 44 is chosen so that the biggest string object
- * we allocate as EMBSTR will still fit into the 64 byte arena of jemalloc. */
+/* 字符串小于44字节,使用OBJ_ENCODING_EMBSTR编码.
+ * 大于则使用RAW编码
+ * */
 #define OBJ_ENCODING_EMBSTR_SIZE_LIMIT 44
 
 robj *createStringObject(const char *ptr, size_t len) {
@@ -422,7 +419,7 @@ robj *tryObjectEncoding(robj *o) {
      * in this function. Other types use encoded memory efficient
      * representations but are handled by the commands implementing
      * the type. */
-    serverAssertWithInfo(NULL, o, o->type == OBJ_STRING);
+    serverAssertWithInfo(NULL, o, o->type == OBJ_STRING); //类型校验
 
     /* We try some specialized encoding only for objects that are
      * RAW or EMBSTR encoded, in other words objects that are still
@@ -434,9 +431,7 @@ robj *tryObjectEncoding(robj *o) {
      * they are not handled. We handle them only as values in the keyspace. */
     if (o->refcount > 1) return o;
 
-    /* Check if we can represent this string as a long integer.
-     * Note that we are sure that a string larger than 20 chars is not
-     * representable as a 32 nor 64 bit integer. */
+    /* 检查是否可以将字符串编码为数字,当字符串的长度小于20的时候 */
     len = sdslen(s);
     if (len <= 20 && string2l(s, len, &value)) {
         /* This object is encodable as a long. Try to use a shared object.
@@ -601,7 +596,7 @@ int getDoubleFromObject(const robj *o, double *target) {
             value = strtod(o->ptr, &eptr);
             if (sdslen(o->ptr) == 0 ||
                 isspace(((const char *) o->ptr)[0]) ||
-                (size_t)(eptr - (char *) o->ptr) != sdslen(o->ptr) ||
+                (size_t) (eptr - (char *) o->ptr) != sdslen(o->ptr) ||
                 (errno == ERANGE &&
                  (value == HUGE_VAL || value == -HUGE_VAL || value == 0)) ||
                 isnan(value))
@@ -643,7 +638,7 @@ int getLongDoubleFromObject(robj *o, long double *target) {
             value = strtold(o->ptr, &eptr);
             if (sdslen(o->ptr) == 0 ||
                 isspace(((const char *) o->ptr)[0]) ||
-                (size_t)(eptr - (char *) o->ptr) != sdslen(o->ptr) ||
+                (size_t) (eptr - (char *) o->ptr) != sdslen(o->ptr) ||
                 (errno == ERANGE &&
                  (value == HUGE_VAL || value == -HUGE_VAL || value == 0)) ||
                 isnan(value))

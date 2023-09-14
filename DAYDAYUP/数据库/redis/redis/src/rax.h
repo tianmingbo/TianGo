@@ -1,33 +1,3 @@
-/* Rax -- A radix tree implementation.
- *
- * Copyright (c) 2017-2018, Salvatore Sanfilippo <antirez at gmail dot com>
- * All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
- *
- *   * Redistributions of source code must retain the above copyright notice,
- *     this list of conditions and the following disclaimer.
- *   * Redistributions in binary form must reproduce the above copyright
- *     notice, this list of conditions and the following disclaimer in the
- *     documentation and/or other materials provided with the distribution.
- *   * Neither the name of Redis nor the names of its contributors may be used
- *     to endorse or promote products derived from this software without
- *     specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
- */
-
 #ifndef RAX_H
 #define RAX_H
 
@@ -96,10 +66,10 @@
 
 #define RAX_NODE_MAX_SIZE ((1<<29)-1)
 typedef struct raxNode {
-    uint32_t iskey:1;     /* Does this node contain a key? */
-    uint32_t isnull:1;    /* Associated value is NULL (don't store it). */
-    uint32_t iscompr:1;   /* Node is compressed. */
-    uint32_t size:29;     /* Number of children, or compressed string len. */
+    uint32_t iskey: 1;     //节点是否包含key
+    uint32_t isnull: 1;    //节点的值是否为NULL
+    uint32_t iscompr: 1;   //节点是否被压缩
+    uint32_t size: 29;     //节点大小,具体值会根据节点是压缩节点还是非压缩节点而不同。如果当前节点是压缩节点，该值表示压缩数据的长度；如果是非压缩节点，该值表示该节点指向的子节点个数。
     /* Data layout is as follows:
      *
      * If node is not compressed we have 'size' bytes, one for each children
@@ -190,23 +160,41 @@ extern void *raxNotFound;
 
 /* Exported API. */
 rax *raxNew(void);
+
 int raxInsert(rax *rax, unsigned char *s, size_t len, void *data, void **old);
+
 int raxTryInsert(rax *rax, unsigned char *s, size_t len, void *data, void **old);
+
 int raxRemove(rax *rax, unsigned char *s, size_t len, void **old);
+
 void *raxFind(rax *rax, unsigned char *s, size_t len);
+
 void raxFree(rax *rax);
-void raxFreeWithCallback(rax *rax, void (*free_callback)(void*));
+
+void raxFreeWithCallback(rax *rax, void (*free_callback)(void *));
+
 void raxStart(raxIterator *it, rax *rt);
+
 int raxSeek(raxIterator *it, const char *op, unsigned char *ele, size_t len);
+
 int raxNext(raxIterator *it);
+
 int raxPrev(raxIterator *it);
+
 int raxRandomWalk(raxIterator *it, size_t steps);
+
 int raxCompare(raxIterator *iter, const char *op, unsigned char *key, size_t key_len);
+
 void raxStop(raxIterator *it);
+
 int raxEOF(raxIterator *it);
+
 void raxShow(rax *rax);
+
 uint64_t raxSize(rax *rax);
+
 unsigned long raxTouch(raxNode *n);
+
 void raxSetDebugMsg(int onoff);
 
 /* Internal API. May be used by the node callback in order to access rax nodes
