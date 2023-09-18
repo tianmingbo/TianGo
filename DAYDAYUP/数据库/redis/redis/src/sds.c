@@ -649,11 +649,7 @@ sds sdscatfmt(sds s, char const *fmt, ...) {
     return s;
 }
 
-/* Remove the part of the string from left and from right composed just of
- * contiguous characters found in 'cset', that is a null terminted C string.
- *
- * After the call, the modified sds string is no longer valid and all the
- * references must be substituted with the new pointer returned by the call.
+/* 移除s两边的任一在cset中的字符
  *
  * Example:
  *
@@ -678,19 +674,8 @@ sds sdstrim(sds s, const char *cset) {
     return s;
 }
 
-/* Turn the string into a smaller (or equal) string containing only the
- * substring specified by the 'start' and 'end' indexes.
- *
- * start and end can be negative, where -1 means the last character of the
- * string, -2 the penultimate character, and so forth.
- *
- * The interval is inclusive, so the start and end characters will be part
- * of the resulting string.
- *
- * The string is modified in-place.
- *
+/* 获取子字符串,不在指定范围内的字符串将被清除
  * Example:
- *
  * s = sdsnew("Hello World");
  * sdsrange(s,1,-1); => "ello World"
  */
@@ -699,7 +684,7 @@ void sdsrange(sds s, ssize_t start, ssize_t end) {
 
     if (len == 0) return;
     if (start < 0) {
-        start = len + start;
+        start = len + start; //支持负值索引
         if (start < 0) start = 0;
     }
     if (end < 0) {
@@ -722,31 +707,27 @@ void sdsrange(sds s, ssize_t start, ssize_t end) {
     sdssetlen(s, newlen);
 }
 
-/* Apply tolower() to every character of the sds string 's'. */
+/* 转小写 */
 void sdstolower(sds s) {
     size_t len = sdslen(s), j;
 
     for (j = 0; j < len; j++) s[j] = tolower(s[j]);
 }
 
-/* Apply toupper() to every character of the sds string 's'. */
+/* 转大写 */
 void sdstoupper(sds s) {
     size_t len = sdslen(s), j;
 
     for (j = 0; j < len; j++) s[j] = toupper(s[j]);
 }
 
-/* Compare two sds strings s1 and s2 with memcmp().
- *
+/* 字符串比较
  * Return value:
  *
- *     positive if s1 > s2.
- *     negative if s1 < s2.
- *     0 if s1 and s2 are exactly the same binary string.
- *
- * If two strings share exactly the same prefix, but one of the two has
- * additional characters, the longer string is considered to be greater than
- * the smaller one. */
+ *     >0 if s1 > s2.
+ *     <= if s1 < s2.
+ *     0 if s1 == s2
+ * */
 int sdscmp(const sds s1, const sds s2) {
     size_t l1, l2, minlen;
     int cmp;
@@ -755,25 +736,15 @@ int sdscmp(const sds s1, const sds s2) {
     l2 = sdslen(s2);
     minlen = (l1 < l2) ? l1 : l2;
     cmp = memcmp(s1, s2, minlen);
+    //如果前缀相同,长的字符串大
     if (cmp == 0) return l1 > l2 ? 1 : (l1 < l2 ? -1 : 0);
     return cmp;
 }
 
-/* Split 's' with separator in 'sep'. An array
- * of sds strings is returned. *count will be set
- * by reference to the number of tokens returned.
- *
- * On out of memory, zero length string, zero length
- * separator, NULL is returned.
- *
- * Note that 'sep' is able to split a string using
- * a multi-character separator. For example
- * sdssplit("foo_-_bar","_-_"); will return two
- * elements "foo" and "bar".
- *
- * This version of the function is binary-safe but
- * requires length arguments. sdssplit() is just the
- * same function but for zero-terminated strings.
+/* 字符串分割
+
+ * sdssplit("foo_-_bar","_-_");
+ * >>>"foo"  "bar".
  */
 sds *sdssplitlen(const char *s, ssize_t len, const char *sep, int seplen, int *count) {
     int elements = 0, slots = 5;

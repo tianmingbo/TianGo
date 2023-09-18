@@ -399,10 +399,7 @@ int isObjectRepresentableAsLongLong(robj *o, long long *llval) {
     }
 }
 
-/* Optimize the SDS string inside the string object to require little space,
- * in case there is more than 10% of free space at the end of the SDS
- * string. This happens because SDS strings tend to overallocate to avoid
- * wasting too much time in allocations when appending to the string. */
+/* 优化sds字符串,当剩余空间大于10%, 释放掉未使用空间 */
 void trimStringObjectIfNeeded(robj *o) {
     if (o->encoding == OBJ_ENCODING_RAW &&
         sdsavail(o->ptr) > sdslen(o->ptr) / 10) {
@@ -410,40 +407,32 @@ void trimStringObjectIfNeeded(robj *o) {
     }
 }
 
-/* Try to encode a string object in order to save space */
+/* 尝试把字符串转换为OBJ_ENCODING_INT编码以节省空间 */
 robj *tryObjectEncoding(robj *o) {
     long value;
     sds s = o->ptr;
     size_t len;
 
-    /* Make sure this is a string object, the only type we encode
-     * in this function. Other types use encoded memory efficient
-     * representations but are handled by the commands implementing
-     * the type. */
     serverAssertWithInfo(NULL, o, o->type == OBJ_STRING); //类型校验
 
-    /* We try some specialized encoding only for objects that are
-     * RAW or EMBSTR encoded, in other words objects that are still
-     * in represented by an actually array of chars. */
+    /* 仅针对字符串 */
     if (!sdsEncodedObject(o)) return o;
 
-    /* It's not safe to encode shared objects: shared objects can be shared
-     * everywhere in the "object space" of Redis and may end in places where
-     * they are not handled. We handle them only as values in the keyspace. */
+    /*引用计数大于1,return */
     if (o->refcount > 1) return o;
 
     /* 检查是否可以将字符串编码为数字,当字符串的长度小于20的时候 */
     len = sdslen(s);
     if (len <= 20 && string2l(s, len, &value)) {
-        /* This object is encodable as a long. Try to use a shared object.
-         * Note that we avoid using shared integers when maxmemory is used
-         * because every object needs to have a private LRU field for the LRU
-         * algorithm to work well. */
+        /* 如果配置了server.maxmemory,并使用了不支持共享数据的淘汰算法(LRU,LFU),那么
+         * 这里不能使用共享数据.
+         * 因为每个数据中都必须要有lru属性,这两算法才能正常工作.
+         * */
         if ((server.maxmemory == 0 ||
              !(server.maxmemory_policy & MAXMEMORY_FLAG_NO_SHARED_INTEGERS)) &&
-            value >= 0 &&
-            value < OBJ_SHARED_INTEGERS) {
+            value >= 0 && value < OBJ_SHARED_INTEGERS) {
             decrRefCount(o);
+            //尝试使用shared.integers中的共享数据,shared.integers是一个整数数组,存放了0~9999
             incrRefCount(shared.integers[value]);
             return shared.integers[value];
         } else {
@@ -459,10 +448,7 @@ robj *tryObjectEncoding(robj *o) {
         }
     }
 
-    /* If the string is small and is still RAW encoded,
-     * try the EMBSTR encoding which is more efficient.
-     * In this representation the object and the SDS string are allocated
-     * in the same chunk of memory to save space and cache misses. */
+    /* 如果字符串很小并且仍然是RAW编码,则使用OBJ_ENCODING_EMBSTR编码 */
     if (len <= OBJ_ENCODING_EMBSTR_SIZE_LIMIT) {
         robj *emb;
 
@@ -472,15 +458,7 @@ robj *tryObjectEncoding(robj *o) {
         return emb;
     }
 
-    /* We can't encode the object...
-     *
-     * Do the last try, and at least optimize the SDS string inside
-     * the string object to require little space, in case there
-     * is more than 10% of free space at the end of the SDS string.
-     *
-     * We do that only for relatively large strings as this branch
-     * is only entered if the length of the string is greater than
-     * OBJ_ENCODING_EMBSTR_SIZE_LIMIT. */
+    //走到这里,说明是OBJ_ENCODING_RAW编码, 尝试优化一波未使用空间
     trimStringObjectIfNeeded(o);
 
     /* Return the original object. */
@@ -1267,18 +1245,15 @@ void objectCommand(client *c) {
         };
         addReplyHelp(c, help);
     } else if (!strcasecmp(c->argv[1]->ptr, "refcount") && c->argc == 3) {
-        if ((o = objectCommandLookupOrReply(c, c->argv[2], shared.nullbulk))
-            == NULL)
+        if ((o = objectCommandLookupOrReply(c, c->argv[2], shared.nullbulk)) == NULL)
             return;
         addReplyLongLong(c, o->refcount);
     } else if (!strcasecmp(c->argv[1]->ptr, "encoding") && c->argc == 3) {
-        if ((o = objectCommandLookupOrReply(c, c->argv[2], shared.nullbulk))
-            == NULL)
+        if ((o = objectCommandLookupOrReply(c, c->argv[2], shared.nullbulk)) == NULL)
             return;
         addReplyBulkCString(c, strEncoding(o->encoding));
     } else if (!strcasecmp(c->argv[1]->ptr, "idletime") && c->argc == 3) {
-        if ((o = objectCommandLookupOrReply(c, c->argv[2], shared.nullbulk))
-            == NULL)
+        if ((o = objectCommandLookupOrReply(c, c->argv[2], shared.nullbulk)) == NULL)
             return;
         if (server.maxmemory_policy & MAXMEMORY_FLAG_LFU) {
             addReplyError(c,
@@ -1287,8 +1262,7 @@ void objectCommand(client *c) {
         }
         addReplyLongLong(c, estimateObjectIdleTime(o) / 1000);
     } else if (!strcasecmp(c->argv[1]->ptr, "freq") && c->argc == 3) {
-        if ((o = objectCommandLookupOrReply(c, c->argv[2], shared.nullbulk))
-            == NULL)
+        if ((o = objectCommandLookupOrReply(c, c->argv[2], shared.nullbulk)) == NULL)
             return;
         if (!(server.maxmemory_policy & MAXMEMORY_FLAG_LFU)) {
             addReplyError(c,

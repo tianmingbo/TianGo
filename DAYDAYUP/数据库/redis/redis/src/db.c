@@ -113,11 +113,9 @@ robj *lookupKeyRead(redisDb *db, robj *key) {
     return lookupKeyReadWithFlags(db, key, LOOKUP_NONE);
 }
 
-/* Lookup a key for write operations, and as a side effect, if needed, expires
- * the key if its TTL is reached.
- *
- * Returns the linked value object if the key exists or NULL if the key
- * does not exist in the specified DB. */
+/* 查找用于写入的key,如果过期,则淘汰.
+ * 如果键存在,则返回.不存在返回NULL
+ * */
 robj *lookupKeyWrite(redisDb *db, robj *key) {
     expireIfNeeded(db, key);
     return lookupKey(db, key, LOOKUP_NONE);
@@ -1069,18 +1067,16 @@ void setExpire(client *c, redisDb *db, robj *key, long long when) {
         rememberSlaveKeyWithExpire(db, key);
 }
 
-/* Return the expire time of the specified key, or -1 if no expire
- * is associated with this key (i.e. the key is non volatile) */
+/* 返回指定键的过期时间，如果没有与该键关联的过期时间（即该键是非易失性的），则返回 -1 */
 long long getExpire(redisDb *db, robj *key) {
     dictEntry *de;
 
-    /* No expire? return ASAP */
+    /* 没有过期时间,返回-1 */
     if (dictSize(db->expires) == 0 ||
         (de = dictFind(db->expires, key->ptr)) == NULL)
         return -1;
 
-    /* The entry was found in the expire dict, this means it should also
-     * be present in the main dict (safety check). */
+    /* 该entry是在过期字典中找到的，检查在dict中存在不。 */
     serverAssertWithInfo(NULL, key, dictFind(db->dict, key->ptr) != NULL);
     return dictGetSignedIntegerVal(de);
 }
@@ -1114,16 +1110,15 @@ int keyIsExpired(redisDb *db, robj *key) {
     mstime_t when = getExpire(db, key);
     mstime_t now;
 
-    if (when < 0) return 0; /* No expire for this key */
+    if (when < 0) return 0; /* key没有过期时间 */
 
     /* Don't expire anything while loading. It will be done later. */
     if (server.loading) return 0;
 
-    /* If we are in the context of a Lua script, we pretend that time is
-     * blocked to when the Lua script started. This way a key can expire
-     * only the first time it is accessed and not in the middle of the
-     * script execution, making propagation to slaves / AOF consistent.
-     * See issue #1525 on Github for more information. */
+    /* 如果我们处于 Lua 脚本的上下文中，我们会假装时间被锁定到 Lua 脚本开始的时间。
+     * 这样，密钥仅在第一次访问时才会过期，而不会在脚本执行过程中过期，
+     * 从而使到slave/AOF 的传播保持一致。
+     * 有关更多信息，请参阅 Github 上的问题 #1525。*/
     if (server.lua_caller) {
         now = server.lua_time_start;
     }
@@ -1147,24 +1142,12 @@ int keyIsExpired(redisDb *db, robj *key) {
     return now > when;
 }
 
-/* This function is called when we are going to perform some operation
- * in a given key, but such key may be already logically expired even if
- * it still exists in the database. The main way this function is called
- * is via lookupKey*() family of functions.
- *
- * The behavior of the function depends on the replication role of the
- * instance, because slave instances do not expire keys, they wait
- * for DELs from the master for consistency matters. However even
- * slaves will try to have a coherent return value for the function,
- * so that read commands executed in the slave side will be able to
- * behave like if the key is expired even if still present (because the
- * master has yet to propagate the DEL).
- *
- * In masters as a side effect of finding a key which is expired, such
- * key will be evicted from the database. Also this may trigger the
- * propagation of a DEL/UNLINK command in AOF / replication stream.
- *
- * 检查key是否过期，过期返回1
+/* 当我们要对给定的键执行某些操作时，会调用此函数，但该键可能在逻辑上已经过期，即使它仍然存在于数据库中。
+ * 调用该函数的主要方式是通过 LookupKey*() 系列函数。
+  *
+  * 该函数的行为取决于实例的角色，因为slave不会使淘汰key，而是等待master的del命令。
+  * 所以在slave中,即便过期也会返回.
+  * 在 master 中，过期key会从数据库中移除。这可能会触发 AOF/复制流中的 DEL/UNLINK 命令的传播。
  * */
 int expireIfNeeded(redisDb *db, robj *key) {
     if (!keyIsExpired(db, key)) return 0;
