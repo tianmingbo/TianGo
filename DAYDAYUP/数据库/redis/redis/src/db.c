@@ -141,7 +141,7 @@ robj *lookupKeyWriteOrReply(client *c, robj *key, robj *reply) {
  * The program is aborted if the key already exists. */
 void dbAdd(redisDb *db, robj *key, robj *val) {
     sds copy = sdsdup(key->ptr);
-    int retval = dictAdd(db->dict, copy, val);
+    int retval = dictAdd(db->dict, copy, val);//添加到全局dict
 
     serverAssertWithInfo(NULL, key, retval == DICT_OK);
     if (val->type == OBJ_LIST ||
@@ -189,7 +189,7 @@ void setKey(redisDb *db, robj *key, robj *val) {
         dbOverwrite(db, key, val);
     }
     incrRefCount(val);
-    removeExpire(db, key);
+    removeExpire(db, key); //删除过期key
     signalModifiedKey(db, key);
 }
 

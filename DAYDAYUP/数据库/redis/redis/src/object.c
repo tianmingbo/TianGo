@@ -79,8 +79,9 @@ robj *createEmbeddedStringObject(const char *ptr, size_t len) {
     return o;
 }
 
-/* 字符串小于44字节,使用OBJ_ENCODING_EMBSTR编码.
- * 大于则使用RAW编码
+/* 字符串小于44字节,使用OBJ_ENCODING_EMBSTR编码,redisobj和sds结构存放在一块连续内存中,
+ * 可以减少内存碎片.
+ * 大于44字节则使用RAW编码
  * */
 #define OBJ_ENCODING_EMBSTR_SIZE_LIMIT 44
 
@@ -314,7 +315,7 @@ void freeStreamObject(robj *o) {
 }
 
 void incrRefCount(robj *o) {
-    if (o->refcount != OBJ_SHARED_REFCOUNT) o->refcount++;
+    if (o->refcount != OBJ_SHARED_REFCOUNT) o->refcount++; //增加引用计数
 }
 
 void decrRefCount(robj *o) {

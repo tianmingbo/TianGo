@@ -598,7 +598,7 @@ typedef struct redisObject {
                             * LFU data (least significant 8 bits frequency
                             * and most significant 16 bits access time). */
     int refcount; //引用计数
-    void *ptr;//指向底层数据结构的指针
+    void *ptr;//指向值的指针，8个字节
 } robj;
 
 /* Macro used to initialize a Redis object allocated on the stack.
