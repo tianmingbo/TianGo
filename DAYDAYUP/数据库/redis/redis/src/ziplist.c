@@ -1,114 +1,46 @@
-/* ziplist是一个特殊编码的双链表，其设计目的是
-  * 内存效率非常高。 它存储字符串和整数值，
-  * 其中整数被编码为实际整数而不是一系列
-  * 人物。 它允许在列表的两侧进行推送和弹出操作
-  * 在 O(1) 时间内。 然而，由于每次操作都需要重新分配
-  * ziplist使用的内存，实际复杂度与
-  * ziplist 使用的内存量。
-  *
-  * ------------------------------------------------- ----------------------------
-  *
-  * Ziplist 整体布局
-  *======================
-  *
+/*
   * ziplist的总体布局如下：
   *
   * <zlbytes> <zltail> <zllen> <entry> <entry> ... <entry> <zlend>
-  *
   * 注意：如果没有另外指定，所有字段都以小端存储。
   *
-  * <uint32_t zlbytes> 是一个无符号整数，用于保存字节数
-  * ziplist占用，包括zlbytes字段本身的四个字节。
-  * 需要存储该值才能调整整个结构的大小
-  * 无需先遍历它。
-  *
-  * <uint32_t zltail> 是列表中最后一个entry的偏移量。 这允许
-  * 在列表的远端进行弹出操作，无需完整操作
-  * 遍历。
-  *
-  * <uint16_t zllen> 是entry数。 当有超过
-  * 2^16-2个entry，这个值设置为2^16-1，我们需要遍历
-  * 整个列表以了解它包含多少项目。
-  *
-  * <uint8_t zlend> 是一个特殊entry，表示 ziplist 的末尾。
-  * 被编码为等于 255 的单个字节。没有其他正常entry启动
-  * 将字节值设置为 255。
+  * <uint32_t zlbytes> 记录zplist占用字节数,包括zlbytes4个字节
+  * <uint32_t zltail> 最后一个节点的偏移量,用于支持链表尾部删除或反向遍历
+  * <uint16_t zllen> entry数。 当有超过2^16-2个entry，这个值设置为2^16-1
+  * <uint8_t zlend> 标志位,ziplist结尾,255
   *
   * 压缩列表entry
-  * ===============
-  *
-  * ziplist 中的每个entry都以包含两部分的元数据为前缀
-  * 信息。 首先，前一个entry的长度被存储为
-  * 能够从后向前遍历列表。 二、entry编码为
-  * 假如。 它表示entry类型，整数或字符串，在这种情况下
-  * 字符串的它也代表字符串有效负载的长度。
-  * 所以一个完整的entry是这样存储的：
-  *
-  * <prevlen> <编码> <entry数据>
-  *
-  * 有时编码代表entry本身，例如小整数
-  * 我们稍后会看到。 在这种情况下， <entry-data> 部分丢失，我们
-  * 可能只是：
-  *
-  * <prevlen> <编码>
-  *
-  * 前一个entry的长度 <prevlen> 按以下方式编码：
-  * 如果这个长度小于254字节，则只会消耗单个
-  * 将长度表示为无符号 8 位整数的字节。 当长度
-  * 大于或等于254，将消耗5个字节。 第一个字节是
-  * 设置为 254 (FE) 表示后面有更大的值。 剩余 4 个
-  * bytes 将前一个entry的长度作为值。
+  * <prevlen> <encoding> <entry数据>
+  * <prevlen> <编码> 前驱节点长度,为1||5字节( 第一个字节设置为 254 (FE) 表示后面有更大的值。 剩余 4 个
+  * bytes 将前一个entry的长度作为值。)
   *
   * 因此，实际上一个entry是按以下方式编码的：
-  *
   * <prevlen 从 0 到 253> <编码> <entry>
   *
-  * 或者如果前一个entry长度大于 253 字节
-  * 使用以下编码：
-  *
+  * 或者如果前一个entry长度大于 253 字节使用以下编码：
   * 0xFE <4 字节无符号小端 prevlen> <编码> <entry>
   *
-  * entry的编码字段取决于entry的内容
-  * 入口。 当entry是字符串时，先编码前2位
-  * byte 将保存用于存储字符串长度的编码类型，
-  * 后跟字符串的实际长度。 当entry是整数时
-  * 前2位均设置为1。后面2位用于指定
-  * 该标头之后将存储什么样的整数。 概述
-  * 不同类型和编码如下。 第一个字节总是足够的
-  * 确定entry的类型。
- *
- * |00pppppp| - 1 字节
+  * encoding:
+  * |00pppppp| - 1 字节
   * 长度小于或等于63字节（6位）的字符串值。
   * “pppppp”表示无符号6位长度。
-  * |01pppppp|QQQQQQQQ| - 2字节
-  * 长度小于或等于16383字节（14位）的字符串值。
+  *
+  * |01pppppp|QQQQQQQQ| - 2字节, 长度小于或等于16383字节（14位）的字符串值。
   * 重要提示：14 位数字以大端存储。
+  *
   * |10000000|qqqqqqqq|rrrrrrrr|ssssssss|tttttttt| - 5字节
-  * 长度大于或等于16384字节的字符串值。
-  * 仅第一个字节后面的4个字节代表长度
-  * 最多 32^2-1。 第一个字节的低 6 位未被使用，
-  * 设置为零。
+  * 长度大于或等于16384字节的字符串值。仅第一个字节后面的4个字节代表长度,最多 32^2-1。 第一个字节的低 6 位未被使用，设置为零。
   * 重要提示：32 位数字以大端存储。
-  * |11000000| - 3字节
-  * 整数编码为 int16_t（2 个字节）。
-  * |11010000| - 5字节
-  * 整数编码为 int32_t（4 个字节）。
-  * |11100000| - 9 字节
-  * 整数编码为 int64_t（8 字节）。
-  * |11110000| - 4字节
-  * 整数编码为 24 位有符号（3 个字节）。
-  * |11111110| - 2字节
-  * 整数编码为 8 位有符号（1 字节）。
-  * |1111xxxx| - （xxxx 在 0000 到 1101 之间）立即数 4 位整数。
-  * 从0到12的无符号整数。编码值实际上是从
-  * 1到13因为0000和1111不能使用，所以应该是1
-  * 从编码的 4 位值中减去以获得正确的值。
-  * |11111111| - ziplist 特殊entry结束。
   *
-  * 与 ziplist 标头一样，所有整数都以小数表示
-  * endian 字节顺序，即使此代码是在大 endian 系统中编译的。
+  * |11000000| - 3字节, 整数编码为 int16_t（2 个字节）。
+  * |11010000| - 5字节, 整数编码为 int32_t（4 个字节）。
+  * |11100000| - 9 字节, 整数编码为 int64_t（8 字节）。
+  * |11110000| - 4字节,整数编码为 24 位有符号（3 个字节）。
+  * |11111110| - 2字节, 整数编码为 8 位有符号（1 字节）。
+  * |1111xxxx| - xxxx 在 0000 到 1101 之间,从0到12的无符号整数。编码值实际上是从1到13,因为0000和1111不能使用) entry data为空
+  * |11111111| - ziplist entry结束。
   *
-  * 实际 ziplist 的示例
+  * ziplist 的示例
   * ===========================
   *
   * 下面是一个ziplist，其中包含代表的两个元素
@@ -116,37 +48,20 @@
   * 分成几个部分：
   *
   * [0f 00 00 00] [0c 00 00 00] [02 00] [00 f3] [02 f6] [ff]
-  * | | | | | |
-  * zlbytes zltailentry“2”“5”结束
+  *     |              |           |      |       |       |
+  *  zlbytes       zltail         len    “2”     “5”     结束
   *
-  * 前4个字节代表数字15，即字节数
-  * 整个ziplist由. 第二个4字节是偏移量
-  * 找到最后一个 ziplist entry，即 12，实际上是
-  * 最后一个entry，即“5”，位于 ziplist 内的偏移量 12 处。
-  * 接下来的16位整数表示内部元素的数量
-  * ziplist，它的值为2，因为里面只有两个元素。
-  * 最后“00 f3”是代表数字2的第一个entry。它是
-  * 由前一个entry长度组成，该长度为零，因为这是
-  * 我们的第一个entry，以及对应于编码的字节 F3
-  * |1111xxxx| xxxx在0001和1101之间。我们需要删除“F”
-  * 高位1111，并从“3”中减去1，所以entry值
-  * 是“2”。 下一个entry的 prevlen 为 02，因为第一个entry是
-  * 由两个字节组成。 entry本身 F6 被精确编码
-  * 与第一个entry类似，并且 6-1 = 5，因此该entry的值为 5。
+  * “00 f3”是第一个entry。因为是第一个entry,所以prevlen=0,
+  * F3=11110011, 然后再减去1,所以entry值是“2”。
+  * 下一个entry的 prevlen 为 02，因为第一个entry是由两个字节组成。
+  * F6=11110110 -1，因此该entry的值为 5。
   * 最后，特殊entry FF 表示 ziplist 的结束。
   *
-  * 将另一个元素添加到上面的字符串中，其值为“Hello World”
-  * 允许我们展示 ziplist 如何对小字符串进行编码。 我们只会展示
-  * entry本身的十六进制转储。 想象一下字节如下
-  * 在上面的 ziplist 中存储“5”的entry：
-  *
+  * 假设"5"位置插入的是Hello World,如下:
   * [02] [0b] [48 65 6c 6c 6f 20 57 6f 72 6c 64]
   *
-  * 第一个字节 02 是前一个entry的长度。 下一个
-  * byte 表示模式 |00pppppp| 中的编码 这意味着
-  * 该entry是一个长度为 <pppppp> 的字符串，因此 0B 表示
-  * 后面是一个 11 字节的字符串。 从第三个字节 (48) 到最后一个字节 (64)
-  * 只有“Hello World”的 ASCII 字符。
+  * 0B=00001011,对应|00pppppp|编码, 这意味着该entry是一个长度为 <pppppp> 的字符串，
+  * 因此 0B 表示后面是一个 11 字节的字符串。即“Hello World”
   *
   */
 
@@ -244,9 +159,6 @@ int ziplistSafeToAdd(unsigned char *zl, size_t add) {
 }
 
 
-/* We use this function to receive information about a ziplist entry.
- * Note that this is not how the data is actually encoded, is just what we
- * get filled by a function in order to operate more easily. */
 typedef struct zlentry {
     unsigned int prevrawlensize; /*用于编码前一个entry长度的字节数*/
     unsigned int prevrawlen;     /* 前一个entry的长度 */
@@ -503,7 +415,7 @@ void zipSaveInteger(unsigned char *p, int64_t value, unsigned char encoding) {
     } else if (encoding == ZIP_INT_24B) {
         i32 = value << 8;
         memrev32ifbe(&i32);
-        memcpy(p, ((uint8_t * ) & i32) + 1, sizeof(i32) - sizeof(uint8_t));
+        memcpy(p, ((uint8_t *) &i32) + 1, sizeof(i32) - sizeof(uint8_t));
     } else if (encoding == ZIP_INT_32B) {
         i32 = value;
         memcpy(p, &i32, sizeof(i32));
@@ -536,7 +448,7 @@ int64_t zipLoadInteger(unsigned char *p, unsigned char encoding) {
         ret = i32;
     } else if (encoding == ZIP_INT_24B) {
         i32 = 0;
-        memcpy(((uint8_t * ) & i32) + 1, p, sizeof(i32) - sizeof(uint8_t));
+        memcpy(((uint8_t *) &i32) + 1, p, sizeof(i32) - sizeof(uint8_t));
         memrev32ifbe(&i32);
         ret = i32 >> 8;
     } else if (encoding == ZIP_INT_64B) {
@@ -720,7 +632,7 @@ unsigned char *__ziplistDelete(unsigned char *zl, unsigned char *p, unsigned int
     return zl;
 }
 
-/* Insert item at "p". */
+/* p指向插入位置的下一个节点 */
 unsigned char *__ziplistInsert(unsigned char *zl, unsigned char *p, unsigned char *s, unsigned int slen) {
     size_t curlen = intrev32ifbe(ZIPLIST_BYTES(zl)), reqlen;
     unsigned int prevlensize, prevlen = 0;
@@ -732,7 +644,7 @@ unsigned char *__ziplistInsert(unsigned char *zl, unsigned char *p, unsigned cha
                                     we use it uninitialized. */
     zlentry tail;
 
-    /* Find out prevlen for the entry that is inserted. */
+    /* 如果p不指向ZIP_END,则可以直接取p节点的prevlen属性 */
     if (p[0] != ZIP_END) {
         ZIP_DECODE_PREVLEN(p, prevlensize, prevlen);
     } else {
@@ -1106,10 +1018,12 @@ unsigned int ziplistCompare(unsigned char *p, unsigned char *sstr, unsigned int 
 }
 
 /* 在压缩列表中查找并返回包含了给定值的节点
- * p：传入一个指向 ziplist 起始位置的 unsigned char 指针，表示要开始查找的位置。
-  vstr：传入一个指向要查找的值的 unsigned char 指针，表示要查找的具体值。
-  vlen：传入一个 unsigned int 类型的整数，表示要查找的值的长度。
-  skip：传入一个 unsigned int 类型的整数，表示每次查找时要跳过的条目数。
+ * p：  指向 ziplist 第一个entry的指针。
+ * vstr：传入一个指向要查找的值的 unsigned char 指针，表示要查找的具体值。
+ * vlen：传入一个 unsigned int 类型的整数，表示要查找的值的长度。
+ * skip：传入一个 unsigned int 类型的整数，表示每次查找时要跳过的条目数。
+ *
+ * O(n)
  * */
 unsigned char *ziplistFind(unsigned char *p, unsigned char *vstr, unsigned int vlen, unsigned int skip) {
     int skipcnt = 0;
@@ -1125,7 +1039,6 @@ unsigned char *ziplistFind(unsigned char *p, unsigned char *vstr, unsigned int v
         q = p + prevlensize + lensize; //指向content
 
         if (skipcnt == 0) {
-            /* Compare current entry with specified entry */
             if (ZIP_IS_STR(encoding)) {
                 //字符串，memcmp相等时返回0
                 if (len == vlen && memcmp(q, vstr, vlen) == 0) {
@@ -1136,18 +1049,14 @@ unsigned char *ziplistFind(unsigned char *p, unsigned char *vstr, unsigned int v
                  * 只在第一次执行此操作，一旦完成，编码就会设置为非零，并且所有内容都会设置为整数值。*/
                 if (vencoding == 0) {
                     if (!zipTryEncoding(vstr, vlen, &vll, &vencoding)) {
-                        /* If the entry can't be encoded we set it to
-                         * UCHAR_MAX so that we don't retry again the next
-                         * time. */
+                        /* 如果不能编码,后续不再重试 */
                         vencoding = UCHAR_MAX;
                     }
                     /* Must be non-zero by now */
                     assert(vencoding);
                 }
 
-                /* Compare current entry with specified entry, do it only
-                 * if vencoding != UCHAR_MAX because if there is no encoding
-                 * possible for the field it can't be a valid integer. */
+                /*如果上一步编码成功,则与当前的解码结果进行对比*/
                 if (vencoding != UCHAR_MAX) {
                     long long ll = zipLoadInteger(q, encoding); // 加载entry的整数值
                     if (ll == vll) {
