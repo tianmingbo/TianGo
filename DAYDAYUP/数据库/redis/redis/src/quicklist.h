@@ -4,16 +4,6 @@
 #ifndef __QUICKLIST_H__
 #define __QUICKLIST_H__
 
-/* Node, quicklist, and Iterator are the only data structures used currently. */
-
-/* quicklistNode is a 32 byte struct describing a ziplist for a quicklist.
- * We use bit fields keep the quicklistNode at 32 bytes.
- * count: 16 bits, max 65536 (max zl bytes is 65k, so max count actually < 32k).
- * encoding: 2 bits, RAW=1, LZF=2.
- * container: 2 bits, NONE=1, ZIPLIST=2.
- * recompress: 1 bit, bool, true if node is temporarry decompressed for usage.
- * attempted_compress: 1 bit, boolean, used for verifying during testing.
- * extra: 10 bits, free for future use; pads out the remainder of 32 bits */
 typedef struct quicklistNode {
     struct quicklistNode *prev; //前一个quicklistNode
     struct quicklistNode *next; //后一个quicklistNode
@@ -33,23 +23,18 @@ typedef struct quicklistNode {
  * NOTE: uncompressed length is stored in quicklistNode->sz.
  * When quicklistNode->zl is compressed, node->zl points to a quicklistLZF */
 typedef struct quicklistLZF {
-    unsigned int sz; /* LZF size in bytes*/
-    char compressed[];
+    unsigned int sz; /* 压缩后的ziplist 大小 */
+    char compressed[]; //存放压缩后的ziplist字节数组
 } quicklistLZF;
 
-/* quicklist is a 40 byte struct (on 64-bit systems) describing a quicklist.
- * 'count' is the number of total entries.
- * 'len' is the number of quicklist nodes.
- * 'compress' is: -1 if compression disabled, otherwise it's the number
- *                of quicklistNodes to leave uncompressed at ends of quicklist.
- * 'fill' is the user-requested (or default) fill factor. */
+
 typedef struct quicklist {
     quicklistNode *head;          //quicklist链表头
     quicklistNode *tail;          //quicklist链表尾
     unsigned long count;        /* 所有ziplist中的总元素个数 */
-    unsigned long len;          /* number of quicklistNodes */
-    int fill: 16;              /* fill：每个节点的填充因子（fill factor），用于控制每个节点中的元素个数。*/
-    unsigned int compress: 16; /* depth of end nodes not to compress;0=off */
+    unsigned long len;          /* 节点数量 */
+    int fill: 16;              /* fill：用于判断节点的ziplist是否已满*/
+    unsigned int compress: 16; /* 存放节点压缩配置;0=off */
 } quicklist;
 
 typedef struct quicklistIter {

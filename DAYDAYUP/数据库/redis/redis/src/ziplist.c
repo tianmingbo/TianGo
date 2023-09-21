@@ -260,9 +260,9 @@ unsigned int zipStoreEntryEncoding(unsigned char *p, unsigned char encoding, uns
 }
 
 /* 解码当前entry的编码、长度所占的字节数以及实际长度。
- * “encoding”变量将保存条目编码，
- * “lensize”变量将保存对条目长度进行编码所需的字节数，
- * “len”变量将保存条目长度。
+ * “encoding”变量将保存entry编码，
+ * “lensize”变量将保存对entry长度进行编码所需的字节数，
+ * “len”变量将保存entry长度。
  *
  * if ((encoding) < ZIP_STR_MASK)：判断编码方式是否为字符串类型
  * */
@@ -294,14 +294,14 @@ unsigned int zipStoreEntryEncoding(unsigned char *p, unsigned char encoding, uns
  * uses the larger encoding (required in __ziplistCascadeUpdate). */
 int zipStorePrevEntryLengthLarge(unsigned char *p, unsigned int len) {
     if (p != NULL) {
-        p[0] = ZIP_BIG_PREVLEN;
+        p[0] = ZIP_BIG_PREVLEN; //5字节存储前驱节点长度,第一个字节存储254,后4个结点存长度
         memcpy(p + 1, &len, sizeof(len));
         memrev32ifbe(p + 1);
     }
     return 1 + sizeof(len);
 }
 
-/* 对前一个条目的长度进行编码并将其写入“p”。 如果“p”为 NULL，则返回编码此长度所需的字节数。 */
+/* 对前一个entry的长度进行编码并将其写入“p”。 如果“p”为 NULL，则返回编码此长度所需的字节数。 */
 unsigned int zipStorePrevEntryLength(unsigned char *p, unsigned int len) {
     if (p == NULL) {
         return (len < ZIP_BIG_PREVLEN) ? 1 : sizeof(len) + 1;
@@ -315,7 +315,7 @@ unsigned int zipStorePrevEntryLength(unsigned char *p, unsigned int len) {
     }
 }
 
-/* 返回用于对前一个条目的长度进行编码的字节数。 通过设置 var 'prevlensize' 返回长度。 */
+/* 返回用于对前一个entry的长度进行编码的字节数。 通过设置 var 'prevlensize' 返回长度。 */
 #define ZIP_DECODE_PREVLENSIZE(ptr, prevlensize) do {                          \
     if ((ptr)[0] < ZIP_BIG_PREVLEN) {                                          \
         (prevlensize) = 1;                                                     \
@@ -359,7 +359,7 @@ int zipPrevLenByteDiff(unsigned char *p, unsigned int len) {
 /* 计算当前指针 p 指向的entry 的原始长度 */
 unsigned int zipRawEntryLength(unsigned char *p) {
     unsigned int prevlensize, encoding, lensize, len;
-    ZIP_DECODE_PREVLENSIZE(p, prevlensize);  // 解码前一个条目长度所占的字节数
+    ZIP_DECODE_PREVLENSIZE(p, prevlensize);  // 解码前一个entry长度所占的字节数
     ZIP_DECODE_LENGTH(p + prevlensize, encoding, lensize, len);
     return prevlensize + lensize + len; //返回entry总长度
 }
@@ -492,15 +492,15 @@ unsigned char *ziplistResize(unsigned char *zl, size_t len) {
     return zl;
 }
 
-/* 当插入一个条目时，我们需要将下一个条目的 prevlen 字段设置为等于插入条目的长度。
- * 可能会出现该长度无法用 1 字节编码的情况，并且下一个条目需要变大一点以容纳 5 字节编码的 prevlen。
- * 这可以免费完成，因为这只在已经插入条目时发生（这会导致 realloc 和 memmove）。
- * 然而，对 prevlen 进行编码可能也需要增加该条目。 当存在大小接近 ZIP_BIG_PREVLEN 的连续条目时，
- * 这种效果可能会在整个 ziplist 中级联，因此我们需要检查 prevlen 是否可以在每个连续条目中进行编码。
+/* 当插入一个entry时，我们需要将下一个entry的 prevlen 字段设置为等于插入entry的长度。
+ * 可能会出现该长度无法用 1 字节编码的情况，并且下一个entry需要变大一点以容纳 5 字节编码的 prevlen。
+ * 这可以免费完成，因为这只在已经插入entry时发生（这会导致 realloc 和 memmove）。
+ * 然而，对 prevlen 进行编码可能也需要增加该entry。 当存在大小接近 ZIP_BIG_PREVLEN 的连续entry时，
+ * 这种效果可能会在整个 ziplist 中级联，因此我们需要检查 prevlen 是否可以在每个连续entry中进行编码。
  * 请注意，这种效果也可能反向发生，即编码 prevlen 字段所需的字节可能会缩小。
  * 故意忽略此效果，因为它可能会导致“抖动”效果，其中链 prevlen 字段首先增长，然后在连续插入后再次收缩。
- * 相反，允许该字段保持大于必要的大小，因为大的 prevlen 字段意味着 ziplist 无论如何都保存着大的条目。
- * 指针“p”指向不需要更新的第一个条目，即连续字段可能需要更新。
+ * 相反，允许该字段保持大于必要的大小，因为大的 prevlen 字段意味着 ziplist 无论如何都保存着大的entry。
+ * 指针“p”指向不需要更新的第一个entry，即连续字段可能需要更新。
  *
  * 总的来说，级联更新。prev 1->5 需要处理。5->1不处理
  * */
@@ -515,9 +515,9 @@ unsigned char *__ziplistCascadeUpdate(unsigned char *zl, unsigned char *p) {
         rawlen = cur.headersize + cur.len;
         rawlensize = zipStorePrevEntryLength(NULL, rawlen); //编码rawlen长度需要的字节数
 
-        /* Abort if there is no next entry. */
+        /* 如果p指向的是最后一个entry,则退出更新 */
         if (p[rawlen] == ZIP_END) break;
-        zipEntry(p + rawlen, &next);
+        zipEntry(p + rawlen, &next); //得到下一个节点是否需要扩容
 
         /* Abort when "prevlen" has not changed. */
         if (next.prevrawlen == rawlen) break; //下一个记录前置entry编码长度的字节数没有变化,break
@@ -632,7 +632,9 @@ unsigned char *__ziplistDelete(unsigned char *zl, unsigned char *p, unsigned int
     return zl;
 }
 
-/* p指向插入位置的下一个节点 */
+/* p指向插入位置的后驱节点
+ * s、slen:待插入元素的内容和长度
+ * */
 unsigned char *__ziplistInsert(unsigned char *zl, unsigned char *p, unsigned char *s, unsigned int slen) {
     size_t curlen = intrev32ifbe(ZIPLIST_BYTES(zl)), reqlen;
     unsigned int prevlensize, prevlen = 0;
@@ -655,7 +657,7 @@ unsigned char *__ziplistInsert(unsigned char *zl, unsigned char *p, unsigned cha
     }
 
     /* See if the entry can be encoded */
-    //尝试转换成整型,使用整型编码,
+    //尝试转换成整型,使用整型编码,如果能编码为数值,value指向编码后的值,encoding存储对应编码格式
     //reqlen保存节点值的长度
     if (zipTryEncoding(s, slen, &value, &encoding)) {
         /* 'encoding' is set to the appropriate integer encoding */
@@ -665,12 +667,13 @@ unsigned char *__ziplistInsert(unsigned char *zl, unsigned char *p, unsigned cha
         * 字符串长度以确定如何对其进行编码。 */
         reqlen = slen;
     }
-    //加上编码前置节点需要的长度
+    //加上编码原来旧节点的前置节点需要的长度 1或5
     reqlen += zipStorePrevEntryLength(NULL, prevlen);
-    //加上编码当前节点所需的长度
+    //加上编码存储当前节点数据所需的长度(计算额外存放节点元素长度所需字节,因为是字符串,需要额外的空间存储)
     reqlen += zipStoreEntryEncoding(NULL, encoding, slen);
+    //reqlen是要插入节点的长度
 
-    /* 当插入位置不等于尾部时，我们需要确保下一个条目可以在其 prevlen 字段中保存该条目的长度。 */
+    /* 当插入位置不等于尾部时，我们需要确保下一个entry可以在其 prevlen 字段中保存该entry的长度。 */
     int forcelarge = 0;
     nextdiff = (p[0] != ZIP_END) ? zipPrevLenByteDiff(p, reqlen) : 0;
     if (nextdiff == -4 && reqlen < 4) {
@@ -681,12 +684,11 @@ unsigned char *__ziplistInsert(unsigned char *zl, unsigned char *p, unsigned cha
 
     /* Store offset because a realloc may change the address of zl. */
     offset = p - zl; //offset是从zl起始到p的偏移量
-    zl = ziplistResize(zl, curlen + reqlen + nextdiff);
-    p = zl + offset; //p指向要被插入的节点后
+    zl = ziplistResize(zl, curlen + reqlen + nextdiff); //重新为zl分配内存
+    p = zl + offset; //p指向要被插入的节点后.再次赋值,是因为重新分配内存可能会申请新内存地址
 
     /* Apply memory move when necessary and update tail offset. */
     if (p[0] != ZIP_END) {
-        /* Subtract one because of the ZIP_END bytes */
         /*
          * memmove(*dest, *src, size_t len)
          * 为新插入的元素腾出空间.
@@ -697,19 +699,19 @@ unsigned char *__ziplistInsert(unsigned char *zl, unsigned char *p, unsigned cha
          * */
         memmove(p + reqlen, p - nextdiff, curlen - offset - 1 + nextdiff);
 
-        /* Encode this entry's raw length in the next entry. */
+        /* 修改后驱节点的prevlen属性 */
         if (forcelarge)
             zipStorePrevEntryLengthLarge(p + reqlen, reqlen);
         else
             zipStorePrevEntryLength(p + reqlen, reqlen);
 
-        /* Update offset for tail */
+        /* 更新zltail属性 */
         ZIPLIST_TAIL_OFFSET(zl) =
                 intrev32ifbe(intrev32ifbe(ZIPLIST_TAIL_OFFSET(zl)) + reqlen);
 
-        /* When the tail contains more than one entry, we need to take
-         * "nextdiff" in account as well. Otherwise, a change in the
-         * size of prevlen doesn't have an effect on the *tail* offset. */
+        /* 如果只有一个后驱节点,就不需要加上nextdiff,
+         * 因为p+reqlen已经指向了最后一个节点的开始位置, 最后一个节点有没有扩容不影响.
+         * */
         zipEntry(p + reqlen, &tail);
         if (p[reqlen + tail.headersize + tail.len] != ZIP_END) {
             ZIPLIST_TAIL_OFFSET(zl) =
@@ -726,7 +728,7 @@ unsigned char *__ziplistInsert(unsigned char *zl, unsigned char *p, unsigned cha
      * */
     if (nextdiff != 0) {
         offset = p - zl;
-        zl = __ziplistCascadeUpdate(zl, p + reqlen); //上面已经插入新节点完事了, 所以p + reqlen就是指向原来的entry的指针
+        zl = __ziplistCascadeUpdate(zl, p + reqlen); 
         p = zl + offset;
     }
 
@@ -970,7 +972,7 @@ unsigned char *ziplistInsert(unsigned char *zl, unsigned char *p, unsigned char 
     return __ziplistInsert(zl, p, s, slen);
 }
 
-/* 从 ziplist 中删除 *p 指向的单个条目。同时更新 *p，以便能够在删除条目时迭代 ziplist。
+/* 从 ziplist 中删除 *p 指向的单个entry。同时更新 *p，以便能够在删除entry时迭代 ziplist。
  * 平均O(N)，最坏O(N²)
  * */
 unsigned char *ziplistDelete(unsigned char *zl, unsigned char **p) {
@@ -979,7 +981,7 @@ unsigned char *ziplistDelete(unsigned char *zl, unsigned char **p) {
 
     /* 将指向当前元素的指针存储在 p 中，因为 ziplistDelete 将执行重新分配，
      * 这可能会导致不同的“zl”指针。 当删除方向是从后到前时，
-     * 我们可能会删除最后一个条目并最终得到“p”指向 ZIP_END 的结果，因此请检查这一点。 */
+     * 我们可能会删除最后一个entry并最终得到“p”指向 ZIP_END 的结果，因此请检查这一点。 */
     *p = zl + offset;
     return zl;
 }
@@ -1021,7 +1023,7 @@ unsigned int ziplistCompare(unsigned char *p, unsigned char *sstr, unsigned int 
  * p：  指向 ziplist 第一个entry的指针。
  * vstr：传入一个指向要查找的值的 unsigned char 指针，表示要查找的具体值。
  * vlen：传入一个 unsigned int 类型的整数，表示要查找的值的长度。
- * skip：传入一个 unsigned int 类型的整数，表示每次查找时要跳过的条目数。
+ * skip：传入一个 unsigned int 类型的整数，表示每次查找时要跳过的entry数。
  *
  * O(n)
  * */
