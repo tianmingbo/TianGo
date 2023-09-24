@@ -47,9 +47,11 @@ uint64_t intrev64(uint64_t v);
  * host is big endian */
 #if (BYTE_ORDER == LITTLE_ENDIAN)
 #define memrev16ifbe(p) ((void)(0))
+//转换为小端序
 #define memrev32ifbe(p) ((void)(0))
 #define memrev64ifbe(p) ((void)(0))
 #define intrev16ifbe(v) (v)
+//如果是小端序,则不做处理,如果是大端序,则转成小端序(第1和4,第2和3交换)
 #define intrev32ifbe(v) (v)
 #define intrev64ifbe(v) (v)
 #else

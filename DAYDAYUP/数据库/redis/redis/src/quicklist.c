@@ -9,10 +9,7 @@
 #include "ziplist.h"
 #include "util.h" /* for ll2string */
 #include "lzf.h"
-
-#if defined(REDIS_TEST) || defined(REDIS_TEST_VERBOSE)
-#include <stdio.h> /* for printf (debug printing), snprintf (genstr) */
-#endif
+#include <stdio.h>
 
 #ifndef REDIS_STATIC
 #define REDIS_STATIC static
@@ -23,7 +20,7 @@
  * just one byte, it still won't overflow the 16 bit count field. */
 static const size_t optimization_level[] = {4096, 8192, 16384, 32768, 65536};
 
-/*表示 Quicklist 节点的最大大小为 8192 字节*/
+/*表示 Quicklist 节点的最大大小为 8192 字节, 一个节点最多可以插入 2^16 （65536）个元素*/
 #define SIZE_SAFETY_LIMIT 8192
 
 /* Minimum ziplist size in bytes for attempting compression. */
@@ -34,17 +31,13 @@ static const size_t optimization_level[] = {4096, 8192, 16384, 32768, 65536};
  * resulted in a larger size than the original data. */
 #define MIN_COMPRESS_IMPROVE 8
 
-/* If not verbose testing, remove all debug printing. */
-#ifndef REDIS_TEST_VERBOSE
-#define D(...)
-#else
-#define D(...)                                                                 \
+#define D(...)                                                                \
     do {                                                                       \
         printf("%s:%s:%d:\t", __FILE__, __FUNCTION__, __LINE__);               \
         printf(__VA_ARGS__);                                                   \
         printf("\n");                                                          \
     } while (0);
-#endif
+
 
 /* Simple way to give quicklistEntry structs default values with one call. */
 #define initEntry(e)                                                           \
@@ -181,7 +174,7 @@ REDIS_STATIC int __quicklistCompressNode(quicklistNode *node) {
     return 1;
 }
 
-/* Compress only uncompressed nodes. */
+/* 对 Quicklist 节点进行压缩操作 */
 #define quicklistCompressNode(_node)                                           \
     do {                                                                       \
         if ((_node) && (_node)->encoding == QUICKLIST_NODE_ENCODING_RAW) {     \
@@ -460,6 +453,7 @@ REDIS_STATIC int _quicklistNodeAllowMerge(const quicklistNode *a,
         return 0;
 }
 
+//更新ziplist大小
 #define quicklistNodeUpdateSz(node)                                            \
     do {                                                                       \
         (node)->sz = ziplistBlobLen((node)->zl);                               \
@@ -819,20 +813,29 @@ REDIS_STATIC quicklistNode *_quicklistSplitNode(quicklistNode *node, int offset,
     return new_node;
 }
 
-/* Insert a new entry before or after existing entry 'entry'.
+/* 在ql的指定位置插入元素
+ * quicklistEntry.node指向元素插入的quicklistNode节点,quicklistNode.offset指定插入ziplist的索引位置
  *
- * If after==1, the new value is inserted after 'entry', otherwise
- * the new value is inserted before 'entry'. */
+ * after==1, 插入'entry'后, 否则插入 'entry'前.
+ * (ql, &entry, "abc", 4,0);
+ * */
 REDIS_STATIC void _quicklistInsert(quicklist *quicklist, quicklistEntry *entry,
                                    void *value, const size_t sz, int after) {
+    /*
+     * full:待插入节点ziplist是否已满
+     * at_tail:是否尾插
+     * at_head: 是否头插
+     * full_next:后驱节点是否已满
+     * full_prev:前驱节点是否已满
+     * */
     int full = 0, at_tail = 0, at_head = 0, full_next = 0, full_prev = 0;
     int fill = quicklist->fill;
     quicklistNode *node = entry->node;
     quicklistNode *new_node = NULL;
-    assert(sz < UINT32_MAX); /* TODO: add support for quicklist nodes that are sds encoded (not zipped) */
+    assert(sz < UINT32_MAX);
 
     if (!node) {
-        /* we have no reference node, so let's create only node in the list */
+        /* 如果entry->node为空,则创建一个新node */
         D("No node given!");
         new_node = quicklistCreateNode();
         new_node->zl = ziplistPush(ziplistNew(), value, sz, ZIPLIST_HEAD);
@@ -844,8 +847,7 @@ REDIS_STATIC void _quicklistInsert(quicklist *quicklist, quicklistEntry *entry,
 
     /* Populate accounting flags for easier boolean checks later */
     if (!_quicklistNodeAllowInsert(node, fill, sz)) {
-        D("Current node is full with count %d with requested fill %lu",
-          node->count, fill);
+        D("当前节点已满，计数为 %d，请求填充为 %lu", node->count, fill);
         full = 1;
     }
 
@@ -867,29 +869,35 @@ REDIS_STATIC void _quicklistInsert(quicklist *quicklist, quicklistEntry *entry,
         }
     }
 
-    /* Now determine where and how to insert the new element */
+    /* 待插入节点未满,ziplist尾插 */
     if (!full && after) {
         D("Not full, inserting after current position.");
         quicklistDecompressNodeForUse(node);
+        //检查ziplist插入位置是否存在后驱元素
         unsigned char *next = ziplistNext(node->zl, entry->zi);
         if (next == NULL) {
+            //不存在则push
             node->zl = ziplistPush(node->zl, value, sz, ZIPLIST_TAIL);
         } else {
+            //存在则插入
             node->zl = ziplistInsert(node->zl, next, value, sz);
         }
         node->count++;
         quicklistNodeUpdateSz(node);
         quicklistRecompressOnly(quicklist, node);
     } else if (!full && !after) {
+        //待插入节点未满,非ziplist尾插
         D("Not full, inserting before current position.");
         quicklistDecompressNodeForUse(node);
+        //插入元素
         node->zl = ziplistInsert(node->zl, entry->zi, value, sz);
         node->count++;
         quicklistNodeUpdateSz(node);
         quicklistRecompressOnly(quicklist, node);
     } else if (full && at_tail && node->next && !full_next && after) {
-        /* If we are: at tail, next has free space, and inserting after:
-         *   - insert entry at head of next node. */
+        /*
+         * 在节点尾部插入,但是节点已满且下一个节点没有满,则寻找下一个ql的node插入头部
+         * */
         D("Full and tail, but next isn't full; inserting next node head");
         new_node = node->next;
         quicklistDecompressNodeForUse(new_node);
@@ -898,8 +906,8 @@ REDIS_STATIC void _quicklistInsert(quicklist *quicklist, quicklistEntry *entry,
         quicklistNodeUpdateSz(new_node);
         quicklistRecompressOnly(quicklist, new_node);
     } else if (full && at_head && node->prev && !full_prev && !after) {
-        /* If we are: at head, previous has free space, and inserting before:
-         *   - insert entry at tail of previous node. */
+        /* 在节点头部插入,但是节点已满且前一个节点没有满,则寻找前一个ql的node插入尾部
+         * */
         D("Full and head, but prev isn't full, inserting prev node tail");
         new_node = node->prev;
         quicklistDecompressNodeForUse(new_node);
@@ -909,25 +917,28 @@ REDIS_STATIC void _quicklistInsert(quicklist *quicklist, quicklistEntry *entry,
         quicklistRecompressOnly(quicklist, new_node);
     } else if (full && ((at_tail && node->next && full_next && after) ||
                         (at_head && node->prev && full_prev && !after))) {
-        /* If we are: full, and our prev/next is full, then:
-         *   - create new node and attach to quicklist */
+        /* 待插入节点已满,尾插且后驱节点已满,或者头插且前驱节点已满 */
         D("\tprovisioning new node...");
+        //则构建一个新节点,将元素插入新节点,并根据after参数将新节点插入到quicklist中
         new_node = quicklistCreateNode();
         new_node->zl = ziplistPush(ziplistNew(), value, sz, ZIPLIST_HEAD);
         new_node->count++;
         quicklistNodeUpdateSz(new_node);
         __quicklistInsertNode(quicklist, node, new_node, after);
     } else if (full) {
-        /* else, node is full we need to split it. */
-        /* covers both after and !after cases */
+        /* 待插入节点已满,并且在节点ziplist中间插入 */
         D("\tsplitting node...");
+        //如果节点已压缩,则解压节点
         quicklistDecompressNodeForUse(node);
+        //从插入节点中拆分出一个新节点,并将元素插入新节点中
         new_node = _quicklistSplitNode(node, entry->offset, after);
         new_node->zl = ziplistPush(new_node->zl, value, sz,
                                    after ? ZIPLIST_HEAD : ZIPLIST_TAIL);
         new_node->count++;
         quicklistNodeUpdateSz(new_node);
+        //将新节点插入ql中
         __quicklistInsertNode(quicklist, node, new_node, after);
+        //尝试合并节点
         _quicklistMergeNodes(quicklist, node);
     }
 

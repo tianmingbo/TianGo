@@ -48,7 +48,7 @@ typedef struct quicklistIter {
 typedef struct quicklistEntry {
     const quicklist *quicklist;
     quicklistNode *node;
-    unsigned char *zi;
+    unsigned char *zi; //zi 是一个指向压缩列表（ziplist）中节点数据的指针。
     unsigned char *value;
     long long longval;
     unsigned int sz;
@@ -97,8 +97,7 @@ void quicklistAppendZiplist(quicklist *quicklist, unsigned char *zl);
 quicklist *quicklistAppendValuesFromZiplist(quicklist *quicklist,
                                             unsigned char *zl);
 
-quicklist *quicklistCreateFromZiplist(int fill, int compress,
-                                      unsigned char *zl);
+quicklist *quicklistCreateFromZiplist(int fill, int compress, unsigned char *zl);
 
 void quicklistInsertAfter(quicklist *quicklist, quicklistEntry *node,
                           void *value, const size_t sz);
