@@ -535,6 +535,9 @@ uint64_t dictEncObjHash(const void *key) {
     }
 }
 
+/**
+ * redis为不同的字典定义了不同的dictType
+ * */
 /* Generic hash table type where keys are Redis Objects, Values
  * dummy pointers. */
 dictType objectKeyPointerValueDictType = {
@@ -559,7 +562,7 @@ dictType objectKeyHeapPointerValueDictType = {
 
 /* Set dictionary type. Keys are SDS strings, values are ot used. */
 dictType setDictType = {
-        dictSdsHash,               /* hash function */
+        dictSdsHash,               /* hash函数,SipHash算法 */
         NULL,                      /* key dup */
         NULL,                      /* val dup */
         dictSdsKeyCompare,         /* key compare */

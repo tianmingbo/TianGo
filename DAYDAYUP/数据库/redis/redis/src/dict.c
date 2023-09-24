@@ -122,19 +122,19 @@ int dictExpand(dict *d, unsigned long size) {
         return DICT_ERR;
 
     dictht n; /* the new hash table */
-    unsigned long realsize = _dictNextPower(size);
+    unsigned long realsize = _dictNextPower(size);//计算要扩容的大小,每次*2
 
-    /* Rehashing to the same table size is not useful. */
+    /* 如果原来的尺寸已经是要扩容后的大小,直接退出 */
     if (realsize == d->ht[0].size) return DICT_ERR;
 
-    /* Allocate the new hash table and initialize all pointers to NULL */
+    /* 分配新的哈希表并将所有指针初始化为 NULL */
     n.size = realsize;
     n.sizemask = realsize - 1;
     n.table = zcalloc(realsize * sizeof(dictEntry *));
     n.used = 0;
 
-    /* Is this the first initialization? If so it's not really a rehashing
-     * we just set the first hash table so that it can accept keys. */
+    /* 如果是第一次初始化,只是新增了第一个hash表
+     * */
     if (d->ht[0].table == NULL) {
         d->ht[0] = n;
         return DICT_OK;
@@ -240,23 +240,10 @@ int dictAdd(dict *d, void *key, void *val) {
     return DICT_OK;
 }
 
-/* Low level add or find:
- * This function adds the entry but instead of setting a value returns the
- * dictEntry structure to the user, that will make sure to fill the value
- * field as he wishes.
+/* 可以在字典中插入或者查找建
  *
- * This function is also directly exposed to the user API to be called
- * mainly in order to store non-pointers inside the hash value, example:
- *
- * entry = dictAddRaw(dict,mykey,NULL);
- * if (entry != NULL) dictSetSignedIntegerVal(entry,1000);
- *
- * Return values:
- *
- * If key already exists NULL is returned, and "*existing" is populated
- * with the existing entry if existing is not NULL.
- *
- * If key was added, the hash entry is returned to be manipulated by the caller.
+ * existing: 如果字典中已存在参数key,则将对应的dictEntry指针赋值给*existing,并返回null,
+ * 否则返回创建的dictEntry
  */
 dictEntry *dictAddRaw(dict *d, void *key, dictEntry **existing) {
     long index;
@@ -265,22 +252,18 @@ dictEntry *dictAddRaw(dict *d, void *key, dictEntry **existing) {
 
     if (dictIsRehashing(d)) _dictRehashStep(d);
 
-    /* Get the index of the new element, or -1 if
-     * the element already exists. */
+    /* 计算参数key的hash表数组索引,返回-1,则代表键已存在*/
     if ((index = _dictKeyIndex(d, key, dictHashKey(d, key), existing)) == -1)
         return NULL;
 
-    /* Allocate the memory and store the new entry.
-     * Insert the element in top, with the assumption that in a database
-     * system it is more likely that recently added entries are accessed
-     * more frequently. */
+    //如果该字典正在扩容,则将新的entry添加到ht[1]中
     ht = dictIsRehashing(d) ? &d->ht[1] : &d->ht[0];
     entry = zmalloc(sizeof(*entry));
     entry->next = ht->table[index];
     ht->table[index] = entry;
     ht->used++;
 
-    /* Set the hash entry fields. */
+    /* 将键设置到dictEntry中 */
     dictSetKey(d, entry, key);
     return entry;
 }
@@ -878,18 +861,17 @@ unsigned long dictScan(dict *d,
 
 /* ------------------------- private functions ------------------------------ */
 
-/* Expand the hash table if needed */
+/* hash表扩容 */
 static int _dictExpandIfNeeded(dict *d) {
     /* Incremental rehashing already in progress. Return. */
     if (dictIsRehashing(d)) return DICT_OK;
 
-    /* If the hash table is empty expand it to the initial size. */
+    /* 如果hash表为空,则初始化,默认长度为4 */
     if (d->ht[0].size == 0) return dictExpand(d, DICT_HT_INITIAL_SIZE);
 
-    /* If we reached the 1:1 ratio, and we are allowed to resize the hash
-     * table (global setting) or we should avoid it but the ratio between
-     * elements/buckets is over the "safe" threshold, we resize doubling
-     * the number of buckets. */
+    /* 如果负载因子为1,则进行扩容.
+     * 或是负载因子大于5,则进行强制扩容
+     * */
     if (d->ht[0].used >= d->ht[0].size &&
         (dict_can_resize ||
          d->ht[0].used / d->ht[0].size > dict_force_resize_ratio)) {
@@ -898,7 +880,7 @@ static int _dictExpandIfNeeded(dict *d) {
     return DICT_OK;
 }
 
-/* Our hash table capability is a power of two */
+/* 尺寸每次扩容2倍 */
 static unsigned long _dictNextPower(unsigned long size) {
     unsigned long i = DICT_HT_INITIAL_SIZE;
 
@@ -910,24 +892,17 @@ static unsigned long _dictNextPower(unsigned long size) {
     }
 }
 
-/* Returns the index of a free slot that can be populated with
- * a hash entry for the given 'key'.
- * If the key already exists, -1 is returned
- * and the optional output parameter may be filled.
- *
- * Note that if we are in the process of rehashing the hash table, the
- * index is always returned in the context of the second (new) hash table. */
+
 static long _dictKeyIndex(dict *d, const void *key, uint64_t hash, dictEntry **existing) {
     unsigned long idx, table;
     dictEntry *he;
     if (existing) *existing = NULL;
 
-    /* Expand the hash table if needed */
     if (_dictExpandIfNeeded(d) == DICT_ERR)
         return -1;
     for (table = 0; table <= 1; table++) {
         idx = hash & d->ht[table].sizemask;
-        /* Search if this slot does not already contain the given key */
+        /* 判断当前索引是否包含key */
         he = d->ht[table].table[idx];
         while (he) {
             if (key == he->key || dictCompareKeys(d, key, he->key)) {
