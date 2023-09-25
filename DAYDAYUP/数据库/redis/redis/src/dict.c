@@ -81,18 +81,16 @@ static void _dictReset(dictht *ht) {
     ht->used = 0;
 }
 
-/* Create a new hash table */
-dict *dictCreate(dictType *type,
-                 void *privDataPtr) {
+/* 创建一个新的hash表 */
+dict *dictCreate(dictType *type, void *privDataPtr) {
     dict *d = zmalloc(sizeof(*d));
 
     _dictInit(d, type, privDataPtr);
     return d;
 }
 
-/* Initialize the hash table */
-int _dictInit(dict *d, dictType *type,
-              void *privDataPtr) {
+/* dict初始化 */
+int _dictInit(dict *d, dictType *type, void *privDataPtr) {
     _dictReset(&d->ht[0]);
     _dictReset(&d->ht[1]);
     d->type = type;
@@ -102,8 +100,7 @@ int _dictInit(dict *d, dictType *type,
     return DICT_OK;
 }
 
-/* Resize the table to the minimal size that contains all the elements,
- * but with the invariant of a USED/BUCKETS ratio near to <= 1 */
+/* dict空间变更 */
 int dictResize(dict *d) {
     int minimal;
 
@@ -114,10 +111,9 @@ int dictResize(dict *d) {
     return dictExpand(d, minimal);
 }
 
-/* Expand or create the hash table */
+/* 字典扩容 */
 int dictExpand(dict *d, unsigned long size) {
-    /* the size is invalid if it is smaller than the number of
-     * elements already inside the hash table */
+    /* 错误检查,已使用的超过可使用的 */
     if (dictIsRehashing(d) || d->ht[0].used > size)
         return DICT_ERR;
 
@@ -146,57 +142,50 @@ int dictExpand(dict *d, unsigned long size) {
     return DICT_OK;
 }
 
-/* Performs N steps of incremental rehashing. Returns 1 if there are still
- * keys to move from the old to the new hash table, otherwise 0 is returned.
- *
- * Note that a rehashing step consists in moving a bucket (that may have more
- * than one key as we use chaining) from the old to the new hash table, however
- * since part of the hash table may be composed of empty spaces, it is not
- * guaranteed that this function will rehash even a single bucket, since it
- * will visit at max N*10 empty buckets in total, otherwise the amount of
- * work it does would be unbound and the function may block for a long time. */
+/* 执行 n 步rehash。
+ * 如果还有键可以从旧哈希表移动到新哈希表，则返回 1，否则返回 0。
+ * */
 int dictRehash(dict *d, int n) {
-    int empty_visits = n * 10; /* Max number of empty buckets to visit. */
+    /* 在ht[0]中，并不是每个索引都是有元素的，empty_visits限制当entry为空的时候，遍历entry的次数 */
+    int empty_visits = n * 10;
     if (!dictIsRehashing(d)) return 0;
 
     while (n-- && d->ht[0].used != 0) {
         dictEntry *de, *nextde;
 
-        /* Note that rehashidx can't overflow as we are sure there are more
-         * elements because ht[0].used != 0 */
         assert(d->ht[0].size > (unsigned long) d->rehashidx);
+        //当旧hash表的rehashidx索引位置没有元素
         while (d->ht[0].table[d->rehashidx] == NULL) {
             d->rehashidx++;
             if (--empty_visits == 0) return 1;
         }
         de = d->ht[0].table[d->rehashidx];
-        /* Move all the keys in this bucket from the old to the new hash HT */
+        /* 把de指向的索引的值全部迁移到ht[1]中 */
         while (de) {
             uint64_t h;
 
-            nextde = de->next;
-            /* Get the index in the new hash table */
-            h = dictHashKey(d, de->key) & d->ht[1].sizemask;
+            nextde = de->next; //因为是链表来解决hash冲突的,所以遍历完整链表
+            h = dictHashKey(d, de->key) & d->ht[1].sizemask; //寻找在新hash表上的索引
             de->next = d->ht[1].table[h];
             d->ht[1].table[h] = de;
             d->ht[0].used--;
             d->ht[1].used++;
             de = nextde;
         }
-        d->ht[0].table[d->rehashidx] = NULL;
+        d->ht[0].table[d->rehashidx] = NULL; //旧hash该索引标记为空
         d->rehashidx++;
     }
 
-    /* Check if we already rehashed the whole table... */
+    /* 如果已经rehash完毕 */
     if (d->ht[0].used == 0) {
-        zfree(d->ht[0].table);
-        d->ht[0] = d->ht[1];
-        _dictReset(&d->ht[1]);
-        d->rehashidx = -1;
+        zfree(d->ht[0].table);//释放旧hash表
+        d->ht[0] = d->ht[1]; //把ht[1]赋值给ht[0]
+        _dictReset(&d->ht[1]);//置空ht[1]
+        d->rehashidx = -1; //不在rehash状态
         return 0;
     }
 
-    /* More to rehash... */
+    /* 还需要继续进行rehash */
     return 1;
 }
 
@@ -207,7 +196,7 @@ long long timeInMilliseconds(void) {
     return (((long long) tv.tv_sec) * 1000) + (tv.tv_usec / 1000);
 }
 
-/* Rehash for an amount of time between ms milliseconds and ms+1 milliseconds */
+/* 在n ms时间内rehash */
 int dictRehashMilliseconds(dict *d, int ms) {
     long long start = timeInMilliseconds();
     int rehashes = 0;
@@ -219,14 +208,7 @@ int dictRehashMilliseconds(dict *d, int ms) {
     return rehashes;
 }
 
-/* This function performs just a step of rehashing, and only if there are
- * no safe iterators bound to our hash table. When we have iterators in the
- * middle of a rehashing we can't mess with the two hash tables otherwise
- * some element can be missed or duplicated.
- *
- * This function is called by common lookup or update operations in the
- * dictionary so that the hash table automatically migrates from H1 to H2
- * while it is actively used. */
+/* 当存在遍历的时候，不进行rehash，避免某些元素丢失或重复 */
 static void _dictRehashStep(dict *d) {
     if (d->iterators == 0) dictRehash(d, 1);
 }
@@ -268,27 +250,21 @@ dictEntry *dictAddRaw(dict *d, void *key, dictEntry **existing) {
     return entry;
 }
 
-/* Add or Overwrite:
- * Add an element, discarding the old value if the key already exists.
- * Return 1 if the key was added from scratch, 0 if there was already an
- * element with such key and dictReplace() just performed a value update
- * operation. */
+/* 添加或覆盖：
+ * 添加一个元素，如果键已经存在则丢弃旧值。
+ * 如果该键是从头开始添加的，则返回 1；如果已经存在具有该键的元素并且 dictReplace() 刚刚执行了值更新操作，则返回 0。
+*/
 int dictReplace(dict *d, void *key, void *val) {
     dictEntry *entry, *existing, auxentry;
 
-    /* Try to add the element. If the key
-     * does not exists dictAdd will succeed. */
+    /* 尝试添加key，键存在则返回NULL */
     entry = dictAddRaw(d, key, &existing);
     if (entry) {
         dictSetVal(d, entry, val);
         return 1;
     }
 
-    /* Set the new value and free the old one. Note that it is important
-     * to do that in this order, as the value may just be exactly the same
-     * as the previous one. In this context, think to reference counting,
-     * you want to increment (set), and then decrement (free), and not the
-     * reverse. */
+    /* 设置新值，移除旧值 */
     auxentry = *existing;
     dictSetVal(d, existing, val);
     dictFreeVal(d, &auxentry);
