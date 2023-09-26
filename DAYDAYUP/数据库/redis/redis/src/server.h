@@ -1394,6 +1394,7 @@ typedef struct {
  * Extern declarations
  *----------------------------------------------------------------------------*/
 
+//定义一个redisServer全局变量
 extern struct redisServer server;
 extern struct sharedObjectsStruct shared;
 extern dictType objectKeyPointerValueDictType;
