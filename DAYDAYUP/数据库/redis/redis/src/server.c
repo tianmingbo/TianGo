@@ -2126,7 +2126,7 @@ void initServer(void) {
         server.db[j].avg_ttl = 0;
         server.db[j].defrag_later = listCreate();
     }
-    evictionPoolAlloc(); /* Initialize the LRU keys pool. */
+    evictionPoolAlloc(); /* 初始化LRU/LFU样本池,用于实现LRU/LFU近似算法 */
     server.pubsub_channels = dictCreate(&keylistDictType, NULL);
     server.pubsub_patterns = listCreate();
     listSetFreeMethod(server.pubsub_patterns, freePubsubPattern);
@@ -2162,10 +2162,8 @@ void initServer(void) {
     server.aof_last_write_errno = 0;
     server.repl_good_slaves_count = 0;
 
-    /* Create the timer callback, this is our way to process many background
-     * operations incrementally, like clients timeout, eviction of unaccessed
-     * expired keys and so forth. */
-    //为server后台任务创建定时事件
+
+    //为server后台任务创建定时任务,如清理过期数据,生成RDB文件
     if (aeCreateTimeEvent(server.el, 1, serverCron, NULL, NULL) == AE_ERR) {
         serverPanic("Can't create event loop timers.");
         exit(1);
@@ -2177,8 +2175,7 @@ void initServer(void) {
     for (j = 0; j < server.ipfd_count; j++) {
         if (aeCreateFileEvent(server.el, server.ipfd[j], AE_READABLE,
                               acceptTcpHandler, NULL) == AE_ERR) {
-            serverPanic(
-                    "Unrecoverable error creating server.ipfd file event.");
+            serverPanic("Unrecoverable error creating server.ipfd file event.");
         }
     }
     // 为Unix Socket创建连接接受处理函数
@@ -2202,10 +2199,6 @@ void initServer(void) {
         }
     }
 
-    /* 32 bit instances are limited to 4GB of address space, so if there is
-     * no explicit limit in the user provided configuration we set a limit
-     * at 3 GB using maxmemory with 'noeviction' policy'. This avoids
-     * useless crashes of the Redis instance for out of memory. */
     // 32位系统内存限制为3GB
     if (server.arch_bits == 32 && server.maxmemory == 0) {
         serverLog(LL_WARNING,

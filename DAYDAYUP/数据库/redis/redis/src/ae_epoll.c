@@ -45,8 +45,7 @@ static int aeApiAddEvent(aeEventLoop *eventLoop, int fd, int mask) {
     aeApiState *state = eventLoop->apidata;
     struct epoll_event ee = {0}; /* 创建epoll_event类型变量 */
     // 判断需要添加事件还是修改事件,如果文件描述符fd对应的IO事件已存在,则操作类型为修改
-    int op = eventLoop->events[fd].mask == AE_NONE ?
-             EPOLL_CTL_ADD : EPOLL_CTL_MOD;
+    int op = eventLoop->events[fd].mask == AE_NONE ? EPOLL_CTL_ADD : EPOLL_CTL_MOD;
 
     ee.events = 0;
     // 合并之前已监听的事件

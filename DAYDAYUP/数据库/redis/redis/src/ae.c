@@ -21,7 +21,9 @@
 #include "ae_epoll.c"
 #else
 #ifdef HAVE_KQUEUE
+
 #include "ae_kqueue.c"
+
 #else
 
 #include "ae_select.c"
@@ -31,13 +33,13 @@
 #endif
 
 
-/*创建一个事件循环
- *
+/*
+ * 创建一个事件循环
  * */
 aeEventLoop *aeCreateEventLoop(int setsize) {
     aeEventLoop *eventLoop;
     int i;
-
+    //aeEventLoop初始化
     if ((eventLoop = zmalloc(sizeof(*eventLoop))) == NULL) goto err;
     eventLoop->events = zmalloc(sizeof(aeFileEvent) * setsize); //存储文件事件
     eventLoop->fired = zmalloc(sizeof(aeFiredEvent) * setsize);//存储触发事件的信息
@@ -108,8 +110,16 @@ void aeStop(aeEventLoop *eventLoop) {
     eventLoop->stop = 1;
 }
 
+/*
+ * 创建文件事件
+ * fd:需监听的文件描述符
+ * mask: 监听事件类型
+ * proc: 事件处理函数
+ * clientData: 附加数据
+ * */
 int aeCreateFileEvent(aeEventLoop *eventLoop, int fd, int mask,
                       aeFileProc *proc, void *clientData) {
+    //如果文件描述符超出了eventLoop->setsize,返回err
     if (fd >= eventLoop->setsize) {
         errno = ERANGE;
         return AE_ERR;
@@ -118,6 +128,7 @@ int aeCreateFileEvent(aeEventLoop *eventLoop, int fd, int mask,
 
     if (aeApiAddEvent(eventLoop, fd, mask) == -1)
         return AE_ERR;
+    //初始化aeFileEvent属性
     fe->mask |= mask;
     if (mask & AE_READABLE) fe->rfileProc = proc;
     if (mask & AE_WRITABLE) fe->wfileProc = proc;
@@ -190,10 +201,12 @@ long long aeCreateTimeEvent(aeEventLoop *eventLoop, long long milliseconds,
     te = zmalloc(sizeof(*te));
     if (te == NULL) return AE_ERR;
     te->id = id;
+    //计算时间事件下次执行的时间
     aeAddMillisecondsToNow(milliseconds, &te->when_sec, &te->when_ms);
     te->timeProc = proc;
     te->finalizerProc = finalizerProc;
     te->clientData = clientData;
+    //头插到timeEventHead链表
     te->prev = NULL;
     te->next = eventLoop->timeEventHead;
     if (te->next)

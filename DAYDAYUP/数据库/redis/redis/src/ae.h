@@ -38,7 +38,7 @@ typedef void aeEventFinalizerProc(struct aeEventLoop *eventLoop, void *clientDat
 
 typedef void aeBeforeSleepProc(struct aeEventLoop *eventLoop);
 
-/* File event structure */
+/* 存储了一个文件描述符上已注册的文件事件 */
 typedef struct aeFileEvent {
     int mask; /* one of AE_(READABLE|WRITABLE|BARRIER) */
     aeFileProc *rfileProc; //AE_READABLE处理函数
@@ -46,11 +46,11 @@ typedef struct aeFileEvent {
     void *clientData; //附加数据
 } aeFileEvent;
 
-/* Time event structure */
+/* 存储了一个时间事件的信息 */
 typedef struct aeTimeEvent {
     long long id; /* 时间事件id */
     long when_sec; /* 事件到达的秒级时间戳 */
-    long when_ms; /* 毫秒级 */
+    long when_ms; /* 剩余毫秒级 */
     aeTimeProc *timeProc; //事件触发后的处理函数
     aeEventFinalizerProc *finalizerProc; //事件结束后的处理函数
     void *clientData; //事件相关的私有属性
@@ -58,19 +58,19 @@ typedef struct aeTimeEvent {
     struct aeTimeEvent *next;//时间事件链表的next指针
 } aeTimeEvent;
 
-/* A fired event */
+/* 已就绪的事件 */
 typedef struct aeFiredEvent {
     int fd; //产生事件的文件描述符
     int mask; //产生的事件类型
 } aeFiredEvent;
 
-/* State of an event based program */
+/* 时间循环器,负责管理事件 */
 typedef struct aeEventLoop {
     int maxfd;   /* 当前已注册的最大文件描述符 */
     int setsize; /* 该事件循环器允许监听的最大的文件描述符 */
     long long timeEventNextId; //下一个时间事件ID
     time_t lastTime;     /* 上一次执行时间事件的时间,用于判断是否发生系统时间偏移 */
-    aeFileEvent *events; /* 已注册的文件事件表 */
+    aeFileEvent *events; /* 已注册的文件事件表,数组索引即文件描述符,数组元素即该文件描述符上注册的文件事件 */
     aeFiredEvent *fired; /* 已就绪的事件表 */
     aeTimeEvent *timeEventHead; //记录时间事件的链表头
     int stop; //事件循环器是否停止
