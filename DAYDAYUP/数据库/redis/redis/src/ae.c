@@ -1,3 +1,8 @@
+/*
+ * redis采用事件驱动机制,即通过一个死循环,不断处理服务中发生的事件.
+ * redis事件机制可以处理文件事件和时间事件,文件事件由系统I/O复用机制产生,通常由客户端
+ * 请求触发.时间事件定时触发,负责定时执行redis内部任务.
+ * */
 #include <stdio.h>
 #include <sys/time.h>
 #include <sys/types.h>
@@ -227,16 +232,8 @@ int aeDeleteTimeEvent(aeEventLoop *eventLoop, long long id) {
     return AE_ERR; /* NO event with the specified ID found */
 }
 
-/* Search the first timer to fire.
- * This operation is useful to know how many time the select can be
- * put in sleep without to delay any event.
- * If there are no timers NULL is returned.
- *
- * Note that's O(N) since time events are unsorted.
- * Possible optimizations (not needed by Redis so far, but...):
- * 1) Insert the event in order, so that the nearest is just the head.
- *    Much better but still insertion or deletion of timers is O(N).
- * 2) Use a skiplist to have this operation as O(1) and insertion as O(log(N)).
+/*
+ * 寻找最先执行的时间事件
  */
 static aeTimeEvent *aeSearchNearestTimer(aeEventLoop *eventLoop) {
     aeTimeEvent *te = eventLoop->timeEventHead;
@@ -294,11 +291,7 @@ static int processTimeEvents(aeEventLoop *eventLoop) {
             continue;
         }
 
-        /* Make sure we don't process time events created by time events in
-         * this iteration. Note that this check is currently useless: we always
-         * add new timers on the head, however if we change the implementation
-         * detail, this check may be useful again: we keep it here for future
-         * defense. */
+        /* 避免此次执行时间事件产生的时间事件 */
         if (te->id > maxId) {
             te = te->next;
             continue;
@@ -320,7 +313,7 @@ static int processTimeEvents(aeEventLoop *eventLoop) {
                 te->id = AE_DELETED_EVENT_ID;
             }
         }
-        //获取下一个时间事件
+        //获取下一个时间事件(只有servercron时间事件)
         te = te->next;
     }
     return processed;
@@ -355,6 +348,7 @@ int aeProcessEvents(aeEventLoop *eventLoop, int flags) {
         struct timeval tv, *tvp;
 
         if (flags & AE_TIME_EVENTS && !(flags & AE_DONT_WAIT))
+            /*查找最先执行的时间事件,如果能找到,则将该事件执行时间减去当前时间作为进程的最大阻塞时间*/
             shortest = aeSearchNearestTimer(eventLoop);
         if (shortest) {
             long now_sec, now_ms;
@@ -364,9 +358,8 @@ int aeProcessEvents(aeEventLoop *eventLoop, int flags) {
 
             /* How many milliseconds we need to wait for the next
              * time event to fire? */
-            long long ms =
-                    (shortest->when_sec - now_sec) * 1000 +
-                    shortest->when_ms - now_ms;
+            long long ms = (shortest->when_sec - now_sec) * 1000 +
+                           shortest->when_ms - now_ms;
 
             if (ms > 0) {
                 tvp->tv_sec = ms / 1000;
@@ -376,9 +369,9 @@ int aeProcessEvents(aeEventLoop *eventLoop, int flags) {
                 tvp->tv_usec = 0;
             }
         } else {
-            /* If we have to check for events but need to return
-             * ASAP because of AE_DONT_WAIT we need to set the timeout
-             * to zero */
+            /* 找不到时间事件,检查flags参数中是否有 AE_DONT_WAIT标志,
+             * 若不存在,进程将一直阻塞,直到有文件事件就绪.
+             * */
             if (flags & AE_DONT_WAIT) {
                 tv.tv_sec = tv.tv_usec = 0;
                 tvp = &tv;
@@ -391,7 +384,7 @@ int aeProcessEvents(aeEventLoop *eventLoop, int flags) {
         /* 调用aeApiPoll函数捕获事件,返回已就绪文件事件的数量*/
         numevents = aeApiPoll(eventLoop, tvp);
 
-        /* After sleep callback. */
+        /* 执行钩子函数afterSleep */
         if (eventLoop->aftersleep != NULL && flags & AE_CALL_AFTER_SLEEP)
             eventLoop->aftersleep(eventLoop);
 
@@ -414,7 +407,7 @@ int aeProcessEvents(aeEventLoop *eventLoop, int flags) {
                 fired++;
             }
 
-            /* 写事件就绪 */
+            /* 写事件就绪,则调用wfileProc函数处理 */
             if (fe->mask & mask & AE_WRITABLE) {
                 if (!fired || fe->wfileProc != fe->rfileProc) {
                     fe->wfileProc(eventLoop, fd, fe->clientData, mask);

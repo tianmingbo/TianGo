@@ -76,8 +76,10 @@ static void aeApiDelEvent(aeEventLoop *eventLoop, int fd, int delmask) {
         epoll_ctl(state->epfd, EPOLL_CTL_DEL, fd, &ee);
     }
 }
-
-//阻塞进程,等待事件就绪或给定时间到期
+/*
+ * 阻塞进程,等待事件就绪或给定时间到期,
+ * 返回已就绪文件事件的数量,并将这些事件存储在eventLoop->fired中
+ * */
 static int aeApiPoll(aeEventLoop *eventLoop, struct timeval *tvp) {
     aeApiState *state = eventLoop->apidata;
     int retval, numevents = 0;
