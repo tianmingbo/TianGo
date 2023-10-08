@@ -1,32 +1,3 @@
-/*
- * Copyright (c) 2009-2012, Salvatore Sanfilippo <antirez at gmail dot com>
- * All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
- *
- *   * Redistributions of source code must retain the above copyright notice,
- *     this list of conditions and the following disclaimer.
- *   * Redistributions in binary form must reproduce the above copyright
- *     notice, this list of conditions and the following disclaimer in the
- *     documentation and/or other materials provided with the distribution.
- *   * Neither the name of Redis nor the names of its contributors may be used
- *     to endorse or promote products derived from this software without
- *     specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
- */
-
 #include "server.h"
 #include "atomicvar.h"
 #include <sys/socket.h>
@@ -89,14 +60,16 @@ void linkClient(client *c) {
 client *createClient(int fd) {
     client *c = zmalloc(sizeof(client));
 
-    /* passing -1 as fd it is possible to create a non connected client.
-     * This is useful since all the commands needs to be executed
-     * in the context of a client. When commands are executed in other
-     * contexts (for instance a Lua script) we need a non connected client. */
+    /* 传递 -1 作为 fd 可以创建一个未连接的客户端。
+     * 这很有用，因为所有命令都需要在客户端上下文中执行。 当命令在其他上下文（例如 Lua 脚本）中执行时，我们需要一个非连接的客户端。
+     * */
     if (fd != -1) {
+        //将连接设置为非阻塞模式
         anetNonBlock(NULL, fd);
+        //关闭TCP的Delay选项
         anetEnableTcpNoDelay(NULL, fd);
         if (server.tcpkeepalive)
+            //开启TCP的keepalive选项
             anetKeepAlive(NULL, fd, server.tcpkeepalive);
         //创建客户端对已连接套接字的监听,一旦有客户端有请求发送到server,框架就会回调readQueryFromClient函数
         if (aeCreateFileEvent(server.el, fd, AE_READABLE,
@@ -106,10 +79,11 @@ client *createClient(int fd) {
             return NULL;
         }
     }
-
+    //选择0号数据库
     selectDb(c, 0);
     uint64_t client_id;
     atomicGetIncr(server.next_client_id, client_id, 1);
+    //初始化client属性
     c->id = client_id;
     c->fd = fd;
     c->name = NULL;
@@ -159,6 +133,7 @@ client *createClient(int fd) {
     c->client_list_node = NULL;
     listSetFreeMethod(c->pubsub_patterns, decrRefCountVoid);
     listSetMatchMethod(c->pubsub_patterns, listMatchObjects);
+    //
     if (fd != -1) linkClient(c);
     initClientMultiState(c);
     return c;
@@ -665,13 +640,15 @@ int clientHasPendingReplies(client *c) {
 
 #define MAX_ACCEPTS_PER_CALL 1000
 
+/*
+ * 执行连接后的逻辑,如创建client结构体,为数据套接字注册文件事件回调函数
+ * */
 static void acceptCommonHandler(int fd, int flags, char *ip) {
     // 创建一个客户端
     client *c;
     if ((c = createClient(fd)) == NULL) {
         //如果创建失败
-        serverLog(LL_WARNING,
-                  "Error registering fd event for the new client: %s (fd=%d)",
+        serverLog(LL_WARNING, "Error registering fd event for the new client: %s (fd=%d)",
                   strerror(errno), fd);
         close(fd); /* May be already closed, just ignore errors */
         return;
@@ -740,14 +717,13 @@ void acceptTcpHandler(aeEventLoop *el, int fd, void *privdata, int mask) {
     UNUSED(el);
     UNUSED(mask);
     UNUSED(privdata);
-
+    //每次事件循环最多接受MAX_ACCEPTS_PER_CALL个请求,防止短时间内处理过多客户端导致进程阻塞
     while (max--) {
         // 调用anetTcpAccept接收新连接
         cfd = anetTcpAccept(server.neterr, fd, cip, sizeof(cip), &cport);
         if (cfd == ANET_ERR) {
             if (errno != EWOULDBLOCK)
-                serverLog(LL_WARNING,
-                          "Accepting client connection: %s", server.neterr);
+                serverLog(LL_WARNING, "Accepting client connection: %s", server.neterr);
             return;
         }
         serverLog(LL_VERBOSE, "Accepted %s:%d", cip, cport);

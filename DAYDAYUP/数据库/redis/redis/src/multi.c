@@ -31,7 +31,7 @@
 
 /* ================================ MULTI/EXEC ============================== */
 
-/* Client state initialization for MULTI/EXEC */
+/* 初始化client事务上下文--- MULTI/EXEC */
 void initClientMultiState(client *c) {
     c->mstate.commands = NULL;
     c->mstate.count = 0;

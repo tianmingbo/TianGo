@@ -198,28 +198,28 @@ typedef long long ustime_t; /* microsecond time type. */
 #define AOF_WAIT_REWRITE 2    /* AOF waits rewrite to start appending */
 
 /* Client flags */
-#define CLIENT_SLAVE (1<<0)   /* This client is a slave server */
-#define CLIENT_MASTER (1<<1)  /* This client is a master server */
+#define CLIENT_SLAVE (1<<0)   /* 客户端是从节点客户端 */
+#define CLIENT_MASTER (1<<1)  /* 客户端是主节点客户端 */
 #define CLIENT_MONITOR (1<<2) /* This client is a slave monitor, see MONITOR */
-#define CLIENT_MULTI (1<<3)   /* This client is in a MULTI context */
-#define CLIENT_BLOCKED (1<<4) /* The client is waiting in a blocking operation */
+#define CLIENT_MULTI (1<<3)   /* 客户端正在执行事务 */
+#define CLIENT_BLOCKED (1<<4) /* 客户端正被BRPOP,BLPOP等命令阻塞 */
 #define CLIENT_DIRTY_CAS (1<<5) /* Watched keys modified. EXEC will fail. */
 #define CLIENT_CLOSE_AFTER_REPLY (1<<6) /* Close after writing entire reply. */
 #define CLIENT_UNBLOCKED (1<<7) /* This client was unblocked and is stored in
                                   server.unblocked_clients */
 #define CLIENT_LUA (1<<8) /* This is a non-connected client used by Lua */
 #define CLIENT_ASKING (1<<9)     /* Client issued the ASKING command */
-#define CLIENT_CLOSE_ASAP (1<<10)/* Close this client ASAP */
+#define CLIENT_CLOSE_ASAP (1<<10)/* 该客户端正在关闭 */
 #define CLIENT_UNIX_SOCKET (1<<11) /* Client connected via Unix domain socket */
 #define CLIENT_DIRTY_EXEC (1<<12)  /* EXEC will fail for errors while queueing */
 #define CLIENT_MASTER_FORCE_REPLY (1<<13)  /* Queue replies even if is master */
-#define CLIENT_FORCE_AOF (1<<14)   /* Force AOF propagation of current cmd. */
-#define CLIENT_FORCE_REPL (1<<15)  /* Force replication of current cmd. */
+#define CLIENT_FORCE_AOF (1<<14)   /* 强制将执行的命令写入AOF文件,即使命令没有变更数据 */
+#define CLIENT_FORCE_REPL (1<<15)  /* 强制将当前执行的命令复制给所有从节点,即使命令没有变更数据 */
 #define CLIENT_PRE_PSYNC (1<<16)   /* Instance don't understand PSYNC. */
 #define CLIENT_READONLY (1<<17)    /* Cluster client is in read-only state. */
 #define CLIENT_PUBSUB (1<<18)      /* Client is in Pub/Sub mode. */
-#define CLIENT_PREVENT_AOF_PROP (1<<19)  /* Don't propagate to AOF. */
-#define CLIENT_PREVENT_REPL_PROP (1<<20)  /* Don't propagate to slaves. */
+#define CLIENT_PREVENT_AOF_PROP (1<<19)  /* 禁止将当前的执行的命令写入AOF文件,即使命令已变更数据 */
+#define CLIENT_PREVENT_REPL_PROP (1<<20)  /* 禁止将当前执行的命令复制给从节点,即使命令已变更数据 */
 #define CLIENT_PREVENT_PROP (CLIENT_PREVENT_AOF_PROP|CLIENT_PREVENT_REPL_PROP)
 #define CLIENT_PENDING_WRITE (1<<21) /* Client has output to send but a write
                                         handler is yet not installed. */
@@ -712,7 +712,7 @@ typedef struct client {
     struct redisCommand *cmd, *lastcmd; /* cmd指向命令对应的redisCommand结构*/
     int reqtype;            /* 请求协议类型：PROTO_REQ_*。*/
     int multibulklen;       /* 剩余要读取的多个 bulk 参数的数量。*/
-    long bulklen;           /* 多个 bulk 请求中的单个 bulk 参数长度。*/
+    long bulklen;           /* 当前读取命令参数长度 */
     list *reply;            /* 发送给客户端的回复对象列表。*/
     unsigned long long reply_bytes; /* 回复列表中所有对象的总字节数。*/
     size_t sentlen;         /* 当前缓冲区或正在发送的对象中已发送的字节数。*/
@@ -1001,7 +1001,7 @@ struct redisServer {
     size_t stat_peak_memory;        /* 记录了服务器的内存峰值 */
     long long stat_fork_time;       /* Time needed to perform latest fork() */
     double stat_fork_rate;          /* Fork rate in GB/sec. */
-    long long stat_rejected_conn;   /* Clients rejected because of maxclients */
+    long long stat_rejected_conn;   /* 客户端连接被拒绝,因为超过最大连接数 */
     long long stat_sync_full;       /* Number of full resyncs with slaves. */
     long long stat_sync_partial_ok; /* Number of accepted PSYNC requests. */
     long long stat_sync_partial_err;/* Number of unaccepted PSYNC requests. */

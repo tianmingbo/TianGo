@@ -33,19 +33,17 @@ static void anetSetError(char *err, const char *fmt, ...) {
 int anetSetBlock(char *err, int fd, int non_block) {
     int flags;
 
-    /* Set the socket blocking (if non_block is zero) or non-blocking.
-     * Note that fcntl(2) for F_GETFL and F_SETFL can't be
-     * interrupted by a signal. */
+    // fcntl(fd, F_GETFL)获取当前套接字的标志位。
     if ((flags = fcntl(fd, F_GETFL)) == -1) {
         anetSetError(err, "fcntl(F_GETFL): %s", strerror(errno));
         return ANET_ERR;
     }
-
+    // 根据传入的 non_block 参数，设置套接字的阻塞模式或非阻塞模式
     if (non_block)
         flags |= O_NONBLOCK;
     else
         flags &= ~O_NONBLOCK;
-
+    // 更新套接字的标志（flags）
     if (fcntl(fd, F_SETFL, flags) == -1) {
         anetSetError(err, "fcntl(F_SETFL,O_NONBLOCK): %s", strerror(errno));
         return ANET_ERR;
@@ -61,9 +59,7 @@ int anetBlock(char *err, int fd) {
     return anetSetBlock(err, fd, 0);
 }
 
-/* Set TCP keep alive option to detect dead peers. The interval option
- * is only used for Linux as we are using Linux-specific APIs to set
- * the probe send time, interval, and count. */
+/* 设置套接字的 keepalive 功能 */
 int anetKeepAlive(char *err, int fd, int interval) {
     int val = 1;
 
@@ -108,6 +104,8 @@ int anetKeepAlive(char *err, int fd, int interval) {
     return ANET_OK;
 }
 
+// 禁用Nagle算法,Nagle 算法用于优化发送小数据包（小于 MSS 大小）的网络传输性能。
+// 通过启用 TCP_NODELAY 选项，可以禁用 Nagle 算法，从而在需要低延迟传输的情况下提高网络性能。
 static int anetSetTcpNoDelay(char *err, int fd, int val) {
     if (setsockopt(fd, IPPROTO_TCP, TCP_NODELAY, &val, sizeof(val)) == -1) {
         anetSetError(err, "setsockopt TCP_NODELAY: %s", strerror(errno));
@@ -497,6 +495,7 @@ int anetTcpAccept(char *err, int s, char *ip, size_t ip_len, int *port) {
     int fd;
     struct sockaddr_storage sa;
     socklen_t salen = sizeof(sa);
+    //调用C的accept函数接收新的客户端连接,并返回数据套接字文件描述符
     if ((fd = anetGenericAccept(err, s, (struct sockaddr *) &sa, &salen)) == -1)
         return ANET_ERR;
 
