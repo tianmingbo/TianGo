@@ -825,18 +825,15 @@ void unlinkClient(client *c) {
 void freeClient(client *c) {
     listNode *ln;
 
-    /* If a client is protected, yet we need to free it right now, make sure
-     * to at least use asynchronous freeing. */
+    /* 调用freeClientAsync将客户端添加到server.clients_to_close中 */
     if (c->flags & CLIENT_PROTECTED) {
         freeClientAsync(c);
         return;
     }
 
-    /* If it is our master that's beging disconnected we should make sure
-     * to cache the state to try a partial resynchronization later.
-     *
-     * Note that before doing this we make sure that the client is not in
-     * some unexpected state, by checking its flags. */
+    /* 如果客户端是主节点客户端,则缓存该客户端信息,并将主从状态转换为待连接状态,
+     * 以便后续与主节点重新建立连接
+     * */
     if (server.master && c->flags & CLIENT_MASTER) {
         serverLog(LL_WARNING, "Connection with master lost.");
         if (!(c->flags & (CLIENT_CLOSE_AFTER_REPLY |
@@ -866,7 +863,7 @@ void freeClient(client *c) {
     unwatchAllKeys(c);
     listRelease(c->watched_keys);
 
-    /* Unsubscribe from all the pubsub channels */
+    /* 取消所有的Pub/Sub订阅 */
     pubsubUnsubscribeAllChannels(c, 0);
     pubsubUnsubscribeAllPatterns(c, 0);
     dictRelease(c->pubsub_channels);

@@ -785,10 +785,7 @@ long long getInstantaneousMetric(int metric) {
     return sum / STATS_METRIC_SAMPLES;
 }
 
-/* Check for timeouts. Returns non-zero if the client was terminated.
- * The function gets the current time in milliseconds as argument since
- * it gets called multiple times in a loop, so calling gettimeofday() for
- * each iteration would be costly without any actual gain. */
+/* 关闭超过server.maxidletime指定时间内没有发送请求的客户端 */
 int clientsCronHandleTimeout(client *c, mstime_t now_ms) {
     time_t now = now_ms / 1000;
 
@@ -820,28 +817,25 @@ int clientsCronHandleTimeout(client *c, mstime_t now_ms) {
     return 0;
 }
 
-/* The client query buffer is an sds.c string that can end with a lot of
- * free space not used, this function reclaims space if needed.
- *
- * The function always returns 0 as it never terminates the client. */
+/* 客户端查询缓冲区是一个 sds 字符串，可以以大量未使用的可用空间结尾，如果需要，此函数会回收空间。
+ * 该函数始终返回 0，因为它永远不会终止客户端。
+ */
 int clientsCronResizeQueryBuffer(client *c) {
     size_t querybuf_size = sdsAllocSize(c->querybuf);
     time_t idletime = server.unixtime - c->lastinteraction;
 
-    /* There are two conditions to resize the query buffer:
-     * 1) Query buffer is > BIG_ARG and too big for latest peak.
-     * 2) Query buffer is > BIG_ARG and client is idle. */
+    /* resize需满足以下条件
+     * 1:查询缓冲区大于PROTO_MBULK_BIG_ARG 32KB
+     * 2:查询缓冲区总空间远大于单词读取数据量峰值(2倍),或者客户端处于非活跃状态
+     * */
     if (querybuf_size > PROTO_MBULK_BIG_ARG &&
-        ((querybuf_size / (c->querybuf_peak + 1)) > 2 ||
-         idletime > 2)) {
-        /* Only resize the query buffer if it is actually wasting
-         * at least a few kbytes. */
+        ((querybuf_size / (c->querybuf_peak + 1)) > 2 || idletime > 2)) {
+        /* 3:查询缓冲区空闲空间大于4KB */
         if (sdsavail(c->querybuf) > 1024 * 4) {
             c->querybuf = sdsRemoveFreeSpace(c->querybuf);
         }
     }
-    /* Reset the peak again to capture the peak memory usage in the next
-     * cycle. */
+    /* 重置峰值以捕获下一个周期的内存使用峰值 */
     c->querybuf_peak = 0;
 
     /* Clients representing masters also use a "pending query buffer" that
@@ -936,17 +930,12 @@ void getExpansiveClientsInfo(size_t *in_usage, size_t *out_usage) {
 
 //管理客户端资源
 void clientsCron(void) {
-    /* Try to process at least numclients/server.hz of clients
-     * per call. Since normally (if there are no big latency events) this
-     * function is called server.hz times per second, in the average case we
-     * process all the clients in 1 second. */
+    /* 每次处理numclients/server.hz个客户端.由于该函数每server.hz调用1次,
+     * 所以每秒都会将所有客户端处理一遍*/
     int numclients = listLength(server.clients);
     int iterations = numclients / server.hz;
     mstime_t now = mstime();
 
-    /* Process at least a few clients while we are at it, even if we need
-     * to process less than CLIENTS_CRON_MIN_ITERATIONS to meet our contract
-     * of processing each client once per second. */
     if (iterations < CLIENTS_CRON_MIN_ITERATIONS)
         iterations = (numclients < CLIENTS_CRON_MIN_ITERATIONS) ?
                      numclients : CLIENTS_CRON_MIN_ITERATIONS;
@@ -955,17 +944,15 @@ void clientsCron(void) {
         client *c;
         listNode *head;
 
-        /* Rotate the list, take the current head, process.
-         * This way if the client must be removed from the list it's the
-         * first element and we don't incur into O(N) computation. */
+        /* 把最后一个节点放在第一个.如果要删除客户端,就删除第一个 */
         listRotateTailToHead(server.clients);
         head = listFirst(server.clients);
         c = listNodeValue(head);
-        /* The following functions do different service checks on the client.
-         * The protocol is that they return non-zero if the client was
-         * terminated. */
+        // 关闭超过server.maxidletime指定时间内没有发送请求的客户端
         if (clientsCronHandleTimeout(c, now)) continue;
+        // 收缩客户端缓冲区以节省内存
         if (clientsCronResizeQueryBuffer(c)) continue;
+        // 跟踪最近几秒内使用内存量最大的客户端
         if (clientsCronTrackExpansiveClients(c)) continue;
     }
 }
