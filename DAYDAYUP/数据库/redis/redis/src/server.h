@@ -614,8 +614,9 @@ typedef struct redisObject {
 
 struct evictionPoolEntry; /* Defined in evict.c */
 
-/* This structure is used in order to represent the output buffer of a client,
- * which is actually a linked list of blocks like that, that is: client->reply. */
+/* buf数组负责存储数据,size,used属性记录buf数组总长度和已使用长度,
+ * 只有当响应数据大于16KB时,才需要使用client.reply并申请新的内存块.
+ * */
 typedef struct clientReplyBlock {
     size_t size, used;
     char buf[];
@@ -704,7 +705,7 @@ typedef struct client {
     redisDb *db;            /* 指向当前选择的数据库。*/
     robj *name;             /* 由 CLIENT SETNAME 设置的名称。 client setname xx */
     sds querybuf;           /* 用于累积客户端查询的缓冲区。*/
-    size_t qb_pos;          /* 我们在 querybuf 中读取的位置。*/
+    size_t qb_pos;          /* 查询缓冲区最新读取位置 */
     sds pending_querybuf;   /* 如果此客户端被标记为主节点，这个缓冲区表示我们从主节点接收到但尚未应用的部分复制流。*/
     size_t querybuf_peak;   /* querybuf 大小的最近峰值（100毫秒或更长）。*/
     int argc;               /* 当前命令的参数数量。*/
@@ -747,8 +748,8 @@ typedef struct client {
     listNode *client_list_node; /* 客户端列表中的链表节点。*/
 
     /* 响应缓冲区 */
-    int bufpos;
-    char buf[PROTO_REPLY_CHUNK_BYTES];
+    int bufpos; //记录最新写入位置
+    char buf[PROTO_REPLY_CHUNK_BYTES]; //字符数组,大小为16KB
 } client;
 
 
