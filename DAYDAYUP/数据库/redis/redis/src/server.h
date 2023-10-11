@@ -629,7 +629,7 @@ typedef struct redisDb {
     dict *expires;              /* 设置了超时的键的超时时间 */
     dict *blocking_keys;        /* 有等待数据的客户端的键（BLPOP）*/
     dict *ready_keys;           /* 收到PUSH的已阻塞键 */
-    dict *watched_keys;         /* MULTI/EXEC CAS中的WATCHED键 */
+    dict *watched_keys;         /* key是数据库中被监视的键,值是监视键的所有客户端列表{key1:[client1,client2]} */
     int id;                     /* 数据库ID */
     long long avg_ttl;          /* 平均TTL，仅用于统计 */
     list *defrag_later;         /* 逐个尝试逐渐整理的键名称列表。 */
@@ -642,14 +642,15 @@ typedef struct multiCmd {
     struct redisCommand *cmd;
 } multiCmd;
 
+// 负责存放事务信息
 typedef struct multiState {
-    multiCmd *commands;     /* Array of MULTI commands */
-    int count;              /* Total number of MULTI commands */
-    int cmd_flags;          /* The accumulated command flags OR-ed together.
-                               So if at least a command has a given flag, it
-                               will be set in this field. */
-    int minreplicas;        /* MINREPLICAS for synchronous replication */
-    time_t minreplicas_timeout; /* MINREPLICAS timeout as unixtime. */
+    multiCmd *commands;             /* 事务命令队列，存放当前事务所有的命令 */
+    int count;                      /* 总共的 MULTI 命令数量 */
+    int cmd_flags;                  /* 所有命令标志位的按位 OR 结果，
+                                       即如果至少有一个命令具有某个标志位，
+                                       则该标志位在此字段中被设置 */
+    int minreplicas;                /* 同步复制的 MINREPLICAS 参数 */
+    time_t minreplicas_timeout;     /* 同步复制的 MINREPLICAS 超时时间，单位为秒 */
 } multiState;
 
 /* This structure holds the blocking operation state for a client.
@@ -737,11 +738,12 @@ typedef struct client {
     int slave_listening_port; /* 配置的 SLAVECONF listening-port。*/
     char slave_ip[NET_IP_STR_LEN]; /* 可选的，由REPLCONF ip-address 给出。*/
     int slave_capa;         /* 从节点的能力：SLAVE_CAPA_* 按位 OR。*/
-    multiState mstate;      /* MULTI/EXEC 状态。*/
+    multiState mstate;      /* 指向一个multiState变量,该multiState作为客户端的事务上下文,负责
+                             * 存放该客户端当前的事务信息 */
     int btype;              /* 如果 CLIENT_BLOCKED，则为阻塞操作的类型。*/
     blockingState bpop;     /* 阻塞状态。*/
     long long woff;         /* 最后写入的全局复制偏移量。*/
-    list *watched_keys;     /* 用于 MULTI/EXEC CAS 的 WATCHED 键。*/
+    list *watched_keys;     /* 记录了该客户端所有监视的键*/
     dict *pubsub_channels;  /* 客户端订阅的频道（SUBSCRIBE）。*/
     list *pubsub_patterns;  /* 客户端订阅的模式（SUBSCRIBE）。*/
     sds peerid;             /* 缓存的对等ID。*/

@@ -1,32 +1,9 @@
 /*
- * Copyright (c) 2009-2012, Salvatore Sanfilippo <antirez at gmail dot com>
- * All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
- *
- *   * Redistributions of source code must retain the above copyright notice,
- *     this list of conditions and the following disclaimer.
- *   * Redistributions in binary form must reproduce the above copyright
- *     notice, this list of conditions and the following disclaimer in the
- *     documentation and/or other materials provided with the distribution.
- *   * Neither the name of Redis nor the names of its contributors may be used
- *     to endorse or promote products derived from this software without
- *     specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
- */
-
+ * MULTI: 开启一个事务,后续命令都会被放入事务命令队列
+ * EXEC: 可以执行事务命令队列中的所有命令
+ * DISCARD: 抛弃事务命令队列中的命令. 和EXEC都可以结束当前事务.
+ * WATCH: 监视指定键,当后续事务执行前发现这些键已修改时,拒绝执行事务.
+ * */
 #include "server.h"
 
 /* ================================ MULTI/EXEC ============================== */
@@ -53,7 +30,7 @@ void freeClientMultiState(client *c) {
     zfree(c->mstate.commands);
 }
 
-/* Add a new command into the MULTI commands queue */
+/* 将命令请求添加到客户端事务命令队列client->mstate.commands中 */
 void queueMultiCommand(client *c) {
     multiCmd *mc;
     int j;
@@ -90,15 +67,18 @@ void flagTransaction(client *c) {
         c->flags |= CLIENT_DIRTY_EXEC;
 }
 
+// MULTI命令处理
 void multiCommand(client *c) {
     if (c->flags & CLIENT_MULTI) {
         addReplyError(c, "MULTI calls can not be nested");
         return;
     }
+    // 给客户端打开CLIENT_MULTI标识,代表该客户端已开启事务.
     c->flags |= CLIENT_MULTI;
     addReply(c, shared.ok);
 }
 
+// 放弃事务命令队列中的命令
 void discardCommand(client *c) {
     if (!(c->flags & CLIENT_MULTI)) {
         addReplyError(c, "DISCARD without MULTI");
@@ -118,6 +98,7 @@ void execCommandPropagateMulti(client *c) {
     decrRefCount(multistring);
 }
 
+// 处理EXEC
 void execCommand(client *c) {
     int j;
     robj **orig_argv;
@@ -226,29 +207,27 @@ void execCommand(client *c) {
  * Also every client contains a list of WATCHed keys so that's possible to
  * un-watch such keys when the client is freed or when UNWATCH is called. */
 
-/* In the client->watched_keys list we need to use watchedKey structures
- * as in order to identify a key in Redis we need both the key name and the
- * DB */
+/* watch key需要知道监视的哪个db以及key */
 typedef struct watchedKey {
     robj *key;
     redisDb *db;
 } watchedKey;
 
-/* Watch for the specified key */
+/* 监视key */
 void watchForKey(client *c, robj *key) {
     list *clients = NULL;
     listIter li;
     listNode *ln;
     watchedKey *wk;
 
-    /* Check if we are already watching for this key */
+    /* 检查client是否已watch了该key */
     listRewind(c->watched_keys, &li);
     while ((ln = listNext(&li))) {
         wk = listNodeValue(ln);
         if (wk->db == c->db && equalStringObjects(key, wk->key))
-            return; /* Key already watched */
+            return; /* key已经被watch啦 */
     }
-    /* This key is not already watched in this DB. Let's add it */
+    /* 将客户端添加到redisdb.watched_keys字典中该key对应的客户端列表中 */
     clients = dictFetchValue(c->db->watched_keys, key);
     if (!clients) {
         clients = listCreate();
@@ -292,23 +271,20 @@ void unwatchAllKeys(client *c) {
     }
 }
 
-/* "Touch" a key, so that if this key is being WATCHed by some client the
- * next EXEC will fail. */
+/*  WATCH: 监视指定键,当后续事务执行前发现这些键已修改时,拒绝执行事务. */
 void touchWatchedKey(redisDb *db, robj *key) {
     list *clients;
     listIter li;
     listNode *ln;
-
+    // 从redisdb的watched_keys中获取所有监视该键的客户端
     if (dictSize(db->watched_keys) == 0) return;
     clients = dictFetchValue(db->watched_keys, key);
     if (!clients) return;
 
-    /* Mark all the clients watching this key as CLIENT_DIRTY_CAS */
-    /* Check if we are already watching for this key */
     listRewind(clients, &li);
     while ((ln = listNext(&li))) {
         client *c = listNodeValue(ln);
-
+        // 给这些客户端添加CLIENT_DIRTY_CAS标志, 代表客户端监视的键已被修改.
         c->flags |= CLIENT_DIRTY_CAS;
     }
 }
@@ -340,6 +316,7 @@ void touchWatchedKeysOnFlush(int dbid) {
     }
 }
 
+// 处理WATCH命令
 void watchCommand(client *c) {
     int j;
 

@@ -1409,7 +1409,7 @@ void processInputBuffer(client *c) {
         if (c->argc == 0) {
             resetClient(c);
         } else {
-            /* Only reset the client when the command was executed. */
+            /* 执行命令 */
             if (processCommand(c) == C_OK) {
                 if (c->flags & CLIENT_MASTER && !(c->flags & CLIENT_MULTI)) {
                     /* Update the applied replication offset of our master. */

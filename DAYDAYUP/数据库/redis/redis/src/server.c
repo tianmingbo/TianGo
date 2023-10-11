@@ -2369,21 +2369,16 @@ struct redisCommand *lookupCommandOrOriginal(sds name) {
     return cmd;
 }
 
-/* Propagate the specified command (in the context of the specified database id)
- * to AOF and Slaves.
- *
- * flags are an xor between:
- * + PROPAGATE_NONE (no propagation of command at all)
- * + PROPAGATE_AOF (propagate into the AOF file if is enabled)
- * + PROPAGATE_REPL (propagate into the replication link)
- *
- * This should not be used inside commands implementation since it will not
- * wrap the resulting commands in MULTI/EXEC. Use instead alsoPropagate(),
- * preventCommandPropagation(), forceCommandPropagation().
- *
- * However for functions that need to (also) propagate out of the context of a
- * command execution, for example when serving a blocked client, you
- * want to use propagate().
+/* 将指定的命令（在指定数据库 ID 的上下文中）传播到 AOF 和 Slaves。
+  *
+  * 标志是以下各项之间的异或：
+  * + PROPAGATE_NONE（根本不传播命令）
+  * + PROPAGATE_AOF（如果启用，则传播到 AOF 文件中）
+  * + PROPAGATE_REPL（传播到复制链接）
+  *
+  * 这不应该在命令实现内部使用，因为它不会将结果命令包装在 MULTI/EXEC 中。 请改用 Propagate()、preventCommandPropagation()、forceCommandPropagation()。
+  *
+  * 但是，对于需要在命令执行上下文之外传播的函数，例如在为阻塞的客户端提供服务时，您需要使用propagate()。
  */
 void propagate(struct redisCommand *cmd, int dbid, robj **argv, int argc,
                int flags) {
@@ -2445,43 +2440,34 @@ void preventCommandReplication(client *c) {
     c->flags |= CLIENT_PREVENT_REPL_PROP;
 }
 
-/* Call() is the core of Redis execution of a command.
- *
- * The following flags can be passed:
- * CMD_CALL_NONE        No flags.
- * CMD_CALL_SLOWLOG     Check command speed and log in the slow log if needed.
- * CMD_CALL_STATS       Populate command stats.
- * CMD_CALL_PROPAGATE_AOF   Append command to AOF if it modified the dataset
- *                          or if the client flags are forcing propagation.
- * CMD_CALL_PROPAGATE_REPL  Send command to salves if it modified the dataset
- *                          or if the client flags are forcing propagation.
- * CMD_CALL_PROPAGATE   Alias for PROPAGATE_AOF|PROPAGATE_REPL.
- * CMD_CALL_FULL        Alias for SLOWLOG|STATS|PROPAGATE.
- *
- * The exact propagation behavior depends on the client flags.
- * Specifically:
- *
- * 1. If the client flags CLIENT_FORCE_AOF or CLIENT_FORCE_REPL are set
- *    and assuming the corresponding CMD_CALL_PROPAGATE_AOF/REPL is set
- *    in the call flags, then the command is propagated even if the
- *    dataset was not affected by the command.
- * 2. If the client flags CLIENT_PREVENT_REPL_PROP or CLIENT_PREVENT_AOF_PROP
- *    are set, the propagation into AOF or to slaves is not performed even
- *    if the command modified the dataset.
- *
- * Note that regardless of the client flags, if CMD_CALL_PROPAGATE_AOF
- * or CMD_CALL_PROPAGATE_REPL are not set, then respectively AOF or
- * slaves propagation will never occur.
- *
- * Client flags are modified by the implementation of a given command
- * using the following API:
- *
- * forceCommandPropagation(client *c, int flags);
- * preventCommandPropagation(client *c);
- * preventCommandAOF(client *c);
- * preventCommandReplication(client *c);
- *
- */
+/* Call()是Redis执行命令的核心。
+  *
+  * 可以传递以下标志：
+  * CMD_CALL_NONE 无标志。
+  * CMD_CALL_SLOWLOG 检查命令速度并在需要时记录慢速日志。
+  * CMD_CALL_STATS 填充命令统计信息。
+  * CMD_CALL_PROPAGATE_AOF 如果修改了数据集或者客户端标志强制传播，则将命令附加到 AOF。
+  * CMD_CALL_PROPAGATE_REPL 如果修改了数据集或者客户端标志强制传播，则发送命令到 salves。
+  * CMD_CALL_PROPAGATE PROPAGATE_AOF|PROPAGATE_REPL 的别名。
+  * CMD_CALL_FULL SLOWLOG|STATS|PROPAGATE 的别名。
+  *
+  * 确切的传播行为取决于客户端标志。
+  * 具体来说：
+  *
+  * 1. 如果设置了客户端标志 CLIENT_FORCE_AOF 或 CLIENT_FORCE_REPL 并假设设置了相应的 CMD_CALL_PROPAGATE_AOF/REPL
+  * 在调用标志中，则即使数据集不受该命令影响，该命令也会传播。
+  * 2. 如果设置了客户端标志 CLIENT_PREVENT_REPL_PROP 或 CLIENT_PREVENT_AOF_PROP，则即使命令修改了数据集，也不会执行到 AOF 或从站的传播。
+  *
+  * 无论客户端标志如何，如果未设置 CMD_CALL_PROPAGATE_AOF 或 CMD_CALL_PROPAGATE_REPL，则不会发生 AOF 或slave传播。
+  *
+  * 客户端标志通过使用以下 API 执行给定命令来修改：
+  *
+  * forceCommandPropagation（客户端*c，int标志）；
+  * preventCommandPropagation(客户端*c);
+  * PreventCommandAOF(客户端 *c);
+  * preventCommandReplication(客户端*c);
+  *
+  */
 void call(client *c, int flags) {
     long long dirty;
     ustime_t start, duration;
@@ -2490,21 +2476,20 @@ void call(client *c, int flags) {
 
     server.fixed_time_expire++;
 
-    /* Sent the command to clients in MONITOR mode, only if the commands are
-     * not generated from reading an AOF. */
+    /* 发送命令信息给监控模式下的客户端 */
     if (listLength(server.monitors) &&
         !server.loading &&
         !(c->cmd->flags & (CMD_SKIP_MONITOR | CMD_ADMIN))) {
         replicationFeedMonitors(c, server.monitors, c->db->id, c->argv, c->argc);
     }
 
-    /* Initialization: clear the flags that must be set by the command on
-     * demand, and initialize the array for additional commands propagation. */
+    /* 命令执行前,重置传播控制标志.这些标志应该只在命令执行过程中开启.
+     * 由于call可以递归调用,所以执行命令前先清除这些标志 */
     c->flags &= ~(CLIENT_FORCE_AOF | CLIENT_FORCE_REPL | CLIENT_PREVENT_PROP);
     redisOpArray prev_also_propagate = server.also_propagate;
     redisOpArrayInit(&server.also_propagate);
 
-    /* Call the command. */
+    /* 调用命令处理函数redisCommand.proc,执行命令处理逻辑 */
     dirty = server.dirty;
     updateCachedTime(0);
     start = server.ustime;
@@ -2513,14 +2498,14 @@ void call(client *c, int flags) {
     dirty = server.dirty - dirty;
     if (dirty < 0) dirty = 0;
 
-    /* When EVAL is called loading the AOF we don't want commands called
-     * from Lua to go into the slowlog or to populate statistics. */
+    /* 如果当前正在加载数据并且当前命令执行的是lua脚本,则清除慢日志,命令统计这两个客户端标志.
+     * 即该命令既不输出到慢日志,也不添加到命令统计中 */
     if (server.loading && c->flags & CLIENT_LUA)
         flags &= ~(CMD_CALL_SLOWLOG | CMD_CALL_STATS);
 
-    /* If the caller is Lua, we want to force the EVAL caller to propagate
-     * the script if the command flag or client flag are forcing the
-     * propagation. */
+    /* 如果当前客户端是一个lua脚本伪客户端,则将该客户端的CLIENT_FORCE_REPL,CLIENT_FORCE_AOF
+     * 标志转移到真实客户端中
+     * */
     if (c->flags & CLIENT_LUA && server.lua_caller) {
         if (c->flags & CLIENT_FORCE_REPL)
             server.lua_caller->flags |= CLIENT_FORCE_REPL;
@@ -2528,14 +2513,14 @@ void call(client *c, int flags) {
             server.lua_caller->flags |= CLIENT_FORCE_AOF;
     }
 
-    /* Log the command into the Slow log if needed, and populate the
-     * per-command statistics that we show in INFO commandstats. */
+    /* 记录慢日志 */
     if (flags & CMD_CALL_SLOWLOG && c->cmd->proc != execCommand) {
         char *latency_event = (c->cmd->flags & CMD_FAST) ?
                               "fast-command" : "command";
         latencyAddSampleIfNeeded(latency_event, duration / 1000);
         slowlogPushEntryIfNeeded(c, c->argv, c->argc, duration);
     }
+    // 统计命令信息
     if (flags & CMD_CALL_STATS) {
         /* use the real command that was executed (cmd and lastamc) may be
          * different, in case of MULTI-EXEC or re-written commands such as
@@ -2544,46 +2529,35 @@ void call(client *c, int flags) {
         real_cmd->calls++;
     }
 
-    /* Propagate the command into the AOF and replication link */
     if (flags & CMD_CALL_PROPAGATE &&
         (c->flags & CLIENT_PREVENT_PROP) != CLIENT_PREVENT_PROP) {
         int propagate_flags = PROPAGATE_NONE;
 
-        /* Check if the command operated changes in the data set. If so
-         * set for replication / AOF propagation. */
+        /* 如果执行的命令修改了数据,则propagate_flags添加PROPAGATE_AOF和 PROPAGATE_REPL标志 */
         if (dirty) propagate_flags |= (PROPAGATE_AOF | PROPAGATE_REPL);
 
-        /* If the client forced AOF / replication of the command, set
-         * the flags regardless of the command effects on the data set. */
+        /* 如果client打开了CLIENT_FORCE_REPL标志,则添加PROPAGATE_REPL */
         if (c->flags & CLIENT_FORCE_REPL) propagate_flags |= PROPAGATE_REPL;
         if (c->flags & CLIENT_FORCE_AOF) propagate_flags |= PROPAGATE_AOF;
 
-        /* However prevent AOF / replication propagation if the command
-         * implementations called preventCommandPropagation() or similar,
-         * or if we don't have the call() flags to do so. */
-        if (c->flags & CLIENT_PREVENT_REPL_PROP ||
-            !(flags & CMD_CALL_PROPAGATE_REPL))
+        /* 如果客户端有CLIENT_PREVENT_REPL_PROP标志,则不传输命令到slave */
+        if (c->flags & CLIENT_PREVENT_REPL_PROP || !(flags & CMD_CALL_PROPAGATE_REPL))
             propagate_flags &= ~PROPAGATE_REPL;
-        if (c->flags & CLIENT_PREVENT_AOF_PROP ||
-            !(flags & CMD_CALL_PROPAGATE_AOF))
+        if (c->flags & CLIENT_PREVENT_AOF_PROP || !(flags & CMD_CALL_PROPAGATE_AOF))
             propagate_flags &= ~PROPAGATE_AOF;
 
-        /* Call propagate() only if at least one of AOF / replication
-         * propagation is needed. Note that modules commands handle replication
-         * in an explicit way, so we never replicate them automatically. */
+        // 根据propagate_flags变量中的标志,将命令记录到AOF文件或复制到从服务器中
         if (propagate_flags != PROPAGATE_NONE && !(c->cmd->flags & CMD_MODULE))
             propagate(c->cmd, c->db->id, c->argv, c->argc, propagate_flags);
     }
 
-    /* Restore the old replication flags, since call() can be executed
-     * recursively. */
+    /* 命令执行前清除client中的传播控制标志 */
     c->flags &= ~(CLIENT_FORCE_AOF | CLIENT_FORCE_REPL | CLIENT_PREVENT_PROP);
+    // 如果client.flags本来就存在这些标志,则将它们重新赋值给client.flags
     c->flags |= client_old_flags &
                 (CLIENT_FORCE_AOF | CLIENT_FORCE_REPL | CLIENT_PREVENT_PROP);
 
-    /* Handle the alsoPropagate() API to handle commands that want to propagate
-     * multiple separated commands. Note that alsoPropagate() is not affected
-     * by CLIENT_PREVENT_PROP flag. */
+    /* server.also_propagate中存放了一系列需额外传播的命令,这里将它记录到AOF或复制到从服务器中 */
     if (server.also_propagate.numops) {
         int j;
         redisOp *rop;
@@ -2639,7 +2613,7 @@ int processCommand(client *c) {
         return C_OK;
     }
 
-    // 需要认证但未认证
+    // 需要认证但未认证,只能执行auth命令
     if (server.requirepass && !c->authenticated && c->cmd->proc != authCommand) {
         flagTransaction(c);
         addReply(c, shared.noautherr);
@@ -2647,7 +2621,7 @@ int processCommand(client *c) {
     }
 
     // 集群重定向
-    //当前Redis server启用了Redis Cluster模式；收到的命令不是来自于当前的主节点；收到的命令包含了key参数，或者命令是EXEC
+    // 当前Redis server启用了Redis Cluster模式；收到的命令不是来自于当前的主节点；收到的命令包含了key参数，或者命令是EXEC
     if (server.cluster_enabled &&
         !(c->flags & CLIENT_MASTER) &&
         !(c->flags & CLIENT_LUA && server.lua_caller->flags & CLIENT_MASTER) &&
@@ -2715,8 +2689,7 @@ int processCommand(client *c) {
         return C_OK;
     }
 
-    /* Don't accept write commands if there are not enough good slaves and
-     * user configured the min-slaves-to-write option. */
+    /* 如果配置了min-slaves-to-write,则当前slave数量少于min-slaves-to-write,拒绝执行命令 */
     if (server.masterhost == NULL &&
         server.repl_min_slaves_to_write &&
         server.repl_min_slaves_max_lag &&
@@ -2735,7 +2708,7 @@ int processCommand(client *c) {
         return C_OK;
     }
 
-    // 接受订阅相关命令
+    // 客户端处于Pub/Sub模式下,而且使用的是RESP2协议,只支持ping,subscribe,unsubscribe,psubscribe,punsubscribe命令
     if (c->flags & CLIENT_PUBSUB &&
         c->cmd->proc != pingCommand &&
         c->cmd->proc != subscribeCommand &&
@@ -2746,7 +2719,8 @@ int processCommand(client *c) {
         return C_OK;
     }
 
-    // 事务中的命令入队
+    // 该服务器是从节点并且与主节点处于断连状态,拒绝查询数据的命令.
+    // 可以通过关闭服务器repl_serve_stale_data配置跳过该检查,允许从服务器返回过期数据
     if (server.masterhost && server.repl_state != REPL_STATE_CONNECTED &&
         server.repl_serve_stale_data == 0 &&
         !(c->cmd->flags & CMD_STALE)) {
@@ -2755,14 +2729,13 @@ int processCommand(client *c) {
         return C_OK;
     }
 
-    /* Loading DB? Return an error if the command has not the
-     * CMD_LOADING flag. */
+    /* 服务器正在加载数据,只有特定命令能执行 */
     if (server.loading && !(c->cmd->flags & CMD_LOADING)) {
         addReply(c, shared.loadingerr);
         return C_OK;
     }
 
-    /* Lua script too slow? Only allow a limited number of commands. */
+    /* 服务器处于lua脚本超时状态,只有特定命令能执行 */
     if (server.lua_timedout &&
         c->cmd->proc != authCommand &&
         c->cmd->proc != replconfCommand &&
@@ -2777,7 +2750,7 @@ int processCommand(client *c) {
         return C_OK;
     }
 
-    //客户端有CLIENT_MULTI标记，同时当前命令不是EXEC，DISCARD, MULTI和WATCH
+    // 客户端有CLIENT_MULTI标记，同时当前命令不是EXEC，DISCARD, MULTI和WATCH, 命令都会被入队到事务队列中,否则执行命令
     if (c->flags & CLIENT_MULTI &&
         c->cmd->proc != execCommand &&
         c->cmd->proc != discardCommand &&
