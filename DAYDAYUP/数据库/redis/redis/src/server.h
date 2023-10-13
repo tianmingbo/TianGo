@@ -211,7 +211,7 @@ typedef long long ustime_t; /* microsecond time type. */
 #define CLIENT_ASKING (1<<9)     /* Client issued the ASKING command */
 #define CLIENT_CLOSE_ASAP (1<<10)/* 该客户端正在关闭 */
 #define CLIENT_UNIX_SOCKET (1<<11) /* Client connected via Unix domain socket */
-#define CLIENT_DIRTY_EXEC (1<<12)  /* EXEC will fail for errors while queueing */
+#define CLIENT_DIRTY_EXEC (1<<12)  /* 服务器处于异常状态,redis将拒绝命令,并给开启了事务的客户端添加CLIENT_DIRTY_EXEC标志 */
 #define CLIENT_MASTER_FORCE_REPLY (1<<13)  /* Queue replies even if is master */
 #define CLIENT_FORCE_AOF (1<<14)   /* 强制将执行的命令写入AOF文件,即使命令没有变更数据 */
 #define CLIENT_FORCE_REPL (1<<15)  /* 强制将当前执行的命令复制给所有从节点,即使命令没有变更数据 */

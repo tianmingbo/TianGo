@@ -107,17 +107,16 @@ void execCommand(client *c) {
     int must_propagate = 0; /* Need to propagate MULTI/EXEC to AOF / slaves? */
     int was_master = server.masterhost == NULL;
 
+    // 如果当前不在事务中
     if (!(c->flags & CLIENT_MULTI)) {
         addReplyError(c, "EXEC without MULTI");
         return;
     }
 
-    /* Check if we need to abort the EXEC because:
-     * 1) Some WATCHed key was touched.
-     * 2) There was a previous error while queueing commands.
-     * A failed EXEC in the first case returns a multi bulk nil object
-     * (technically it is not an error but a special behavior), while
-     * in the second an EXECABORT error is returned. */
+    /* 当客户端监视的键被修改(CLIENT_DIRTY_CAS标志),
+     * 或者已拒绝事务中的命令(CLIENT_DIRTY_EXEC)时,
+     * 直接抛弃事务命令队列中的命令,并进行错误处理.
+     * */
     if (c->flags & (CLIENT_DIRTY_CAS | CLIENT_DIRTY_EXEC)) {
         addReply(c, c->flags & CLIENT_DIRTY_EXEC ? shared.execaborterr :
                     shared.nullmultibulk);
@@ -125,11 +124,8 @@ void execCommand(client *c) {
         goto handle_monitor;
     }
 
-    /* If there are write commands inside the transaction, and this is a read
-     * only slave, we want to send an error. This happens when the transaction
-     * was initiated when the instance was a master or a writable replica and
-     * then the configuration changed (for example instance was turned into
-     * a replica). */
+    /* 如果事务内有写入命令，并且这是一个只读slave，我们希望发送错误。
+     * 当实例是主实例或可写副本时启动事务，然后配置发生更改（例如，实例变成副本）时，就会发生这种情况。 */
     if (!server.loading && server.masterhost && server.repl_slave_ro &&
         !(c->flags & CLIENT_MASTER) && c->mstate.cmd_flags & CMD_WRITE) {
         addReplyError(c,
@@ -140,7 +136,7 @@ void execCommand(client *c) {
     }
 
     /* Exec all the queued commands */
-    unwatchAllKeys(c); /* Unwatch ASAP otherwise we'll waste CPU cycles */
+    unwatchAllKeys(c); /* 取消当前客户端对所有键的监视,所以watch命令只能 作用于后续的一个事务*/
     orig_argv = c->argv;
     orig_argc = c->argc;
     orig_cmd = c->cmd;
@@ -150,11 +146,9 @@ void execCommand(client *c) {
         c->argv = c->mstate.commands[j].argv;
         c->cmd = c->mstate.commands[j].cmd;
 
-        /* Propagate a MULTI request once we encounter the first command which
-         * is not readonly nor an administrative one.
-         * This way we'll deliver the MULTI/..../EXEC block as a whole and
-         * both the AOF and the replication link will have the same consistency
-         * and atomicity guarantees. */
+        /* 在执行事务的第一个写命令之前,传播MULTI命令到AOF和slave.
+         * 不带写命令的事务不会传播MULTI命令(不属于写命令)
+         * */
         if (!must_propagate && !(c->cmd->flags & (CMD_READONLY | CMD_ADMIN))) {
             execCommandPropagateMulti(c);
             must_propagate = 1;
@@ -170,18 +164,16 @@ void execCommand(client *c) {
     c->argv = orig_argv;
     c->argc = orig_argc;
     c->cmd = orig_cmd;
+    // 执行完所有命令,重置客户端事务上下文.代表当前事务已经处理完成
     discardTransaction(c);
 
-    /* Make sure the EXEC command will be propagated as well if MULTI
-     * was already propagated. */
+    /* 如果事务中执行了写命令 */
     if (must_propagate) {
         int is_master = server.masterhost == NULL;
         server.dirty++;
-        /* If inside the MULTI/EXEC block this instance was suddenly
-         * switched from master to slave (using the SLAVEOF command), the
-         * initial MULTI was propagated into the replication backlog, but the
-         * rest was not. We need to make sure to at least terminate the
-         * backlog with the final EXEC. */
+        /* 如果在 MULTI/EXEC 块内，此实例突然从主服务器切换到从服务器（使用 SLAVEOF 命令），
+         * 则初始 MULTI 会传播到复制积压缓冲区中，但其余部分不会。
+         * 我们需要确保 EXEC 添加到复制积压缓冲区 */
         if (server.repl_backlog && was_master && !is_master) {
             char *execcmd = "*1\r\n$4\r\nEXEC\r\n";
             feedReplicationBacklog(execcmd, strlen(execcmd));
