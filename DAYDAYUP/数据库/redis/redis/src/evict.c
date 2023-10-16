@@ -518,14 +518,7 @@ int freeMemoryIfNeeded(void) {
             db = server.db + bestdbid;
             robj *keyobj = createStringObject(bestkey, sdslen(bestkey));
             propagateExpire(db, keyobj, server.lazyfree_lazy_eviction);
-            /* We compute the amount of memory freed by db*Delete() alone.
-             * It is possible that actually the memory needed to propagate
-             * the DEL in AOF and replication link is greater than the one
-             * we are freeing removing the key, but we can't account for
-             * that otherwise we would never exit the loop.
-             *
-             * AOF and Output buffer memory will be freed eventually so
-             * we only care about memory used by the key space. */
+            /* 计算当前使用的内存量 */
             delta = (long long) zmalloc_used_memory();
             latencyStartMonitor(eviction_latency);
             //如果配置了惰性删除,则进行异步删除
@@ -536,11 +529,11 @@ int freeMemoryIfNeeded(void) {
             latencyEndMonitor(eviction_latency);
             latencyAddSampleIfNeeded("eviction-del", eviction_latency);
             latencyRemoveNestedEvent(latency, eviction_latency);
+            // //根据当前内存使用量计算数据删除前后释放的内存量
             delta -= (long long) zmalloc_used_memory();
-            mem_freed += delta;
+            mem_freed += delta; // 更新已释放的内存量
             server.stat_evictedkeys++;
-            notifyKeyspaceEvent(NOTIFY_EVICTED, "evicted",
-                                keyobj, db->id);
+            notifyKeyspaceEvent(NOTIFY_EVICTED, "evicted", keyobj, db->id);
             decrRefCount(keyobj);
             keys_freed++;
 

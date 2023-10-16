@@ -294,15 +294,15 @@ static dictEntry *dictGenericDelete(dict *d, const void *key, int nofree) {
     if (d->ht[0].used == 0 && d->ht[1].used == 0) return NULL;
 
     if (dictIsRehashing(d)) _dictRehashStep(d);
-    h = dictHashKey(d, key);
+    h = dictHashKey(d, key); // 计算key的哈希值
 
     for (table = 0; table <= 1; table++) {
-        idx = h & d->ht[table].sizemask;
-        he = d->ht[table].table[idx];
+        idx = h & d->ht[table].sizemask; //根据key的哈希值获取它所在的哈希桶编号
+        he = d->ht[table].table[idx]; //获取key所在哈希桶的第一个哈希项
         prevHe = NULL;
-        while (he) {
+        while (he) { //在哈希桶中逐一查找被删除的key是否存在
             if (key == he->key || dictCompareKeys(d, key, he->key)) {
-                /* Unlink the element from the list */
+                /* 如果找到被删除key了，那么将它从哈希桶的链表中去除 */
                 if (prevHe)
                     prevHe->next = he->next;
                 else
@@ -316,19 +316,20 @@ static dictEntry *dictGenericDelete(dict *d, const void *key, int nofree) {
                 return he;
             }
             prevHe = he;
-            he = he->next;
+            he = he->next; //当前key不是要查找的key，再找下一个
         }
         if (!dictIsRehashing(d)) break;
     }
     return NULL; /* not found */
 }
 
-/* 移除一个元素 */
+/* 移除一个元素,同步删除 */
 int dictDelete(dict *ht, const void *key) {
     return dictGenericDelete(ht, key, 0) ? DICT_OK : DICT_ERR;
 }
 
-/* 从表中删除一个元素，但不实际释放键、值和字典条目。 如果找到该元素（并从表中取消链接），则返回entry，并且用户稍后应使用它调用“dictFreeUnlinkedEntry()”以释放它。 否则，如果未找到该键，则返回 NULL。
+/* 异步删除
+ * 从表中删除一个元素，但不实际释放键、值和字典条目。 如果找到该元素（并从表中取消链接），则返回entry，并且用户稍后应使用它调用“dictFreeUnlinkedEntry()”以释放它。 否则，如果未找到该键，则返回 NULL。
  *
  * 当我们想要从哈希表中删除某些内容但想要在实际删除该条目之前使用它的值时，可以使用此函数。
  * 如果没有此函数，模式将需要两次查找：

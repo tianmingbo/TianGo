@@ -1091,13 +1091,14 @@ long long getExpire(redisDb *db, robj *key) {
 void propagateExpire(redisDb *db, robj *key, int lazy) {
     robj *argv[2];
     // propagateExpire 函数会根据全局变量 server 的 lazyfree_lazy_eviction 成员变量的值，来决定删除操作具体对应的是哪个命令。
-    argv[0] = lazy ? shared.unlink : shared.del;
-    argv[1] = key;
+    argv[0] = lazy ? shared.unlink : shared.del; // //如果server启用了lazyfree-lazy-evict，那么argv[0]的值为unlink对象，否则为del对象
+    argv[1] = key; //被淘汰的key对象
     incrRefCount(argv[0]);
     incrRefCount(argv[1]);
 
     if (server.aof_state != AOF_OFF)
         feedAppendOnlyFile(server.delCommand, db->id, argv, 2);
+    // 把删除操作同步给从节点，以保证主从节点的数据一致
     replicationFeedSlaves(server.slaves, db->id, argv, 2);
 
     decrRefCount(argv[0]);
