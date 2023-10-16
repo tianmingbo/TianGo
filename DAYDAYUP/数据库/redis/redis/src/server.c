@@ -973,7 +973,7 @@ void databasesCron(void) {
         }
     }
 
-    /* Defrag keys gradually. */
+    /* 定时执行内存碎片整理 */
     if (server.active_defrag_enabled)
         activeDefragCycle();
 

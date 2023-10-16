@@ -1,35 +1,3 @@
-/* Implementation of EXPIRE (keys with fixed time to live).
- *
- * ----------------------------------------------------------------------------
- *
- * Copyright (c) 2009-2016, Salvatore Sanfilippo <antirez at gmail dot com>
- * All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
- *
- *   * Redistributions of source code must retain the above copyright notice,
- *     this list of conditions and the following disclaimer.
- *   * Redistributions in binary form must reproduce the above copyright
- *     notice, this list of conditions and the following disclaimer in the
- *     documentation and/or other materials provided with the distribution.
- *   * Neither the name of Redis nor the names of its contributors may be used
- *     to endorse or promote products derived from this software without
- *     specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
- */
-
 #include "server.h"
 
 /*-----------------------------------------------------------------------------
@@ -72,29 +40,15 @@ int activeExpireCycleTryExpire(redisDb *db, dictEntry *de, long long now) {
     }
 }
 
-/* Try to expire a few timed out keys. The algorithm used is adaptive and
- * will use few CPU cycles if there are few expiring keys, otherwise
- * it will get more aggressive to avoid that too much memory is used by
- * keys that can be removed from the keyspace.
+/* 尝试使一些超时的key过期。 使用的算法是自适应的，如果过期key很少，则将使用很少的 CPU 周期.
  *
- * No more than CRON_DBS_PER_CALL databases are tested at every
- * iteration.
+ * 每次迭代时测试的数据库数量不超过 CRON_DBS_PER_CALL = 16。
  *
- * This kind of call is used when Redis detects that timelimit_exit is
- * true, so there is more work to do, and we do it more incrementally from
- * the beforeSleep() function of the event loop.
+ * 这种调用是在Redis检测到timelimit_exit为true时使用的.
  *
- * Expire cycle type:
- *
- * If type is ACTIVE_EXPIRE_CYCLE_FAST the function will try to run a
- * "fast" expire cycle that takes no longer than EXPIRE_FAST_CYCLE_DURATION
- * microseconds, and is not repeated again before the same amount of time.
- *
- * If type is ACTIVE_EXPIRE_CYCLE_SLOW, that normal expire cycle is
- * executed, where the time limit is a percentage of the REDIS_HZ period
- * as specified by the ACTIVE_EXPIRE_CYCLE_SLOW_TIME_PERC define.
- * 在规定的时间内，分多次便利服务器中的各个数据库，从数据库的expires字典中随机检查一部分键的过期情况，并删除
- * 其中的过期键
+ * type：
+ * ACTIVE_EXPIRE_CYCLE_FAST: 该函数将尝试运行一个“快速”过期周期，该周期不超过 EXPIRE_FAST_CYCLE_DURATION 微秒，并且在相同的时间之前不会再次重复。
+ * ACTIVE_EXPIRE_CYCLE_SLOW: 执行正常的过期周期，其中时间限制是 ACTIVE_EXPIRE_CYCLE_SLOW_TIME_PERC 定义指定的 REDIS_HZ 周期的百分比
  * */
 
 void activeExpireCycle(int type) {
@@ -394,13 +348,11 @@ int checkAlreadyExpired(long long when) {
  * Expires Commands
  *----------------------------------------------------------------------------*/
 
-/* This is the generic command implementation for EXPIRE, PEXPIRE, EXPIREAT
- * and PEXPIREAT. Because the commad second argument may be relative or absolute
- * the "basetime" argument is used to signal what the base time is (either 0
- * for *AT variants of the command, or the current time for relative expires).
- *
- * unit is either UNIT_SECONDS or UNIT_MILLISECONDS, and is only used for
- * the argv[2] parameter. The basetime is always specified in milliseconds. */
+/*
+ * expireat/pexpire/setex/psetex,
+ * 或者带EX,PX选项的set命令,
+ * 都是这个函数处理的
+ * */
 void expireGenericCommand(client *c, long long basetime, int unit) {
     robj *key = c->argv[1], *param = c->argv[2];
     long long when; /* unix time in milliseconds when the key will expire. */
