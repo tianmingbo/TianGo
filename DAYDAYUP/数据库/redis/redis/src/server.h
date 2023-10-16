@@ -766,6 +766,7 @@ struct moduleLoadQueueEntry {
     robj **argv;
 };
 
+// 全局变量,因为经常使用
 struct sharedObjectsStruct {
     robj *crlf, *ok, *err, *emptybulk, *czero, *cone, *cnegone, *pong, *space,
             *colon, *nullbulk, *nullmultibulk, *queued,

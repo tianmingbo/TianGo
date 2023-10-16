@@ -433,7 +433,7 @@ void flushallCommand(client *c) {
     server.dirty++;
 }
 
-/* This command implements DEL and LAZYDEL. */
+/* 阻塞/非阻塞删除的上层调用 */
 void delGenericCommand(client *c, int lazy) {
     int numdel = 0, j;
 
@@ -452,10 +452,12 @@ void delGenericCommand(client *c, int lazy) {
     addReplyLongLong(c, numdel);
 }
 
+// 阻塞删除
 void delCommand(client *c) {
     delGenericCommand(c, 0);
 }
 
+// 非阻塞删除
 void unlinkCommand(client *c) {
     delGenericCommand(c, 1);
 }
@@ -1083,17 +1085,12 @@ long long getExpire(redisDb *db, robj *key) {
     return dictGetSignedIntegerVal(de);
 }
 
-/* Propagate expires into slaves and the AOF file.
- * When a key expires in the master, a DEL operation for this key is sent
- * to all the slaves and the AOF file if enabled.
- *
- * This way the key expiry is centralized in one place, and since both
- * AOF and the master->slave link guarantee operation ordering, everything
- * will be consistent even if we allow write operations against expiring
- * keys. */
+/* 传播过期key到slave和 AOF 文件中。
+ * 当主服务器中的某个key过期时，该key的 DEL 操作将发送到所有slave和 AOF 文件（如果启用）。
+ * */
 void propagateExpire(redisDb *db, robj *key, int lazy) {
     robj *argv[2];
-
+    // propagateExpire 函数会根据全局变量 server 的 lazyfree_lazy_eviction 成员变量的值，来决定删除操作具体对应的是哪个命令。
     argv[0] = lazy ? shared.unlink : shared.del;
     argv[1] = key;
     incrRefCount(argv[0]);

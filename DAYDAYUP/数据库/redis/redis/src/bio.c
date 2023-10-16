@@ -1,35 +1,3 @@
-/* Background I/O service for Redis.
- *
- * This file implements operations that we need to perform in the background.
- * Currently there is only a single operation, that is a background close(2)
- * system call. This is needed as when the process is the last owner of a
- * reference to a file closing it means unlinking it, and the deletion of the
- * file is slow, blocking the server.
- *
- * In the future we'll either continue implementing new things we need or
- * we'll switch to libeio. However there are probably long term uses for this
- * file as we may want to put here Redis specific background tasks (for instance
- * it is not impossible that we'll need a non blocking FLUSHDB/FLUSHALL
- * implementation).
- *
- * DESIGN
- * ------
- *
- * The design is trivial, we have a structure representing a job to perform
- * and a different thread and job queue for every job type.
- * Every thread waits for new jobs in its queue, and process every job
- * sequentially.
- *
- * Jobs of the same type are guaranteed to be processed from the least
- * recently inserted to the most recently inserted (older jobs processed
- * first).
- *
- * Currently there is no way for the creator of the job to be notified about
- * the completion of the operation, this will only be added when/if needed.
- *
- */
-
-
 #include "server.h"
 #include "bio.h"
 
@@ -66,7 +34,7 @@ void lazyfreeFreeSlotsMapFromBioThread(zskiplist *sl);
  * main thread. */
 #define REDIS_THREAD_STACK_SIZE (1024*1024*4)
 
-/* Initialize the background system, spawning the thread. */
+/* 初始化后台线程 */
 void bioInit(void) {
     pthread_attr_t attr;
     pthread_t thread;
@@ -75,6 +43,11 @@ void bioInit(void) {
 
     /* Initialization of state vars and objects */
     for (j = 0; j < BIO_NUM_OPS; j++) {
+        /*
+         * pthread_mutex_init 函数用于对互斥量进行初始化操作。它接受两个参数：
+         * mutex 是一个指向 pthread_mutex_t 类型的指针，用于指定要初始化的互斥量对象。
+         * attr 是一个指向 pthread_mutexattr_t 类型的指针，用于指定互斥量的属性。如果传入 NULL，表示使用默认属性。
+         * */
         pthread_mutex_init(&bio_mutex[j], NULL);
         /*
          * pthread_cond_init
@@ -85,11 +58,12 @@ void bioInit(void) {
 
         pthread_cond_init(&bio_newjob_cond[j], NULL);
         pthread_cond_init(&bio_step_cond[j], NULL);
+        // 创建任务队列
         bio_jobs[j] = listCreate();
         bio_pending[j] = 0;
     }
 
-    /* Set the stack size as by default it may be small in some system */
+    /* 设置线程栈大小,避免在某些系统中线程栈太小导致出错 */
     pthread_attr_init(&attr); //初始化pthread属性对象attr
     pthread_attr_getstacksize(&attr, &stacksize); //获取attr当前的栈大小设置,存入stacksize变量
     if (!stacksize) stacksize = 1; /* 检查stacksize,如果为0则设为1 */
@@ -98,9 +72,7 @@ void bioInit(void) {
     //设置attr的栈大小为调整后的stacksize
     pthread_attr_setstacksize(&attr, stacksize);
 
-    /* Ready to spawn our threads. We use the single argument the thread
-     * function accepts in order to pass the job ID the thread is
-     * responsible of. */
+    /* 创建后台现场,并指定bioProcessBackgroundJobs为线程执行函数.arg指定了该线程负责执行的是哪一类后台任务 */
     for (j = 0; j < BIO_NUM_OPS; j++) {
         void *arg = (void *) (unsigned long) j;
         //创建三个线程,执行的函数都是bioProcessBackgroundJobs
@@ -112,14 +84,16 @@ void bioInit(void) {
     }
 }
 
+/* 负责添加一个后台任务,该函数通常由主线程调用,
+ * 非阻塞删除就是主线程调用该函数添加后台任务实现的. */
 void bioCreateBackgroundJob(int type, void *arg1, void *arg2, void *arg3) {
-    //创建新的任务
     struct bio_job *job = zmalloc(sizeof(*job));
-
+    // 每类任务最多可以附加3个参数,这些参数用于判断任务类型或者执行任务
     job->time = time(NULL);
     job->arg1 = arg1;
     job->arg2 = arg2;
     job->arg3 = arg3;
+    // 抢占该类任务对应的互斥量,再将该任务添加到对应的任务队列中
     pthread_mutex_lock(&bio_mutex[type]);
     //把任务加到对应列表尾部
     listAddNodeTail(bio_jobs[type], job);
@@ -132,12 +106,14 @@ void bioCreateBackgroundJob(int type, void *arg1, void *arg2, void *arg3) {
      * 被唤醒的线程需要重新检查循环条件。
      * */
     pthread_cond_signal(&bio_newjob_cond[type]);
+    // 释放互斥量
     pthread_mutex_unlock(&bio_mutex[type]);
 }
 
+// 负责执行后台任务的主逻辑
 void *bioProcessBackgroundJobs(void *arg) {
     struct bio_job *job;
-    //接收一个unsigned long类型的参数arg,代表任务类型
+    //接收一个unsigned long类型的参数arg,type代表任务类型
     unsigned long type = (unsigned long) arg;
     sigset_t sigset;
 
@@ -148,12 +124,20 @@ void *bioProcessBackgroundJobs(void *arg) {
         return NULL;
     }
 
-    /* Make the thread killable at any time, so that bioKillThreads()
-     * can work reliably. */
+    /* pthread_setcancelstate
+     * 用于设置线程的取消状态。线程的取消状态决定了是否允许该线程被取消（终止）
+     * PTHREAD_CANCEL_ENABLE：允许线程被取消。
+     * PTHREAD_CANCEL_DISABLE：禁止线程被取消。
+     * */
     pthread_setcancelstate(PTHREAD_CANCEL_ENABLE, NULL);
+    /* pthread_setcanceltype
+     * 设置线程的取消类型。线程的取消类型决定了在取消线程时如何进行清理处理。
+     * PTHREAD_CANCEL_DEFERRED：线程的取消请求将被延迟处理，直到线程到达取消点时才会被取消。
+     * PTHREAD_CANCEL_ASYNCHRONOUS：线程的取消请求将立即生效，无论线程当前是否处于取消点。
+     * */
     pthread_setcanceltype(PTHREAD_CANCEL_ASYNCHRONOUS, NULL);
 
-    pthread_mutex_lock(&bio_mutex[type]); //加互斥锁
+    pthread_mutex_lock(&bio_mutex[type]); // 抢占该任务类型的互斥量
     /* 屏蔽SIGALRM信号,只让main thread处理 */
     sigemptyset(&sigset);
     sigaddset(&sigset, SIGALRM);
@@ -164,7 +148,8 @@ void *bioProcessBackgroundJobs(void *arg) {
     while (1) {
         listNode *ln;
 
-        /* The loop always starts with the lock hold. */
+        /* 检查当前任务队列中的任务是否为空,如果为空,
+         * 则将当前线程阻塞在bio_newjob_cond条件变量上 */
         if (listLength(bio_jobs[type]) == 0) {
             pthread_cond_wait(&bio_newjob_cond[type], &bio_mutex[type]);
             continue;
@@ -172,11 +157,11 @@ void *bioProcessBackgroundJobs(void *arg) {
         /* 从类型为type的任务队列中获取第一个任务 */
         ln = listFirst(bio_jobs[type]);
         job = ln->value;
-        /* It is now possible to unlock the background system as we know have
-         * a stand alone job structure to process.*/
+        /* 释放互斥量.在后台任务执行期间,后台线程是不锁定互斥量的,
+         * 否则主线程在添加后台任务时可能会一直阻塞,这样后台线程就失去了意义. */
         pthread_mutex_unlock(&bio_mutex[type]);
 
-        /* Process the job accordingly to its type. */
+        /* 处理不同类型的后台任务 */
         if (type == BIO_CLOSE_FILE) {
             close((long) job->arg1);
         } else if (type == BIO_AOF_FSYNC) {

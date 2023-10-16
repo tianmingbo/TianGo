@@ -284,9 +284,8 @@ dictEntry *dictAddOrFind(dict *d, void *key) {
     return entry ? entry : existing;
 }
 
-/* Search and remove an element. This is an helper function for
- * dictDelete() and dictUnlink(), please check the top comment
- * of those functions. */
+/* 搜索并删除元素
+ * nofree: 是否立即移除元素 */
 static dictEntry *dictGenericDelete(dict *d, const void *key, int nofree) {
     uint64_t h, idx;
     dictEntry *he, *prevHe;
@@ -324,39 +323,31 @@ static dictEntry *dictGenericDelete(dict *d, const void *key, int nofree) {
     return NULL; /* not found */
 }
 
-/* Remove an element, returning DICT_OK on success or DICT_ERR if the
- * element was not found. */
+/* 移除一个元素 */
 int dictDelete(dict *ht, const void *key) {
     return dictGenericDelete(ht, key, 0) ? DICT_OK : DICT_ERR;
 }
 
-/* Remove an element from the table, but without actually releasing
- * the key, value and dictionary entry. The dictionary entry is returned
- * if the element was found (and unlinked from the table), and the user
- * should later call `dictFreeUnlinkedEntry()` with it in order to release it.
- * Otherwise if the key is not found, NULL is returned.
+/* 从表中删除一个元素，但不实际释放键、值和字典条目。 如果找到该元素（并从表中取消链接），则返回entry，并且用户稍后应使用它调用“dictFreeUnlinkedEntry()”以释放它。 否则，如果未找到该键，则返回 NULL。
  *
- * This function is useful when we want to remove something from the hash
- * table but want to use its value before actually deleting the entry.
- * Without this function the pattern would require two lookups:
+ * 当我们想要从哈希表中删除某些内容但想要在实际删除该条目之前使用它的值时，可以使用此函数。
+ * 如果没有此函数，模式将需要两次查找：
  *
- *  entry = dictFind(...);
- *  // Do something with entry
- *  dictDelete(dictionary,entry);
+ * entry = dictFind(...);
+ * // 对entry做一些事情
+ * dictDelete(dictionary,entry);
  *
- * Thanks to this function it is possible to avoid this, and use
- * instead:
+ * dictUnlink函数可以避免这种情况：
  *
  * entry = dictUnlink(dictionary,entry);
  * // Do something with entry
- * dictFreeUnlinkedEntry(entry); // <- This does not need to lookup again.
- */
+ * dictFreeUnlinkedEntry(entry); // <- 这不需要再次查找。
+  */
 dictEntry *dictUnlink(dict *ht, const void *key) {
     return dictGenericDelete(ht, key, 1);
 }
 
-/* You need to call this function to really free the entry after a call
- * to dictUnlink(). It's safe to call this function with 'he' = NULL. */
+/* 释放键值对,如果he为NULL,表明为非阻塞删除,直接return */
 void dictFreeUnlinkedEntry(dict *d, dictEntry *he) {
     if (he == NULL) return;
     dictFreeKey(d, he);
