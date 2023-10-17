@@ -11,26 +11,22 @@
 
 int keyIsExpired(redisDb *db, robj *key);
 
-/* Update LFU when an object is accessed.
- * Firstly, decrement the counter if the decrement time is reached.
- * Then logarithmically increment the counter, and update the access time. */
+/*访问对象时更新 LFU。
+* 首先，如果达到递减时间，则递减计数器。
+* 然后对数递增计数器，并更新访问时间。
+ * */
 void updateLFU(robj *val) {
     unsigned long counter = LFUDecrAndReturn(val);
     counter = LFULogIncr(counter);
     val->lru = (LFUGetTimeInMinutes() << 8) | counter; //更新访问频率信息
 }
 
-/* Low level key lookup API, not actually called directly from commands
- * implementations that should instead rely on lookupKeyRead(),
- * lookupKeyWrite() and lookupKeyReadWithFlags(). */
+/* 负责从数据库中查找key,每次查找key都会更新lru属性 */
 robj *lookupKey(redisDb *db, robj *key, int flags) {
     dictEntry *de = dictFind(db->dict, key->ptr);
     if (de) {
         robj *val = dictGetVal(de);
 
-        /* Update the access time for the ageing algorithm.
-         * Don't do it if we have a saving child, as this will trigger
-         * a copy on write madness. */
         if (server.rdb_child_pid == -1 &&
             server.aof_child_pid == -1 &&
             !(flags & LOOKUP_NOTOUCH)) {

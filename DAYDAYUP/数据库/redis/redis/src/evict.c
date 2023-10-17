@@ -274,10 +274,7 @@ unsigned long LFUGetTimeInMinutes(void) {
     return (server.unixtime / 60) & 65535;
 }
 
-/* Given an object last access time, compute the minimum number of minutes
- * that elapsed since the last access. Handle overflow (ldt greater than
- * the current 16 bits minutes time) considering the time as wrapping
- * exactly once. */
+/* 给定对象的上次访问时间，计算自上次访问以来经过的最小分钟数。 */
 unsigned long LFUTimeElapsed(unsigned long ldt) {
     unsigned long now = LFUGetTimeInMinutes();
     if (now >= ldt) return now - ldt;

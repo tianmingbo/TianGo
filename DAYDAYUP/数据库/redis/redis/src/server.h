@@ -991,7 +991,7 @@ struct redisServer {
     time_t stat_starttime;          /* Server start time */
     long long stat_numcommands;     /* Number of processed commands */
     long long stat_numconnections;  /* Number of connections received */
-    long long stat_expiredkeys;     /* Number of expired keys */
+    long long stat_expiredkeys;     /* 过期key数量 */
     double stat_expired_stale_perc; /* Percentage of keys probably expired */
     long long stat_expired_time_cap_reached_count; /* Early expire cylce stops.*/
     long long stat_evictedkeys;     /* Number of evicted keys (maxmemory) */
@@ -1180,8 +1180,8 @@ struct redisServer {
     unsigned long long maxmemory;   /* Max number of memory bytes to use */
     int maxmemory_policy;           /* Policy for key eviction */
     int maxmemory_samples;          /* Pricision of random sampling */
-    int lfu_log_factor;             /* LFU logarithmic counter factor. */
-    int lfu_decay_time;             /* LFU counter decay factor. */
+    int lfu_log_factor;             /* LFU 对数计数器因子。 */
+    int lfu_decay_time;             /* lfu衰减频率,默认为1 */
     long long proto_max_bulk_len;   /* Protocol bulk length maximum size. */
     /* Blocked clients */
     unsigned int blocked_clients;   /* # of clients executing a blocking cmd.*/

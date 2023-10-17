@@ -8,17 +8,9 @@
  * if no access is performed on them.
  *----------------------------------------------------------------------------*/
 
-/* Helper function for the activeExpireCycle() function.
- * This function will try to expire the key that is stored in the hash table
- * entry 'de' of the 'expires' hash table of a Redis database.
- *
- * If the key is found to be expired, it is removed from the database and
- * 1 is returned. Otherwise no operation is performed and 0 is returned.
- *
- * When a key is expired, server.stat_expiredkeys is incremented.
- *
- * The parameter 'now' is the current time in milliseconds as is passed
- * to the function to avoid too many gettimeofday() syscalls. */
+/*
+ * 删除过期的键
+ * */
 int activeExpireCycleTryExpire(redisDb *db, dictEntry *de, long long now) {
     long long t = dictGetSignedIntegerVal(de);
     if (now > t) {
@@ -30,8 +22,7 @@ int activeExpireCycleTryExpire(redisDb *db, dictEntry *de, long long now) {
             dbAsyncDelete(db, keyobj);
         else
             dbSyncDelete(db, keyobj);
-        notifyKeyspaceEvent(NOTIFY_EXPIRED,
-                            "expired", keyobj, db->id);
+        notifyKeyspaceEvent(NOTIFY_EXPIRED, "expired", keyobj, db->id);
         decrRefCount(keyobj);
         server.stat_expiredkeys++;
         return 1;
@@ -123,12 +114,13 @@ void activeExpireCycle(int type) {
                 (num * 100 / slots < 1))
                 break;
 
-            /* 主收集循环。在具有到期时间的键中随机选择一些键并检查是否过期。*/
+            /* 在具有到期时间的键中随机选择一些键并检查是否过期。*/
             expired = 0;
             ttl_sum = 0;
             ttl_samples = 0;
 
             if (num > ACTIVE_EXPIRE_CYCLE_LOOKUPS_PER_LOOP)
+                // 每次采样删除操作中采样最多为20
                 num = ACTIVE_EXPIRE_CYCLE_LOOKUPS_PER_LOOP;
 
             while (num--) {
@@ -159,17 +151,16 @@ void activeExpireCycle(int type) {
                 db->avg_ttl = (db->avg_ttl / 50) * 49 + (avg_ttl / 50);
             }
 
-            /* 如果有太多键在当前数据库中找到超时，则我们不能永远阻塞在这里。
-             * 因此，在给定的毫秒数后，返回调用者以等待其他活动过期循环。*/
+            /* 每执行16次采样删除操作,就检查该函数处理时间是否超出限制 */
             if ((iteration & 0xf) == 0) { /* 每16次检查一次。*/
                 elapsed = ustime() - start;
                 if (elapsed > timelimit) {
-                    timelimit_exit = 1;
+                    timelimit_exit = 1; //代表函数处理时间超出限制
                     server.stat_expired_time_cap_reached_count++;
                     break;
                 }
             }
-            /* 如果当前数据库中找到的键小于25%，我们不会重复循环。*/
+            /* 如果当前数据库中找到的键小于25%(20/4)，退出循环。*/
         } while (expired > ACTIVE_EXPIRE_CYCLE_LOOKUPS_PER_LOOP / 4);
     }
 
