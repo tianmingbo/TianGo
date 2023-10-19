@@ -152,38 +152,31 @@ void evictionPoolAlloc(void) {
     EvictionPoolLRU = ep;
 }
 
-/* 这是 freeMemoryIfNeeded() 的辅助函数，用于每次我们想要使key过期时用一些条目填充 evictionPool。
- * 添加空闲时间小于当前key之一的key。 如果有空闲entry，总是会添加key。
-*
-* 按升序插入key，idle较小的key位于左侧，idle大的key位于右侧。
+/* 从给定的数据集中采集样本填充到样本池中.
+ * 样本池中的数据按淘汰优先级排序,越优先淘汰的数据越在后面.
+ * sampledict根据maxmemory-policy配置来选择的,如果是allkeys-lru,那么就是redis server的全局hash表,
+ * 否则就是保存着设置了过期时间的key的hash表
  * */
-
 void evictionPoolPopulate(int dbid, dict *sampledict, dict *keydict, struct evictionPoolEntry *pool) {
     int j, k, count;
     dictEntry *samples[server.maxmemory_samples];
-    //sampledict根据maxmemory-policy配置来选择的,如果是allkeys-lru,那么就是redis server的全局hash表
-    //否则就是保存着设置了过期时间的key的hash表
     count = dictGetSomeKeys(sampledict, samples, server.maxmemory_samples);
     for (j = 0; j < count; j++) {
         unsigned long long idle;
         sds key;
         robj *o;
         dictEntry *de;
-
+        // 获取样本数据对应的键值对
         de = samples[j];
         key = dictGetKey(de);
 
-        /* If the dictionary we are sampling from is not the main
-         * dictionary (but the expires one) we need to lookup the key
-         * again in the key dictionary to obtain the value object. */
+        /* 如果我们采样的字典不是主字典（而是过期字典），我们需要在键字典中再次查找键来获取值对象。 */
         if (server.maxmemory_policy != MAXMEMORY_VOLATILE_TTL) {
             if (sampledict != keydict) de = dictFind(keydict, key);
             o = dictGetVal(de);
         }
 
-        /* Calculate the idle time according to the policy. This is called
-         * idle just because the code initially handled LRU, but is in fact
-         * just a score where an higher score means better candidate. */
+        /* 计算淘汰优先级idle,idle越大,淘汰优先级越高 */
         if (server.maxmemory_policy & MAXMEMORY_FLAG_LRU) {
             //计算采样集合中的每一个键值对的空闲时间
             idle = estimateObjectIdleTime(o);
@@ -201,9 +194,7 @@ void evictionPoolPopulate(int dbid, dict *sampledict, dict *keydict, struct evic
          * First, find the first empty bucket or the first populated
          * bucket that has an idle time smaller than our idle time. */
         k = 0;
-        while (k < EVPOOL_SIZE &&
-               pool[k].key &&
-               pool[k].idle < idle)
+        while (k < EVPOOL_SIZE && pool[k].key && pool[k].idle < idle)
             k++;
         if (k == 0 && pool[EVPOOL_SIZE - 1].key != NULL) {
             /* Can't insert if the element is < the worst element we have
@@ -415,39 +406,35 @@ int freeMemoryIfNeeded(void) {
     long long delta;
     int slaves = listLength(server.slaves);
 
-    /* When clients are paused the dataset should be static not just from the
-     * POV of clients not being able to write, but also from the POV of
-     * expires and evictions of keys not being performed. */
     if (clientsArePaused()) return C_OK;
-    //判断当前redis使用的内存是否超过了maxmemory配置的值
+    // 判断当前redis使用的内存是否超过了maxmemory配置的值
     if (getMaxmemoryState(&mem_reported, NULL, &mem_tofree, NULL) == C_OK)
         return C_OK;
 
     mem_freed = 0;
 
     if (server.maxmemory_policy == MAXMEMORY_NO_EVICTION)
-        goto cant_free; /* We need to free memory, but policy forbids. */
+        goto cant_free; /* 当前策略是不淘汰 */
 
     latencyStartMonitor(latency);
+    // 持续释放,直到满足mem_tofree
     while (mem_freed < mem_tofree) {
         int j, k, i, keys_freed = 0;
         static unsigned int next_db = 0;
-        sds bestkey = NULL;
-        int bestdbid;
+        sds evict_key = NULL;
+        int evict_db_id;
         redisDb *db;
         dict *dict;
         dictEntry *de;
 
+        // 处理LRU,LFU或者volatile-ttl
         if (server.maxmemory_policy & (MAXMEMORY_FLAG_LRU | MAXMEMORY_FLAG_LFU) ||
             server.maxmemory_policy == MAXMEMORY_VOLATILE_TTL) {
             struct evictionPoolEntry *pool = EvictionPoolLRU;
 
-            while (bestkey == NULL) {
+            while (evict_key == NULL) {
                 unsigned long total_keys = 0, keys;
 
-                /* We don't want to make local-db choices when expiring keys,
-                 * so to start populate the eviction pool sampling keys from
-                 * every DB. */
                 for (i = 0; i < server.dbnum; i++) {
                     db = server.db + i;
                     //根据配置,选择使用全局hash表,还是过期时间的hash表
@@ -460,17 +447,16 @@ int freeMemoryIfNeeded(void) {
                 }
                 if (!total_keys) break; /* No keys to evict. */
 
-                /* 从数组的最后一个key开始选择,如果选到的key不是空值,那么就是最终淘汰的key */
+                /* 从数组的最后一个key开始选择,如果选到的key不是空值,那么就是最终淘汰的key,
+                 * 因为最后一个key的idle时间最大 */
                 for (k = EVPOOL_SIZE - 1; k >= 0; k--) {
                     if (pool[k].key == NULL) continue;
-                    bestdbid = pool[k].dbid;
+                    evict_db_id = pool[k].dbid;
 
                     if (server.maxmemory_policy & MAXMEMORY_FLAG_ALLKEYS) {
-                        de = dictFind(server.db[pool[k].dbid].dict,
-                                      pool[k].key);
+                        de = dictFind(server.db[pool[k].dbid].dict, pool[k].key);
                     } else {
-                        de = dictFind(server.db[pool[k].dbid].expires,
-                                      pool[k].key);
+                        de = dictFind(server.db[pool[k].dbid].expires, pool[k].key);
                     }
 
                     /* Remove the entry from the pool. */
@@ -481,7 +467,7 @@ int freeMemoryIfNeeded(void) {
 
                     /* 如果当前key对应的键值对不为空,选择当前key为被淘汰的key */
                     if (de) {
-                        bestkey = dictGetKey(de);
+                        evict_key = dictGetKey(de);
                         break;
                     } else {
                         /* Ghost... Iterate again. */
@@ -490,12 +476,10 @@ int freeMemoryIfNeeded(void) {
             }
         }
 
-            /* volatile-random and allkeys-random policy */
+            /* 如果使用的是随机淘汰算法 */
         else if (server.maxmemory_policy == MAXMEMORY_ALLKEYS_RANDOM ||
                  server.maxmemory_policy == MAXMEMORY_VOLATILE_RANDOM) {
-            /* When evicting a random key, we try to evict a key for
-             * each DB, so we use the static 'next_db' variable to
-             * incrementally visit all DBs. */
+            /* 要淘汰每个数据库,使用next_db作为静态变量,存储上次清理的db_id */
             for (i = 0; i < server.dbnum; i++) {
                 j = (++next_db) % server.dbnum;
                 db = server.db + j;
@@ -503,22 +487,22 @@ int freeMemoryIfNeeded(void) {
                        db->dict : db->expires;
                 if (dictSize(dict) != 0) {
                     de = dictGetRandomKey(dict);
-                    bestkey = dictGetKey(de);
-                    bestdbid = j;
+                    evict_key = dictGetKey(de);
+                    evict_db_id = j;
                     break;
                 }
             }
         }
 
-        /* Finally remove the selected key. */
-        if (bestkey) {
-            db = server.db + bestdbid;
-            robj *keyobj = createStringObject(bestkey, sdslen(bestkey));
+        /* 删除前面选择的待淘汰键 */
+        if (evict_key) {
+            db = server.db + evict_db_id;
+            robj *keyobj = createStringObject(evict_key, sdslen(evict_key));
             propagateExpire(db, keyobj, server.lazyfree_lazy_eviction);
             /* 计算当前使用的内存量 */
             delta = (long long) zmalloc_used_memory();
             latencyStartMonitor(eviction_latency);
-            //如果配置了惰性删除,则进行异步删除
+            // 如果配置了惰性删除,则进行异步删除
             if (server.lazyfree_lazy_eviction)
                 dbAsyncDelete(db, keyobj);
             else //否则就行同步删除
@@ -577,14 +561,8 @@ int freeMemoryIfNeeded(void) {
     return C_ERR;
 }
 
-/* This is a wrapper for freeMemoryIfNeeded() that only really calls the
- * function if right now there are the conditions to do so safely:
- *
- * - There must be no script in timeout condition.
- * - Nor we are loading data right now.
- *
- */
 int freeMemoryIfNeededAndSafe(void) {
+    // 必须没有处于超时状态的脚本
     if (server.lua_timedout || server.loading) return C_OK;
     return freeMemoryIfNeeded();
 }

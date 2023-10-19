@@ -2152,9 +2152,8 @@ void pauseClients(mstime_t end) {
     server.clients_paused = 1;
 }
 
-/* Return non-zero if clients are currently paused. As a side effect the
- * function checks if the pause time was reached and clear it. */
 int clientsArePaused(void) {
+    /* 判断服务器是否处于pause状态, 并检查暂停的时间是否已过期 */
     if (server.clients_paused &&
         server.clients_pause_end_time < server.mstime) {
         listNode *ln;
@@ -2163,19 +2162,18 @@ int clientsArePaused(void) {
 
         server.clients_paused = 0;
 
-        /* Put all the clients in the unblocked clients queue in order to
-         * force the re-processing of the input buffer if any. */
+        /* 将所有的客户端放入未阻塞客户端队列中，以强制重新处理输入缓冲区（如果有的话） */
         listRewind(server.clients, &li);
         while ((ln = listNext(&li)) != NULL) {
             c = listNodeValue(ln);
 
-            /* Don't touch slaves and blocked clients.
-             * The latter pending requests will be processed when unblocked. */
+            /* 不要处理从属节点和阻塞的客户端，
+            后者的挂起请求将在解除阻塞时处理 */
             if (c->flags & (CLIENT_SLAVE | CLIENT_BLOCKED)) continue;
-            queueClientForReprocessing(c);
+            queueClientForReprocessing(c); // 将客户端添加到重新处理队列中
         }
     }
-    return server.clients_paused;
+    return server.clients_paused; // 返回服务器当前的暂停状态
 }
 
 /* This function is called by Redis in order to process a few events from
