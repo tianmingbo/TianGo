@@ -190,9 +190,10 @@ void evictionPoolPopulate(int dbid, dict *sampledict, dict *keydict, struct evic
             serverPanic("Unknown eviction policy in evictionPoolPopulate()");
         }
 
-        /* Insert the element inside the pool.
-         * First, find the first empty bucket or the first populated
-         * bucket that has an idle time smaller than our idle time. */
+        /* 尝试把采样的每一个键值对插入 EvictionPoolLRU 数组，这主要取决于以下两个条件之一：
+         * 一是，它能在数组中找到一个尚未插入键值对的空位；
+         * 二是，它能在数组中找到一个空闲时间小于采样键值对空闲时间的键值对。
+         * */
         k = 0;
         while (k < EVPOOL_SIZE && pool[k].key && pool[k].idle < idle)
             k++;
@@ -450,7 +451,7 @@ int freeMemoryIfNeeded(void) {
                 /* 从数组的最后一个key开始选择,如果选到的key不是空值,那么就是最终淘汰的key,
                  * 因为最后一个key的idle时间最大 */
                 for (k = EVPOOL_SIZE - 1; k >= 0; k--) {
-                    if (pool[k].key == NULL) continue;
+                    if (pool[k].key == NULL) continue; // 当前key为空值,则查找下一个key
                     evict_db_id = pool[k].dbid;
 
                     if (server.maxmemory_policy & MAXMEMORY_FLAG_ALLKEYS) {
@@ -505,7 +506,8 @@ int freeMemoryIfNeeded(void) {
             // 如果配置了惰性删除,则进行异步删除
             if (server.lazyfree_lazy_eviction)
                 dbAsyncDelete(db, keyobj);
-            else //否则就行同步删除
+            else
+                //否则就行同步删除
                 dbSyncDelete(db, keyobj);
             latencyEndMonitor(eviction_latency);
             latencyAddSampleIfNeeded("eviction-del", eviction_latency);

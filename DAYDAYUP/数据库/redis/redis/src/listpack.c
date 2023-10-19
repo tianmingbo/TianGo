@@ -1,6 +1,6 @@
 /**
  * listpack结构:
- *  字节数(4Byte)|元素数量(2Byte)|entry|entry|结束标识（255）
+ *  字节数(4 Byte)|元素数量(2 Byte)|entry|entry|结束标识（255）
  * entry结构：
  *   encoding|data|entry len
  * */
