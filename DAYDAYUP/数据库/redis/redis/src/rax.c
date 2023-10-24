@@ -25,12 +25,7 @@ void *raxNotFound = (void *) "rax-not-found-pointer";
 
 void raxDebugShowNode(const char *msg, raxNode *n);
 
-/* Turn debugging messages on/off by compiling with RAX_DEBUG_MSG macro on.
- * When RAX_DEBUG_MSG is defined by default Rax operations will emit a lot
- * of debugging info to the standard output, however you can still turn
- * debugging on/off in order to enable it only when you suspect there is an
- * operation causing a bug using the function raxSetDebugMsg(). */
-#ifdef RAX_DEBUG_MSG
+
 #define debugf(...)                                                            \
     if (raxDebugMsg) {                                                         \
         printf("%s:%s:%d:\t", __FILE__, __FUNCTION__, __LINE__);               \
@@ -38,11 +33,8 @@ void raxDebugShowNode(const char *msg, raxNode *n);
         fflush(stdout);                                                        \
     }
 
-#define debugnode(msg,n) raxDebugShowNode(msg,n)
-#else
-#define debugf(...)
-#define debugnode(msg, n)
-#endif
+#define debugnode(msg, n) raxDebugShowNode(msg,n)
+
 
 /* By default log debug info if RAX_DEBUG_MSG is defined. */
 static int raxDebugMsg = 1;
@@ -427,8 +419,8 @@ raxNode *raxCompressNode(raxNode *n, unsigned char *s, size_t len, raxNode **chi
  * means that the current node represents the key (that is, none of the
  * compressed node characters are needed to represent the key, just all
  * its parents nodes). */
-static inline size_t
-raxLowWalk(rax *rax, unsigned char *s, size_t len, raxNode **stopnode, raxNode ***plink, int *splitpos, raxStack *ts) {
+static inline size_t raxLowWalk(rax *rax, unsigned char *s, size_t len,
+                                raxNode **stopnode, raxNode ***plink, int *splitpos, raxStack *ts) {
     raxNode *h = rax->head;
     raxNode **parentlink = &rax->head;
 
@@ -471,32 +463,32 @@ raxLowWalk(rax *rax, unsigned char *s, size_t len, raxNode **stopnode, raxNode *
     return i;
 }
 
-/* Insert the element 's' of size 'len', setting as auxiliary data
- * the pointer 'data'. If the element is already present, the associated
- * data is updated (only if 'overwrite' is set to 1), and 0 is returned,
- * otherwise the element is inserted and 1 is returned. On out of memory the
- * function returns 0 as well but sets errno to ENOMEM, otherwise errno will
- * be set to 0.
+/* 插入节点: 插入键与RAX第一个不匹配字符所在节点
+ * 冲突位置: 该不匹配字符在插入节点中的索引(如果插入节点不是压缩节点,则冲突位置固定为0)
+ *
+ * 插入操作的4种情况:
+ * 1)Rax中已存在插入键内容,并且插入节点不是压缩节点(或者插入节点是压缩节点,但冲突位置为0)
+ * 2)Rax中已存在插入键内容,但插入位置是压缩节点(并且冲突位置不等于0)
+ * 3)Rax中不存在插入键内容,并且冲突位置在压缩节点中
+ * 4)Rax不存在插入键内容,并且冲突位置不在压缩节点中
+ *
  */
 int raxGenericInsert(rax *rax, unsigned char *s, size_t len, void *data, void **old, int overwrite) {
     size_t i;
-    int j = 0; /* Split position. If raxLowWalk() stops in a compressed
-                  node, the index 'j' represents the char we stopped within the
-                  compressed node, that is, the position where to split the
-                  node for insertion. */
+    int j = 0;
     raxNode *h, **parentlink;
 
     debugf("### Insert %.*s with value %p\n", (int) len, s, data);
+    /* 查找Rax中是否存在插入键,返回匹配子节的数量,并记录
+     * h:插入节点
+     * j:冲突位置
+     * */
     i = raxLowWalk(rax, s, len, &h, &parentlink, &j, NULL);
 
-    /* If i == len we walked following the whole string. If we are not
-     * in the middle of a compressed node, the string is either already
-     * inserted or this middle node is currently not a key, but can represent
-     * our key. We have just to reallocate the node and make space for the
-     * data pointer. */
+    /* 第一种情况 */
     if (i == len && (!h->iscompr || j == 0 /* not in the middle if j is 0 */)) {
         debugf("### Insert: node representing key exists\n");
-        /* Make space for the value pointer if needed. */
+        /* 如果插入节点不是键,则为该节点重新分配内存空间 */
         if (!h->iskey || (h->isnull && overwrite)) {
             h = raxReallocForData(h, data);
             if (h) memcpy(parentlink, &h, sizeof(h));
@@ -506,7 +498,7 @@ int raxGenericInsert(rax *rax, unsigned char *s, size_t len, void *data, void **
             return 0;
         }
 
-        /* Update the existing key if there is already one. */
+        /* 插入节点本来就是键,则根据overwrite参数替换节点值 */
         if (h->iskey) {
             if (old) *old = raxGetData(h);
             if (overwrite) raxSetData(h, data);
@@ -514,8 +506,7 @@ int raxGenericInsert(rax *rax, unsigned char *s, size_t len, void *data, void **
             return 0; /* Element already exists. */
         }
 
-        /* Otherwise set the node as a key. Note that raxSetData()
-         * will set h->iskey. */
+        /* 将插入值设置为该节点值 */
         raxSetData(h, data);
         rax->numele++;
         return 1; /* Element inserted. */

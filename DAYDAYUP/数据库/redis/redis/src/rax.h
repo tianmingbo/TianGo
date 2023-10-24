@@ -70,34 +70,13 @@ typedef struct raxNode {
     uint32_t isnull: 1;    //节点的值是否为NULL
     uint32_t iscompr: 1;   //节点是否被压缩
     uint32_t size: 29;     //节点大小,具体值会根据节点是压缩节点还是非压缩节点而不同。如果当前节点是压缩节点，该值表示压缩数据的长度；如果是非压缩节点，该值表示该节点指向的子节点个数。
-    /* Data layout is as follows:
-     *
-     * If node is not compressed we have 'size' bytes, one for each children
-     * character, and 'size' raxNode pointers, point to each child node.
-     * Note how the character is not stored in the children but in the
-     * edge of the parents:
-     *
-     * [header iscompr=0][abc][a-ptr][b-ptr][c-ptr](value-ptr?)
-     *
-     * if node is compressed (iscompr bit is 1) the node has 1 children.
-     * In that case the 'size' bytes of the string stored immediately at
-     * the start of the data section, represent a sequence of successive
-     * nodes linked one after the other, for which only the last one in
-     * the sequence is actually represented as a node, and pointed to by
-     * the current compressed node.
-     *
-     * [header iscompr=1][xyz][z-ptr](value-ptr?)
-     *
-     * Both compressed and not compressed nodes can represent a key
-     * with associated data in the radix tree at any level (not just terminal
-     * nodes).
-     *
-     * If the node has an associated key (iskey=1) and is not NULL
-     * (isnull=0), then after the raxNode pointers poiting to the
-     * children, an additional value pointer is present (as you can see
-     * in the representation above as "value-ptr" field).
-     */
-    unsigned char data[];
+    /*
+     * 如果是非压缩节点,则data为:
+     * [header][abc][a-ptr][b-ptr][c-ptr](value-ptr?)
+     * 压缩节点:
+     * [header][xyz][ptr](value-ptr?) 压缩节点只有一个子节点
+     * */
+    unsigned char data[]; //存放节点字符/子节点指针/值指针
 } raxNode;
 
 typedef struct rax {
