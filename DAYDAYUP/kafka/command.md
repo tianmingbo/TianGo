@@ -8,3 +8,5 @@
 ```
 #### 3、kafka-console-producer.sh  --bootstrap-server kafka01:9092 --topic TestComposeTopi #启动一个控制台生产者
 #### 4、kafka-console-consumer.sh --bootstrap-server kafka01:9092 --topic TestComposeTopic --from-beginning #启动一个控制台消费者
+#### 5、kafka-consumer-groups.sh --bootstrap-server 10.8.169.156:9092 --describe  --all-groups |grep CCS-Harbour-Vehicle-grantedArea  #查看消费组
+#### 6、./kafka-consumer-groups.sh --bootstrap-server localhost:9092 --delete --group my-group #删除消费组
