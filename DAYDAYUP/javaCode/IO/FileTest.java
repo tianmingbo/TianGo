@@ -1,19 +1,28 @@
 package IO;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 
+/**
+ * @author tianmingbo
+ */
 public class FileTest {
     public static void main(String[] args) throws IOException {
-        File file = new File("test.txt"); //创建一个文件对象，只能获取路径、名字……，不能读写文件内容
-        System.out.println(file.getAbsoluteFile());
-        System.out.println(file.getName());
-        System.out.println(file.getParent());
-        System.out.println(file.createNewFile());
-        System.out.println(file.mkdir());
-        File[] roots=File.listRoots();
-        for(var root : roots){
-            System.out.println(root);
-        }
+//        BufferedInputStream inputStream = new BufferedInputStream(new FileInputStream("./IO/das.txt"));
+//        byte[] bytes = new byte[1024];
+//        int byteReader;
+//        while ((byteReader = inputStream.read(bytes)) != -1) {
+//            System.out.println(new String(bytes, 0, byteReader));
+//        }
+//        inputStream.close();
+        BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream("./IO/das.txt"));
+        byte[] buf;
+        buf = "我是好人".getBytes();
+        stream.write(buf);
+        stream.flush();
+        stream.close();
+//        DataOutputStream das = new DataOutputStream(new FileOutputStream("./IO/das.txt"));
+//        das.write("www".getBytes());
+//        das.writeInt(100);
+//        das.close();
     }
 }

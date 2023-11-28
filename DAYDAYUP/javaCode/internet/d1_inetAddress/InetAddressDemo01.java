@@ -14,6 +14,7 @@ import java.net.InetAddress;
  * 获得主机名。
  * getHostAddress()
  * 获得IP地址字符串。
+ * @author tianmingbo
  */
 public class InetAddressDemo01 {
     public static void main(String[] args) throws Exception {
