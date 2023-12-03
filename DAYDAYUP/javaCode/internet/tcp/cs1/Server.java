@@ -14,8 +14,8 @@ public class Server {
         System.out.println("start server");
         while (true){
             Socket s = ss.accept();
-            System.out.println(s.getPort());
-            System.out.println(s.getInetAddress());
+//            System.out.println(s.getPort());
+//            System.out.println(s.getInetAddress());
             System.out.println(s);
             PrintStream ps = new PrintStream(s.getOutputStream());
             ps.println("666");
