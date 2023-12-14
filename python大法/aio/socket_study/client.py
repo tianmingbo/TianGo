@@ -4,7 +4,7 @@ import socket
 client = socket.socket(socket.AF_INET,
                        socket.SOCK_STREAM)
 # 连接服务端
-client.connect(("localhost", 12345))
+client.connect(("localhost", 9999))
 while True:
     # 发送消息
     data = input("请输入内容: ")

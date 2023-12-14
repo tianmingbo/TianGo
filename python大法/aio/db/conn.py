@@ -7,6 +7,8 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
 from sqlalchemy.orm import sessionmaker, declarative_base
 
+engine = create_async_engine("mysql+aiomysql://root:123456@192.168.1.6/test")
+
 
 class DBConnectionManager:
     def __init__(self,
