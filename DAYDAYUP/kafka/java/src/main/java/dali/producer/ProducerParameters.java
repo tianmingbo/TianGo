@@ -5,40 +5,39 @@ import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.common.serialization.StringSerializer;
 
+import java.util.HashMap;
 import java.util.Properties;
 
-/**
- * @author tianmingbo
- */
-public class CustomProducer {
-
+public class ProducerParameters {
+    /**
+     * 生产者提高吞吐量
+     */
     public static void main(String[] args) {
 
         // 0 配置
         Properties prop = new Properties();
-        // 连接集群 bootstrap.servers
+
+        // 连接kafka集群
         prop.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "http://150.158.47.35:9092,http://150.158.47.35:9093,http://150.158.47.35:9094");
 
-        // 指定对应的key和value的序列化类型 key.serializer
+        // 序列化
         prop.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
         prop.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
-        prop.put(ProducerConfig.ACKS_CONFIG, "all");
-        prop.put(ProducerConfig.RETRIES_CONFIG, 3);
-        prop.put(ProducerConfig.BATCH_SIZE_CONFIG, 323840);
+        // 缓冲区大小,默认32M
         prop.put(ProducerConfig.BUFFER_MEMORY_CONFIG, 33554432);
+        // 批次大小 batch.size,默认16k
+        prop.put(ProducerConfig.BATCH_SIZE_CONFIG, 16384);
 
-        // 1 创建kafka生产者对象
-        // "" hello
-        KafkaProducer<String, String> producer = new KafkaProducer<>(prop);
+        // linger.ms 等待时间,默认为0, 通常设置为5~100ms
+        prop.put(ProducerConfig.LINGER_MS_CONFIG, 1);
 
-        // 2 发送数据
+        // 压缩
+        prop.put(ProducerConfig.COMPRESSION_TYPE_CONFIG, "snappy");
+
+        KafkaProducer<String, String> kafkaProducer = new KafkaProducer<>(prop);
         for (int i = 0; i < 5; i++) {
-            //构建消息实例
-            producer.send(new ProducerRecord<>("tiandali", "dali" + i));
-            System.out.println("??/");
+            kafkaProducer.send(new ProducerRecord<>("tiandali", "test" + i));
         }
-
-        // 3 关闭资源*** 别忘喽释放资源
-        producer.close();
+        kafkaProducer.close();
     }
 }

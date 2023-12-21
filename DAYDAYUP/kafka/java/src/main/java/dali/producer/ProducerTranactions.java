@@ -7,7 +7,10 @@ import org.apache.kafka.common.serialization.StringSerializer;
 
 import java.util.Properties;
 
-public class CustomProducerTranactions {
+/**
+ * @author tianmingbo
+ */
+public class ProducerTranactions {
 
     public static void main(String[] args) {
 

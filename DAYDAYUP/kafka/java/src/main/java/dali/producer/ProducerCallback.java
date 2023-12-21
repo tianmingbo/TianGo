@@ -11,7 +11,7 @@ import java.util.Properties;
  *
  * @author tianmingbo
  */
-public class CustomProducerCallback {
+public class ProducerCallback {
 
     public static void main(String[] args) throws InterruptedException {
 

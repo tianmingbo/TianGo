@@ -6,15 +6,15 @@ import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.common.serialization.StringSerializer;
 
 import java.util.Properties;
+import java.util.concurrent.ExecutionException;
 
 /**
+ * 同步发送
  * @author tianmingbo
  */
-public class CustomProducerAcks {
-    /**
-     * 数据完全可靠条件 = ACK级别设置为-1 + 分区副本大于等于2 + ISR里应答的最小副本数量大于等于2
-     */
-    public static void main(String[] args) {
+public class ProducerSync {
+
+    public static void main(String[] args) throws ExecutionException, InterruptedException {
 
         // 0 配置
         Properties prop = new Properties();
@@ -26,16 +26,16 @@ public class CustomProducerAcks {
         prop.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
         prop.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
 
-        // acks
-        prop.put(ProducerConfig.ACKS_CONFIG, "1");
-
-        // 重试次数,默认是 int 最大值， 2147483647
-        prop.put(ProducerConfig.RETRIES_CONFIG, 3);
-
+        // 1 创建kafka生产者对象
         KafkaProducer<String, String> kafkaProducer = new KafkaProducer<>(prop);
+
+        // 2 发送数据
         for (int i = 0; i < 5; i++) {
-            kafkaProducer.send(new ProducerRecord<>("tiandali", "test" + i));
+            //同步，发送成功后才继续发送下一条
+            kafkaProducer.send(new ProducerRecord<>("tiandali", "test" + i)).get();
         }
+
+        // 3 关闭资源
         kafkaProducer.close();
     }
 }

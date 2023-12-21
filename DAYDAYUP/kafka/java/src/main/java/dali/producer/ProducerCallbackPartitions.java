@@ -10,7 +10,7 @@ import java.util.Properties;
  *
  * @author tianmingbo
  */
-public class CustomProducerCallbackPartitions {
+public class ProducerCallbackPartitions {
 
     public static void main(String[] args) throws InterruptedException {
 

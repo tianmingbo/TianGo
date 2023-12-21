@@ -5,34 +5,32 @@ import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.common.serialization.StringSerializer;
 
-import java.util.HashMap;
 import java.util.Properties;
 
-public class CustomProducerParameters {
+/**
+ * @author tianmingbo
+ */
+public class ProducerAcks {
     /**
-     * 生产者提高吞吐量
+     * 数据完全可靠条件 = ACK级别设置为-1 + 分区副本大于等于2 + ISR里应答的最小副本数量大于等于2
      */
     public static void main(String[] args) {
 
         // 0 配置
         Properties prop = new Properties();
 
-        // 连接kafka集群
+        // 连接集群 bootstrap.servers
         prop.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "http://150.158.47.35:9092,http://150.158.47.35:9093,http://150.158.47.35:9094");
 
-        // 序列化
+        // 指定对应的key和value的序列化类型 key.serializer
         prop.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
         prop.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
-        // 缓冲区大小,默认32M
-        prop.put(ProducerConfig.BUFFER_MEMORY_CONFIG, 33554432);
-        // 批次大小 batch.size,默认16k
-        prop.put(ProducerConfig.BATCH_SIZE_CONFIG, 16384);
 
-        // linger.ms 等待时间,默认为0, 通常设置为5~100ms
-        prop.put(ProducerConfig.LINGER_MS_CONFIG, 1);
+        // acks
+        prop.put(ProducerConfig.ACKS_CONFIG, "1");
 
-        // 压缩
-        prop.put(ProducerConfig.COMPRESSION_TYPE_CONFIG, "snappy");
+        // 重试次数,默认是 int 最大值， 2147483647
+        prop.put(ProducerConfig.RETRIES_CONFIG, 3);
 
         KafkaProducer<String, String> kafkaProducer = new KafkaProducer<>(prop);
         for (int i = 0; i < 5; i++) {
