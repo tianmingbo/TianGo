@@ -32,7 +32,7 @@ public class Producer {
         KafkaProducer<String, String> producer = new KafkaProducer<>(prop);
 
         // 2 发送数据
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 500; i++) {
             //构建消息实例
             producer.send(new ProducerRecord<>("tiandali", "dali" + i));
             System.out.println("??/");
