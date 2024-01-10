@@ -9,3 +9,4 @@ target.mdgit commit
 /javaCode/.idea/
 /javaCode/out/
 /node_modules/
+*.class
