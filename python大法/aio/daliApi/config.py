@@ -16,3 +16,5 @@ APP_NAME = 'dali'
 LOG_LEVEL = 10
 
 STATIC_FILES_ROOT = os.path.join(APP_ROOT, 'static')
+
+GLOBAL_CHARSET = 'utf-8'

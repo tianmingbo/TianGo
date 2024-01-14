@@ -7,6 +7,7 @@
 """
 import config
 from dali.utils import aiofile
+from dali.utils.http_helper import timestamp_to_http_time
 
 mime_type_map = {
     '.txt': b'text/plain',
@@ -53,23 +54,53 @@ async def handle_static_file_request(scope, send) -> bool:
     data_sent = False
 
     file_path = f"{config.STATIC_FILES_ROOT}{scope['path']}"
-    file_content = None
     # 如果该路径存在并是个文件
     if await aiofile.exists(file_path) and await aiofile.is_file(file_path):
         file_content = await aiofile.read_file(file_path)
-    if file_content:
+        file_last_modify = await aiofile.get_mtime(file_path)
+        file_last_modify_http_str = timestamp_to_http_time(file_last_modify)
         mime_type = get_mime_type(file_path)
-        await send({
-            'type': 'http.response.start',
-            'status': 200,
-            'headers': [
-                [b'content-type', mime_type],
-            ]
-        })
-        await send({
-            'type': 'http.response.body',
-            'body': file_content,
-            'more_body': False
-        })
-        data_sent = True
+
+        headers = scope['headers']
+        if_modified_since = b''
+        if headers and len(headers):
+            for h in headers:
+                if len(h) >= 2:
+                    hk, hv = h[0], h[1]
+                    if hk == b'if-modified-since':
+                        if_modified_since = hv
+                        break
+
+        if if_modified_since:
+            # 如果客户端的 If-Modified-Since 头与服务器的 Last-Modified 头相同，服务器可以返回 304 Not Modified。
+            if if_modified_since == file_last_modify_http_str:
+                await send({
+                    'type': 'http.response.start',
+                    'status': 304,
+                    'headers': [
+                        [b'content-type', mime_type],
+                        [b'last-modified', file_last_modify_http_str]
+                    ]
+                })
+                await send({
+                    'type': 'http.response.body',
+                    'body': b'',
+                    'more_body': False
+                })
+                data_sent = True
+        if not data_sent:
+            await send({
+                'type': 'http.response.start',
+                'status': 200,
+                'headers': [
+                    [b'content-type', mime_type],
+                    [b'last-modified', file_last_modify_http_str]
+                ]
+            })
+            await send({
+                'type': 'http.response.body',
+                'body': file_content,
+                'more_body': False
+            })
+            data_sent = True
     return data_sent
