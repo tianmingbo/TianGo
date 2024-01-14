@@ -7,6 +7,8 @@
 """
 import os
 
+SERVER_NAME = 'dali'
+
 SERVER_ROOT = os.path.dirname(os.path.abspath(__file__))
 APP_DIR_NAME = 'app'
 APP_ROOT = os.path.join(SERVER_ROOT, APP_DIR_NAME)
