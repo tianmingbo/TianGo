@@ -11,6 +11,7 @@ import os
 
 import config
 from dali import http
+from dali.cache import ModulesCacheManager
 from dali.utils import aiofile
 
 
@@ -28,8 +29,9 @@ async def handle_dynamic_request(scope, receive, send):
     controller_file = os.path.join(config.CONTROLLERS_ROOT, controllers_name + '.py')
     # 如果该控制器存在，尝试导入该文件
     if await aiofile.exists(controller_file):
-        controller_obj = importlib.import_module(
-            f'{config.APP_DIR_NAME}.{config.CONTROLLERS_DIR_NAME}.{controllers_name}'
+        # 热更新
+        controller_obj = await ModulesCacheManager.get_instance().get_data(
+            f"{config.APP_DIR_NAME}.{config.CONTROLLERS_DIR_NAME}.{controllers_name}"
         )
         if controller_obj:
             action = getattr(controller_obj, action_name, None)
