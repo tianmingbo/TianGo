@@ -30,5 +30,3 @@ async def app(scope, receive, send):
         log.warning('unknown request type: %s' % req_type)
 
 
-if __name__ == '__main__':
-    uvicorn.run(app, host='0.0.0.0', port=8000)

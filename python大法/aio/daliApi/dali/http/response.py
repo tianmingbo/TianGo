@@ -6,7 +6,7 @@
 @desc: Response
 """
 import config
-from http.request import Request
+from dali.http.request import Request
 
 
 class Response:

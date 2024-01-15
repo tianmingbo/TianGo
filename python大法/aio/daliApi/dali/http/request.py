@@ -14,7 +14,7 @@ class Request:
     def __init__(self, scope, receive):
         self._scope = scope
         self._receive = receive
-        self._protocol = scope['schema']  # http or https
+        self._protocol = scope['scheme']  # http or https
         self._method = scope['method']  # 请求方法
         self._path = scope['path']  # 请求路径
         self._query_string = scope['query_string']  # 请求路径中？后面的参数
@@ -26,7 +26,7 @@ class Request:
             self._raw_accept_languages
         ) if self._raw_accept_languages else []
         lang = config.LANGUAGE or (
-            self._raw_accept_languages[0] if self._raw_accept_languages else b'zh-CN')
+            self._accept_languages[0] if self._accept_languages else b'zh-CN')
         self._language = lang.decode('utf-8')
 
         self._content_type = None
