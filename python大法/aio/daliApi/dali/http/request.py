@@ -14,6 +14,7 @@ class Request:
     def __init__(self, scope, receive):
         self._scope = scope
         self._receive = receive
+        self._args = None
         self._protocol = scope['scheme']  # http or https
         self._method = scope['method']  # 请求方法
         self._path = scope['path']  # 请求路径
@@ -41,6 +42,23 @@ class Request:
     @property
     def headers(self):
         return self._headers
+
+    @property
+    def args(self):
+        """所有的路径参数"""
+        return self._args
+
+    def arg(self, index):
+        """
+        返回指定位置的参数
+        :param index:
+        :return:
+        """
+        return self._args[index] if self.args and len(self.args) > index else None
+
+    @args.setter
+    def args(self, args):
+        self._args = args
 
     @property
     def controller(self):

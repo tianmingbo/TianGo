@@ -19,3 +19,8 @@ class Hello:
     @cache()
     async def __call__(self, req: Request, res: Response):
         await res.end(b'default page')
+
+
+async def get_args(req: Request, res: Response):
+    await res.write(b'Args is ')
+    await res.end(','.join(req.args).encode('utf-8'))
