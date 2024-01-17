@@ -14,6 +14,12 @@ async def index(req: Request, res: Response):
     await res.end(b'default page')
 
 
+async def login(req: Request, res: Response):
+    print(req.get_var_as_str(b'name'))
+    print(req.get_var_as_str(b'pwd'))
+    await res.end(b'default page')
+
+
 class Hello:
     # 接受调用
     @cache()

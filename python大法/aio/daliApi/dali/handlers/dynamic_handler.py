@@ -42,6 +42,7 @@ async def handle_dynamic_request(scope, receive, send):
                 req.action = action
 
                 req.args = tokens[3:] if len(tokens) > 3 else []
+                await req.parse_form()
                 # 如果是类，先实例化再执行
                 if inspect.isclass(action):
                     await action()(req, res)

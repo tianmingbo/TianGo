@@ -5,9 +5,12 @@
 @time: 2024/1/14  21:24
 @desc:  Request
 """
+import json
 import re
 
 import config
+from dali.utils.log import Log
+from dali.utils.url_helper import parse_url_pairs
 
 
 class Request:
@@ -31,6 +34,7 @@ class Request:
         self._language = lang.decode('utf-8')
 
         self._content_type = None
+        self._body = b''
         self._uri = None  # 请求的uri
         self._host = self.get_header(b'host')
         self._client = self._scope['client']
@@ -38,6 +42,8 @@ class Request:
         self._client_port = self._client[1]
         self._controller = None  # 记录请求的控制器名
         self._action = None  # 记录请求的函数名
+        self._query_vars = {}  # 路径中的参数
+        self._body_vars = {}  # 协议内容中的参数
 
     @property
     def headers(self):
@@ -115,6 +121,14 @@ class Request:
         return self._method
 
     @property
+    def query_vars(self):
+        return self._query_vars
+
+    @property
+    def body_vars(self):
+        return self._body_vars
+
+    @property
     def uri(self):
         if not self._uri:
             self._uri = self.path
@@ -122,6 +136,59 @@ class Request:
                 self._uri += "?"
                 self._uri += self.query_string.decode(config.GLOBAL_CHARSET)
         return self._uri
+
+    def get_query_vars(self, key: bytes) -> list:
+        """
+        根据键名获取所有的值
+        :param key:
+        :return:
+        """
+        return self.query_vars[key] if key in self.query_vars else None
+
+    def get_query_var(self, key: bytes, default=b'') -> bytes:
+        """
+        根据键名获取匹配的第一个值
+        :param key:
+        :param default:
+        :return:
+        """
+        return self._get_first_value_of_array(self.query_vars, key) or default
+
+    def get_body_vars(self, key: bytes) -> list:
+        """
+        根据键名获取所有消息体参数
+        :param key:
+        :return:
+        """
+        return self.body_vars[key] if key in self.body_vars else None
+
+    def get_body_var(self, key: bytes, default=b'') -> bytes:
+        """
+        根据键名获取匹配的第一个消息体参数
+        :param key:
+        :param default:
+        :return:
+        """
+        return self._get_first_value_of_array(self.body_vars, key) or default
+
+    def get_var(self, key: bytes, default=b'') -> bytes:
+        """
+        从消息体活URL中获取参数
+        :param key:
+        :param default:
+        :return:
+        """
+        if self.method == 'GET':
+            return self.get_query_var(key, default)
+        elif self.method == 'POST':
+            return self.get_body_var(key, default) or self.get_query_var(key, default)
+        return default
+
+    def get_var_as_str(self, key: bytes, default='', charset=config.GLOBAL_CHARSET) -> str:
+        var = self.get_var(key)
+        if var:
+            return var.decode(charset)
+        return default
 
     def _parse_header(self):
         for header in self._raw_headers:
@@ -152,3 +219,69 @@ class Request:
                 user_agent.find(b'Android') != -1 or \
                 user_agent.find(b'iPod') != -1
         return False
+
+    async def parse_form(self):
+        """
+        表单解析
+        application/x-www-form-urlencoded
+        multipart/form-data
+        text/plain
+        :return:
+        """
+        if self._query_string:
+            self._query_vars = parse_url_pairs(self._query_string)
+        if self.method == 'POST':
+            while True:
+                message = await self._receive()
+                self._body += message['body'] if 'body' in message else b''
+                if 'more_body' not in message or not message['more_body']:
+                    break
+            if self.content_type:
+                # application/x-www-form-urlencoded类型以参数对得方式解析
+                if self.content_type.startswith(b'application/x-www-form-urlencoded'):
+                    self._body_vars = parse_url_pairs(self._body)
+                elif self.content_type.startswith(b'multipart/form-data'):
+                    boundary = re.search(b'multipart/form-data; boundary=(.*)', self.content_type)
+                    if boundary:
+                        boundary = boundary.group(1)
+                        if self._body:
+                            body_results = self._body.split(b'\r\n--' + boundary)
+                            if body_results:
+                                for body_res in body_results:
+                                    split_index = body_res.find(b'\r\n\r\n')
+                                    if split_index != -1:
+                                        # 获取头部信息字符串
+                                        head = body_res[:split_index]
+                                        # 获取内容
+                                        content = body_res[split_index + 4:]
+                                        # 取出该字段的key
+                                        key = re.search(b'Content-Disposition: form-data; name="(.*?)"', head)
+                                        if key:
+                                            key = key.group(1)
+                                            if key not in self._body_vars:
+                                                self._body_vars[key] = []
+                                            # 如果是文件，获取文件名
+                                            filename = re.search(b'filename="(.*)"', head)
+                                            file_name = filename.group(1) if filename else None
+                                            if not file_name:
+                                                # 如果不是文件，则值为普通字符串
+                                                self._body_vars[key].append(content)
+                                            else:
+                                                file_obj = {
+                                                    'filename': file_name,
+                                                    'content': content,
+                                                    'name': key
+                                                }
+                                                # 获取文件类型
+                                                content_type = re.search(b'Content-Type: (.*)', head)
+                                                if content_type:
+                                                    file_obj['content'] = content_type.group(1)
+                                                self._body_vars[key].append(file_obj)
+                                    else:
+                                        break
+                elif self.content_type.startswith(b'application/json'):
+                    Log.get_instance().info(json.loads(self._body))
+                else:
+                    Log.get_instance().info(f'{self.content_type} we can not parse')
+            else:
+                Log.get_instance().warning('content-type is None')
