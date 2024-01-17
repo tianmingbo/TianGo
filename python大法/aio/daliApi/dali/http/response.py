@@ -77,3 +77,27 @@ class Response:
         })
         self._body = data
         self._body_sent = True
+
+    def add_header(self, key: bytes, value: bytes):
+        if key not in self._headers_map:
+            self._headers_map[key] = []
+        self._headers_map[key].append(value)
+
+    def set_cookie(self, name: str, value: str, max_age: int = 604800, path: bytes = b'/'):
+        """
+        设置cookie
+        :param name:
+        :param value:
+        :param max_age:
+        :param path:
+        :return:
+        """
+        self.add_header(
+            b'set-cookie',
+            '{name}={value}; Max-Age={max_age}; Path={path}'.format(
+                name=name,
+                value=value,
+                max_age=max_age,
+                path=path
+            ).encode(config.GLOBAL_CHARSET)
+        )

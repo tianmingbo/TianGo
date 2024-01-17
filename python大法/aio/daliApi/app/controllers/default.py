@@ -20,6 +20,13 @@ async def login(req: Request, res: Response):
     await res.end(b'default page')
 
 
+async def counter(req: Request, res: Response):
+    count = int(req.get_cookie(b'count') or b'0')
+    count += 1
+    res.set_cookie('count', str(count))
+    await res.end(b'count is %s' % str(count).encode('utf-8'))
+
+
 class Hello:
     # 接受调用
     @cache()

@@ -24,6 +24,8 @@ class Request:
         self._query_string = scope['query_string']  # 请求路径中？后面的参数
         self._raw_headers = scope['headers'] if 'headers' in scope else []
         self._headers = {}
+        self._cookie = b''
+        self._cookie_map = {}
         self._parse_header()
         self._raw_accept_languages = self.get_header(b'accept-language')
         self._accept_languages = re.compile(b"[a-z]{2}-[A-Z]{2}").findall(
@@ -48,6 +50,16 @@ class Request:
     @property
     def headers(self):
         return self._headers
+
+    @property
+    def cookie(self):
+        if not self._cookie:
+            self._cookie = self.get_header(b'cookie')
+        return self._cookie
+
+    @property
+    def cookie_map(self):
+        return self._cookie_map
 
     @property
     def args(self):
@@ -219,6 +231,17 @@ class Request:
                 user_agent.find(b'Android') != -1 or \
                 user_agent.find(b'iPod') != -1
         return False
+
+    def get_cookie(self, key: bytes, default=None) -> bytes:
+        if not self.cookie_map:
+            cookie = self.cookie
+            if cookie:
+                tokens = cookie.split(b'; ')
+                for t in tokens:
+                    kv = t.split(b'=')
+                    if len(kv) == 2:
+                        self.cookie_map[kv[0]] = kv[1]
+        return self.cookie_map[key] if key in self.cookie_map else default
 
     async def parse_form(self):
         """
