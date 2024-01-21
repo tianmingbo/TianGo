@@ -18,6 +18,7 @@ class Response:
         self._body_sent = False  # 指示body是否已发送
         self._body = b''
         self._headers_map = {b'server': config.SERVER_NAME}  # 返回的header
+        self.set_cookie(config.SESSION_ID_KEY, self._request.session_id_str)
 
     @property
     def header_sent(self):

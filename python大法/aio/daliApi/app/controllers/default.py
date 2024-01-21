@@ -21,9 +21,9 @@ async def login(req: Request, res: Response):
 
 
 async def counter(req: Request, res: Response):
-    count = int(req.get_cookie(b'count') or b'0')
+    count = int(await req.get_session('count') or '0')
     count += 1
-    res.set_cookie('count', str(count))
+    await req.set_session('count', count)
     await res.end(b'count is %s' % str(count).encode('utf-8'))
 
 

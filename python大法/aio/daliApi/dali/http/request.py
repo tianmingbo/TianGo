@@ -7,14 +7,17 @@
 """
 import json
 import re
+import uuid
 
 import config
+from dali.cache import SessionCacheManager
 from dali.utils.log import Log
 from dali.utils.url_helper import parse_url_pairs
 
 
 class Request:
     def __init__(self, scope, receive):
+        self._session_id_str = None
         self._scope = scope
         self._receive = receive
         self._args = None
@@ -37,6 +40,7 @@ class Request:
 
         self._content_type = None
         self._body = b''
+        self._session_id: bytes = b''
         self._uri = None  # 请求的uri
         self._host = self.get_header(b'host')
         self._client = self._scope['client']
@@ -127,6 +131,20 @@ class Request:
         if not self._content_type:
             self._content_type = self.get_header(b'content-type')
         return self._content_type
+
+    @property
+    def session_id(self) -> bytes:
+        self._session_id = self.get_cookie(config.SESSION_ID_KEY.encode(config.GLOBAL_CHARSET), None)
+        if not self._session_id:
+            self._session_id_str = f"daliApi:session:{uuid.uuid4().hex}"
+            self._session_id = self._session_id_str.encode(config.GLOBAL_CHARSET)
+        return self._session_id
+
+    @property
+    def session_id_str(self) -> str:
+        if self._session_id_str is None:
+            self._session_id_str = self.session_id.decode(config.GLOBAL_CHARSET)
+        return self._session_id_str
 
     @property
     def method(self):
@@ -242,6 +260,33 @@ class Request:
                     if len(kv) == 2:
                         self.cookie_map[kv[0]] = kv[1]
         return self.cookie_map[key] if key in self.cookie_map else default
+
+    async def session(self):
+        """
+        根据session_id获取session数据
+        :return:
+        """
+        return await SessionCacheManager.get_instance().get_data(self.session_id)
+
+    async def get_session(self, key: str, default=None):
+        """
+        从session中根据key获取对应的值
+        :param key:
+        :param default:
+        :return:
+        """
+        session = await SessionCacheManager.get_instance().get_data(self.session_id)
+        return session.get(key, default)
+
+    async def set_session(self, ket: str, value):
+        """
+        将键值对写入session中
+        :param ket:
+        :param value:
+        :return:
+        """
+        session = await SessionCacheManager.get_instance().get_data(self.session_id)
+        session[ket] = value
 
     async def parse_form(self):
         """

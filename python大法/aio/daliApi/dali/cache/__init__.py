@@ -11,7 +11,7 @@ from dali.utils.log import Log
 from dali.cache.base_cache_manager import CacheDataWrapper, BaseCacheManager
 from dali.cache.modules_cache_manager import ModulesCacheManager
 from dali.cache.page_cache_manager import PageCacheManager
-from dali.http import Request, Response
+from dali.cache.session_cache_manager import SessionCacheManager
 
 
 def cache(expire=3600, key=None):
@@ -27,12 +27,12 @@ def cache(expire=3600, key=None):
             argc = len(args)
             if argc == 2:
                 # 参数个数为2，装饰的是函数
-                req: Request = args[0]
-                res: Response = args[1]
+                req = args[0]
+                res = args[1]
             elif args == 3:
                 # 参数个数为3，装饰的是方法
-                req: Request = args[1]
-                res: Response = args[2]
+                req = args[1]
+                res = args[2]
             else:
                 raise TypeError('require 2 or 3 arguments')
             _key = key
