@@ -15,6 +15,9 @@ SERVER_ROOT = os.path.dirname(os.path.abspath(__file__))
 APP_DIR_NAME = 'app'
 APP_ROOT = os.path.join(SERVER_ROOT, APP_DIR_NAME)
 
+LANGUAGE_DIR_NAME = "languages"
+LANGUAGE_ROOT = os.path.join(APP_ROOT, LANGUAGE_DIR_NAME)
+
 APP_NAME = 'dali'
 
 LOG_LEVEL = 10

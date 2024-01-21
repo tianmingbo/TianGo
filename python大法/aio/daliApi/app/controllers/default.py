@@ -15,9 +15,8 @@ async def index(req: Request, res: Response):
 
 
 async def login(req: Request, res: Response):
-    print(req.get_var_as_str(b'name'))
-    print(req.get_var_as_str(b'pwd'))
-    await res.end(b'default page')
+    words = await res.translate("Home")
+    await res.end("你好".encode('gbk'))
 
 
 async def counter(req: Request, res: Response):

@@ -7,6 +7,7 @@
 """
 import config
 from dali.http.request import Request
+from dali.utils import translator
 
 
 class Response:
@@ -102,3 +103,6 @@ class Response:
                 path=path
             ).encode(config.GLOBAL_CHARSET)
         )
+
+    async def translate(self, words):
+        return await translator.translate(words, self._request.language)
