@@ -5,6 +5,7 @@
 @time: 2024/1/10  22:28
 @desc: 生命周期管理
 """
+from dali.socketio import load_sio_files
 from dali.utils.log import Log
 
 
@@ -15,6 +16,7 @@ async def handle_lifespan(scope, receive, send):
         message = await receive()
         if message['type'] == 'lifespan.startup':
             log.info('lifespan.startup')
+            await load_sio_files()
             await send({'type': 'lifespan.startup.complete'})
         elif message['type'] == 'lifespan.shutdown':
             log.info('lifespan.shutdown')
