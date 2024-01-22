@@ -26,9 +26,17 @@ class AsyncCursor:
     def pydal_connection(self):
         return self._pydal_connection
 
+    @property
     def description(self):
         """
-        获取描述信息
+        获取描述信息 ('id', 3, None, 11, 11, 0, False)
+        'id': 字段名称，表示字段在数据库表中的标识符。
+        3: 字段索引，在数据库中用于排序和查找的字段索引。
+        None: 默认值，如果字段没有提供值，则使用该默认值。
+        11: 字段的最大字符数或数字长度。对于字符串字段，这表示可以存储的最大字符数；对于数字字段，这表示数字的最大长度。
+        11: 字段的显示长度。对于数字字段，它表示数字显示的总位数，包括小数点和小数位数；对于字符串字段，它是字符显示的总长度。
+        0: 字段的小数位数。对于数值字段，它表示允许的小数位数。
+        False: 是否允许字段为空。如果为True，则字段允许为空；如果为False，则字段不允许为空。
         :return:
         """
         return self.aiomysql_cursor.description
@@ -72,4 +80,3 @@ class AsyncCursor:
 
     def __call__(self, *args, **kwargs) -> AsyncQuery:
         return AsyncQuery(self, self._pydal(*args))
-

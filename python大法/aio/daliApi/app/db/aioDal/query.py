@@ -19,7 +19,6 @@ class AsyncQuery:
     async def select(self, *args, **kwargs):
         sql: str = self._select(*args, **kwargs)
         sql = sql.replace('\\', '')
-        print(sql)
         await self._pydal_cursor.execute(sql)
         res = await self._pydal_cursor.fetchall()
         return row.Rows(self._pydal_cursor.description, res)

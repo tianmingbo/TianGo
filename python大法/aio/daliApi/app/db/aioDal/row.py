@@ -10,20 +10,20 @@ from datetime import datetime
 
 
 class Row:
-    def __init__(self, field_names, raw_data):
-        self._raw_data = raw_data  # 原始
+    def __init__(self, field_names, original_data):
+        self._original_data = original_data  # 原始
         self._row_data = {}  # 行
-        self._field_name = field_names
+        self._field_names = field_names
         for k, v in enumerate(field_names):
-            self._row_data[v] = raw_data[k]
+            self._row_data[v] = original_data[k]
 
     @property
     def field_names(self):
-        return self._field_name
+        return self._field_names
 
     @property
     def raw_data(self):
-        return self._raw_data
+        return self._original_data
 
     @property
     def row_data(self):
@@ -60,9 +60,12 @@ class Rows:
         self._field_names = []
         self._raw_data = raw_data
         for f in description:
+            # 获取所有的字段名
             self._field_names.append(f[0])
         for r in raw_data:
+            # 获取所有的行
             self._rows.append(Row(self._field_names, r))
+        print(self._rows)
 
     @property
     def rows(self):

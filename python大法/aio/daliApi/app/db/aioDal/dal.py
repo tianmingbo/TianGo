@@ -18,7 +18,7 @@ class AsyncDAL:
         self._aiomysql_conn_pool = None
 
     @staticmethod
-    async def create(host, user, pwd, db, port, pool_max=10, echo=True) -> 'AsyncDAL':
+    async def create(host, user, pwd, db, port=3306, pool_max=10, echo=True) -> 'AsyncDAL':
         return await AsyncDAL().async_init(host, user, pwd, db, port, pool_max, echo)
 
     async def async_init(self, host, user, pwd, db, port, pool_max, echo) -> 'AsyncDAL':
@@ -34,7 +34,7 @@ class AsyncDAL:
         :return:
         """
         self._pydal = DAL(f"mysql://{user}:{pwd}@{host}:{port}/{db}",
-                          migrate=False, migrate_enabled=False, bigint_id=True)
+                          migrate=True, migrate_enabled=True, bigint_id=True)
         self._aiomysql_conn_pool = await aiomysql.create_pool(0, pool_max, echo, host=host,
                                                               port=port, user=user,
                                                               password=pwd, db=db)
@@ -59,7 +59,7 @@ class AsyncDAL:
         通过连接池获取一个连接上下文对象，并将其封装到AsyncDalConnection
         :return:
         """
-        return AsyncDalConnection(self._pydal, self._aiomysql_conn_pool)
+        return AsyncDalConnection(self._pydal, await self._aiomysql_conn_pool.acquire())
 
     async def release(self, conn: AsyncDalConnection):
         """

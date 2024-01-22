@@ -15,6 +15,6 @@ if __name__ == '__main__':
         Field('name', 'string', length=128, default=''),
         Field('age', 'integer', default=18),
     )
-    sql = db.student._insert(name='dali', age='18')
+    sql = db.student.insert(name='dali', age='18')
     db.commit()
     print(sql)
