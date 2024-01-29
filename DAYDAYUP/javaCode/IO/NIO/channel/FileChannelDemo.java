@@ -10,6 +10,7 @@ import java.nio.file.StandardOpenOption;
 
 /**
  * @author tianmingbo
+ * 文件通道,用于文件的数据读写
  */
 public class FileChannelDemo {
     public static void main(String[] args) {
