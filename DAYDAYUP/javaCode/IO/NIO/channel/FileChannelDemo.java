@@ -15,22 +15,22 @@ public class FileChannelDemo {
     public static void main(String[] args) {
         Path sourcePath = Paths.get("IO/NIO/channel/das.txt");
         Path destPath = Paths.get("IO/NIO/channel/das1.txt");
-        try (FileChannel src = FileChannel.open(sourcePath,
+        try (FileChannel srcChannel = FileChannel.open(sourcePath,
                 StandardOpenOption.READ);
-             FileChannel dest = FileChannel.open(destPath,
+             FileChannel destChannel = FileChannel.open(destPath,
                      StandardOpenOption.WRITE, StandardOpenOption.CREATE, StandardOpenOption.READ)) {
             //1.使用FileChannel 配合 ByteBuffer 缓冲区实现文件复制的功能
             ByteBuffer buffer = ByteBuffer.allocate(1024);
 
-            while (src.read(buffer) != -1) {
+            while (srcChannel.read(buffer) != -1) {
                 buffer.flip(); //获取buffer中的内容
-                dest.write(buffer);
+                destChannel.write(buffer);
                 buffer.clear(); //重置buffer,便于复用buffer
             }
             //2.使用内存映射文件（MappedByteBuffer）的方式实现文件复制的功能(直接操作缓冲区)
-            long fileSize = src.size();
-            MappedByteBuffer sourceMappedBuffer = src.map(FileChannel.MapMode.READ_ONLY, 0, fileSize);
-            MappedByteBuffer destinationMappedBuffer = dest.map(FileChannel.MapMode.READ_WRITE, 0, fileSize);
+            long fileSize = srcChannel.size();
+            MappedByteBuffer sourceMappedBuffer = srcChannel.map(FileChannel.MapMode.READ_ONLY, 0, fileSize);
+            MappedByteBuffer destinationMappedBuffer = destChannel.map(FileChannel.MapMode.READ_WRITE, 0, fileSize);
 
             for (int i = 0; i < fileSize; i++) {
                 byte b = sourceMappedBuffer.get(i);
