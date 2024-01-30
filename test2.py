@@ -1,34 +1,23 @@
-from fastapi import FastAPI
-import uvicorn
-from pydantic import BaseModel
-
-# 创建 FastAPI 实例
-app = FastAPI()
+import asyncio
+import aiohttp
 
 
-# 定义根路由的 GET 请求处理器
-@app.get("/")
-async def read_root():
-    return {"Hello": "World"}
+async def send_message(session, message):
+    async with session.post('http://localhost:8080', data=message) as response:
+        return await response.text()
 
 
-class Item(BaseModel):
-    name: str
+async def main():
+    messages = ['Hello' for _ in range(10)]
 
+    async with aiohttp.ClientSession() as session:
+        tasks = [send_message(session, message) for message in messages]
+        results = await asyncio.gather(*tasks)
 
-# 处理 POST 请求
-@app.post("/items/")
-async def create_item(item: Item):
-    # 在这里可以对接收到的请求体数据进行处理
-    # 例如将数据存入数据库或进行其他操作
-    return {"message": f"Item {item.name}"}
-
-
-# 定义 /items/{item_id} 路由的 GET 请求处理器
-@app.get("/items/{item_id}")
-async def read_item(item_id: int):
-    return {"item_id": item_id}
+    # 处理结果
+    for result in results:
+        print(f"Received: {result}")
 
 
 if __name__ == '__main__':
-    uvicorn.run(app)
+    asyncio.run(main())

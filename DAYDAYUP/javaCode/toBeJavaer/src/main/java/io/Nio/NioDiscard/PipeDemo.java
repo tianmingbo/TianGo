@@ -1,4 +1,4 @@
-package Nio.NioDiscard;
+package io.Nio.NioDiscard;
 
 import util.Logger;
 import org.junit.Test;

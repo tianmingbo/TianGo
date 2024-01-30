@@ -1,6 +1,6 @@
-package Nio.NioDiscard;
+package io.Nio.NioDiscard;
 
-import Nio.sockerDemo.NioDemoConfig;
+import io.Nio.sockerDemo.NioDemoConfig;
 import util.Logger;
 
 import java.io.IOException;
@@ -76,13 +76,9 @@ public class NioDiscardServer {
                     ByteBuffer byteBuffer = ByteBuffer.allocate(1024);
                     int length;
                     while ((length = socketChannel.read(byteBuffer)) > 0) {
-
                         byteBuffer.flip();
-
                         Logger.info(new String(byteBuffer.array(), 0, length));
-
                         byteBuffer.clear();
-
                     }
 //                    socketChannel.close();
                 }
