@@ -1,0 +1,12 @@
+{
+  "Hello": "你好",
+  "Home": "首页",
+  "Login": "登录",
+  "Register": "注册",
+  "Logout": "退出",
+  "Username": "用户名",
+  "Password": "密码",
+  "Confirm Password": "确认密码",
+  "Email": "邮箱",
+  "Confirm Email": "确认邮箱"
+}
