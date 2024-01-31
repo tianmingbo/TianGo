@@ -25,14 +25,15 @@ class MultiThreadEchoHandler implements Runnable {
         channel = c;
         channel.configureBlocking(false);
         channel.setOption(StandardSocketOptions.TCP_NODELAY, true);
-        //仅仅取得选择键，后设置感兴趣的IO事件
-        sk = channel.register(selector, 0);
-        //将本Handler作为sk选择键的附件，方便事件dispatch
-        sk.attach(this);
-        //向sk选择键注册Read就绪事件
-        sk.interestOps(SelectionKey.OP_READ);
-        //唤醒 查询线程，使得OP_READ生效
-        selector.wakeup();
+//        //仅仅取得选择键，后设置感兴趣的IO事件
+//        sk = channel.register(selector, 0);
+//        //将本Handler作为sk选择键的附件，方便事件dispatch
+//        sk.attach(this);
+//        //向sk选择键注册Read就绪事件
+//        sk.interestOps(SelectionKey.OP_READ);
+//        //唤醒 查询线程，使得OP_READ生效
+//        selector.wakeup();
+        sk = channel.register(selector, SelectionKey.OP_READ, this);
         Logger.info("新的连接 注册完成");
 
     }
@@ -42,7 +43,8 @@ class MultiThreadEchoHandler implements Runnable {
         //异步任务，在独立的线程池中执行
         //提交数据传输任务到线程池
         //使得IO处理不在IO事件轮询线程中执行，在独立的线程池中执行
-        pool.execute(new AsyncTask());
+//        pool.execute(new AsyncTask());
+        asyncRun();
     }
 
     //异步任务，不在Reactor线程中执行
@@ -52,7 +54,7 @@ class MultiThreadEchoHandler implements Runnable {
             if (state == SENDING) {
                 //写入通道
                 channel.write(byteBuffer);
-
+                System.out.println(System.currentTimeMillis() + " write...");
                 //写完后,准备开始从通道读,byteBuffer切换成写模式
                 byteBuffer.clear();
                 //写完后,注册read就绪事件
@@ -61,9 +63,9 @@ class MultiThreadEchoHandler implements Runnable {
                 state = RECIEVING;
             } else if (state == RECIEVING) {
                 //从通道读
-                int length = 0;
+                int length;
                 while ((length = channel.read(byteBuffer)) > 0) {
-                    Logger.info(new String(byteBuffer.array(), 0, length));
+                    Logger.info("Receive: ", new String(byteBuffer.array(), 0, length));
                 }
                 //读完后，准备开始写入通道,byteBuffer切换成读模式
                 byteBuffer.flip();
