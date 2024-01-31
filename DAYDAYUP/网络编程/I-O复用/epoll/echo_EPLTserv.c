@@ -1,12 +1,5 @@
 /**
- * epoll vs select:
- *   1.无需编写以监视状态变化为目的的针对所有文件描述符的循环语句
- *   2.调用对应于select的epoll_wait函数时无需每次传递监视对象信息
- *
- *
- * epoll_create: 创建保存epoll文件描述符的空间
- * epoll_ctl: 向空间注册并注销文件描述符
- * epoll_wait: 与select函数类似,等到文件描述符发生变化
+ * 条件触发
  * */
 #include <stdio.h>
 #include <stdlib.h>
