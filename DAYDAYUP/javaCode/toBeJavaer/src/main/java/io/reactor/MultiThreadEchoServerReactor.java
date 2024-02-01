@@ -45,7 +45,7 @@ class MultiThreadEchoServerReactor {
         //bossSelector,负责监控新连接事件, 将 serverSocket注册到bossSelector,绑定Handler：新连接监控handler绑定到SelectionKey（选择键）
         serverSocket.register(bossSelector, SelectionKey.OP_ACCEPT, new AcceptorHandler());
 
-        //bossReactor反应器，处理新连接的bossSelector
+        //bossReactor反应器，处理新连接
         bossReactor = new Reactor(bossSelector);
 
         //第一个子反应器，一子反应器负责一个worker选择器
@@ -57,9 +57,9 @@ class MultiThreadEchoServerReactor {
 
     private void startService() {
         // 一子反应器对应一条线程
-        new Thread(bossReactor).start();
-        new Thread(workReactors[0]).start();
-        new Thread(workReactors[1]).start();
+        new Thread(bossReactor, "bossReactor").start();
+        new Thread(workReactors[0], "worker-0").start();
+        new Thread(workReactors[1], "worker-1").start();
     }
 
     /**
@@ -77,7 +77,9 @@ class MultiThreadEchoServerReactor {
                     if (null == selectedKeys || selectedKeys.size() == 0) {
                         continue;
                     }
+//                    System.out.println(Thread.currentThread().getName());
                     Iterator<SelectionKey> it = selectedKeys.iterator();
+//                    System.out.println(selectedKeys.size());
                     while (it.hasNext()) {
                         //Reactor负责dispatch收到的事件
                         SelectionKey sk = it.next();
@@ -95,6 +97,8 @@ class MultiThreadEchoServerReactor {
             Runnable handler = (Runnable) sk.attachment();
             //调用之前attach绑定到选择键的handler处理器对象
             if (handler != null) {
+//                System.out.println(sk.isReadable()+" test");
+//                System.out.println(System.currentTimeMillis() + Thread.currentThread().getName() + " process");
                 handler.run();
             }
         }
