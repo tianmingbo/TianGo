@@ -1,5 +1,5 @@
 /**
- * 条件触发(Level-Triggered)
+ * 边缘触发（Edge-Triggered），仅触发一次事件
  * */
 #include <stdio.h>
 #include <stdlib.h>
@@ -8,11 +8,15 @@
 #include <arpa/inet.h>
 #include <sys/socket.h>
 #include <sys/epoll.h>
+#include <fcntl.h>
+#include <errno.h>
 
-#define BUF_SIZE 4   //减小缓冲区，服务器端一次读取不完接收的数据。因此会多次触发read事件
+#define BUF_SIZE 4
 #define EPOLL_SIZE 50
 
 void error_handling(char *buf);
+
+void set_nonblocking_mode(int fd);
 
 int main(int argc, char *argv[]) {
     int serv_sock, clnt_sock;
@@ -46,6 +50,8 @@ int main(int argc, char *argv[]) {
     epfd = epoll_create(EPOLL_SIZE); //返回epoll的fd
     ep_events = malloc(sizeof(struct epoll_event) * EPOLL_SIZE); //申请文件描述符空间
 
+    set_nonblocking_mode(serv_sock);
+
     event.events = EPOLLIN;
     event.data.fd = serv_sock;
     epoll_ctl(epfd, EPOLL_CTL_ADD, serv_sock, &event); //监听server端fd
@@ -62,21 +68,31 @@ int main(int argc, char *argv[]) {
                 printf("accept event!\n");
                 adr_sz = sizeof(clnt_adr);
                 clnt_sock = accept(serv_sock, (struct sockaddr *) &clnt_adr, &adr_sz); //建立连接
-                event.events = EPOLLIN;
+                set_nonblocking_mode(clnt_sock); //将客户端套接字设置为非阻塞模式
+                event.events = EPOLLIN | EPOLLET; //设置为边缘触发
                 event.data.fd = clnt_sock;
                 epoll_ctl(epfd, EPOLL_CTL_ADD, clnt_sock, &event);
                 printf("connected client: %d \n", clnt_sock);
             } else {
-                str_len = read(ep_events[i].data.fd, buf, BUF_SIZE);
-                printf("read: %s\n", buf);
-                if (str_len == 0)    // close request!
-                {
-                    epoll_ctl(epfd, EPOLL_CTL_DEL, ep_events[i].data.fd, NULL); //删除文件描述符
-                    close(ep_events[i].data.fd);
-                    printf("closed client: %d \n", ep_events[i].data.fd);
-                } else {
-                    write(ep_events[i].data.fd, buf, str_len); //echo
+                while (1) {
+                    //边缘触发因为只触发一次事件,所以需要循环读取缓冲区中的所有数据,因此需要循环调用read
+                    str_len = read(ep_events[i].data.fd, buf, BUF_SIZE);
+                    printf("read: %s\n", buf);
+                    if (str_len == 0)    // close request!
+                    {
+                        epoll_ctl(epfd, EPOLL_CTL_DEL, ep_events[i].data.fd, NULL); //删除文件描述符
+                        close(ep_events[i].data.fd);
+                        printf("closed client: %d \n", ep_events[i].data.fd);
+                        break;
+                    } else if (str_len < 0) {
+                        if (errno == EAGAIN)
+                            //read函数返回-1，变量errno中的值为EAGAIN，说明没有数据可读。跳出循环
+                            break;
+                    } else {
+                        write(ep_events[i].data.fd, buf, str_len); //echo
+                    }
                 }
+
             }
 
         }
@@ -84,6 +100,12 @@ int main(int argc, char *argv[]) {
     close(serv_sock);
     close(epfd);
     return 0;
+}
+
+
+void set_nonblocking_mode(int fd) {
+    int flag = fcntl(fd, F_GETFL, 0); //获取之前设置的属性信息
+    fcntl(fd, F_SETFL, flag | O_NONBLOCK); //添加非阻塞O_NONBLOCK标志
 }
 
 void error_handling(char *buf) {
