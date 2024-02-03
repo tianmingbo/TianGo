@@ -216,12 +216,10 @@ def has_app_context() -> bool:
 
 
 class AppContext:
-    """The application context binds an application object implicitly
-    to the current thread or greenlet, similar to how the
-    :class:`RequestContext` binds request information.  The application
-    context is also implicitly created if a request context is created
-    but the application is not on top of the individual application
-    context.
+    """应用上下文（Application Context）将应用对象隐式地绑定到当前线程或greenlet上，类似于请求上下文（Request Context）绑定请求信息的方式。如果创建了请求上下文但没有创建应用上下文，那么应用上下文也会被隐式地创建。
+    应用上下文的作用是提供一个容器来保存应用级别的状态和配置信息，例如应用的配置参数、数据库连接等。它可以在整个应用程序范围内访问和共享这些数据，而不局限于单个请求。
+    当处理请求时，应用上下文会自动创建，并且与当前的请求上下文相关联。这样，您可以在视图函数中访问应用上下文，以获取应用级别的数据。
+    使用应用上下文可以确保应用对象在线程或greenlet范围内的唯一性，并提供一个可靠的方式来访问应用级别的数据，以便更好地管理和共享应用的状态和配置信息。
     """
 
     def __init__(self, app: "Flask") -> None:
@@ -263,33 +261,11 @@ class AppContext:
 
 
 class RequestContext:
-    """The request context contains all request relevant information.  It is
-    created at the beginning of the request and pushed to the
-    `_request_ctx_stack` and removed at the end of it.  It will create the
-    URL adapter and request object for the WSGI environment provided.
-
-    Do not attempt to use this class directly, instead use
-    :meth:`~flask.Flask.test_request_context` and
-    :meth:`~flask.Flask.request_context` to create this object.
-
-    When the request context is popped, it will evaluate all the
-    functions registered on the application for teardown execution
-    (:meth:`~flask.Flask.teardown_request`).
-
-    The request context is automatically popped at the end of the request
-    for you.  In debug mode the request context is kept around if
-    exceptions happen so that interactive debuggers have a chance to
-    introspect the data.  With 0.4 this can also be forced for requests
-    that did not fail and outside of ``DEBUG`` mode.  By setting
-    ``'flask._preserve_context'`` to ``True`` on the WSGI environment the
-    context will not pop itself at the end of the request.  This is used by
-    the :meth:`~flask.Flask.test_client` for example to implement the
-    deferred cleanup functionality.
-
-    You might find this helpful for unittests where you need the
-    information from the context local around for a little longer.  Make
-    sure to properly :meth:`~werkzeug.LocalStack.pop` the stack yourself in
-    that situation, otherwise your unittests will leak memory.
+    """请求上下文（Request Context）包含所有与请求相关的信息。它在请求开始时创建，并被推送到`_request_ctx_stack`栈中，在请求结束时被移除。请求上下文会创建URL适配器（URL adapter）和请求对象（request object），用于处理提供的WSGI环境。
+    请勿直接使用此类，而是使用`flask.Flask.test_request_context`和`flask.Flask.request_context`方法来创建该对象。
+    当请求上下文被弹出时，它将评估应用程序上注册的所有“拆卸处理函数”（teardown function）（`flask.Flask.teardown_request`）进行执行。
+    请求上下文会在请求结束时自动弹出。在调试模式下，如果发生异常，请求上下文将保留下来，以便交互式调试器有机会检查数据。从0.4版本开始，这也可以在没有发生异常且不处于`DEBUG`模式下强制执行。通过在WSGI环境中将`'flask._preserve_context'`设置为`True`，上下文将不会在请求结束时自动弹出。例如，`flask.Flask.test_client`方法使用这种方式来实现延迟清理功能。
+    在单元测试中，您可能会发现这对于需要更长时间保留上下文本地信息很有帮助。确保在这种情况下正确地使用`werkzeug.LocalStack.pop`方法弹出栈，否则您的单元测试可能会导致内存泄漏。
     """
 
     def __init__(

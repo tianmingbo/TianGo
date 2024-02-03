@@ -1,17 +1,19 @@
-from werkzeug.local import Local
-import threading
+import time
 
-l = Local()
+from flask_t import Flask, request
+
+app = Flask(__name__)
 
 
-def add_arg(arg, i):
-    l.__setattr__(arg, i)
+@app.route('/', methods=['GET', 'POST'])
+def index():
+    if request.method == 'POST':
+        message = request.form.get('message')
+        return message
+    else:
+        time.sleep(10)
+        return 'Hello, world!'
 
 
 if __name__ == '__main__':
-    print(l.__storage__)
-    for i in range(3):
-        arg = 'arg' + str(i)
-        t = threading.Thread(target=add_arg, args=(arg, i))
-        t.start()
-    print(l.__storage__)
+    app.run()
