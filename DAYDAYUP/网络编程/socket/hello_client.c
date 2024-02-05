@@ -10,8 +10,9 @@ void error_handling(char *buf);
 int main(int argc, char *argv[]) {
     int serv_sock, cli_sock;
     struct sockaddr_in serv_addr;
-    int str_len;
+    int read_count = 0;
     char message[30];
+    int idx = 0, read_len = 0;
     if (argc != 3) {
         printf("Usage: %s <IP> <port>\n", argv[0]);
     }
@@ -27,10 +28,15 @@ int main(int argc, char *argv[]) {
     //连接服务器
     if (connect(serv_sock, (struct sockaddr *) &serv_addr, sizeof(serv_addr)) == -1)
         error_handling("bind() error");
-    str_len = read(serv_sock, message, sizeof(message) - 1);
-    if (str_len == -1)
-        error_handling("read() error");
+    while (read_len = read(serv_sock, &message[idx++], 1)) {
+        //每次读取一个字节
+        if (read_len == -1)
+            error_handling("read() error");
+        read_count += read_len;
+    }
+
     printf("message from server: %s \n", message);
+    printf("read call count: %d\n", read_count);
     close(serv_sock);
     return 0;
 }
