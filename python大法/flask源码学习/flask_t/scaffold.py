@@ -37,21 +37,15 @@ F = t.TypeVar("F", bound=t.Callable[..., t.Any])
 
 
 def setupmethod(f: F) -> F:
-    """Wraps a method so that it performs a check in debug mode if the
-    first request was already handled.
+    """
+    装饰器，判断在调试模式下，第一个请求是否处理完毕
     """
 
     def wrapper_func(self, *args: t.Any, **kwargs: t.Any) -> t.Any:
         if self._is_setup_finished():
             raise AssertionError(
-                "A setup function was called after the first request "
-                "was handled. This usually indicates a bug in the"
-                " application where a module was not imported and"
-                " decorators or other functionality was called too"
-                " late.\nTo fix this make sure to import all your view"
-                " modules, database models, and everything related at a"
-                " central place before the application starts serving"
-                " requests."
+                "处理了第一个请求后调用了setupmethod。这通常表明应用程序中存在错误，其中未导入模块并且装饰器或其他功能调用得太晚。\n"
+                "要解决此问题，请确保导入所有视图模块， 数据库模型，以及在应用程序开始服务请求之前位于中心位置的所有相关内容。"
             )
         return f(self, *args, **kwargs)
 
@@ -89,12 +83,12 @@ class Scaffold:
     json_decoder: t.Optional[t.Type[JSONDecoder]] = None
 
     def __init__(
-        self,
-        import_name: str,
-        static_folder: t.Optional[str] = None,
-        static_url_path: t.Optional[str] = None,
-        template_folder: t.Optional[str] = None,
-        root_path: t.Optional[str] = None,
+            self,
+            import_name: str,
+            static_folder: t.Optional[str] = None,
+            static_url_path: t.Optional[str] = None,
+            template_folder: t.Optional[str] = None,
+            root_path: t.Optional[str] = None,
     ):
         #: The name of the package or module that this object belongs
         #: to. Do not change this once it is set by the constructor.
@@ -244,8 +238,8 @@ class Scaffold:
 
     @property
     def static_folder(self) -> t.Optional[str]:
-        """The absolute path to the configured static folder. ``None``
-        if no static folder is set.
+        """
+        配置的静态文件夹的绝对路径。 如果没有设置静态文件夹，则为“无”。
         """
         if self._static_folder is not None:
             return os.path.join(self.root_path, self._static_folder)
@@ -269,10 +263,8 @@ class Scaffold:
 
     @property
     def static_url_path(self) -> t.Optional[str]:
-        """The URL prefix that the static route will be accessible from.
-
-        If it was not configured during init, it is derived from
-        :attr:`static_folder`.
+        """可访问静态路由的 URL 前缀。
+        如果在 init 未配置，则派生自 static_folder。
         """
         if self._static_url_path is not None:
             return self._static_url_path
@@ -407,27 +399,7 @@ class Scaffold:
         return self._method_route("PATCH", rule, options)
 
     def route(self, rule: str, **options: t.Any) -> t.Callable:
-        """Decorate a view function to register it with the given URL
-        rule and options. Calls :meth:`add_url_rule`, which has more
-        details about the implementation.
-
-        .. code-block:: python
-
-            @app.route("/")
-            def index():
-                return "Hello, World!"
-
-        See :ref:`url-route-registrations`.
-
-        The endpoint name for the route defaults to the name of the view
-        function if the ``endpoint`` parameter isn't passed.
-
-        The ``methods`` parameter defaults to ``["GET"]``. ``HEAD`` and
-        ``OPTIONS`` are added automatically.
-
-        :param rule: The URL rule string.
-        :param options: Extra options passed to the
-            :class:`~werkzeug.routing.Rule` object.
+        """添加路由装饰器
         """
 
         def decorator(f: t.Callable) -> t.Callable:
@@ -439,12 +411,12 @@ class Scaffold:
 
     @setupmethod
     def add_url_rule(
-        self,
-        rule: str,
-        endpoint: t.Optional[str] = None,
-        view_func: t.Optional[t.Callable] = None,
-        provide_automatic_options: t.Optional[bool] = None,
-        **options: t.Any,
+            self,
+            rule: str,
+            endpoint: t.Optional[str] = None,
+            view_func: t.Optional[t.Callable] = None,
+            provide_automatic_options: t.Optional[bool] = None,
+            **options: t.Any,
     ) -> None:
         """Register a rule for routing incoming requests and building
         URLs. The :meth:`route` decorator is a shortcut to call this
@@ -607,7 +579,7 @@ class Scaffold:
 
     @setupmethod
     def context_processor(
-        self, f: TemplateContextProcessorCallable
+            self, f: TemplateContextProcessorCallable
     ) -> TemplateContextProcessorCallable:
         """Registers a templates context processor function."""
         self.template_context_processors[None].append(f)
@@ -615,7 +587,7 @@ class Scaffold:
 
     @setupmethod
     def url_value_preprocessor(
-        self, f: URLValuePreprocessorCallable
+            self, f: URLValuePreprocessorCallable
     ) -> URLValuePreprocessorCallable:
         """Register a URL value preprocessor function for all view
         functions in the application. These functions will be called before the
@@ -643,7 +615,7 @@ class Scaffold:
 
     @setupmethod
     def errorhandler(
-        self, code_or_exception: t.Union[t.Type[Exception], int]
+            self, code_or_exception: t.Union[t.Type[Exception], int]
     ) -> t.Callable[[ErrorHandlerCallable], ErrorHandlerCallable]:
         """Register a function to handle errors by code or exception class.
 
@@ -682,9 +654,9 @@ class Scaffold:
 
     @setupmethod
     def register_error_handler(
-        self,
-        code_or_exception: t.Union[t.Type[Exception], int],
-        f: ErrorHandlerCallable,
+            self,
+            code_or_exception: t.Union[t.Type[Exception], int],
+            f: ErrorHandlerCallable,
     ) -> None:
         """Alternative error attach function to the :meth:`errorhandler`
         decorator that is more straightforward to use for non decorator
@@ -712,7 +684,7 @@ class Scaffold:
 
     @staticmethod
     def _get_exc_class_and_code(
-        exc_class_or_code: t.Union[t.Type[Exception], int]
+            exc_class_or_code: t.Union[t.Type[Exception], int]
     ) -> t.Tuple[t.Type[Exception], t.Optional[int]]:
         """Get the exception class being handled. For HTTP status codes
         or ``HTTPException`` subclasses, return both the exception and

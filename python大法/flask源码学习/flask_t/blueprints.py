@@ -30,11 +30,11 @@ class BlueprintSetupState:
     """
 
     def __init__(
-        self,
-        blueprint: "Blueprint",
-        app: "Flask",
-        options: t.Any,
-        first_registration: bool,
+            self,
+            blueprint: "Blueprint",
+            app: "Flask",
+            options: t.Any,
+            first_registration: bool,
     ) -> None:
         #: a reference to the current application
         self.app = app
@@ -76,11 +76,11 @@ class BlueprintSetupState:
         self.url_defaults.update(self.options.get("url_defaults", ()))
 
     def add_url_rule(
-        self,
-        rule: str,
-        endpoint: t.Optional[str] = None,
-        view_func: t.Optional[t.Callable] = None,
-        **options: t.Any,
+            self,
+            rule: str,
+            endpoint: t.Optional[str] = None,
+            view_func: t.Optional[t.Callable] = None,
+            **options: t.Any,
     ) -> None:
         """A helper method to register a rule (and optionally a view function)
         to the application.  The endpoint is automatically prefixed with the
@@ -171,17 +171,17 @@ class Blueprint(Scaffold):
     json_decoder = None
 
     def __init__(
-        self,
-        name: str,
-        import_name: str,
-        static_folder: t.Optional[str] = None,
-        static_url_path: t.Optional[str] = None,
-        template_folder: t.Optional[str] = None,
-        url_prefix: t.Optional[str] = None,
-        subdomain: t.Optional[str] = None,
-        url_defaults: t.Optional[dict] = None,
-        root_path: t.Optional[str] = None,
-        cli_group: t.Optional[str] = _sentinel,  # type: ignore
+            self,
+            name: str,
+            import_name: str,
+            static_folder: t.Optional[str] = None,
+            static_url_path: t.Optional[str] = None,
+            template_folder: t.Optional[str] = None,
+            url_prefix: t.Optional[str] = None,
+            subdomain: t.Optional[str] = None,
+            url_defaults: t.Optional[dict] = None,
+            root_path: t.Optional[str] = None,
+            cli_group: t.Optional[str] = _sentinel,  # type: ignore
     ):
         super().__init__(
             import_name=import_name,
@@ -241,7 +241,7 @@ class Blueprint(Scaffold):
         return self.record(update_wrapper(wrapper, func))
 
     def make_setup_state(
-        self, app: "Flask", options: dict, first_registration: bool = False
+            self, app: "Flask", options: dict, first_registration: bool = False
     ) -> BlueprintSetupState:
         """Creates an instance of :meth:`~flask.blueprints.BlueprintSetupState`
         object that is later passed to the register callback functions.
@@ -386,7 +386,7 @@ class Blueprint(Scaffold):
 
             if state.url_prefix is not None and bp_url_prefix is not None:
                 bp_options["url_prefix"] = (
-                    state.url_prefix.rstrip("/") + "/" + bp_url_prefix.lstrip("/")
+                        state.url_prefix.rstrip("/") + "/" + bp_url_prefix.lstrip("/")
                 )
             elif bp_url_prefix is not None:
                 bp_options["url_prefix"] = bp_url_prefix
@@ -397,12 +397,12 @@ class Blueprint(Scaffold):
             blueprint.register(app, bp_options)
 
     def add_url_rule(
-        self,
-        rule: str,
-        endpoint: t.Optional[str] = None,
-        view_func: t.Optional[t.Callable] = None,
-        provide_automatic_options: t.Optional[bool] = None,
-        **options: t.Any,
+            self,
+            rule: str,
+            endpoint: t.Optional[str] = None,
+            view_func: t.Optional[t.Callable] = None,
+            provide_automatic_options: t.Optional[bool] = None,
+            **options: t.Any,
     ) -> None:
         """Like :meth:`Flask.add_url_rule` but for a blueprint.  The endpoint for
         the :func:`url_for` function is prefixed with the name of the blueprint.
@@ -424,7 +424,7 @@ class Blueprint(Scaffold):
         )
 
     def app_template_filter(
-        self, name: t.Optional[str] = None
+            self, name: t.Optional[str] = None
     ) -> t.Callable[[TemplateFilterCallable], TemplateFilterCallable]:
         """Register a custom templates filter, available application wide.  Like
         :meth:`Flask.template_filter` but for a blueprint.
@@ -440,7 +440,7 @@ class Blueprint(Scaffold):
         return decorator
 
     def add_app_template_filter(
-        self, f: TemplateFilterCallable, name: t.Optional[str] = None
+            self, f: TemplateFilterCallable, name: t.Optional[str] = None
     ) -> None:
         """Register a custom templates filter, available application wide.  Like
         :meth:`Flask.add_template_filter` but for a blueprint.  Works exactly
@@ -456,7 +456,7 @@ class Blueprint(Scaffold):
         self.record_once(register_template)
 
     def app_template_test(
-        self, name: t.Optional[str] = None
+            self, name: t.Optional[str] = None
     ) -> t.Callable[[TemplateTestCallable], TemplateTestCallable]:
         """Register a custom templates test, available application wide.  Like
         :meth:`Flask.template_test` but for a blueprint.
@@ -474,7 +474,7 @@ class Blueprint(Scaffold):
         return decorator
 
     def add_app_template_test(
-        self, f: TemplateTestCallable, name: t.Optional[str] = None
+            self, f: TemplateTestCallable, name: t.Optional[str] = None
     ) -> None:
         """Register a custom templates test, available application wide.  Like
         :meth:`Flask.add_template_test` but for a blueprint.  Works exactly
@@ -492,7 +492,7 @@ class Blueprint(Scaffold):
         self.record_once(register_template)
 
     def app_template_global(
-        self, name: t.Optional[str] = None
+            self, name: t.Optional[str] = None
     ) -> t.Callable[[TemplateGlobalCallable], TemplateGlobalCallable]:
         """Register a custom templates global, available application wide.  Like
         :meth:`Flask.template_global` but for a blueprint.
@@ -510,7 +510,7 @@ class Blueprint(Scaffold):
         return decorator
 
     def add_app_template_global(
-        self, f: TemplateGlobalCallable, name: t.Optional[str] = None
+            self, f: TemplateGlobalCallable, name: t.Optional[str] = None
     ) -> None:
         """Register a custom templates global, available application wide.  Like
         :meth:`Flask.add_template_global` but for a blueprint.  Works exactly
@@ -537,7 +537,7 @@ class Blueprint(Scaffold):
         return f
 
     def before_app_first_request(
-        self, f: BeforeRequestCallable
+            self, f: BeforeRequestCallable
     ) -> BeforeRequestCallable:
         """Like :meth:`Flask.before_first_request`.  Such a function is
         executed before the first request to the application.
@@ -565,7 +565,7 @@ class Blueprint(Scaffold):
         return f
 
     def app_context_processor(
-        self, f: TemplateContextProcessorCallable
+            self, f: TemplateContextProcessorCallable
     ) -> TemplateContextProcessorCallable:
         """Like :meth:`Flask.context_processor` but for a blueprint.  Such a
         function is executed each request, even if outside of the blueprint.
@@ -587,7 +587,7 @@ class Blueprint(Scaffold):
         return decorator
 
     def app_url_value_preprocessor(
-        self, f: URLValuePreprocessorCallable
+            self, f: URLValuePreprocessorCallable
     ) -> URLValuePreprocessorCallable:
         """Same as :meth:`url_value_preprocessor` but application wide."""
         self.record_once(

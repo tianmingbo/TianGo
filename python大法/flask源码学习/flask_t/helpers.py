@@ -64,9 +64,9 @@ def get_load_dotenv(default: bool = True) -> bool:
 
 
 def stream_with_context(
-    generator_or_function: t.Union[
-        t.Iterator[t.AnyStr], t.Callable[..., t.Iterator[t.AnyStr]]
-    ]
+        generator_or_function: t.Union[
+            t.Iterator[t.AnyStr], t.Callable[..., t.Iterator[t.AnyStr]]
+        ]
 ) -> t.Iterator[t.AnyStr]:
     """Request contexts disappear when the response is started on the server.
     This is done for efficiency reasons and to make it less likely to encounter
@@ -397,7 +397,7 @@ def flash(message: str, category: str = "message") -> None:
 
 
 def get_flashed_messages(
-    with_categories: bool = False, category_filter: t.Iterable[str] = ()
+        with_categories: bool = False, category_filter: t.Iterable[str] = ()
 ) -> t.Union[t.List[str], t.List[t.Tuple[str, str]]]:
     """Pulls all flashed messages from the session and returns them.
     Further calls in the same request to the function will return
@@ -440,15 +440,15 @@ def get_flashed_messages(
 
 
 def _prepare_send_file_kwargs(
-    download_name: t.Optional[str] = None,
-    attachment_filename: t.Optional[str] = None,
-    etag: t.Optional[t.Union[bool, str]] = None,
-    add_etags: t.Optional[t.Union[bool]] = None,
-    max_age: t.Optional[
-        t.Union[int, t.Callable[[t.Optional[str]], t.Optional[int]]]
-    ] = None,
-    cache_timeout: t.Optional[int] = None,
-    **kwargs: t.Any,
+        download_name: t.Optional[str] = None,
+        attachment_filename: t.Optional[str] = None,
+        etag: t.Optional[t.Union[bool, str]] = None,
+        add_etags: t.Optional[t.Union[bool]] = None,
+        max_age: t.Optional[
+            t.Union[int, t.Callable[[t.Optional[str]], t.Optional[int]]]
+        ] = None,
+        cache_timeout: t.Optional[int] = None,
+        **kwargs: t.Any,
 ) -> t.Dict[str, t.Any]:
     if attachment_filename is not None:
         warnings.warn(
@@ -494,19 +494,19 @@ def _prepare_send_file_kwargs(
 
 
 def send_file(
-    path_or_file: t.Union[os.PathLike, str, t.BinaryIO],
-    mimetype: t.Optional[str] = None,
-    as_attachment: bool = False,
-    download_name: t.Optional[str] = None,
-    attachment_filename: t.Optional[str] = None,
-    conditional: bool = True,
-    etag: t.Union[bool, str] = True,
-    add_etags: t.Optional[bool] = None,
-    last_modified: t.Optional[t.Union[datetime, int, float]] = None,
-    max_age: t.Optional[
-        t.Union[int, t.Callable[[t.Optional[str]], t.Optional[int]]]
-    ] = None,
-    cache_timeout: t.Optional[int] = None,
+        path_or_file: t.Union[os.PathLike, str, t.BinaryIO],
+        mimetype: t.Optional[str] = None,
+        as_attachment: bool = False,
+        download_name: t.Optional[str] = None,
+        attachment_filename: t.Optional[str] = None,
+        conditional: bool = True,
+        etag: t.Union[bool, str] = True,
+        add_etags: t.Optional[bool] = None,
+        last_modified: t.Optional[t.Union[datetime, int, float]] = None,
+        max_age: t.Optional[
+            t.Union[int, t.Callable[[t.Optional[str]], t.Optional[int]]]
+        ] = None,
+        cache_timeout: t.Optional[int] = None,
 ):
     """Send the contents of a file to the client.
 
@@ -651,10 +651,10 @@ def safe_join(directory: str, *pathnames: str) -> str:
 
 
 def send_from_directory(
-    directory: t.Union[os.PathLike, str],
-    path: t.Union[os.PathLike, str],
-    filename: t.Optional[str] = None,
-    **kwargs: t.Any,
+        directory: t.Union[os.PathLike, str],
+        path: t.Union[os.PathLike, str],
+        filename: t.Optional[str] = None,
+        **kwargs: t.Any,
 ) -> "Response":
     """Send a file from within a directory using :func:`send_file`.
 
@@ -752,19 +752,15 @@ def get_root_path(import_name: str) -> str:
 
 
 class locked_cached_property(werkzeug.utils.cached_property):
-    """A :func:`property` that is only evaluated once. Like
-    :class:`werkzeug.utils.cached_property` except access uses a lock
-    for thread safety.
-
-    .. versionchanged:: 2.0
-        Inherits from Werkzeug's ``cached_property`` (and ``property``).
+    """
+    @property只计算一次，加了缓存。 与werkzeug.utils.cached_property 类似，但访问使用锁来保证线程安全。
     """
 
     def __init__(
-        self,
-        fget: t.Callable[[t.Any], t.Any],
-        name: t.Optional[str] = None,
-        doc: t.Optional[str] = None,
+            self,
+            fget: t.Callable[[t.Any], t.Any],
+            name: t.Optional[str] = None,
+            doc: t.Optional[str] = None,
     ) -> None:
         super().__init__(fget, name=name, doc=doc)
         self.lock = RLock()
