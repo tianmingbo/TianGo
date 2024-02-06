@@ -196,129 +196,129 @@ class Flask(Scaffold):
         automatically, such as for namespace packages.
     """
 
-    #: The class that is used for request objects.  See :class:`~flask.Request`
-    #: for more information.
+    # The class that is used for request objects.  See :class:`~flask.Request`
+    # for more information.
     request_class = Request
 
-    #: The class that is used for response objects.  See
-    #: :class:`~flask.Response` for more information.
+    # The class that is used for response objects.  See
+    # :class:`~flask.Response` for more information.
     response_class = Response
 
-    #: The class that is used for the Jinja environment.
-    #:
-    #: .. versionadded:: 0.11
+    # The class that is used for the Jinja environment.
+    #
+    # .. versionadded:: 0.11
     jinja_environment = Environment
 
-    #: The class that is used for the :data:`~flask.g` instance.
-    #:
-    #: Example use cases for a custom class:
-    #:
-    #: 1. Store arbitrary attributes on flask.g.
-    #: 2. Add a property for lazy per-request database connectors.
-    #: 3. Return None instead of AttributeError on unexpected attributes.
-    #: 4. Raise exception if an unexpected attr is set, a "controlled" flask.g.
-    #:
-    #: In Flask 0.9 this property was called `request_globals_class` but it
-    #: was changed in 0.10 to :attr:`app_ctx_globals_class` because the
-    #: flask.g object is now application context scoped.
-    #:
-    #: .. versionadded:: 0.10
+    # The class that is used for the :data:`~flask.g` instance.
+    #
+    # Example use cases for a custom class:
+    #
+    # 1. Store arbitrary attributes on flask.g.
+    # 2. Add a property for lazy per-request database connectors.
+    # 3. Return None instead of AttributeError on unexpected attributes.
+    # 4. Raise exception if an unexpected attr is set, a "controlled" flask.g.
+    #
+    # In Flask 0.9 this property was called `request_globals_class` but it
+    # was changed in 0.10 to :attr:`app_ctx_globals_class` because the
+    # flask.g object is now application context scoped.
+    #
+    # .. versionadded:: 0.10
     app_ctx_globals_class = _AppCtxGlobals
 
-    #: The class that is used for the ``config`` attribute of this app.
-    #: Defaults to :class:`~flask.Config`.
-    #:
-    #: Example use cases for a custom class:
-    #:
-    #: 1. Default values for certain config options.
-    #: 2. Access to config values through attributes in addition to keys.
-    #:
-    #: .. versionadded:: 0.11
+    # The class that is used for the ``config`` attribute of this app.
+    # Defaults to :class:`~flask.Config`.
+    #
+    # Example use cases for a custom class:
+    #
+    # 1. Default values for certain config options.
+    # 2. Access to config values through attributes in addition to keys.
+    #
+    # .. versionadded:: 0.11
     config_class = Config
 
-    #: The testing flag.  Set this to ``True`` to enable the test mode of
-    #: Flask extensions (and in the future probably also Flask itself).
-    #: For example this might activate test helpers that have an
-    #: additional runtime cost which should not be enabled by default.
-    #:
-    #: If this is enabled and PROPAGATE_EXCEPTIONS is not changed from the
-    #: default it's implicitly enabled.
-    #:
-    #: This attribute can also be configured from the config with the
-    #: ``TESTING`` configuration key.  Defaults to ``False``.
+    # The testing flag.  Set this to ``True`` to enable the test mode of
+    # Flask extensions (and in the future probably also Flask itself).
+    # For example this might activate test helpers that have an
+    # additional runtime cost which should not be enabled by default.
+    #
+    # If this is enabled and PROPAGATE_EXCEPTIONS is not changed from the
+    # default it's implicitly enabled.
+    #
+    # This attribute can also be configured from the config with the
+    # ``TESTING`` configuration key.  Defaults to ``False``.
     testing = ConfigAttribute("TESTING")
 
-    #: If a secret key is set, cryptographic components can use this to
-    #: sign cookies and other things. Set this to a complex random value
-    #: when you want to use the secure cookie for instance.
-    #:
-    #: This attribute can also be configured from the config with the
-    #: :data:`SECRET_KEY` configuration key. Defaults to ``None``.
+    # If a secret key is set, cryptographic components can use this to
+    # sign cookies and other things. Set this to a complex random value
+    # when you want to use the secure cookie for instance.
+    #
+    # This attribute can also be configured from the config with the
+    # :data:`SECRET_KEY` configuration key. Defaults to ``None``.
     secret_key = ConfigAttribute("SECRET_KEY")
 
-    #: The secure cookie uses this for the name of the session cookie.
-    #:
-    #: This attribute can also be configured from the config with the
-    #: ``SESSION_COOKIE_NAME`` configuration key.  Defaults to ``'session'``
+    # The secure cookie uses this for the name of the session cookie.
+    #
+    # This attribute can also be configured from the config with the
+    # ``SESSION_COOKIE_NAME`` configuration key.  Defaults to ``'session'``
     session_cookie_name = ConfigAttribute("SESSION_COOKIE_NAME")
 
-    #: A :class:`~datetime.timedelta` which is used to set the expiration
-    #: date of a permanent session.  The default is 31 days which makes a
-    #: permanent session survive for roughly one month.
-    #:
-    #: This attribute can also be configured from the config with the
-    #: ``PERMANENT_SESSION_LIFETIME`` configuration key.  Defaults to
-    #: ``timedelta(days=31)``
+    # A :class:`~datetime.timedelta` which is used to set the expiration
+    # date of a permanent session.  The default is 31 days which makes a
+    # permanent session survive for roughly one month.
+    #
+    # This attribute can also be configured from the config with the
+    # ``PERMANENT_SESSION_LIFETIME`` configuration key.  Defaults to
+    # ``timedelta(days=31)``
     permanent_session_lifetime = ConfigAttribute(
         "PERMANENT_SESSION_LIFETIME", get_converter=_make_timedelta
     )
 
-    #: A :class:`~datetime.timedelta` or number of seconds which is used
-    #: as the default ``max_age`` for :func:`send_file`. The default is
-    #: ``None``, which tells the browser to use conditional requests
-    #: instead of a timed cache.
-    #:
-    #: Configured with the :data:`SEND_FILE_MAX_AGE_DEFAULT`
-    #: configuration key.
-    #:
-    #: .. versionchanged:: 2.0
-    #:     Defaults to ``None`` instead of 12 hours.
+    # A :class:`~datetime.timedelta` or number of seconds which is used
+    # as the default ``max_age`` for :func:`send_file`. The default is
+    # ``None``, which tells the browser to use conditional requests
+    # instead of a timed cache.
+    #
+    # Configured with the :data:`SEND_FILE_MAX_AGE_DEFAULT`
+    # configuration key.
+    #
+    # .. versionchanged:: 2.0
+    #     Defaults to ``None`` instead of 12 hours.
     send_file_max_age_default = ConfigAttribute(
         "SEND_FILE_MAX_AGE_DEFAULT", get_converter=_make_timedelta
     )
 
-    #: Enable this if you want to use the X-Sendfile feature.  Keep in
-    #: mind that the server has to support this.  This only affects files
-    #: sent with the :func:`send_file` method.
-    #:
-    #: .. versionadded:: 0.2
-    #:
-    #: This attribute can also be configured from the config with the
-    #: ``USE_X_SENDFILE`` configuration key.  Defaults to ``False``.
+    # Enable this if you want to use the X-Sendfile feature.  Keep in
+    # mind that the server has to support this.  This only affects files
+    # sent with the :func:`send_file` method.
+    #
+    # .. versionadded:: 0.2
+    #
+    # This attribute can also be configured from the config with the
+    # ``USE_X_SENDFILE`` configuration key.  Defaults to ``False``.
     use_x_sendfile = ConfigAttribute("USE_X_SENDFILE")
 
-    #: The JSON encoder class to use.  Defaults to :class:`~flask.json.JSONEncoder`.
-    #:
-    #: .. versionadded:: 0.10
+    # The JSON encoder class to use.  Defaults to :class:`~flask.json.JSONEncoder`.
+    #
+    # .. versionadded:: 0.10
     json_encoder = json.JSONEncoder
 
-    #: The JSON decoder class to use.  Defaults to :class:`~flask.json.JSONDecoder`.
-    #:
-    #: .. versionadded:: 0.10
+    # The JSON decoder class to use.  Defaults to :class:`~flask.json.JSONDecoder`.
+    #
+    # .. versionadded:: 0.10
     json_decoder = json.JSONDecoder
 
-    #: Options that are passed to the Jinja environment in
-    #: :meth:`create_jinja_environment`. Changing these options after
-    #: the environment is created (accessing :attr:`jinja_env`) will
-    #: have no effect.
-    #:
-    #: .. versionchanged:: 1.1.0
-    #:     This is a ``dict`` instead of an ``ImmutableDict`` to allow
-    #:     easier configuration.
-    #:
+    # Options that are passed to the Jinja environment in
+    # :meth:`create_jinja_environment`. Changing these options after
+    # the environment is created (accessing :attr:`jinja_env`) will
+    # have no effect.
+    #
+    # .. versionchanged:: 1.1.0
+    #     This is a ``dict`` instead of an ``ImmutableDict`` to allow
+    #     easier configuration.
+    #
     jinja_options: dict = {}
 
-    #: Default configuration parameters.
+    # Default configuration parameters.
     default_config = ImmutableDict(
         {
             "ENV": None,
@@ -359,17 +359,17 @@ class Flask(Scaffold):
     # 用于存储 URL 规则和路由配置参数的映射对象。 默认为werkzeug.routing.Map。
     url_map_class = Map
 
-    #: the test client that is used with when `test_client` is used.
-    #:
-    #: .. versionadded:: 0.7
+    # the test client that is used with when `test_client` is used.
+    #
+    # .. versionadded:: 0.7
     test_client_class: t.Optional[t.Type["FlaskClient"]] = None
 
-    #: The :class:`~click.testing.CliRunner` subclass, by default
-    #: :class:`~flask.testing.FlaskCliRunner` that is used by
-    #: :meth:`test_cli_runner`. Its ``__init__`` method should take a
-    #: Flask app object as the first argument.
-    #:
-    #: .. versionadded:: 1.0
+    # The :class:`~click.testing.CliRunner` subclass, by default
+    # :class:`~flask.testing.FlaskCliRunner` that is used by
+    # :meth:`test_cli_runner`. Its ``__init__`` method should take a
+    # Flask app object as the first argument.
+    #
+    # .. versionadded:: 1.0
     test_cli_runner_class: t.Optional[t.Type["FlaskCliRunner"]] = None
 
     # session类
@@ -404,7 +404,7 @@ class Flask(Scaffold):
                 " A relative path was given instead."
             )
 
-        #: 保存instance目录
+        # 保存instance目录
         self.instance_path = instance_path
 
         # 加载配置，支持从文件加载
@@ -428,18 +428,18 @@ class Flask(Scaffold):
         self.extensions: dict = {}
 
         # 在创建类之后但在连接任何路由之前使用它来更改路由转换器。 Example::
-        #:
-        #:    from werkzeug.routing import BaseConverter
-        #:
-        #:    class ListConverter(BaseConverter):
-        #:        def to_python(self, value):
-        #:            return value.split(',')
-        #:        def to_url(self, values):
-        #:            return ','.join(super(ListConverter, self).to_url(value)
-        #:                            for value in values)
-        #:
-        #:    app = Flask(__name__)
-        #:    app.url_map.converters['list'] = ListConverter
+        #
+        #    from werkzeug.routing import BaseConverter
+        #
+        #    class ListConverter(BaseConverter):
+        #        def to_python(self, value):
+        #            return value.split(',')
+        #        def to_url(self, values):
+        #            return ','.join(super(ListConverter, self).to_url(value)
+        #                            for value in values)
+        #
+        #    app = Flask(__name__)
+        #    app.url_map.converters['list'] = ListConverter
         self.url_map = self.url_map_class()
 
         self.url_map.host_matching = host_matching
@@ -711,14 +711,14 @@ class Flask(Scaffold):
             rv.update(processor())
         return rv
 
-    #: What environment the app is running in. Flask and extensions may
-    #: enable behaviors based on the environment, such as enabling debug
-    #: mode. This maps to the :data:`ENV` config key. This is set by the
-    #: :envvar:`FLASK_ENV` environment variable and may not behave as
-    #: expected if set in code.
-    #:
-    #: **Do not enable development when deploying in production.**
-    #:
+    # What environment the app is running in. Flask and extensions may
+    # enable behaviors based on the environment, such as enabling debug
+    # mode. This maps to the :data:`ENV` config key. This is set by the
+    # :envvar:`FLASK_ENV` environment variable and may not behave as
+    # expected if set in code.
+    #
+    # **Do not enable development when deploying in production.**
+    #
     #: Default: ``'production'``
     env = ConfigAttribute("ENV")
 

@@ -42,8 +42,8 @@ def has_level_handler(logger: logging.Logger) -> bool:
     return False
 
 
-#: Log messages to :func:`~flask.logging.wsgi_errors_stream` with the format
-#: ``[%(asctime)s] %(levelname)s in %(module)s: %(message)s``.
+# Log messages to :func:`~flask.logging.wsgi_errors_stream` with the format
+# ``[%(asctime)s] %(levelname)s in %(module)s: %(message)s``.
 default_handler = logging.StreamHandler(wsgi_errors_stream)  # type: ignore
 default_handler.setFormatter(
     logging.Formatter("[%(asctime)s] %(levelname)s in %(module)s: %(message)s")

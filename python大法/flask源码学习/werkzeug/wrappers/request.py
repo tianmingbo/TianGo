@@ -61,46 +61,46 @@ class Request(_SansIORequest):
         Read-only mode is enforced with immutable classes for all data.
     """
 
-    #: the maximum content length.  This is forwarded to the form data
-    #: parsing function (:func:`parse_form_data`).  When set and the
-    #: :attr:`form` or :attr:`files` attribute is accessed and the
-    #: parsing fails because more than the specified value is transmitted
-    #: a :exc:`~werkzeug.exceptions.RequestEntityTooLarge` exception is raised.
-    #:
-    #: Have a look at :doc:`/request_data` for more details.
-    #:
-    #: .. versionadded:: 0.5
+    # the maximum content length.  This is forwarded to the form data
+    # parsing function (:func:`parse_form_data`).  When set and the
+    # :attr:`form` or :attr:`files` attribute is accessed and the
+    # parsing fails because more than the specified value is transmitted
+    # a :exc:`~werkzeug.exceptions.RequestEntityTooLarge` exception is raised.
+    #
+    # Have a look at :doc:`/request_data` for more details.
+    #
+    # .. versionadded:: 0.5
     max_content_length: t.Optional[int] = None
 
-    #: the maximum form field size.  This is forwarded to the form data
-    #: parsing function (:func:`parse_form_data`).  When set and the
-    #: :attr:`form` or :attr:`files` attribute is accessed and the
-    #: data in memory for post data is longer than the specified value a
-    #: :exc:`~werkzeug.exceptions.RequestEntityTooLarge` exception is raised.
-    #:
-    #: Have a look at :doc:`/request_data` for more details.
-    #:
-    #: .. versionadded:: 0.5
+    # the maximum form field size.  This is forwarded to the form data
+    # parsing function (:func:`parse_form_data`).  When set and the
+    # :attr:`form` or :attr:`files` attribute is accessed and the
+    # data in memory for post data is longer than the specified value a
+    # :exc:`~werkzeug.exceptions.RequestEntityTooLarge` exception is raised.
+    #
+    # Have a look at :doc:`/request_data` for more details.
+    #
+    # .. versionadded:: 0.5
     max_form_memory_size: t.Optional[int] = None
 
-    #: The maximum number of multipart parts to parse, passed to
-    #: :attr:`form_data_parser_class`. Parsing form data with more than this
-    #: many parts will raise :exc:`~.RequestEntityTooLarge`.
-    #:
-    #: .. versionadded:: 2.2.3
+    # The maximum number of multipart parts to parse, passed to
+    # :attr:`form_data_parser_class`. Parsing form data with more than this
+    # many parts will raise :exc:`~.RequestEntityTooLarge`.
+    #
+    # .. versionadded:: 2.2.3
     max_form_parts = 1000
 
-    #: The form data parser that should be used.  Can be replaced to customize
-    #: the form date parsing.
+    # The form data parser that should be used.  Can be replaced to customize
+    # the form date parsing.
     form_data_parser_class: t.Type[FormDataParser] = FormDataParser
 
-    #: The WSGI environment containing HTTP headers and information from
-    #: the WSGI server.
+    # The WSGI environment containing HTTP headers and information from
+    # the WSGI server.
     environ: "WSGIEnvironment"
 
-    #: Set when creating the request object. If ``True``, reading from
-    #: the request body will cause a ``RuntimeException``. Useful to
-    #: prevent modifying the stream from middleware.
+    # Set when creating the request object. If ``True``, reading from
+    # the request body will cause a ``RuntimeException``. Useful to
+    # prevent modifying the stream from middleware.
     shallow: bool
 
     def __init__(
@@ -178,12 +178,12 @@ class Request(_SansIORequest):
         :param f: the WSGI callable to decorate
         :return: a new WSGI callable
         """
-        #: return a callable that wraps the -2nd argument with the request
-        #: and calls the function with all the arguments up to that one and
-        #: the request.  The return value is then called with the latest
-        #: two arguments.  This makes it possible to use this decorator for
-        #: both standalone WSGI functions as well as bound methods and
-        #: partially applied functions.
+        # return a callable that wraps the -2nd argument with the request
+        # and calls the function with all the arguments up to that one and
+        # the request.  The return value is then called with the latest
+        # two arguments.  This makes it possible to use this decorator for
+        # both standalone WSGI functions as well as bound methods and
+        # partially applied functions.
         from ..exceptions import HTTPException
 
         @functools.wraps(f)
@@ -528,8 +528,8 @@ class Request(_SansIORequest):
 
     # JSON
 
-    #: A module or other object that has ``dumps`` and ``loads``
-    #: functions that match the API of the built-in :mod:`json` module.
+    # A module or other object that has ``dumps`` and ``loads``
+    # functions that match the API of the built-in :mod:`json` module.
     json_module = json
 
     @property

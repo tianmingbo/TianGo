@@ -57,12 +57,12 @@ class Map:
         host_matching：如果设置为True，则启用主机匹配功能，并禁用子域匹配功能。如果启用主机匹配功能，则使用rules的host参数而不是subdomain参数。
     """
 
-    #: A dict of default converters to be used.
+    # A dict of default converters to be used.
     default_converters = ImmutableDict(DEFAULT_CONVERTERS)
 
-    #: The type of lock to use when updating.
-    #:
-    #: .. versionadded:: 1.0
+    # The type of lock to use when updating.
+    #
+    # .. versionadded:: 1.0
     lock_class = Lock
 
     def __init__(

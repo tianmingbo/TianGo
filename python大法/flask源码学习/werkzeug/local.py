@@ -1,8 +1,6 @@
 import copy
 import math
 import operator
-import random
-import time
 import typing as t
 from contextvars import ContextVar
 from functools import partial
@@ -17,36 +15,21 @@ if t.TYPE_CHECKING:
     from _typeshed.wsgi import WSGIEnvironment
 
 T = t.TypeVar("T")
+# 创建了泛型类型变量 F，并通过 bound 参数指定了它必须是可调用类型。t.Callable[..., t.Any] 表示接受任意参数并返回任意类型的可调用对象
 F = t.TypeVar("F", bound=t.Callable[..., t.Any])
 
 
 def release_local(local: t.Union["Local", "LocalStack"]) -> None:
-    """Release the data for the current context in a :class:`Local` or
-    :class:`LocalStack` without using a :class:`LocalManager`.
-
-    This should not be needed for modern use cases, and may be removed
-    in the future.
-
-    .. versionadded:: 0.6.1
+    """
+    释放在 Local 或 LocalStack 中当前上下文中的数据
     """
     local.__release_local__()
 
 
 class Local:
-    """Create a namespace of context-local data. This wraps a
-    :class:`ContextVar` containing a :class:`dict` value.
-
-    This may incur a performance penalty compared to using individual
-    context vars, as it has to copy data to avoid mutating the dict
-    between nested contexts.
-
-    :param context_var: The :class:`~contextvars.ContextVar` to use as
-        storage for this local. If not given, one will be created.
-        Context vars not created at the global scope may interfere with
-        garbage collection.
-
-    .. versionchanged:: 2.0
-        Uses ``ContextVar`` instead of a custom storage implementation.
+    """
+    创建一个命名空间，允许存储和访问本地数据，并且能够在不同的上下文中共享这些数据.
+    用于创建一个命名空间的上下文本地数据,通过包装一个 ContextVar 来存储一个 dict 类型的值.
     """
 
     __slots__ = ("__storage",)
@@ -54,31 +37,33 @@ class Local:
     def __init__(
             self, context_var: t.Optional[ContextVar[t.Dict[str, t.Any]]] = None
     ) -> None:
+        """
+        初始化 Local 类的实例。它接受一个可选的 context_var 参数，这个参数是一个 ContextVar 类型的上下文变量，用于存储本地数据。
+        如果没有提供 context_var，则会创建一个新的 ContextVa
+        """
         if context_var is None:
-            # A ContextVar not created at global scope interferes with
-            # Python's garbage collection. However, a local only makes
-            # sense defined at the global scope as well, in which case
-            # the GC issue doesn't seem relevant.
             context_var = ContextVar(f"werkzeug.Local<{id(self)}>.storage")
 
         object.__setattr__(self, "_Local__storage", context_var)
 
     def __iter__(self) -> t.Iterator[t.Tuple[str, t.Any]]:
+        """
+        返回一个迭代器，用来迭代本地数据的键值对。
+        """
         return iter(self.__storage.get({}).items())
 
     def __call__(
             self, name: str, *, unbound_message: t.Optional[str] = None
     ) -> "LocalProxy":
-        """Create a :class:`LocalProxy` that access an attribute on this
-        local namespace.
-
-        :param name: Proxy this attribute.
-        :param unbound_message: The error message that the proxy will
-            show if the attribute isn't set.
+        """
+        创建一个 LocalProxy 对象，用于访问本地命名空间上的属性。
         """
         return LocalProxy(self, name, unbound_message=unbound_message)
 
     def __release_local__(self) -> None:
+        """
+        清除本地数据
+        """
         self.__storage.set({})
 
     def __getattr__(self, name: str) -> t.Any:
@@ -106,49 +91,39 @@ class Local:
 
 
 class LocalStack(t.Generic[T]):
-    """Create a stack of context-local data. This wraps a
-    :class:`ContextVar` containing a :class:`list` value.
-
-    This may incur a performance penalty compared to using individual
-    context vars, as it has to copy data to avoid mutating the list
-    between nested contexts.
-
-    :param context_var: The :class:`~contextvars.ContextVar` to use as
-        storage for this local. If not given, one will be created.
-        Context vars not created at the global scope may interfere with
-        garbage collection.
-
-    .. versionchanged:: 2.0
-        Uses ``ContextVar`` instead of a custom storage implementation.
-
-    .. versionadded:: 0.6.1
+    """
+    提供了一种在上下文中存储和使用栈结构的方法，允许在不同的上下文中共享和访问栈中的数据
     """
 
+    # 限制了类实例中只能存在一个名为 _storage 的属性。这意味着类的实例只能访问和操作 _storage 属性，而不能动态地添加或修改其他属性。
     __slots__ = ("_storage",)
 
     def __init__(self, context_var: t.Optional[ContextVar[t.List[T]]] = None) -> None:
+        """
+        初始化 LocalStack 类的实例。它接受一个可选的 context_var 参数，这个参数是一个 ContextVar 实例，用于存储本地栈的数据。
+        如果没有提供 context_var，则会创建一个新的 ContextVar。
+        """
         if context_var is None:
-            # A ContextVar not created at global scope interferes with
-            # Python's garbage collection. However, a local only makes
-            # sense defined at the global scope as well, in which case
-            # the GC issue doesn't seem relevant.
             context_var = ContextVar(f"werkzeug.LocalStack<{id(self)}>.storage")
 
         self._storage = context_var
 
     def __release_local__(self) -> None:
+        """
+        清除本地栈中的数据。
+        """
         self._storage.set([])
 
     def push(self, obj: T) -> t.List[T]:
-        """Add a new item to the top of the stack."""
+        """将一个新的项添加到栈的顶部，并返回修改后的栈"""
         stack = self._storage.get([]).copy()
         stack.append(obj)
         self._storage.set(stack)
         return stack
 
     def pop(self) -> t.Optional[T]:
-        """Remove the top item from the stack and return it. If the
-        stack is empty, return ``None``.
+        """
+        从栈的顶部移除一个项，并返回移除的项。如果栈为空，则返回 None
         """
         stack = self._storage.get([])
 
@@ -161,12 +136,10 @@ class LocalStack(t.Generic[T]):
 
     @property
     def top(self) -> t.Optional[T]:
-        """The topmost item on the stack.  If the stack is empty,
-        `None` is returned.
+        """
+        返回栈顶的项。如果栈为空，则返回 None
         """
         stack = self._storage.get([])
-        # time.sleep(random.random())
-        print(len(stack), '?????')
         if len(stack) == 0:
             return None
 
@@ -175,13 +148,8 @@ class LocalStack(t.Generic[T]):
     def __call__(
             self, name: t.Optional[str] = None, *, unbound_message: t.Optional[str] = None
     ) -> "LocalProxy":
-        """Create a :class:`LocalProxy` that accesses the top of this
-        local stack.
-
-        :param name: If given, the proxy access this attribute of the
-            top item, rather than the item itself.
-        :param unbound_message: The error message that the proxy will
-            show if the stack is empty.
+        """
+        创建一个 LocalProxy 对象，用于访问本地栈的顶部项
         """
         return LocalProxy(self, name, unbound_message=unbound_message)
 
@@ -432,32 +400,6 @@ class LocalProxy(t.Generic[T]):
     ``issubclass(type(x), LocalProxy)`` to check if an object is a
     proxy.
 
-    .. code-block:: python
-
-        repr(user)  # <User admin>
-        isinstance(user, User)  # True
-        issubclass(type(user), LocalProxy)  # True
-
-    .. versionchanged:: 2.2.2
-        ``__wrapped__`` is set when wrapping an object, not only when
-        wrapping a function, to prevent doctest from failing.
-
-    .. versionchanged:: 2.2
-        Can proxy a ``ContextVar`` or ``LocalStack`` directly.
-
-    .. versionchanged:: 2.2
-        The ``name`` parameter can be used with any proxied object, not
-        only ``Local``.
-
-    .. versionchanged:: 2.2
-        Added the ``unbound_message`` parameter.
-
-    .. versionchanged:: 2.0
-        Updated proxied attributes and methods to reflect the current
-        data model.
-
-    .. versionchanged:: 0.6.1
-        The class can be instantiated with a callable.
     """
 
     __slots__ = ("__wrapped", "_get_current_object")

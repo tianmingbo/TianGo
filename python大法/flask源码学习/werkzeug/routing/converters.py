@@ -245,7 +245,7 @@ class UUIDConverter(BaseConverter):
         return str(value)
 
 
-#: the default converter mapping for the map.
+# the default converter mapping for the map.
 DEFAULT_CONVERTERS: t.Mapping[str, t.Type[BaseConverter]] = {
     "default": UnicodeConverter,
     "string": UnicodeConverter,

@@ -336,18 +336,18 @@ class EnvironBuilder:
        encoded with :func:`iri_to_uri`.
     """
 
-    #: the server protocol to use.  defaults to HTTP/1.1
+    # the server protocol to use.  defaults to HTTP/1.1
     server_protocol = "HTTP/1.1"
 
-    #: the wsgi version to use.  defaults to (1, 0)
+    # the wsgi version to use.  defaults to (1, 0)
     wsgi_version = (1, 0)
 
-    #: The default request class used by :meth:`get_request`.
+    # The default request class used by :meth:`get_request`.
     request_class = Request
 
     import json
 
-    #: The serialization function used when ``json`` is passed.
+    # The serialization function used when ``json`` is passed.
     json_dumps = staticmethod(json.dumps)
     del json
 

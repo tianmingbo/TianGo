@@ -60,38 +60,38 @@ class Request:
     .. versionadded:: 2.0
     """
 
-    #: The charset used to decode most data in the request.
+    # The charset used to decode most data in the request.
     charset = "utf-8"
 
-    #: the error handling procedure for errors, defaults to 'replace'
+    # the error handling procedure for errors, defaults to 'replace'
     encoding_errors = "replace"
 
-    #: the class to use for `args` and `form`.  The default is an
-    #: :class:`~werkzeug.datastructures.ImmutableMultiDict` which supports
-    #: multiple values per key.  alternatively it makes sense to use an
-    #: :class:`~werkzeug.datastructures.ImmutableOrderedMultiDict` which
-    #: preserves order or a :class:`~werkzeug.datastructures.ImmutableDict`
-    #: which is the fastest but only remembers the last key.  It is also
-    #: possible to use mutable structures, but this is not recommended.
-    #:
-    #: .. versionadded:: 0.6
+    # the class to use for `args` and `form`.  The default is an
+    # :class:`~werkzeug.datastructures.ImmutableMultiDict` which supports
+    # multiple values per key.  alternatively it makes sense to use an
+    # :class:`~werkzeug.datastructures.ImmutableOrderedMultiDict` which
+    # preserves order or a :class:`~werkzeug.datastructures.ImmutableDict`
+    # which is the fastest but only remembers the last key.  It is also
+    # possible to use mutable structures, but this is not recommended.
+    #
+    # .. versionadded:: 0.6
     parameter_storage_class: t.Type[MultiDict] = ImmutableMultiDict
 
-    #: The type to be used for dict values from the incoming WSGI
-    #: environment. (For example for :attr:`cookies`.) By default an
-    #: :class:`~werkzeug.datastructures.ImmutableMultiDict` is used.
-    #:
-    #: .. versionchanged:: 1.0.0
-    #:     Changed to ``ImmutableMultiDict`` to support multiple values.
-    #:
-    #: .. versionadded:: 0.6
+    # The type to be used for dict values from the incoming WSGI
+    # environment. (For example for :attr:`cookies`.) By default an
+    # :class:`~werkzeug.datastructures.ImmutableMultiDict` is used.
+    #
+    # .. versionchanged:: 1.0.0
+    #     Changed to ``ImmutableMultiDict`` to support multiple values.
+    #
+    # .. versionadded:: 0.6
     dict_storage_class: t.Type[MultiDict] = ImmutableMultiDict
 
-    #: the type to be used for list values from the incoming WSGI environment.
-    #: By default an :class:`~werkzeug.datastructures.ImmutableList` is used
-    #: (for example for :attr:`access_list`).
-    #:
-    #: .. versionadded:: 0.6
+    # the type to be used for list values from the incoming WSGI environment.
+    # By default an :class:`~werkzeug.datastructures.ImmutableList` is used
+    # (for example for :attr:`access_list`).
+    #
+    # .. versionadded:: 0.6
     list_storage_class: t.Type[t.List] = ImmutableList
 
     user_agent_class: t.Type[UserAgent] = UserAgent
@@ -104,49 +104,49 @@ class Request:
     .. versionadded:: 2.0
     """
 
-    #: Valid host names when handling requests. By default all hosts are
-    #: trusted, which means that whatever the client says the host is
-    #: will be accepted.
-    #:
-    #: Because ``Host`` and ``X-Forwarded-Host`` headers can be set to
-    #: any value by a malicious client, it is recommended to either set
-    #: this property or implement similar validation in the proxy (if
-    #: the application is being run behind one).
-    #:
-    #: .. versionadded:: 0.9
+    # Valid host names when handling requests. By default all hosts are
+    # trusted, which means that whatever the client says the host is
+    # will be accepted.
+    #
+    # Because ``Host`` and ``X-Forwarded-Host`` headers can be set to
+    # any value by a malicious client, it is recommended to either set
+    # this property or implement similar validation in the proxy (if
+    # the application is being run behind one).
+    #
+    # .. versionadded:: 0.9
     trusted_hosts: t.Optional[t.List[str]] = None
 
     def __init__(
-        self,
-        method: str,
-        scheme: str,
-        server: t.Optional[t.Tuple[str, t.Optional[int]]],
-        root_path: str,
-        path: str,
-        query_string: bytes,
-        headers: Headers,
-        remote_addr: t.Optional[str],
+            self,
+            method: str,
+            scheme: str,
+            server: t.Optional[t.Tuple[str, t.Optional[int]]],
+            root_path: str,
+            path: str,
+            query_string: bytes,
+            headers: Headers,
+            remote_addr: t.Optional[str],
     ) -> None:
-        #: The method the request was made with, such as ``GET``.
+        # The method the request was made with, such as ``GET``.
         self.method = method.upper()
-        #: The URL scheme of the protocol the request used, such as
-        #: ``https`` or ``wss``.
+        # The URL scheme of the protocol the request used, such as
+        # ``https`` or ``wss``.
         self.scheme = scheme
-        #: The address of the server. ``(host, port)``, ``(path, None)``
-        #: for unix sockets, or ``None`` if not known.
+        # The address of the server. ``(host, port)``, ``(path, None)``
+        # for unix sockets, or ``None`` if not known.
         self.server = server
-        #: The prefix that the application is mounted under, without a
-        #: trailing slash. :attr:`path` comes after this.
+        # The prefix that the application is mounted under, without a
+        # trailing slash. :attr:`path` comes after this.
         self.root_path = root_path.rstrip("/")
-        #: The path part of the URL after :attr:`root_path`. This is the
-        #: path used for routing within the application.
+        # The path part of the URL after :attr:`root_path`. This is the
+        # path used for routing within the application.
         self.path = "/" + path.lstrip("/")
-        #: The part of the URL after the "?". This is the raw value, use
-        #: :attr:`args` for the parsed values.
+        # The part of the URL after the "?". This is the raw value, use
+        # :attr:`args` for the parsed values.
         self.query_string = query_string
-        #: The headers received with the request.
+        # The headers received with the request.
         self.headers = headers
-        #: The address of the client sending the request.
+        # The address of the client sending the request.
         self.remote_addr = remote_addr
 
     def __repr__(self) -> str:
@@ -541,7 +541,7 @@ class Request:
         """
         mt = self.mimetype
         return (
-            mt == "application/json"
-            or mt.startswith("application/")
-            and mt.endswith("+json")
+                mt == "application/json"
+                or mt.startswith("application/")
+                and mt.endswith("+json")
         )

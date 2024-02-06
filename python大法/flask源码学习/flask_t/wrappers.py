@@ -14,40 +14,13 @@ if t.TYPE_CHECKING:
 
 
 class Request(RequestBase):
-    """The request object used by default in Flask.  Remembers the
-    matched endpoint and view arguments.
-
-    It is what ends up as :class:`~flask.request`.  If you want to replace
-    the request object used you can subclass this and set
-    :attr:`~flask.Flask.request_class` to your subclass.
-
-    The request object is a :class:`~werkzeug.wrappers.Request` subclass and
-    provides all of the attributes Werkzeug defines plus a few Flask
-    specific ones.
     """
-
+    继承自werkzeug.wrappers.Request
+    """
     json_module = json
-
-    #: The internal URL rule that matched the request.  This can be
-    #: useful to inspect which methods are allowed for the URL from
-    #: a before/after handler (``request.url_rule.methods``) etc.
-    #: Though if the request's method was invalid for the URL rule,
-    #: the valid list is available in ``routing_exception.valid_methods``
-    #: instead (an attribute of the Werkzeug exception
-    #: :exc:`~werkzeug.exceptions.MethodNotAllowed`)
-    #: because the request was never internally bound.
-    #:
-    #: .. versionadded:: 0.6
     url_rule: t.Optional["Rule"] = None
-
-    #: A dict of view arguments that matched the request.  If an exception
-    #: happened when matching, this will be ``None``.
     view_args: t.Optional[t.Dict[str, t.Any]] = None
-
-    #: If matching the URL failed, this is the exception that will be
-    #: raised / was raised as part of the request handling.  This is
-    #: usually a :exc:`~werkzeug.exceptions.NotFound` exception or
-    #: something similar.
+    # 路由匹配异常时抛出的错误,通常是NotFound
     routing_exception: t.Optional[Exception] = None
 
     @property
@@ -115,10 +88,10 @@ class Request(RequestBase):
         # In debug mode we're replacing the files multidict with an ad-hoc
         # subclass that raises a different error for key errors.
         if (
-            current_app
-            and current_app.debug
-            and self.mimetype != "multipart/form-data"
-            and not self.files
+                current_app
+                and current_app.debug
+                and self.mimetype != "multipart/form-data"
+                and not self.files
         ):
             from .debughelpers import attach_enctype_error_multidict
 

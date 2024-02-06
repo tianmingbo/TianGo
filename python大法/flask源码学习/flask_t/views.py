@@ -41,21 +41,21 @@ class View:
     generated view function!
     """
 
-    #: A list of methods this view can handle.
+    # A list of methods this view can handle.
     methods: t.Optional[t.List[str]] = None
 
-    #: Setting this disables or force-enables the automatic options handling.
+    # Setting this disables or force-enables the automatic options handling.
     provide_automatic_options: t.Optional[bool] = None
 
-    #: The canonical way to decorate class-based views is to decorate the
-    #: return value of as_view().  However since this moves parts of the
-    #: logic from the class declaration to the place where it's hooked
-    #: into the routing system.
-    #:
-    #: You can place one or more decorators in this list and whenever the
-    #: view function is created the result is automatically decorated.
-    #:
-    #: .. versionadded:: 0.8
+    # The canonical way to decorate class-based views is to decorate the
+    # return value of as_view().  However since this moves parts of the
+    # logic from the class declaration to the place where it's hooked
+    # into the routing system.
+    #
+    # You can place one or more decorators in this list and whenever the
+    # view function is created the result is automatically decorated.
+    #
+    # .. versionadded:: 0.8
     decorators: t.List[t.Callable] = []
 
     def dispatch_request(self) -> ResponseReturnValue:

@@ -316,7 +316,7 @@ class FormDataParser:
         form = url_decode_stream(stream, self.charset, errors=self.errors, cls=self.cls)
         return stream, form, self.cls()
 
-    #: mapping of mimetypes to parsing functions
+    # mapping of mimetypes to parsing functions
     parse_functions: t.Dict[
         str,
         t.Callable[

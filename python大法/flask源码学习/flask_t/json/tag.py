@@ -59,8 +59,8 @@ class JSONTag:
 
     __slots__ = ("serializer",)
 
-    #: The tag to mark the serialized object with. If ``None``, this tag is
-    #: only used as an intermediate step during tagging.
+    # The tag to mark the serialized object with. If ``None``, this tag is
+    # only used as an intermediate step during tagging.
     key: t.Optional[str] = None
 
     def __init__(self, serializer: "TaggedJSONSerializer") -> None:
@@ -230,8 +230,8 @@ class TaggedJSONSerializer:
 
     __slots__ = ("tags", "order")
 
-    #: Tag classes to bind when creating the serializer. Other tags can be
-    #: added later using :meth:`~register`.
+    # Tag classes to bind when creating the serializer. Other tags can be
+    # added later using :meth:`~register`.
     default_tags = [
         TagDict,
         PassDict,

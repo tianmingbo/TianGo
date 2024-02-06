@@ -132,39 +132,39 @@ class Response(_SansIOResponse):
         The ``direct_passthrough`` parameter was added.
     """
 
-    #: if set to `False` accessing properties on the response object will
-    #: not try to consume the response iterator and convert it into a list.
-    #:
-    #: .. versionadded:: 0.6.2
-    #:
-    #:    That attribute was previously called `implicit_seqence_conversion`.
-    #:    (Notice the typo).  If you did use this feature, you have to adapt
-    #:    your code to the name change.
+    # if set to `False` accessing properties on the response object will
+    # not try to consume the response iterator and convert it into a list.
+    #
+    # .. versionadded:: 0.6.2
+    #
+    #    That attribute was previously called `implicit_seqence_conversion`.
+    #    (Notice the typo).  If you did use this feature, you have to adapt
+    #    your code to the name change.
     implicit_sequence_conversion = True
 
-    #: If a redirect ``Location`` header is a relative URL, make it an
-    #: absolute URL, including scheme and domain.
-    #:
-    #: .. versionchanged:: 2.1
-    #:     This is disabled by default, so responses will send relative
-    #:     redirects.
-    #:
-    #: .. versionadded:: 0.8
+    # If a redirect ``Location`` header is a relative URL, make it an
+    # absolute URL, including scheme and domain.
+    #
+    # .. versionchanged:: 2.1
+    #     This is disabled by default, so responses will send relative
+    #     redirects.
+    #
+    # .. versionadded:: 0.8
     autocorrect_location_header = False
 
-    #: Should this response object automatically set the content-length
-    #: header if possible?  This is true by default.
-    #:
-    #: .. versionadded:: 0.8
+    # Should this response object automatically set the content-length
+    # header if possible?  This is true by default.
+    #
+    # .. versionadded:: 0.8
     automatically_set_content_length = True
 
-    #: The response body to send as the WSGI iterable. A list of strings
-    #: or bytes represents a fixed-length response, any other iterable
-    #: is a streaming response. Strings are encoded to bytes as UTF-8.
-    #:
-    #: Do not set to a plain string or bytes, that will cause sending
-    #: the response to be very inefficient as it will iterate one byte
-    #: at a time.
+    # The response body to send as the WSGI iterable. A list of strings
+    # or bytes represents a fixed-length response, any other iterable
+    # is a streaming response. Strings are encoded to bytes as UTF-8.
+    #
+    # Do not set to a plain string or bytes, that will cause sending
+    # the response to be very inefficient as it will iterate one byte
+    # at a time.
     response: t.Union[t.Iterable[str], t.Iterable[bytes]]
 
     def __init__(
@@ -190,11 +190,11 @@ class Response(_SansIOResponse):
             content_type=content_type,
         )
 
-        #: Pass the response body directly through as the WSGI iterable.
-        #: This can be used when the body is a binary file or other
-        #: iterator of bytes, to skip some unnecessary checks. Use
-        #: :func:`~werkzeug.utils.send_file` instead of setting this
-        #: manually.
+        # Pass the response body directly through as the WSGI iterable.
+        # This can be used when the body is a binary file or other
+        # iterator of bytes, to skip some unnecessary checks. Use
+        # :func:`~werkzeug.utils.send_file` instead of setting this
+        # manually.
         self.direct_passthrough = direct_passthrough
         self._on_close: t.List[t.Callable[[], t.Any]] = []
 
@@ -632,8 +632,8 @@ class Response(_SansIOResponse):
 
     # JSON
 
-    #: A module or other object that has ``dumps`` and ``loads``
-    #: functions that match the API of the built-in :mod:`json` module.
+    # A module or other object that has ``dumps`` and ``loads``
+    # functions that match the API of the built-in :mod:`json` module.
     json_module = json
 
     @property

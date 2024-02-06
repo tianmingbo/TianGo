@@ -191,9 +191,9 @@ class BadRequestKeyError(BadRequest, KeyError):
     """
 
     _description = BadRequest.description
-    #: Show the KeyError along with the HTTP error message in the
-    #: response. This should be disabled in production, but can be
-    #: useful in a debug mode.
+    # Show the KeyError along with the HTTP error message in the
+    # response. This should be disabled in production, but can be
+    # useful in a debug mode.
     show_exception = False
 
     def __init__(self, arg: t.Optional[str] = None, *args: t.Any, **kwargs: t.Any):
@@ -732,9 +732,9 @@ class InternalServerError(HTTPException):
         response: t.Optional["Response"] = None,
         original_exception: t.Optional[BaseException] = None,
     ) -> None:
-        #: The original exception that caused this 500 error. Can be
-        #: used by frameworks to provide context when handling
-        #: unexpected errors.
+        # The original exception that caused this 500 error. Can be
+        # used by frameworks to provide context when handling
+        # unexpected errors.
         self.original_exception = original_exception
         super().__init__(description=description, response=response)
 

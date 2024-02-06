@@ -667,9 +667,9 @@ def find_modules(
 class ImportStringError(ImportError):
     """Provides information about a failed :func:`import_string` attempt."""
 
-    #: String in dotted notation that failed to be imported.
+    # String in dotted notation that failed to be imported.
     import_name: str
-    #: Wrapped exception.
+    # Wrapped exception.
     exception: BaseException
 
     def __init__(self, import_name: str, exception: BaseException) -> None:

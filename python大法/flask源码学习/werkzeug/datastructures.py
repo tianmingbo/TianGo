@@ -36,13 +36,6 @@ def iter_multi_items(mapping):
 
 
 class ImmutableListMixin:
-    """Makes a :class:`list` immutable.
-
-    .. versionadded:: 0.5
-
-    :private:
-    """
-
     _hash_cache = None
 
     def __hash__(self):
@@ -89,11 +82,8 @@ class ImmutableListMixin:
 
 
 class ImmutableList(ImmutableListMixin, list):
-    """An immutable :class:`list`.
-
-    .. versionadded:: 0.5
-
-    :private:
+    """
+    不可变list
     """
 
     def __repr__(self):
@@ -101,17 +91,15 @@ class ImmutableList(ImmutableListMixin, list):
 
 
 class ImmutableDictMixin:
-    """Makes a :class:`dict` immutable.
-
-    .. versionadded:: 0.5
-
-    :private:
+    """
+    不可变dict
     """
 
     _hash_cache = None
 
     @classmethod
     def fromkeys(cls, keys, value=None):
+        """通过传入键列表和可选的默认值，创建一个新的不可变字典实例。返回一个新的实例。"""
         instance = super().__new__(cls)
         instance.__init__(zip(keys, repeat(value)))
         return instance
@@ -123,6 +111,10 @@ class ImmutableDictMixin:
         return self.items()
 
     def __hash__(self):
+        """
+        返回对象的哈希值。它先检查是否存在缓存的哈希值，如果存在则直接返回，
+        否则计算字典的键值对的不可变副本的哈希值，并将其缓存起来，然后返回该值。
+        """
         if self._hash_cache is not None:
             return self._hash_cache
         rv = self._hash_cache = hash(frozenset(self._iter_hashitems()))
@@ -1164,7 +1156,7 @@ class Headers:
         else:
             self._list.append((_key, _value))
             return
-        self._list[idx + 1 :] = [t for t in listiter if t[0].lower() != ikey]
+        self._list[idx + 1:] = [t for t in listiter if t[0].lower() != ikey]
 
     def setlist(self, key, values):
         """Remove any existing values for a header and add new ones.
@@ -1388,8 +1380,8 @@ class EnvironHeaders(ImmutableHeadersMixin, Headers):
     def __iter__(self):
         for key, value in self.environ.items():
             if key.startswith("HTTP_") and key not in (
-                "HTTP_CONTENT_TYPE",
-                "HTTP_CONTENT_LENGTH",
+                    "HTTP_CONTENT_TYPE",
+                    "HTTP_CONTENT_LENGTH",
             ):
                 yield (
                     key[5:].replace("_", "-").title(),
@@ -1562,7 +1554,7 @@ class FileMultiDict(MultiDict):
                 file = open(file, "rb")
             if filename and content_type is None:
                 content_type = (
-                    mimetypes.guess_type(filename)[0] or "application/octet-stream"
+                        mimetypes.guess_type(filename)[0] or "application/octet-stream"
                 )
             value = FileStorage(file, filename, name, content_type)
 
@@ -1842,22 +1834,22 @@ class MIMEAccept(Accept):
             return False
 
         return (
-            (item_type == "*" and item_subtype == "*")
-            or (value_type == "*" and value_subtype == "*")
+                (item_type == "*" and item_subtype == "*")
+                or (value_type == "*" and value_subtype == "*")
         ) or (
-            item_type == value_type
-            and (
-                item_subtype == "*"
-                or value_subtype == "*"
-                or (item_subtype == value_subtype and item_params == value_params)
-            )
+                item_type == value_type
+                and (
+                        item_subtype == "*"
+                        or value_subtype == "*"
+                        or (item_subtype == value_subtype and item_params == value_params)
+                )
         )
 
     @property
     def accept_html(self):
         """True if this object accepts HTML."""
         return (
-            "text/html" in self or "application/xhtml+xml" in self or self.accept_xhtml
+                "text/html" in self or "application/xhtml+xml" in self or self.accept_xhtml
         )
 
     @property
@@ -2462,10 +2454,10 @@ class IfRange:
     """
 
     def __init__(self, etag=None, date=None):
-        #: The etag parsed and unquoted.  Ranges always operate on strong
-        #: etags so the weakness information is not necessary.
+        # The etag parsed and unquoted.  Ranges always operate on strong
+        # etags so the weakness information is not necessary.
         self.etag = etag
-        #: The date in parsed format or `None`.
+        # The date in parsed format or `None`.
         self.date = date
 
     def to_header(self):
@@ -2497,10 +2489,10 @@ class Range:
     """
 
     def __init__(self, units, ranges):
-        #: The units of this range.  Usually "bytes".
+        # The units of this range.  Usually "bytes".
         self.units = units
-        #: A list of ``(begin, end)`` tuples for the range header provided.
-        #: The ranges are non-inclusive.
+        # A list of ``(begin, end)`` tuples for the range header provided.
+        # The ranges are non-inclusive.
         self.ranges = ranges
 
         for start, end in ranges:
@@ -2581,14 +2573,14 @@ class ContentRange:
         self.on_update = on_update
         self.set(start, stop, length, units)
 
-    #: The units to use, usually "bytes"
+    # The units to use, usually "bytes"
     units = _callback_property("_units")
-    #: The start point of the range or `None`.
+    # The start point of the range or `None`.
     start = _callback_property("_start")
-    #: The stop point of the range (non-inclusive) or `None`.  Can only be
-    #: `None` if also start is `None`.
+    # The stop point of the range (non-inclusive) or `None`.  Can only be
+    # `None` if also start is `None`.
     stop = _callback_property("_stop")
-    #: The length of the range or `None`.
+    # The length of the range or `None`.
     length = _callback_property("_length")
 
     def set(self, start, stop, length=None, units="bytes"):
@@ -2770,7 +2762,7 @@ def _set_property(name, doc=None):
 class WWWAuthenticate(UpdateDictMixin, dict):
     """Provides simple access to `WWW-Authenticate` headers."""
 
-    #: list of keys that require quoting in the generated header
+    # list of keys that require quoting in the generated header
     _require_quoting = frozenset(["domain", "nonce", "opaque", "realm", "qop"])
 
     def __init__(self, auth_type=None, values=None, on_update=None):
@@ -2787,7 +2779,7 @@ class WWWAuthenticate(UpdateDictMixin, dict):
             self.on_update(self)
 
     def set_digest(
-        self, realm, nonce, qop=("auth",), opaque=None, algorithm=None, stale=False
+            self, realm, nonce, qop=("auth",), opaque=None, algorithm=None, stale=False
     ):
         """Clear the auth info and enable digest auth."""
         d = {
@@ -2900,13 +2892,13 @@ class FileStorage:
     """
 
     def __init__(
-        self,
-        stream=None,
-        filename=None,
-        name=None,
-        content_type=None,
-        content_length=None,
-        headers=None,
+            self,
+            stream=None,
+            filename=None,
+            name=None,
+            content_type=None,
+            content_length=None,
+            headers=None,
     ):
         self.name = name
         self.stream = stream or BytesIO()

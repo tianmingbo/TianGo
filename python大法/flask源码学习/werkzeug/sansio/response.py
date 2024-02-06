@@ -85,23 +85,23 @@ class Response:
     .. versionadded:: 2.0
     """
 
-    #: the charset of the response.
+    # the charset of the response.
     charset = "utf-8"
 
-    #: the default status if none is provided.
+    # the default status if none is provided.
     default_status = 200
 
-    #: the default mimetype if none is provided.
+    # the default mimetype if none is provided.
     default_mimetype: t.Optional[str] = "text/plain"
 
-    #: Warn if a cookie header exceeds this size. The default, 4093, should be
-    #: safely `supported by most browsers <cookie_>`_. A cookie larger than
-    #: this size will still be sent, but it may be ignored or handled
-    #: incorrectly by some browsers. Set to 0 to disable this check.
-    #:
-    #: .. versionadded:: 0.13
-    #:
-    #: .. _`cookie`: http://browsercookielimits.squawky.net/
+    # Warn if a cookie header exceeds this size. The default, 4093, should be
+    # safely `supported by most browsers <cookie_>`_. A cookie larger than
+    # this size will still be sent, but it may be ignored or handled
+    # incorrectly by some browsers. Set to 0 to disable this check.
+    #
+    # .. versionadded:: 0.13
+    #
+    # .. _`cookie`: http://browsercookielimits.squawky.net/
     max_cookie_size = 4093
 
     # A :class:`Headers` object representing the response headers.

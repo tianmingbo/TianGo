@@ -370,13 +370,13 @@ class ScriptInfo:
     """
 
     def __init__(self, app_import_path=None, create_app=None, set_debug_flag=True):
-        #: Optionally the import path for the Flask application.
+        # Optionally the import path for the Flask application.
         self.app_import_path = app_import_path or os.environ.get("FLASK_APP")
-        #: Optionally a function that is passed the script info to create
-        #: the instance of the application.
+        # Optionally a function that is passed the script info to create
+        # the instance of the application.
         self.create_app = create_app
-        #: A dictionary with arbitrary data that can be associated with
-        #: this script info.
+        # A dictionary with arbitrary data that can be associated with
+        # this script info.
         self.data = {}
         self.set_debug_flag = set_debug_flag
         self._loaded_app = None

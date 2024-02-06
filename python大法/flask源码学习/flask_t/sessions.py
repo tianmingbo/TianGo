@@ -29,19 +29,19 @@ class SessionMixin(MutableMapping):
     def permanent(self, value: bool) -> None:
         self["_permanent"] = bool(value)
 
-    #: Some implementations can detect whether a session is newly
-    #: created, but that is not guaranteed. Use with caution. The mixin
+    # Some implementations can detect whether a session is newly
+    # created, but that is not guaranteed. Use with caution. The mixin
     # default is hard-coded ``False``.
     new = False
 
-    #: Some implementations can detect changes to the session and set
-    #: this when that happens. The mixin default is hard coded to
-    #: ``True``.
+    # Some implementations can detect changes to the session and set
+    # this when that happens. The mixin default is hard coded to
+    # ``True``.
     modified = True
 
-    #: Some implementations can detect when session data is read or
-    #: written and set this when that happens. The mixin default is hard
-    #: coded to ``True``.
+    # Some implementations can detect when session data is read or
+    # written and set this when that happens. The mixin default is hard
+    # coded to ``True``.
     accessed = True
 
 
@@ -54,17 +54,17 @@ class SecureCookieSession(CallbackDict, SessionMixin):
     ``False``.
     """
 
-    #: When data is changed, this is set to ``True``. Only the session
-    #: dictionary itself is tracked; if the session contains mutable
-    #: data (for example a nested dict) then this must be set to
-    #: ``True`` manually when modifying that data. The session cookie
-    #: will only be written to the response if this is ``True``.
+    # When data is changed, this is set to ``True``. Only the session
+    # dictionary itself is tracked; if the session contains mutable
+    # data (for example a nested dict) then this must be set to
+    # ``True`` manually when modifying that data. The session cookie
+    # will only be written to the response if this is ``True``.
     modified = False
 
-    #: When data is read or written, this is set to ``True``. Used by
+    # When data is read or written, this is set to ``True``. Used by
     # :class:`.SecureCookieSessionInterface` to add a ``Vary: Cookie``
-    #: header, which allows caching proxies to cache different pages for
-    #: different users.
+    # header, which allows caching proxies to cache different pages for
+    # different users.
     accessed = False
 
     def __init__(self, initial: t.Any = None) -> None:
@@ -134,17 +134,17 @@ class SessionInterface:
     .. versionadded:: 0.8
     """
 
-    #: :meth:`make_null_session` will look here for the class that should
-    #: be created when a null session is requested.  Likewise the
-    #: :meth:`is_null_session` method will perform a typecheck against
-    #: this type.
+    # :meth:`make_null_session` will look here for the class that should
+    # be created when a null session is requested.  Likewise the
+    # :meth:`is_null_session` method will perform a typecheck against
+    # this type.
     null_session_class = NullSession
 
-    #: A flag that indicates if the session interface is pickle based.
-    #: This can be used by Flask extensions to make a decision in regards
-    #: to how to deal with the session object.
-    #:
-    #: .. versionadded:: 0.10
+    # A flag that indicates if the session interface is pickle based.
+    # This can be used by Flask extensions to make a decision in regards
+    # to how to deal with the session object.
+    #
+    # .. versionadded:: 0.10
     pickle_based = False
 
     def make_null_session(self, app: "Flask") -> NullSession:
@@ -318,17 +318,17 @@ class SecureCookieSessionInterface(SessionInterface):
     through the :mod:`itsdangerous` module.
     """
 
-    #: the salt that should be applied on top of the secret key for the
-    #: signing of cookie based sessions.
+    # the salt that should be applied on top of the secret key for the
+    # signing of cookie based sessions.
     salt = "cookie-session"
-    #: the hash function to use for the signature.  The default is sha1
+    # the hash function to use for the signature.  The default is sha1
     digest_method = staticmethod(hashlib.sha1)
-    #: the name of the itsdangerous supported key derivation.  The default
-    #: is hmac.
+    # the name of the itsdangerous supported key derivation.  The default
+    # is hmac.
     key_derivation = "hmac"
-    #: A python serializer for the payload.  The default is a compact
-    #: JSON derived serializer with support for some extra Python types
-    #: such as datetime objects or tuples.
+    # A python serializer for the payload.  The default is a compact
+    # JSON derived serializer with support for some extra Python types
+    # such as datetime objects or tuples.
     serializer = session_json_serializer
     session_class = SecureCookieSession
 
