@@ -1,12 +1,10 @@
 *.pdf
 *.html
-.idea/*
+.idea/
 .gitignore
 target.mdgit commit
-/python大法/spider/逆向/知识点/js混淆/node_modules/
-/python大法/spider/逆向/知识点/ast/node_modules/
-/python大法/spider/spider_app/Airtest/*.apk
+node_modules/
+*.apk
 /javaCode/.idea/
 /javaCode/out/
-/node_modules/
 *.class
