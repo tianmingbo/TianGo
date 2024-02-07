@@ -155,33 +155,15 @@ class LocalStack(t.Generic[T]):
 
 
 class LocalManager:
-    """Manage releasing the data for the current context in one or more
-    :class:`Local` and :class:`LocalStack` objects.
-
-    This should not be needed for modern use cases, and may be removed
-    in the future.
-
-    :param locals: A local or list of locals to manage.
-
-    .. versionchanged:: 2.0
-        ``ident_func`` is deprecated and will be removed in Werkzeug
-         2.1.
-
-    .. versionchanged:: 0.7
-        The ``ident_func`` parameter was added.
-
-    .. versionchanged:: 0.6.1
-        The :func:`release_local` function can be used instead of a
-        manager.
+    """
+    管理当前上下文中一个或多个Local和LocalStack对象的数据释放
     """
 
     __slots__ = ("locals",)
 
     def __init__(
             self,
-            locals: t.Optional[
-                t.Union[Local, LocalStack, t.Iterable[t.Union[Local, LocalStack]]]
-            ] = None,
+            locals: t.Optional[t.Union[Local, LocalStack, t.Iterable[t.Union[Local, LocalStack]]]] = None,
     ) -> None:
         if locals is None:
             self.locals = []
@@ -191,15 +173,15 @@ class LocalManager:
             self.locals = list(locals)  # type: ignore[arg-type]
 
     def cleanup(self) -> None:
-        """Release the data in the locals for this context. Call this at
-        the end of each request or use :meth:`make_middleware`.
+        """
+        释放当前上下文中的locals对象中的数据。在每个请求结束时调用该方法
         """
         for local in self.locals:
             release_local(local)
 
     def make_middleware(self, app: "WSGIApplication") -> "WSGIApplication":
-        """Wrap a WSGI application so that local data is released
-        automatically after the response has been sent for a request.
+        """
+        将一个WSGI应用程序包装起来，以便在响应发送后自动释放本地数据
         """
 
         def application(
@@ -210,14 +192,8 @@ class LocalManager:
         return application
 
     def middleware(self, func: "WSGIApplication") -> "WSGIApplication":
-        """Like :meth:`make_middleware` but used as a decorator on the
-        WSGI application function.
-
-        .. code-block:: python
-
-            @manager.middleware
-            def application(environ, start_response):
-                ...
+        """
+        作为一个装饰器应用在WSGI应用程序函数上
         """
         return update_wrapper(self.make_middleware(func), func)
 
@@ -226,19 +202,13 @@ class LocalManager:
 
 
 class _ProxyLookup:
-    """Descriptor that handles proxied attribute lookup for
-    :class:`LocalProxy`.
+    """
+    这是一个处理 :class:LocalProxy 的属性查找的描述符（Descriptor）。
 
-    :param f: The built-in function this attribute is accessed through.
-        Instead of looking up the special method, the function call
-        is redone on the object.
-    :param fallback: Return this function if the proxy is unbound
-        instead of raising a :exc:`RuntimeError`.
-    :param is_attr: This proxied name is an attribute, not a function.
-        Call the fallback immediately to get the value.
-    :param class_value: Value to return when accessed from the
-        ``LocalProxy`` class directly. Used for ``__doc__`` so building
-        docs still works.
+    f：访问这个属性时使用的内置函数。不是直接查找特殊方法，而是在对象上重新执行函数调用。
+    fallback：如果代理未绑定，返回这个函数，而不是引发 :exc:RuntimeError 异常。
+    is_attr：被代理的名称是一个属性，而不是一个函数。立即调用回退函数来获取值。
+    class_value: 当直接从 LocalProxy 类中访问时返回的值。用于 __doc__，因此可以构建文档。
     """
 
     __slots__ = ("bind_f", "fallback", "is_attr", "class_value", "name")
@@ -307,10 +277,10 @@ class _ProxyLookup:
         return f"proxy {self.name}"
 
     def __call__(self, instance: "LocalProxy", *args: t.Any, **kwargs: t.Any) -> t.Any:
-        """Support calling unbound methods from the class. For example,
-        this happens with ``copy.copy``, which does
-        ``type(x).__copy__(x)``. ``type(x)`` can't be proxied, so it
-        returns the proxy type and descriptor.
+        """
+        支持从类中调用未绑定的方法。
+        例如，当使用 ``copy.copy`` 时，它执行了 ``type(x).__copy__(x)``。
+        由于无法代理 ``type(x)``，因此返回代理类型和描述符。
         """
         return self.__get__(instance, type(instance))(*args, **kwargs)
 
@@ -351,68 +321,38 @@ def _identity(o: T) -> T:
 
 
 class LocalProxy(t.Generic[T]):
-    """A proxy to the object bound to a context-local object. All
-    operations on the proxy are forwarded to the bound object. If no
-    object is bound, a ``RuntimeError`` is raised.
+    """
+    LocalProxy 是一个代理对象，用于封装绑定到上下文局部对象的对象。代理对象上的所有操作都会转发到绑定的对象上。如果没有绑定对象，将会引发 RuntimeError。
 
-    :param local: The context-local object that provides the proxied
-        object.
-    :param name: Proxy this attribute from the proxied object.
-    :param unbound_message: The error message to show if the
-        context-local object is unbound.
+    参数说明：
+    local：提供被代理对象的上下文局部对象。
+    name：代理被代理对象上的该属性。
+    unbound_message：如果上下文局部对象未绑定，显示的错误消息。
 
-    Proxy a :class:`~contextvars.ContextVar` to make it easier to
-    access. Pass a name to proxy that attribute.
+    可以使用 LocalProxy 代理一个 ContextVar，以便更方便地访问。传递要代理的属性名。
+    _request_var = ContextVar("request")
+    request = LocalProxy(_request_var)
+    session = LocalProxy(_request_var, "session")
 
-    .. code-block:: python
+    可以通过调用带有属性名的 Local 命名空间上的局部对象来代理一个属性。
+    data = Local()
+    user = data("user")
 
-        _request_var = ContextVar("request")
-        request = LocalProxy(_request_var)
-        session = LocalProxy(_request_var, "session")
+    可以通过调用 LocalStack 上的局部对象来代理该栈的顶部项。传递要代理的属性名。
+    app_stack = LocalStack()
+    current_app = app_stack()
+    g = app_stack("g")
 
-    Proxy an attribute on a :class:`Local` namespace by calling the
-    local with the attribute name:
+    可以传递一个函数来代理该函数的返回值
+    session = LocalProxy(lambda: request.session)
 
-    .. code-block:: python
-
-        data = Local()
-        user = data("user")
-
-    Proxy the top item on a :class:`LocalStack` by calling the local.
-    Pass a name to proxy that attribute.
-
-    .. code-block::
-
-        app_stack = LocalStack()
-        current_app = app_stack()
-        g = app_stack("g")
-
-    Pass a function to proxy the return value from that function. This
-    was previously used to access attributes of local objects before
-    that was supported directly.
-
-    .. code-block:: python
-
-        session = LocalProxy(lambda: request.session)
-
-    ``__repr__`` and ``__class__`` are proxied, so ``repr(x)`` and
-    ``isinstance(x, cls)`` will look like the proxied object. Use
-    ``issubclass(type(x), LocalProxy)`` to check if an object is a
-    proxy.
-
+    LocalProxy 会代理 __repr__ 和 __class__，所以 repr(x) 和 isinstance(x, cls) 看起来都像被代理的对象。
+    可以使用 issubclass(type(x), LocalProxy) 检查对象是否为代理对象。
     """
 
     __slots__ = ("__wrapped", "_get_current_object")
 
     _get_current_object: t.Callable[[], T]
-    """Return the current object this proxy is bound to. If the proxy is
-    unbound, this raises a ``RuntimeError``.
-
-    This should be used if you need to pass the object to something that
-    doesn't understand the proxy. It can also be useful for performance
-    if you are accessing the object multiple times in a function, rather
-    than going through the proxy multiple times.
-    """
 
     def __init__(
             self,

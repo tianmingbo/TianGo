@@ -1,19 +1,18 @@
-import time
-
-from flask_t import Flask, request
+from flask import Flask, request
+from werkzeug.local import LocalProxy
 
 app = Flask(__name__)
 
+# 使用 LocalProxy 代理当前请求对象
+request_proxy = LocalProxy(lambda: request)
 
-@app.route('/', methods=['GET', 'POST'])
+
+@app.route('/')
 def index():
-    if request.method == 'POST':
-        message = request.form.get('message')
-        return message
-    else:
-        time.sleep(10)
-        return 'Hello, world!'
+    # 可以直接使用 request_proxy 访问请求对象属性
+    user_agent = request_proxy.headers.get('User-Agent')
+    return f"User-Agent: {user_agent}"
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     app.run()
