@@ -7,6 +7,7 @@
 #include "util/error_out.h"
 
 #define BUF_SIZE 10
+#define TRUE 1
 
 /**
  *同时接受多个客户端连接
@@ -15,8 +16,8 @@
 int main(int argc, char *argv[]) {
     int serv_sock, cli_sock;
     struct sockaddr_in serv_addr, cli_addr;
-    int str_len;
-    socklen_t cli_addr_size;
+    int str_len, option;
+    socklen_t cli_addr_size, optlen;
     char message[BUF_SIZE];
     if (argc != 2) {
         printf("Usage: %s <port>\n", argv[0]);
@@ -26,6 +27,13 @@ int main(int argc, char *argv[]) {
     if (serv_sock == -1) {
         error_handling("socket() error");
     }
+
+    optlen = sizeof(option);
+    option = TRUE;
+    //允许立即重用端口。因为主动关闭的一方会进入time_wait状态，确保最后一个 ACK 报文能够被对方正常接收。
+    // 等待最长时间为2MSL。MSL表示TCP报文在网络中最长存在时间
+    setsockopt(serv_sock, SOL_SOCKET, SO_REUSEADDR, (void *) &option, optlen);
+
     memset(&serv_addr, 0, sizeof(serv_addr)); //将结构体变量所有成员初始化为0,是为了将sin_zero初始化为0
     serv_addr.sin_family = AF_INET;           //指定地址族
     serv_addr.sin_addr.s_addr = htonl(INADDR_ANY); //0.0.0.0，要求IP信息是为了明确要从哪个网卡接收数据
