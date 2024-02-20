@@ -4,7 +4,16 @@
 #include <sys/select.h>
 
 #define BUF_SIZE 30
-
+/**
+ * int select (int maxfd, fd_set * readfds, fd_set * writefds,
+		   fd_set * exceptfds, struct timeval * timeout);
+ * maxfd:监视的文件描述符的最大数量
+ * readfds: 可读
+ * writefds: 可写
+ * exceptfds: 异常
+ * timeout: 超时
+ * 返回值：错误返回-1， 超时返回0，事件触发返回大于0
+ * */
 int main() {
     fd_set reads, temps; //reads是否存在待读取数据的文件描述符
     int result, str_len;
