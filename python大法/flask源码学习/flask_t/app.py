@@ -711,14 +711,14 @@ class Flask(Scaffold):
             rv.update(processor())
         return rv
 
-    # What environment the app is running in. Flask and extensions may
-    # enable behaviors based on the environment, such as enabling debug
-    # mode. This maps to the :data:`ENV` config key. This is set by the
-    # :envvar:`FLASK_ENV` environment variable and may not behave as
-    # expected if set in code.
-    #
-    # **Do not enable development when deploying in production.**
-    #
+    #: What environment the app is running in. Flask and extensions may
+    #: enable behaviors based on the environment, such as enabling debug
+    #: mode. This maps to the :data:`ENV` config key. This is set by the
+    #: :envvar:`FLASK_ENV` environment variable and may not behave as
+    #: expected if set in code.
+    #:
+    #: **Do not enable development when deploying in production.**
+    #:
     #: Default: ``'production'``
     env = ConfigAttribute("ENV")
 

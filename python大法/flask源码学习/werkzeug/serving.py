@@ -356,7 +356,7 @@ class WSGIRequestHandler(BaseHTTPRequestHandler):
             self.server.log("error", f"Error on request:\n{msg}")
 
     def handle(self) -> None:
-        """Handles a request ignoring dropped connections."""
+        """处理请求时忽略断开的连接."""
         try:
             super().handle()
         except (ConnectionError, socket.timeout) as e:

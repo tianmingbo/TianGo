@@ -384,12 +384,8 @@ class BaseHTTPRequestHandler(socketserver.StreamRequestHandler):
         return True
 
     def handle_one_request(self):
-        """Handle a single HTTP request.
-
-        You normally don't need to override this method; see the class
-        __doc__ string for information on how to handle specific HTTP
-        commands such as GET and POST.
-
+        """
+        处理单个 HTTP 请求。
         """
         try:
             self.raw_requestline = self.rfile.readline(65537)

@@ -36,34 +36,15 @@ from .utils import get_host
 
 
 class Request:
-    """Represents the non-IO parts of a HTTP request, including the
-    method, URL info, and headers.
-
-    This class is not meant for general use. It should only be used when
-    implementing WSGI, ASGI, or another HTTP application spec. Werkzeug
-    provides a WSGI implementation at :cls:`werkzeug.wrappers.Request`.
-
-    :param method: The method the request was made with, such as
-        ``GET``.
-    :param scheme: The URL scheme of the protocol the request used, such
-        as ``https`` or ``wss``.
-    :param server: The address of the server. ``(host, port)``,
-        ``(path, None)`` for unix sockets, or ``None`` if not known.
-    :param root_path: The prefix that the application is mounted under.
-        This is prepended to generated URLs, but is not part of route
-        matching.
-    :param path: The path part of the URL after ``root_path``.
-    :param query_string: The part of the URL after the "?".
-    :param headers: The headers received with the request.
-    :param remote_addr: The address of the client sending the request.
-
-    .. versionadded:: 2.0
+    """
+    表示 HTTP 请求的非 IO 部分，包括方法、URL 信息和标头。
+    该类不适合一般用途。 它应该只在以下情况下使用：
+    实现 WSGI、ASGI 或其他 HTTP 应用程序规范。 Werkzeug 在 :cls:`werkzeug.wrappers.Request` 中提供了 WSGI 实现。
     """
 
-    # The charset used to decode most data in the request.
     charset = "utf-8"
 
-    # the error handling procedure for errors, defaults to 'replace'
+    # 错误的错误处理程序，默认为“替换”
     encoding_errors = "replace"
 
     # the class to use for `args` and `form`.  The default is an

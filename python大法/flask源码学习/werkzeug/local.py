@@ -286,8 +286,8 @@ class _ProxyLookup:
 
 
 class _ProxyIOp(_ProxyLookup):
-    """Look up an augmented assignment method on a proxied object. The
-    method is wrapped to return the proxy instead of the object.
+    """
+    在代理对象上查找增强赋值方法。 该方法被包装以返回代理而不是对象。
     """
 
     __slots__ = ()
@@ -308,7 +308,7 @@ class _ProxyIOp(_ProxyLookup):
 
 
 def _l_to_r_op(op: F) -> F:
-    """Swap the argument order to turn an l-op into an r-op."""
+    """将左操作数的操作符转换为右操作数的操作符"""
 
     def r_op(obj: t.Any, other: t.Any) -> t.Any:
         return op(other, obj)
