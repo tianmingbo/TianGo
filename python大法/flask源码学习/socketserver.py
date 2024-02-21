@@ -150,47 +150,41 @@ else:
 
 
 class BaseServer:
-    """Base class for server classes.
+    """
+    服务器类的基类。它包含了一些调用者可用的方法。
 
-    Methods for the caller:
+    下面是一些对调用者可用的方法：
+        - __init__(server_address, RequestHandlerClass)：初始化服务器对象。
+        - serve_forever(poll_interval=0.5)：开始无限循环以侦听和处理连接。
+        - shutdown()：关闭服务器。
+        - handle_request()：手动处理一个连接请求（如果不使用serve_forever()）。
+        - fileno() -> int：返回服务器套接字的文件描述符（用于选择器）。
 
-    - __init__(server_address, RequestHandlerClass)
-    - serve_forever(poll_interval=0.5)
-    - shutdown()
-    - handle_request()  # if you do not use serve_forever()
-    - fileno() -> int   # for selector
+    下面是一些可以被重写的方法：
+        - server_bind()：绑定服务器套接字到指定的地址。
+        - server_activate()：激活服务器以接受连接。
+        - get_request() -> request, client_address：接受并返回一个新的客户端连接。
+        - handle_timeout()：处理超时事件。
+        - verify_request(request, client_address)：验证客户端请求是否被允许。
+        - server_close()：关闭服务器套接字。
+        - process_request(request, client_address)：处理客户端请求。
+        - shutdown_request(request)：关闭特定客户端的请求。
+        - close_request(request)：关闭客户端连接。
+        - service_actions()：处理服务器特定的动作。
+        - handle_error()：处理服务器错误事件。
 
-    Methods that may be overridden:
+    对于派生类，可以使用以下方法：
+        - finish_request(request, client_address)：完成请求的处理。
 
-    - server_bind()
-    - server_activate()
-    - get_request() -> request, client_address
-    - handle_timeout()
-    - verify_request(request, client_address)
-    - server_close()
-    - process_request(request, client_address)
-    - shutdown_request(request)
-    - close_request(request)
-    - service_actions()
-    - handle_error()
+    此外，还有一些可以被派生类或实例重写的类变量：
+        - timeout：超时时间。
+        - address_family：地址族。
+        - socket_type：套接字类型。
+        - allow_reuse_address：允许地址复用。
 
-    Methods for derived classes:
-
-    - finish_request(request, client_address)
-
-    Class variables that may be overridden by derived classes or
-    instances:
-
-    - timeout
-    - address_family
-    - socket_type
-    - allow_reuse_address
-
-    Instance variables:
-
-    - RequestHandlerClass
-    - socket
-
+    实例变量包括：
+        - RequestHandlerClass：请求处理器类。
+        - socket：服务器套接字。
     """
 
     timeout = None
@@ -211,18 +205,13 @@ class BaseServer:
         pass
 
     def serve_forever(self, poll_interval=0.5):
-        """Handle one request at a time until shutdown.
+        """使用一个循环来处理连接请求，poll_interval 参数表示每隔多少秒轮询一次是否有新的连接请求或关闭请求。
+        如果有请求到达，则调用 _handle_request_noblock 方法来处理连接请求，然后执行 service_actions 方法来处理服务器特定的动作。
 
-        Polls for shutdown every poll_interval seconds. Ignores
-        self.timeout. If you need to do periodic tasks, do them in
-        another thread.
+        在循环中还会检查是否有关闭请求，如果有则会立即退出。该方法中还使用了 selectors 模块来实现 I/O 多路复用，以提高处理效率。
         """
         self.__is_shut_down.clear()
         try:
-            # XXX: Consider using another file descriptor or connecting to the
-            # socket to wake this up instead of polling. Polling reduces our
-            # responsiveness to a shutdown request and wastes cpu at all other
-            # times.
             with _ServerSelector() as selector:
                 selector.register(self, selectors.EVENT_READ)
 
@@ -383,64 +372,52 @@ class BaseServer:
 
 
 class TCPServer(BaseServer):
-    """Base class for various socket-based server classes.
+    """
+    提供了一个默认的同步IP流（即TCP）服务器。
 
-    Defaults to synchronous IP stream (i.e., TCP).
+    下面是一些对调用者可用的方法：
+        - __init__(server_address, RequestHandlerClass, bind_and_activate=True)：初始化服务器对象。
+        - serve_forever(poll_interval=0.5)：开始无限循环以侦听和处理连接。
+        - shutdown()：关闭服务器。
+        - handle_request()：手动处理一个连接请求（如果不使用serve_forever()）。
+        - fileno() -> int：返回服务器套接字的文件描述符（用于选择器）。
 
-    Methods for the caller:
+    下面是一些可以被重写的方法：
+        - server_bind()：绑定服务器套接字到指定的地址。
+        - server_activate()：激活服务器以接受连接。
+        - get_request() -> request, client_address：接受并返回一个新的客户端连接。
+        - handle_timeout()：处理超时事件。
+        - verify_request(request, client_address)：验证客户端请求是否被允许。
+        - process_request(request, client_address)：处理客户端请求。
+        - shutdown_request(request)：关闭特定客户端的请求。
+        - close_request(request)：关闭客户端连接。
+        - handle_error()：处理服务器错误事件。
 
-    - __init__(server_address, RequestHandlerClass, bind_and_activate=True)
-    - serve_forever(poll_interval=0.5)
-    - shutdown()
-    - handle_request()  # if you don't use serve_forever()
-    - fileno() -> int   # for selector
+    对于派生类，可以使用以下方法：
+        - finish_request(request, client_address)：完成请求的处理。
 
-    Methods that may be overridden:
+    此外，还有一些可以被派生类或实例重写的类变量：
+        - timeout：超时时间。
+        - address_family：地址族。
+        - socket_type：套接字类型。
+        - request_queue_size（仅限流套接字）：请求队列大小。
+        - allow_reuse_address：允许地址复用。
 
-    - server_bind()
-    - server_activate()
-    - get_request() -> request, client_address
-    - handle_timeout()
-    - verify_request(request, client_address)
-    - process_request(request, client_address)
-    - shutdown_request(request)
-    - close_request(request)
-    - handle_error()
-
-    Methods for derived classes:
-
-    - finish_request(request, client_address)
-
-    Class variables that may be overridden by derived classes or
-    instances:
-
-    - timeout
-    - address_family
-    - socket_type
-    - request_queue_size (only for stream sockets)
-    - allow_reuse_address
-
-    Instance variables:
-
-    - server_address
-    - RequestHandlerClass
-    - socket
-
+    实例变量包括：
+        - server_address：服务器地址。
+        - RequestHandlerClass：请求处理器类。
+        - socket：服务器套接字。
     """
 
     address_family = socket.AF_INET
-
     socket_type = socket.SOCK_STREAM
-
     request_queue_size = 5
-
     allow_reuse_address = False
 
     def __init__(self, server_address, RequestHandlerClass, bind_and_activate=True):
         """Constructor.  May be extended, do not override."""
         BaseServer.__init__(self, server_address, RequestHandlerClass)
-        self.socket = socket.socket(self.address_family,
-                                    self.socket_type)
+        self.socket = socket.socket(self.address_family, self.socket_type)
         if bind_and_activate:
             try:
                 self.server_bind()
@@ -450,37 +427,26 @@ class TCPServer(BaseServer):
                 raise
 
     def server_bind(self):
-        """Called by constructor to bind the socket.
-
-        May be overridden.
-
+        """
+        由构造函数调用来绑定套接字。
         """
         if self.allow_reuse_address:
-            self.socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-        self.socket.bind(self.server_address)
+            self.socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)  # SO_REUSEADDR 立即可使用该端口
+        self.socket.bind(self.server_address)  # 绑定端口
         self.server_address = self.socket.getsockname()
 
     def server_activate(self):
-        """Called by constructor to activate the server.
-
-        May be overridden.
-
+        """
+        开始监听
         """
         self.socket.listen(self.request_queue_size)
 
     def server_close(self):
-        """Called to clean-up the server.
-
-        May be overridden.
-
-        """
         self.socket.close()
 
     def fileno(self):
-        """Return socket file number.
-
-        Interface required by selector.
-
+        """
+        文件描述符
         """
         return self.socket.fileno()
 
@@ -491,7 +457,7 @@ class TCPServer(BaseServer):
         return self.socket.accept()
 
     def shutdown_request(self, request):
-        """Called to shutdown and close an individual request."""
+        """调用以关闭并关闭单个请求。"""
         try:
             # explicitly shutdown.  socket.close() merely releases
             # the socket and waits for GC to perform the actual close.
@@ -668,10 +634,8 @@ class ThreadingMixIn:
     _threads = _NoThreads()
 
     def process_request_thread(self, request, client_address):
-        """Same as in BaseServer but as a thread.
-
-        In addition, exception handling is done here.
-
+        """与 BaseServer 中相同，但作为线程。
+         另外，这里还进行了异常处理。
         """
         try:
             self.finish_request(request, client_address)
@@ -726,19 +690,13 @@ if hasattr(socket, 'AF_UNIX'):
 
 
 class BaseRequestHandler:
-    """Base class for request handler classes.
+    """这是一个用于请求处理程序类的基类的说明。
 
-    This class is instantiated for each request to be handled.  The
-    constructor sets the instance variables request, client_address
-    and server, and then calls the handle() method.  To implement a
-    specific service, all you need to do is to derive a class which
-    defines a handle() method.
+    对于每个需要处理的请求，都会实例化该类。构造函数设置了实例变量 `request`、`client_address` 和 `server`，
+    然后调用 `handle()` 方法。为了实现特定的服务，只需要派生一个类，并定义一个 `handle()` 方法即可。
 
-    The handle() method can find the request as self.request, the
-    client address as self.client_address, and the server (in case it
-    needs access to per-server information) as self.server.  Since a
-    separate instance is created for each request, the handle() method
-    can define other arbitrary instance variables.
+    `handle()` 方法可以通过 `self.request` 找到请求，通过 `self.client_address` 找到客户端地址，
+    通过 `self.server` （如果需要访问每个服务器的信息）找到服务器。由于每个请求都创建了一个单独的实例，`handle()` 方法可以定义其他任意的实例变量。
 
     """
 
@@ -746,7 +704,7 @@ class BaseRequestHandler:
         self.request = request
         self.client_address = client_address
         self.server = server
-        self.setup()
+        self.setup()  # self就是WSGIRequestHandler，socket设置
         try:
             self.handle()
         finally:
@@ -773,21 +731,14 @@ class BaseRequestHandler:
 class StreamRequestHandler(BaseRequestHandler):
     """Define self.rfile and self.wfile for stream sockets."""
 
-    # Default buffer sizes for rfile, wfile.
-    # We default rfile to buffered because otherwise it could be
-    # really slow for large data (a getc() call per byte); we make
-    # wfile unbuffered because (a) often after a write() we want to
-    # read and we need to flush the line; (b) big writes to unbuffered
-    # files are typically optimized by stdio even when big reads
-    # aren't.
-    rbufsize = -1
-    wbufsize = 0
+    rbufsize = -1  # read buf -1使用缓冲区
+    wbufsize = 0  # write buf 0无缓冲区
 
     # A timeout to apply to the request socket, if not None.
     timeout = None
 
-    # Disable nagle algorithm for this socket, if True.
-    # Use only when wbufsize != 0, to avoid small packets.
+    # 如果为 True，则禁用此套接字的 nagle 算法。
+    # 仅当 wbufsize != 0 时使用，以避免小数据包。
     disable_nagle_algorithm = False
 
     def setup(self):
@@ -795,8 +746,10 @@ class StreamRequestHandler(BaseRequestHandler):
         if self.timeout is not None:
             self.connection.settimeout(self.timeout)
         if self.disable_nagle_algorithm:
-            self.connection.setsockopt(socket.IPPROTO_TCP,
-                                       socket.TCP_NODELAY, True)
+            # 设置禁用Nagle算法
+            self.connection.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, True)
+        # 使用makefile方法为self.connection创建一个文件对象self.rfile，并指定了读取模式为'rb'（即以二进制模式读取）。
+        # 同时，使用了self.rbufsize作为缓冲区大小。这样可以方便地使用文件对象的方法来处理从self.connection中读取的数据
         self.rfile = self.connection.makefile('rb', self.rbufsize)
         if self.wbufsize == 0:
             self.wfile = _SocketWriter(self.connection)
@@ -828,6 +781,7 @@ class _SocketWriter(BufferedIOBase):
 
     def write(self, b):
         self._sock.sendall(b)
+        # 创建一个内存视图，通过 view.nbytes 返回成功发送的字节数
         with memoryview(b) as view:
             return view.nbytes
 

@@ -604,9 +604,11 @@ def is_ssl_error(error: t.Optional[Exception] = None) -> bool:
     return isinstance(error, ssl.SSLError)
 
 
-def select_address_family(host: str, port: int) -> socket.AddressFamily:
-    """Return ``AF_INET4``, ``AF_INET6``, or ``AF_UNIX`` depending on
-    the host and port."""
+def select_address_family(host: str) -> socket.AddressFamily:
+    """
+    根据主机名和端口号选择合适的地址族
+    Return： AF_INET4|AF_INET6|oAF_UNIX
+    """
     if host.startswith("unix://"):
         return socket.AF_UNIX
     elif ":" in host and hasattr(socket, "AF_INET6"):
@@ -649,9 +651,8 @@ def get_interface_ip(family: socket.AddressFamily) -> str:
 
 
 class BaseWSGIServer(HTTPServer):
-    """A WSGI server that that handles one request at a time.
-
-    Use :func:`make_server` to create a server instance.
+    """一次处理一个请求的 WSGI 服务器。
+     使用 make_server 创建服务器实例。
     """
 
     multithread = False
@@ -672,9 +673,7 @@ class BaseWSGIServer(HTTPServer):
         if handler is None:
             handler = WSGIRequestHandler
 
-        # If the handler doesn't directly set a protocol version and
-        # thread or process workers are used, then allow chunked
-        # responses and keep-alive connections by enabling HTTP/1.1.
+        # 如果没有指定http version，则默认为1.1
         if "protocol_version" not in vars(handler) and (
                 self.multithread or self.multiprocess
         ):
@@ -685,11 +684,10 @@ class BaseWSGIServer(HTTPServer):
         self.app = app
         self.passthrough_errors = passthrough_errors
 
-        self.address_family = address_family = select_address_family(host, port)
+        self.address_family = address_family = select_address_family(host)
         server_address = get_sockaddr(host, int(port), address_family)
 
-        # Remove a leftover Unix socket file from a previous run. Don't
-        # remove a file that was set up by run_simple.
+        # 删除上次运行中剩余的 Unix 套接字文件。 不要删除由 run_simple 设置的文件。
         if address_family == af_unix and fd is None:
             server_address = t.cast(str, server_address)
 
@@ -705,7 +703,7 @@ class BaseWSGIServer(HTTPServer):
         )
 
         if fd is None:
-            # No existing socket descriptor, do bind_and_activate=True.
+            # 没有socket，则创建socket
             try:
                 self.server_bind()
                 self.server_activate()
@@ -813,10 +811,8 @@ class BaseWSGIServer(HTTPServer):
 
 
 class ThreadedWSGIServer(socketserver.ThreadingMixIn, BaseWSGIServer):
-    """A WSGI server that handles concurrent requests in separate
-    threads.
-
-    Use :func:`make_server` to create a server instance.
+    """WSGI 服务器在单独的线程中处理并发请求。
+     使用 make_server 创建服务器实例。
     """
 
     multithread = True
@@ -861,17 +857,8 @@ def make_server(
         ssl_context: t.Optional[_TSSLContextArg] = None,
         fd: t.Optional[int] = None,
 ) -> BaseWSGIServer:
-    """Create an appropriate WSGI server instance based on the value of
-    ``threaded`` and ``processes``.
-
-    This is called from :func:`run_simple`, but can be used separately
-    to have access to the server object, such as to run it in a separate
-    thread.
-
-    See :func:`run_simple` for parameter docs.
-    """
     if threaded and processes > 1:
-        raise ValueError("Cannot have a multi-thread and multi-process server.")
+        raise ValueError("不能有多线程和多进程服务器")
 
     if threaded:
         return ThreadedWSGIServer(
@@ -880,14 +867,8 @@ def make_server(
 
     if processes > 1:
         return ForkingWSGIServer(
-            host,
-            port,
-            app,
-            processes,
-            request_handler,
-            passthrough_errors,
-            ssl_context,
-            fd=fd,
+            host, port, app, processes, request_handler, passthrough_errors,
+            ssl_context, fd=fd,
         )
 
     return BaseWSGIServer(
@@ -922,99 +903,25 @@ def run_simple(
         passthrough_errors: bool = False,
         ssl_context: t.Optional[_TSSLContextArg] = None,
 ) -> None:
-    """Start a development server for a WSGI application. Various
-    optional features can be enabled.
+    """开发服务器不建议用于生产环境部署，仅适用于本地开发。它的设计目标不是高效、稳定或安全。
 
-    .. warning::
 
-        Do not use the development server when deploying to production.
-        It is intended for use only during local development. It is not
-        designed to be particularly efficient, stable, or secure.
-
-    :param hostname: The host to bind to, for example ``'localhost'``.
-        Can be a domain, IPv4 or IPv6 address, or file path starting
-        with ``unix://`` for a Unix socket.
-    :param port: The port to bind to, for example ``8080``. Using ``0``
-        tells the OS to pick a random free port.
-    :param application: The WSGI application to run.
-    :param use_reloader: Use a reloader process to restart the server
-        process when files are changed.
-    :param use_debugger: Use Werkzeug's debugger, which will show
-        formatted tracebacks on unhandled exceptions.
-    :param use_evalex: Make the debugger interactive. A Python terminal
-        can be opened for any frame in the traceback. Some protection is
-        provided by requiring a PIN, but this should never be enabled
-        on a publicly visible server.
-    :param extra_files: The reloader will watch these files for changes
-        in addition to Python modules. For example, watch a
-        configuration file.
-    :param exclude_patterns: The reloader will ignore changes to any
-        files matching these :mod:`fnmatch` patterns. For example,
-        ignore cache files.
-    :param reloader_interval: How often the reloader tries to check for
-        changes.
-    :param reloader_type: The reloader to use. The ``'stat'`` reloader
-        is built in, but may require significant CPU to watch files. The
-        ``'watchdog'`` reloader is much more efficient but requires
-        installing the ``watchdog`` package first.
-    :param threaded: Handle concurrent requests using threads. Cannot be
-        used with ``processes``.
-    :param processes: Handle concurrent requests using up to this number
-        of processes. Cannot be used with ``threaded``.
-    :param request_handler: Use a different
-        :class:`~BaseHTTPServer.BaseHTTPRequestHandler` subclass to
-        handle requests.
-    :param static_files: A dict mapping URL prefixes to directories to
-        serve static files from using
-        :class:`~werkzeug.middleware.SharedDataMiddleware`.
-    :param passthrough_errors: Don't catch unhandled exceptions at the
-        server level, let the serve crash instead. If ``use_debugger``
-        is enabled, the debugger will still catch such errors.
-    :param ssl_context: Configure TLS to serve over HTTPS. Can be an
-        :class:`ssl.SSLContext` object, a ``(cert_file, key_file)``
-        tuple to create a typical context, or the string ``'adhoc'`` to
-        generate a temporary self-signed certificate.
-
-    .. versionchanged:: 2.1
-        Instructions are shown for dealing with an "address already in
-        use" error.
-
-    .. versionchanged:: 2.1
-        Running on ``0.0.0.0`` or ``::`` shows the loopback IP in
-        addition to a real IP.
-
-    .. versionchanged:: 2.1
-        The command-line interface was removed.
-
-    .. versionchanged:: 2.0
-        Running on ``0.0.0.0`` or ``::`` shows a real IP address that
-        was bound as well as a warning not to run the development server
-        in production.
-
-    .. versionchanged:: 2.0
-        The ``exclude_patterns`` parameter was added.
-
-    .. versionchanged:: 0.15
-        Bind to a Unix socket by passing a ``hostname`` that starts with
-        ``unix://``.
-
-    .. versionchanged:: 0.10
-        Improved the reloader and added support for changing the backend
-        through the ``reloader_type`` parameter.
-
-    .. versionchanged:: 0.9
-        A command-line interface was added.
-
-    .. versionchanged:: 0.8
-        ``ssl_context`` can be a tuple of paths to the certificate and
-        private key files.
-
-    .. versionchanged:: 0.6
-        The ``ssl_context`` parameter was added.
-
-    .. versionchanged:: 0.5
-       The ``static_files`` and ``passthrough_errors`` parameters were
-       added.
+    hostname：要绑定到的主机名，可以是域名、IPv4 或 IPv6 地址，也可以是以 unix:// 开头的文件路径，用于指定 Unix socket。
+    port：要绑定到的端口号，例如 8080。如果使用 0，操作系统将选择一个随机可用的端口。
+    application：要运行的 WSGI 应用程序。
+    use_reloader：使用重载进程在文件更改时重新启动服务器进程。
+    use_debugger：使用 Werkzeug 的调试器，在未处理的异常发生时显示格式化的回溯信息。
+    use_evalex：使调试器交互式。可以为回溯中的任何帧打开一个 Python 终端。通过要求输入 PIN 提供了一些保护，但绝不应在公开可见的服务器上启用此功能。
+    extra_files：除 Python 模块外，重载器还会监视这些文件的更改。例如，可以监视配置文件的更改。
+    exclude_patterns：重载器将忽略与这些 fnmatch 模式匹配的文件的更改。例如，可以忽略缓存文件。
+    reloader_interval：重载器尝试检查更改的频率。
+    reloader_type：要使用的重载器。'stat' 重载器是内置的，但可能需要占用大量 CPU 来监视文件。'watchdog' 重载器效率更高，但需要先安装 watchdog 包。
+    threaded：使用线程处理并发请求。不能与 processes 一起使用。
+    processes：使用最多这个数量的进程来处理并发请求。不能与 threaded 一起使用。
+    request_handler：使用不同的 BaseHTTPRequestHandler 子类来处理请求。
+    static_files：将 URL 前缀映射到要使用 werkzeug.middleware.SharedDataMiddleware 从中提供静态文件的目录的字典。
+    passthrough_errors：不在服务器级别捕获未处理的异常，而是让服务器崩溃。如果启用了 use_debugger，调试器仍会捕获此类错误。
+    ssl_context：配置 TLS 以通过 HTTPS 进行服务。可以是 ssl.SSLContext 对象、(cert_file, key_file) 元组以创建典型的上下文，或者字符串 'adhoc' 以生成临时的自签名证书。
     """
     if not isinstance(port, int):
         raise TypeError("port must be an integer")
@@ -1045,12 +952,12 @@ def run_simple(
         ssl_context,
         fd=fd,
     )
-    srv.socket.set_inheritable(True)
+    srv.socket.set_inheritable(True)  # 设置套接字可继承，派生的子进程可以继承套接字
     os.environ["WERKZEUG_SERVER_FD"] = str(srv.fileno())
 
     if not is_running_from_reloader():
         srv.log_startup()
-        _log("info", _ansi_style("Press CTRL+C to quit", "yellow"))
+        _log("info", _ansi_style("Press CTRL+C to quit", "yellow"))  # 格式化输出
 
     if use_reloader:
         from ._reloader import run_with_reloader
