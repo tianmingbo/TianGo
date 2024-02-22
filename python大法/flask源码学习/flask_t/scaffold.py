@@ -141,16 +141,7 @@ class Scaffold:
             t.Dict[t.Optional[int], t.Dict[t.Type[Exception], ErrorHandlerCallable]],
         ] = defaultdict(lambda: defaultdict(dict))
 
-        # A data structure of functions to call at the beginning of
-        # each request, in the format ``{scope: [functions]}``. The
-        # ``scope`` key is the name of a blueprint the functions are
-        # active for, or ``None`` for all requests.
-        #
-        # To register a function, use the :meth:`before_request`
-        # decorator.
-        #
-        # This data structure is internal. It should not be modified
-        # directly and its format may change at any time.
+        # 钩子函数，在请求处理前调用，使用 before_request 装饰器。
         self.before_request_funcs: t.Dict[
             AppOrBlueprintKey, t.List[BeforeRequestCallable]
         ] = defaultdict(list)
@@ -502,22 +493,15 @@ class Scaffold:
 
     @setupmethod
     def before_request(self, f: BeforeRequestCallable) -> BeforeRequestCallable:
-        """Register a function to run before each request.
-
-        For example, this can be used to open a database connection, or
-        to load the logged in user from the session.
-
-        .. code-block:: python
-
-            @app.before_request
+        """before_request 装饰器来注册在每个请求处理之前执行的函数。这个函数通常用于在请求处理之前进行一些预处理操作，比如打开数据库连接或从会话中加载已登录的用户信息。
+        @app.before_request
             def load_user():
                 if "user_id" in session:
                     g.user = db.session.get(session["user_id"])
 
-        The function will be called without any arguments. If it returns
-        a non-``None`` value, the value is handled as if it was the
-        return value from the view, and further request handling is
-        stopped.
+        在这个例子中，使用 @app.before_request 装饰器注册了一个名为 load_user 的函数。
+
+        注册的 before_request 函数不需要接收任何参数，它会在每个请求处理之前被调用。如果这个函数返回了一个非None的值，Flask 将会将其视为视图函数的返回值并直接将其作为响应，从而终止进一步的请求处理过程。
         """
         self.before_request_funcs.setdefault(None, []).append(f)
         return f

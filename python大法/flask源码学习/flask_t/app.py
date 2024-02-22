@@ -1686,14 +1686,10 @@ class Flask(Scaffold):
         raise error
 
     def preprocess_request(self) -> t.Optional[ResponseReturnValue]:
-        """Called before the request is dispatched. Calls
-        :attr:`url_value_preprocessors` registered with the app and the
-        current blueprint (if any). Then calls :attr:`before_request_funcs`
-        registered with the app and the blueprint.
+        """在发送请求之前调用。 调用在应用程序和当前蓝图（如果有）中注册的 url_value_preprocessors。
+        然后调用在应用程序和蓝图上注册的 before_request_funcs 。
 
-        If any :meth:`before_request` handler returns a non-None value, the
-        value is handled as if it was the return value from the view, and
-        further request handling is stopped.
+         如果任何 before_request 处理程序返回非 None 值，则该值将被视为视图的返回值，并停止进一步的请求处理。
         """
 
         funcs: t.Iterable[URLValuePreprocessorCallable] = self.url_value_preprocessors[
@@ -1801,39 +1797,15 @@ class Flask(Scaffold):
         appcontext_tearing_down.send(self, exc=exc)
 
     def app_context(self) -> AppContext:
-        """Create an :class:`~flask.ctx.AppContext`. Use as a ``with``
-        block to push the context, which will make :data:`current_app`
-        point at this application.
+        """创建一个:class:`~flask.ctx.AppContext`。 用作“with”块来推送上下文，这将使 current_app 指向此应用程序。
 
-        An application context is automatically pushed by
-        :meth:`RequestContext.push() <flask.ctx.RequestContext.push>`
-        when handling a request, and when running a CLI command. Use
-        this to manually create a context outside of these situations.
-
-        ::
-
-            with app.app_context():
-                init_db()
-
-        See :doc:`/appcontext`.
-
-        .. versionadded:: 0.9
+         在处理请求和运行 CLI 命令时，RequestContext.push() <flask.ctx.RequestContext.push>` 自动推送应用程序上下文。 使用它可以在这些情况之外手动创建上下文。
         """
         return AppContext(self)
 
     def request_context(self, environ: dict) -> RequestContext:
-        """Create a :class:`~flask.ctx.RequestContext` representing a
-        WSGI environment. Use a ``with`` block to push the context,
-        which will make :data:`request` point at this request.
-
-        See :doc:`/reqcontext`.
-
-        Typically you should not call this from your own code. A request
-        context is automatically pushed by the :meth:`wsgi_app` when
-        handling a request. Use :meth:`test_request_context` to create
-        an environment and context instead of this method.
-
-        :param environ: a WSGI environment
+        """
+        :param environ: wsgi环境
         """
         return RequestContext(self, environ)
 

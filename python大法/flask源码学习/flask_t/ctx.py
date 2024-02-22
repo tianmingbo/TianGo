@@ -216,8 +216,10 @@ def has_app_context() -> bool:
 
 
 class AppContext:
-    """应用上下文（Application Context）将应用对象隐式地绑定到当前线程或greenlet上，类似于请求上下文（Request Context）绑定请求信息的方式。如果创建了请求上下文但没有创建应用上下文，那么应用上下文也会被隐式地创建。
+    """应用上下文（Application Context）将应用对象隐式地绑定到当前线程或greenlet上，类似于请求上下文（Request Context）绑定请求信息的方式。
+    如果创建了请求上下文但没有创建应用上下文，那么应用上下文也会被隐式地创建。
     应用上下文的作用是提供一个容器来保存应用级别的状态和配置信息，例如应用的配置参数、数据库连接等。它可以在整个应用程序范围内访问和共享这些数据，而不局限于单个请求。
+
     当处理请求时，应用上下文会自动创建，并且与当前的请求上下文相关联。这样，您可以在视图函数中访问应用上下文，以获取应用级别的数据。
     使用应用上下文可以确保应用对象在线程或greenlet范围内的唯一性，并提供一个可靠的方式来访问应用级别的数据，以便更好地管理和共享应用的状态和配置信息。
     """
@@ -227,12 +229,11 @@ class AppContext:
         self.url_adapter = app.create_url_adapter(None)
         self.g = app.app_ctx_globals_class()
 
-        # Like request context, app contexts can be pushed multiple times
-        # but there a basic "refcount" is enough to track them.
+        # 与请求上下文一样，应用程序上下文可以多次推送，但基本的“引用计数”足以跟踪它们。
         self._refcnt = 0
 
     def push(self) -> None:
-        """Binds the app context to the current context."""
+        """将应用程序上下文绑定到当前上下文。"""
         self._refcnt += 1
         _app_ctx_stack.push(self)
         appcontext_pushed.send(self.app)
@@ -261,7 +262,9 @@ class AppContext:
 
 
 class RequestContext:
-    """请求上下文（Request Context）包含所有与请求相关的信息。它在请求开始时创建，并被推送到`_request_ctx_stack`栈中，在请求结束时被移除。请求上下文会创建URL适配器（URL adapter）和请求对象（request object），用于处理提供的WSGI环境。
+    """请求上下文（Request Context）包含所有与请求相关的信息。它在请求开始时创建，并被推送到`_request_ctx_stack`栈中，在请求结束时被移除。
+    请求上下文会创建URL适配器（URL adapter）和请求对象（request object），用于处理提供的WSGI环境。
+
     请勿直接使用此类，而是使用`flask.Flask.test_request_context`和`flask.Flask.request_context`方法来创建该对象。
     当请求上下文被弹出时，它将评估应用程序上注册的所有“拆卸处理函数”（teardown function）（`flask.Flask.teardown_request`）进行执行。
     请求上下文会在请求结束时自动弹出。在调试模式下，如果发生异常，请求上下文将保留下来，以便交互式调试器有机会检查数据。从0.4版本开始，这也可以在没有发生异常且不处于`DEBUG`模式下强制执行。通过在WSGI环境中将`'flask._preserve_context'`设置为`True`，上下文将不会在请求结束时自动弹出。例如，`flask.Flask.test_client`方法使用这种方式来实现延迟清理功能。
@@ -287,23 +290,18 @@ class RequestContext:
         self.flashes = None
         self.session = session
 
-        # Request contexts can be pushed multiple times and interleaved with
-        # other request contexts.  Now only if the last level is popped we
-        # get rid of them.  Additionally if an application context is missing
-        # one is created implicitly so for each level we add this information
+        # 请求上下文可以被多次推送，并且可以与其他请求上下文交错使用。
+        # 只有当最后一个请求上下文被弹出时，Flask 才会将它们清除掉。
+        # 如果应用上下文缺失，Flask 会隐式地创建一个应用上下文
         self._implicit_app_ctx_stack: t.List[t.Optional["AppContext"]] = []
 
-        # indicator if the context was preserved.  Next time another context
-        # is pushed the preserved context is popped.
+        # 指示上下文是否被保留。 下次推送另一个上下文时，会弹出保留的上下文。
         self.preserved = False
 
-        # remembers the exception for pop if there is one in case the context
-        # preservation kicks in.
+        # 记住 pop 的例外情况（如果有），以防上下文保留启动。
         self._preserved_exc = None
 
-        # Functions that should be executed after the request on the response
-        # object.  These will be called before the regular "after_request"
-        # functions.
+        # 应在响应对象上发出请求后执行的函数。 这些将在常规“after_request”函数之前调用。
         self._after_request_functions: t.List[AfterRequestCallable] = []
 
     @property
@@ -345,21 +343,12 @@ class RequestContext:
             self.request.routing_exception = e
 
     def push(self) -> None:
-        """Binds the request context to the current context."""
-        # If an exception occurs in debug mode or if context preservation is
-        # activated under exception situations exactly one context stays
-        # on the stack.  The rationale is that you want to access that
-        # information under debug situations.  However if someone forgets to
-        # pop that context again we want to make sure that on the next push
-        # it's invalidated, otherwise we run at risk that something leaks
-        # memory.  This is usually only a problem in test suite since this
-        # functionality is not active in production environments.
+        """将请求上下文绑定到当前上下文。"""
         top = _request_ctx_stack.top
         if top is not None and top.preserved:
             top.pop(top._preserved_exc)
 
-        # Before we push the request context we have to ensure that there
-        # is an application context.
+        # 在推送请求上下文之前，必须确保存在应用上下文。
         app_ctx = _app_ctx_stack.top
         if app_ctx is None or app_ctx.app != self.app:
             app_ctx = self.app.app_context()

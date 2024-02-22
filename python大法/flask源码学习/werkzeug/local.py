@@ -139,7 +139,7 @@ class LocalStack(t.Generic[T]):
         """
         返回栈顶的项。如果栈为空，则返回 None
         """
-        stack = self._storage.get([])
+        stack = self._storage.get([])  # 如果_storage为空，返回[] 是默认值
         if len(stack) == 0:
             return None
 
@@ -232,7 +232,7 @@ class _ProxyLookup:
             # A C function, use partial to bind the first argument.
 
             def bind_f(instance: "LocalProxy", obj: t.Any) -> t.Callable:
-                return partial(f, obj)
+                return partial(f, obj)  # 绑定f函数的第一个参数obj
 
         else:
             # Use getattr, which will produce a bound method.
@@ -247,6 +247,15 @@ class _ProxyLookup:
         self.name = name
 
     def __get__(self, instance: "LocalProxy", owner: t.Optional[type] = None) -> t.Any:
+        """
+        __get__ 是一个特殊的方法（也称为描述符方法），在 Python 中用于实现描述符协议（Descriptor Protocol）。
+        描述符是一种类属性机制，允许你自定义类的属性访问行为。
+
+        __get__ 方法在属性获取（访问）时被调用。它接受三个参数：
+            self: 描述符实例自身。
+            instance: 要访问属性的实例对象（如果通过实例访问属性）。
+            owner: 拥有属性的类对象。
+        """
         if instance is None:
             if self.class_value is not None:
                 return self.class_value
@@ -400,9 +409,9 @@ class LocalProxy(t.Generic[T]):
                 return get_name(obj)
 
         elif callable(local):
-
             def _get_current_object() -> T:
-                return get_name(local())  # type: ignore
+                a = local()
+                return get_name(a)  # type: ignore
 
         else:
             raise TypeError(f"Don't know how to proxy '{type(local)}'.")
