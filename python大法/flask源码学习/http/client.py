@@ -196,10 +196,9 @@ class HTTPMessage(email.message.Message):
 
 
 def _read_headers(fp):
-    """Reads potential header lines into a list from a file pointer.
+    """从文件中读取headers。
 
-    Length of line is limited by _MAXLINE, and number of
-    headers is limited by _MAXHEADERS.
+     长度<_MAXLINE，数量 < _MAXHEADERS
     """
     headers = []
     while True:
@@ -215,15 +214,6 @@ def _read_headers(fp):
 
 
 def parse_headers(fp, _class=HTTPMessage):
-    """Parses only RFC2822 headers from a file pointer.
-
-    email Parser wants to see strings rather than bytes.
-    But a TextIOWrapper around self.rfile would buffer too many bytes
-    from the stream, bytes which we later need to read as bytes.
-    So we read the correct bytes here, as bytes, for email Parser
-    to parse.
-
-    """
     headers = _read_headers(fp)
     hstring = b''.join(headers).decode('iso-8859-1')
     return email.parser.Parser(_class=_class).parsestr(hstring)

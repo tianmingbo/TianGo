@@ -174,7 +174,7 @@ class WSGIRequestHandler(BaseHTTPRequestHandler):
             path_info = request_url.path
 
         path_info = url_unquote(path_info)
-
+        # 构造environ
         environ: "WSGIEnvironment" = {
             "wsgi.version": (1, 0),
             "wsgi.url_scheme": url_scheme,

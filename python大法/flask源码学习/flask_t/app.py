@@ -1907,16 +1907,8 @@ class Flask(Scaffold):
         Then you still have the original application object around and
         can continue to call methods on it.
 
-        .. versionchanged:: 0.7
-            Teardown events for the request and app contexts are called
-            even if an unhandled error occurs. Other events may not be
-            called depending on when an error occurs during dispatch.
-            See :ref:`callbacks-and-errors`.
-
-        :param environ: A WSGI environment.
-        :param start_response: A callable accepting a status code,
-            a list of headers, and an optional exception context to
-            start the response.
+        :param environ:  一个WSGI环境。
+        :param start_response: 一个可调用对象，接受一个状态码、一个头部列表和一个可选的异常上下文来开始响应。
         """
         ctx = self.request_context(environ)
         error: t.Optional[BaseException] = None
