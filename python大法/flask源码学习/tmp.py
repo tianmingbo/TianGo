@@ -1,19 +1,26 @@
-def test(q):
-    print(q)
-    return 'dfa'
+from functools import partial
+
+
+class C:
+    attr = 'test'
 
 
 class Descriptor:
+
     def __get__(self, instance, owner):
-        # 对属性的获取行为进行定制
+        a = C()
         print("Getting attribute")
-        return test
+        return partial(getattr, a)
 
 
 class MyClass:
     __getattr__ = Descriptor()
+    # def __getattr__(self, item):
+    #     print(item)
+    #     print("Getting attribute")
+    #     return getattr(C(), item)
 
 
 obj = MyClass()
-value = obj.attr  # 触发 Descriptor 的 __get__ 方法
+value = obj.attr
 print(value)
