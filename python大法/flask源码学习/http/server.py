@@ -469,14 +469,11 @@ class BaseHTTPRequestHandler(socketserver.StreamRequestHandler):
             self.wfile.write(body)
 
     def send_response(self, code, message=None):
-        """Add the response header to the headers buffer and log the
-        response code.
-
-        Also send two standard headers with the server software
-        version and the current date.
-
         """
-        self.log_request(code)
+        将响应标头添加到标头缓冲区并记录响应代码。
+        还发送两个标准标头，其中包含Server和Date。
+        """
+        self.log_request(code)  # log请求记录
         self.send_response_only(code, message)
         self.send_header('Server', self.version_string())
         self.send_header('Date', self.date_time_string())

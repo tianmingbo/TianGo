@@ -103,6 +103,7 @@ class LocalStack(t.Generic[T]):
         初始化 LocalStack 类的实例。它接受一个可选的 context_var 参数，这个参数是一个 ContextVar 实例，用于存储本地栈的数据。
         如果没有提供 context_var，则会创建一个新的 ContextVar。
         """
+        print('???')
         if context_var is None:
             context_var = ContextVar(f"werkzeug.LocalStack<{id(self)}>.storage")
 
@@ -255,6 +256,29 @@ class _ProxyLookup:
             self: 描述符实例自身。
             instance: 要访问属性的实例对象（如果通过实例访问属性）。
             owner: 拥有属性的类对象。
+
+            class C:
+                attr = 'test'
+
+            class Descriptor:
+
+                def __get__(self, instance, owner):
+                    a = C()
+                    print("Getting attribute")
+                    return partial(getattr, a)
+
+            class MyClass:
+                __getattr__ = Descriptor()
+                # def __getattr__(self, item):
+                #     print(item)
+                #     print("Getting attribute")
+                #     return getattr(C(), item)
+
+
+            obj = MyClass()
+            value = obj.attr
+            print(value)
+
         """
         if instance is None:
             if self.class_value is not None:
@@ -440,7 +464,7 @@ class LocalProxy(t.Generic[T]):
     __ge__ = _ProxyLookup(operator.ge)
     __hash__ = _ProxyLookup(hash)  # type: ignore
     __bool__ = _ProxyLookup(bool, fallback=lambda self: False)
-    __getattr__ = _ProxyLookup(getattr)
+    __getattr__ = _ProxyLookup(getattr)  # 代理了getattr
     # __getattribute__ triggered through __getattr__
     __setattr__ = _ProxyLookup(setattr)  # type: ignore
     __delattr__ = _ProxyLookup(delattr)  # type: ignore

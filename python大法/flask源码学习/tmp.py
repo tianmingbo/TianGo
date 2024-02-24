@@ -1,26 +1,24 @@
-from functools import partial
+from werkzeug.local import LocalStack
+
+# 创建一个本地堆栈对象
+my_stack = LocalStack()
 
 
-class C:
-    attr = 'test'
+# 在线程中设置变量值
+def worker():
+    my_stack.push('foo')
+    print(my_stack.top)  # 输出: foo
+    my_stack.pop()
 
 
-class Descriptor:
+# 在多个线程中调用 worker 函数
+import threading
 
-    def __get__(self, instance, owner):
-        a = C()
-        print("Getting attribute")
-        return partial(getattr, a)
+thread1 = threading.Thread(target=worker)
+thread2 = threading.Thread(target=worker)
 
+thread1.start()
+thread2.start()
 
-class MyClass:
-    __getattr__ = Descriptor()
-    # def __getattr__(self, item):
-    #     print(item)
-    #     print("Getting attribute")
-    #     return getattr(C(), item)
-
-
-obj = MyClass()
-value = obj.attr
-print(value)
+thread1.join()
+thread2.join()

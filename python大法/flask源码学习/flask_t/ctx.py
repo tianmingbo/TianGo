@@ -376,12 +376,8 @@ class RequestContext:
             self.match_request()
 
     def pop(self, exc: t.Optional[BaseException] = _sentinel) -> None:  # type: ignore
-        """Pops the request context and unbinds it by doing that.  This will
-        also trigger the execution of functions registered by the
-        :meth:`~flask.Flask.teardown_request` decorator.
-
-        .. versionchanged:: 0.9
-           Added the `exc` argument.
+        """
+        弹出请求上下文并通过这样做解除绑定。 这还将触发由 teardown_request 装饰器注册的函数的执行。
         """
         app_ctx = self._implicit_app_ctx_stack.pop()
         clear_request = False

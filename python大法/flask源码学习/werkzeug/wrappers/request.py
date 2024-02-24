@@ -302,11 +302,8 @@ class Request(_SansIORequest):
         return self.stream
 
     def close(self) -> None:
-        """Closes associated resources of this request object.  This
-        closes all file handles explicitly.  You can also use the request
-        object in a with statement which will automatically close it.
-
-        .. versionadded:: 0.9
+        """
+        关闭该请求对象的关联资源。 这将显式关闭所有文件句柄。 还可以在 with 语句中使用 request 对象，该对象会自动关闭它。
         """
         files = self.__dict__.get("files")
         for _key, value in iter_multi_items(files or ()):

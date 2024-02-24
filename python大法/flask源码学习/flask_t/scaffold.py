@@ -115,12 +115,8 @@ class Scaffold:
         # been registered.
         self.cli = AppGroup()
 
-        # A dictionary mapping endpoint names to view functions.
-        #
-        # To register a view function, use the :meth:`route` decorator.
-        #
-        # This data structure is internal. It should not be modified
-        # directly and its format may change at any time.
+        # 将端点名称映射到视图函数的字典。
+        # 要注册视图函数，请使用 route 装饰器。
         self.view_functions: t.Dict[str, t.Callable] = {}
 
         # A data structure of registered error handlers, in the format

@@ -36,11 +36,11 @@ def responder(f: t.Callable[..., "WSGIApplication"]) -> "WSGIApplication":
 
 
 def get_current_url(
-    environ: "WSGIEnvironment",
-    root_only: bool = False,
-    strip_querystring: bool = False,
-    host_only: bool = False,
-    trusted_hosts: t.Optional[t.Iterable[str]] = None,
+        environ: "WSGIEnvironment",
+        root_only: bool = False,
+        strip_querystring: bool = False,
+        host_only: bool = False,
+        trusted_hosts: t.Optional[t.Iterable[str]] = None,
 ) -> str:
     """Recreate the URL for a request from the parts in a WSGI
     environment.
@@ -74,7 +74,7 @@ def get_current_url(
 
 
 def _get_server(
-    environ: "WSGIEnvironment",
+        environ: "WSGIEnvironment",
 ) -> t.Optional[t.Tuple[str, t.Optional[int]]]:
     name = environ.get("SERVER_NAME")
 
@@ -91,7 +91,7 @@ def _get_server(
 
 
 def get_host(
-    environ: "WSGIEnvironment", trusted_hosts: t.Optional[t.Iterable[str]] = None
+        environ: "WSGIEnvironment", trusted_hosts: t.Optional[t.Iterable[str]] = None
 ) -> str:
     """Return the host for the given WSGI environment.
 
@@ -134,7 +134,7 @@ def get_content_length(environ: "WSGIEnvironment") -> t.Optional[int]:
 
 
 def get_input_stream(
-    environ: "WSGIEnvironment", safe_fallback: bool = True
+        environ: "WSGIEnvironment", safe_fallback: bool = True
 ) -> t.IO[bytes]:
     """Returns the input stream from the WSGI environment and wraps it
     in the most sensible way possible. The stream returned is not the
@@ -196,7 +196,7 @@ def get_query_string(environ: "WSGIEnvironment") -> str:
 
 
 def get_path_info(
-    environ: "WSGIEnvironment", charset: str = "utf-8", errors: str = "replace"
+        environ: "WSGIEnvironment", charset: str = "utf-8", errors: str = "replace"
 ) -> str:
     """Return the ``PATH_INFO`` from the WSGI environment and decode it
     unless ``charset`` is ``None``.
@@ -213,7 +213,7 @@ def get_path_info(
 
 
 def get_script_name(
-    environ: "WSGIEnvironment", charset: str = "utf-8", errors: str = "replace"
+        environ: "WSGIEnvironment", charset: str = "utf-8", errors: str = "replace"
 ) -> str:
     """Return the ``SCRIPT_NAME`` from the WSGI environment and decode
     it unless `charset` is set to ``None``.
@@ -238,7 +238,7 @@ def get_script_name(
 
 
 def pop_path_info(
-    environ: "WSGIEnvironment", charset: str = "utf-8", errors: str = "replace"
+        environ: "WSGIEnvironment", charset: str = "utf-8", errors: str = "replace"
 ) -> t.Optional[str]:
     """Removes and returns the next segment of `PATH_INFO`, pushing it onto
     `SCRIPT_NAME`.  Returns `None` if there is nothing left on `PATH_INFO`.
@@ -305,7 +305,7 @@ def pop_path_info(
 
 
 def peek_path_info(
-    environ: "WSGIEnvironment", charset: str = "utf-8", errors: str = "replace"
+        environ: "WSGIEnvironment", charset: str = "utf-8", errors: str = "replace"
 ) -> t.Optional[str]:
     """Returns the next segment on the `PATH_INFO` or `None` if there
     is none.  Works like :func:`pop_path_info` without modifying the
@@ -345,11 +345,11 @@ def peek_path_info(
 
 
 def extract_path_info(
-    environ_or_baseurl: t.Union[str, "WSGIEnvironment"],
-    path_or_url: t.Union[str, _URLTuple],
-    charset: str = "utf-8",
-    errors: str = "werkzeug.url_quote",
-    collapse_http_schemes: bool = True,
+        environ_or_baseurl: t.Union[str, "WSGIEnvironment"],
+        path_or_url: t.Union[str, _URLTuple],
+        charset: str = "utf-8",
+        errors: str = "werkzeug.url_quote",
+        collapse_http_schemes: bool = True,
 ) -> t.Optional[str]:
     """Extracts the path info from the given URL (or WSGI environment) and
     path. The path info returned is a string. The URLs might also be IRIs.
@@ -406,7 +406,7 @@ def extract_path_info(
         if len(parts) == 2:
             netloc, port = parts
             if (scheme == "http" and port == "80") or (
-                scheme == "https" and port == "443"
+                    scheme == "https" and port == "443"
             ):
                 port = None
         else:
@@ -448,24 +448,20 @@ def extract_path_info(
     if not cur_path.startswith(base_path):
         return None
 
-    return f"/{cur_path[len(base_path) :].lstrip('/')}"
+    return f"/{cur_path[len(base_path):].lstrip('/')}"
 
 
 class ClosingIterator:
-    """The WSGI specification requires that all middlewares and gateways
-    respect the `close` callback of the iterable returned by the application.
-    Because it is useful to add another close action to a returned iterable
-    and adding a custom iterable is a boring task this class can be used for
-    that::
+    """
+    WSGI协议要求：
+    如果应用程序返回的可迭代对象具有方法，则服务器或网关必须在当前请求完成时调用该 close() 方法，无论请求是正常完成，还是由于迭代过程中的应用程序错误或浏览器的提前断开连接而提前终止。
 
         return ClosingIterator(app(environ, start_response), [cleanup_session,
                                                               cleanup_locals])
 
-    If there is just one close function it can be passed instead of the list.
+    如果只有一个关闭函数，则可以传递它而不是列表。
 
-    A closing iterator is not needed if the application uses response objects
-    and finishes the processing if the response is started::
-
+    如果自己清理，则不需要走这里：
         try:
             return response(environ, start_response)
         finally:
@@ -474,11 +470,11 @@ class ClosingIterator:
     """
 
     def __init__(
-        self,
-        iterable: t.Iterable[bytes],
-        callbacks: t.Optional[
-            t.Union[t.Callable[[], None], t.Iterable[t.Callable[[], None]]]
-        ] = None,
+            self,
+            iterable: t.Iterable[bytes],
+            callbacks: t.Optional[
+                t.Union[t.Callable[[], None], t.Iterable[t.Callable[[], None]]]
+            ] = None,
     ) -> None:
         iterator = iter(iterable)
         self._next = t.cast(t.Callable[[], bytes], partial(next, iterator))
@@ -505,7 +501,7 @@ class ClosingIterator:
 
 
 def wrap_file(
-    environ: "WSGIEnvironment", file: t.IO[bytes], buffer_size: int = 8192
+        environ: "WSGIEnvironment", file: t.IO[bytes], buffer_size: int = 8192
 ) -> t.Iterable[bytes]:
     """Wraps a file.  This uses the WSGI server's file wrapper if available
     or otherwise the generic :class:`FileWrapper`.
@@ -597,10 +593,10 @@ class _RangeWrapper:
     """
 
     def __init__(
-        self,
-        iterable: t.Union[t.Iterable[bytes], t.IO[bytes]],
-        start_byte: int = 0,
-        byte_range: t.Optional[int] = None,
+            self,
+            iterable: t.Union[t.Iterable[bytes], t.IO[bytes]],
+            start_byte: int = 0,
+            byte_range: t.Optional[int] = None,
     ):
         self.iterable = iter(iterable)
         self.byte_range = byte_range
@@ -636,7 +632,7 @@ class _RangeWrapper:
             while self.read_length <= self.start_byte:
                 chunk = self._next_chunk()
             if chunk is not None:
-                chunk = chunk[self.start_byte - self.read_length :]
+                chunk = chunk[self.start_byte - self.read_length:]
             contextual_read_length = self.start_byte
         return chunk, contextual_read_length
 
@@ -667,9 +663,9 @@ class _RangeWrapper:
 
 
 def _make_chunk_iter(
-    stream: t.Union[t.Iterable[bytes], t.IO[bytes]],
-    limit: t.Optional[int],
-    buffer_size: int,
+        stream: t.Union[t.Iterable[bytes], t.IO[bytes]],
+        limit: t.Optional[int],
+        buffer_size: int,
 ) -> t.Iterator[bytes]:
     """Helper for the line and chunk iter functions."""
     if isinstance(stream, (bytes, bytearray, str)):
@@ -693,10 +689,10 @@ def _make_chunk_iter(
 
 
 def make_line_iter(
-    stream: t.Union[t.Iterable[bytes], t.IO[bytes]],
-    limit: t.Optional[int] = None,
-    buffer_size: int = 10 * 1024,
-    cap_at_buffer: bool = False,
+        stream: t.Union[t.Iterable[bytes], t.IO[bytes]],
+        limit: t.Optional[int] = None,
+        buffer_size: int = 10 * 1024,
+        cap_at_buffer: bool = False,
 ) -> t.Iterator[bytes]:
     """Safely iterates line-based over an input stream.  If the input stream
     is not a :class:`LimitedStream` the `limit` parameter is mandatory.
@@ -753,7 +749,7 @@ def make_line_iter(
             new_buf: t.List[bytes] = []
             buf_size = 0
             for item in t.cast(
-                t.Iterator[bytes], chain(buffer, new_data.splitlines(True))
+                    t.Iterator[bytes], chain(buffer, new_data.splitlines(True))
             ):
                 new_buf.append(item)
                 buf_size += len(item)
@@ -785,11 +781,11 @@ def make_line_iter(
 
 
 def make_chunk_iter(
-    stream: t.Union[t.Iterable[bytes], t.IO[bytes]],
-    separator: bytes,
-    limit: t.Optional[int] = None,
-    buffer_size: int = 10 * 1024,
-    cap_at_buffer: bool = False,
+        stream: t.Union[t.Iterable[bytes], t.IO[bytes]],
+        separator: bytes,
+        limit: t.Optional[int] = None,
+        buffer_size: int = 10 * 1024,
+        cap_at_buffer: bool = False,
 ) -> t.Iterator[bytes]:
     """Works like :func:`make_line_iter` but accepts a separator
     which divides chunks.  If you want newline based processing

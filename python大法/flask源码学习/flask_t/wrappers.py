@@ -105,26 +105,11 @@ class Request(RequestBase):
 
 
 class Response(ResponseBase):
-    """The response object that is used by default in Flask.  Works like the
-    response object from Werkzeug but is set to have an HTML mimetype by
-    default.  Quite often you don't have to create this object yourself because
-    :meth:`~flask.Flask.make_response` will take care of that for you.
-
-    If you want to replace the response object used you can subclass this and
-    set :attr:`~flask.Flask.response_class` to your subclass.
-
-    .. versionchanged:: 1.0
-        JSON support is added to the response, like the request. This is useful
-        when testing to get the test client response data as JSON.
-
-    .. versionchanged:: 1.0
-
-        Added :attr:`max_cookie_size`.
+    """
+    Flask 默认使用的响应对象。默认mimetype为text/html
     """
 
     default_mimetype = "text/html"
-
-    json_module = json
 
     @property
     def max_cookie_size(self) -> int:  # type: ignore

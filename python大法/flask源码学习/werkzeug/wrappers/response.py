@@ -1,5 +1,4 @@
 import json
-import typing
 import typing as t
 import warnings
 from http import HTTPStatus
@@ -65,97 +64,46 @@ def _clean_accept_ranges(accept_ranges: t.Union[bool, str]) -> str:
 
 
 class Response(_SansIOResponse):
-    """Represents an outgoing WSGI HTTP response with body, status, and
-    headers. Has properties and methods for using the functionality
-    defined by various HTTP specs.
+    """
+    表示具有正文、状态和标头的即将发送的 WSGI HTTP 响应。具有用于使用各种 HTTP 规范定义的功能的属性和方法。
+    响应正文是灵活的，以支持不同的用例。简单形式是传递字节码或字符串，它将被编码为 UTF-8。
+    传递字节或字符串的可迭代对象会使其成为流式响应。生成器特别适用于在内存中构建 CSV 文件或使用 SSE（服务器发送事件）。类文件对象也是可迭代的，尽管在这种情况下应该使用 :func:`~werkzeug.utils.send_file` 辅助函数。
 
-    The response body is flexible to support different use cases. The
-    simple form is passing bytes, or a string which will be encoded as
-    UTF-8. Passing an iterable of bytes or strings makes this a
-    streaming response. A generator is particularly useful for building
-    a CSV file in memory or using SSE (Server Sent Events). A file-like
-    object is also iterable, although the
-    :func:`~werkzeug.utils.send_file` helper should be used in that
-    case.
+    响应对象本身是一个 WSGI 应用程序可调用对象。当调用 (:meth:`__call__`) 时使用 ``environ`` 和 ``start_response``，它将传递其状态和标头到 ``start_response`` 然后将其正文作为一个可迭代对象返回。
 
-    The response object is itself a WSGI application callable. When
-    called (:meth:`__call__`) with ``environ`` and ``start_response``,
-    it will pass its status and headers to ``start_response`` then
-    return its body as an iterable.
+.. code-block:: python
 
-    .. code-block:: python
+    from werkzeug.wrappers.response import Response
 
-        from werkzeug.wrappers.response import Response
+    def index():
+        return Response("Hello, World!")
 
-        def index():
-            return Response("Hello, World!")
+    def application(environ, start_response):
+        path = environ.get("PATH_INFO") or "/"
 
-        def application(environ, start_response):
-            path = environ.get("PATH_INFO") or "/"
+        if path == "/":
+            response = index()
+        else:
+            response = Response("Not Found", status=404)
 
-            if path == "/":
-                response = index()
-            else:
-                response = Response("Not Found", status=404)
+        return response(environ, start_response)
 
-            return response(environ, start_response)
+    :param response: 响应体的数据。字符串或字节，或者字符串或字节的元组或列表，用于表示固定长度的响应，或者任何其他的字符串或字节的可迭代对象用于表示流式响应。默认为空正文。
+    :param status: 响应的状态码。可以是整数，此时默认状态消息将被添加；或者是形式为``{code} {message}``的字符串，如``404 Not Found``。默认为 200。
+    :param headers: 一个 :class:`~werkzeug.datastructures.Headers` 对象，或者一个将被转换成``Headers``对象的``(key, value)``元组列表。
+    :param mimetype: 响应的媒体类型（不包括字符集或其他参数）。如果该值以 ``text/`` 开头（或者匹配其他一些特殊情况），字符集将被添加以创建``content_type``。
+    :param content_type: 响应的完整内容类型。覆盖从``mimetype``构建值。
+    :param direct_passthrough: 直接通过响应正文作为 WSGI 可迭代对象。当正文是二进制文件或其他字节迭代器时，可以跳过一些不必要的检查。在手动设置此选项之前，应使用 :func:`~werkzeug.utils.send_file`。
 
-    :param response: The data for the body of the response. A string or
-        bytes, or tuple or list of strings or bytes, for a fixed-length
-        response, or any other iterable of strings or bytes for a
-        streaming response. Defaults to an empty body.
-    :param status: The status code for the response. Either an int, in
-        which case the default status message is added, or a string in
-        the form ``{code} {message}``, like ``404 Not Found``. Defaults
-        to 200.
-    :param headers: A :class:`~werkzeug.datastructures.Headers` object,
-        or a list of ``(key, value)`` tuples that will be converted to a
-        ``Headers`` object.
-    :param mimetype: The mime type (content type without charset or
-        other parameters) of the response. If the value starts with
-        ``text/`` (or matches some other special cases), the charset
-        will be added to create the ``content_type``.
-    :param content_type: The full content type of the response.
-        Overrides building the value from ``mimetype``.
-    :param direct_passthrough: Pass the response body directly through
-        as the WSGI iterable. This can be used when the body is a binary
-        file or other iterator of bytes, to skip some unnecessary
-        checks. Use :func:`~werkzeug.utils.send_file` instead of setting
-        this manually.
-
-    .. versionchanged:: 2.0
-        Combine ``BaseResponse`` and mixins into a single ``Response``
-        class. Using the old classes is deprecated and will be removed
-        in Werkzeug 2.1.
-
-    .. versionchanged:: 0.5
-        The ``direct_passthrough`` parameter was added.
     """
 
-    # if set to `False` accessing properties on the response object will
-    # not try to consume the response iterator and convert it into a list.
-    #
-    # .. versionadded:: 0.6.2
-    #
-    #    That attribute was previously called `implicit_seqence_conversion`.
-    #    (Notice the typo).  If you did use this feature, you have to adapt
-    #    your code to the name change.
+    # 是否在访问响应对象的属性时尝试消费响应的迭代器并将其转换为列表。
     implicit_sequence_conversion = True
 
-    # If a redirect ``Location`` header is a relative URL, make it an
-    # absolute URL, including scheme and domain.
-    #
-    # .. versionchanged:: 2.1
-    #     This is disabled by default, so responses will send relative
-    #     redirects.
-    #
-    # .. versionadded:: 0.8
+    # 如果重定向“Location”标头是相对 URL，将其设为绝对 URL，包括schema和domain。
     autocorrect_location_header = False
 
-    # Should this response object automatically set the content-length
-    # header if possible?  This is true by default.
-    #
-    # .. versionadded:: 0.8
+    # 响应是否应该自动设置content-length?
     automatically_set_content_length = True
 
     # The response body to send as the WSGI iterable. A list of strings
@@ -290,14 +238,6 @@ class Response(_SansIOResponse):
 
         return cls(*run_wsgi_app(app, environ, buffered))
 
-    @typing.overload
-    def get_data(self, as_text: "te.Literal[False]" = False) -> bytes:
-        ...
-
-    @typing.overload
-    def get_data(self, as_text: "te.Literal[True]") -> str:
-        ...
-
     def get_data(self, as_text: bool = False) -> t.Union[bytes, str]:
         """The string representation of the response body.  Whenever you call
         this property the response iterable is encoded and flattened.  This
@@ -320,14 +260,9 @@ class Response(_SansIOResponse):
         return rv
 
     def set_data(self, value: t.Union[bytes, str]) -> None:
-        """Sets a new string as response.  The value must be a string or
-        bytes. If a string is set it's encoded to the charset of the
-        response (utf-8 by default).
-
-        .. versionadded:: 0.9
         """
-        # if a string is set, it's encoded directly so that we
-        # can set the content length
+        字符串encode
+        """
         if isinstance(value, str):
             value = value.encode(self.charset)
         else:
@@ -393,16 +328,11 @@ class Response(_SansIOResponse):
                 self.call_on_close(close)
 
     def iter_encoded(self) -> t.Iterator[bytes]:
-        """Iter the response encoded with the encoding of the response.
-        If the response object is invoked as WSGI application the return
-        value of this method is used as application iterator unless
-        :attr:`direct_passthrough` was activated.
+        """
+        返回一个生成器
         """
         if __debug__:
             _warn_if_string(self.response)
-        # Encode in a separate function so that self.response is fetched
-        # early.  This allows us to wrap the response with the return
-        # value from get_app_iter or iter_encoded.
         return _iter_encoded(self.response, self.charset)
 
     @property
@@ -476,28 +406,8 @@ class Response(_SansIOResponse):
         self.add_etag()
 
     def get_wsgi_headers(self, environ: "WSGIEnvironment") -> Headers:
-        """This is automatically called right before the response is started
-        and returns headers modified for the given environment.  It returns a
-        copy of the headers from the response with some modifications applied
-        if necessary.
-
-        For example the location header (if present) is joined with the root
-        URL of the environment.  Also the content length is automatically set
-        to zero here for certain status codes.
-
-        .. versionchanged:: 0.6
-           Previously that function was called `fix_headers` and modified
-           the response object in place.  Also since 0.6, IRIs in location
-           and content-location headers are handled properly.
-
-           Also starting with 0.6, Werkzeug will attempt to set the content
-           length if it is able to figure it out on its own.  This is the
-           case if all the strings in the response iterable are already
-           encoded and the iterable is buffered.
-
-        :param environ: the WSGI environment of the request.
-        :return: returns a new :class:`~werkzeug.datastructures.Headers`
-                 object.
+        """
+        在响应开始之前自动调用，并返回针对给定环境修改的headers。 它从响应中返回标头的副本，并在必要时应用一些修改。
         """
         headers = Headers(self.headers)
         location: t.Optional[str] = None
@@ -569,18 +479,9 @@ class Response(_SansIOResponse):
         return headers
 
     def get_app_iter(self, environ: "WSGIEnvironment") -> t.Iterable[bytes]:
-        """Returns the application iterator for the given environ.  Depending
-        on the request method and the current status code the return value
-        might be an empty response rather than the one from the response.
-
-        If the request method is `HEAD` or the status code is in a range
-        where the HTTP specification requires an empty response, an empty
-        iterable is returned.
-
-        .. versionadded:: 0.6
-
-        :param environ: the WSGI environment of the request.
-        :return: a response iterable.
+        """
+        返回给定环境的应用程序迭代器。 根据请求方法和当前状态代码，返回值可能是空响应，而不是来自响应的响应。
+         如果请求方法是“HEAD”或者状态代码处于 HTTP 规范要求空响应的范围内，则返回空的可迭代对象。
         """
         status = self.status_code
         if (
@@ -600,17 +501,9 @@ class Response(_SansIOResponse):
     def get_wsgi_response(
             self, environ: "WSGIEnvironment"
     ) -> t.Tuple[t.Iterable[bytes], str, t.List[t.Tuple[str, str]]]:
-        """Returns the final WSGI response as tuple.  The first item in
-        the tuple is the application iterator, the second the status and
-        the third the list of headers.  The response returned is created
-        specially for the given environment.  For example if the request
-        method in the WSGI environment is ``'HEAD'`` the response will
-        be empty and only the headers and status code will be present.
-
-        .. versionadded:: 0.6
-
-        :param environ: the WSGI environment of the request.
-        :return: an ``(app_iter, status, headers)`` tuple.
+        """
+        以元组形式返回最终的 WSGI 响应。 元组中的第一项是应用程序迭代器，第二项是状态，第三项是标头列表。
+        返回的响应是专门为给定环境创建的。 例如，如果 WSGI 环境中的请求方法是“HEAD”，则响应将为空，并且仅存在标头和状态代码。
         """
         headers = self.get_wsgi_headers(environ)
         app_iter = self.get_app_iter(environ)
@@ -619,12 +512,11 @@ class Response(_SansIOResponse):
     def __call__(
             self, environ: "WSGIEnvironment", start_response: "StartResponse"
     ) -> t.Iterable[bytes]:
-        """Process this response as WSGI application.
+        """将此响应作为 WSGI 应用程序进行处理。
 
-        :param environ: the WSGI environment.
-        :param start_response: the response callable provided by the WSGI
-                               server.
-        :return: an application iterator
+         :param environ: WSGI 环境。
+         :param start_response: WSGI 服务器提供的可调用响应。
+         :return: 一个应用迭代器
         """
         app_iter, status, headers = self.get_wsgi_response(environ)
         start_response(status, headers)

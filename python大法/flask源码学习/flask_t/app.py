@@ -1342,21 +1342,14 @@ class Flask(Scaffold):
         raise FormDataRoutingRedirect(request)
 
     def dispatch_request(self) -> ResponseReturnValue:
-        """Does the request dispatching.  Matches the URL and returns the
-        return value of the view or error handler.  This does not have to
-        be a response object.  In order to convert the return value to a
-        proper response object, call :func:`make_response`.
-
-        .. versionchanged:: 0.7
-           This no longer does the exception handling, this code was
-           moved to the new :meth:`full_dispatch_request`.
+        """请求的分发工作，根据 URL 规则匹配找到对应的视图函数，并将请求参数传递给视图函数执行处理。
         """
         req = _request_ctx_stack.top.request
         if req.routing_exception is not None:
             self.raise_routing_exception(req)
         rule = req.url_rule
-        # if we provide automatic options for this URL and the
-        # request came with the OPTIONS method, reply automatically
+        # 根据规则决定是否提供自动响应选项，
+        # 如果请求使用 OPTIONS 方法，并且为该 URL 提供自动响应选项，则返回默认的 OPTIONS 响应
         if (
                 getattr(rule, "provide_automatic_options", False)
                 and req.method == "OPTIONS"
@@ -1387,17 +1380,9 @@ class Flask(Scaffold):
             rv: t.Union[ResponseReturnValue, HTTPException],
             from_error_handler: bool = False,
     ) -> Response:
-        """Given the return value from a view function this finalizes
-        the request by converting it into a response and invoking the
-        postprocessing functions.  This is invoked for both normal
-        request dispatching as well as error handlers.
-
-        Because this means that it might be called as a result of a
-        failure a special safe mode is available which can be enabled
-        with the `from_error_handler` flag.  If enabled, failures in
-        response processing will be logged and otherwise ignored.
-
-        :internal:
+        """
+        用于将视图函数的返回值或 HTTP 异常转换为响应对象，并进行最终的处理。
+        这包括对响应对象的附加处理操作，发送请求完成的信号，并处理异常情况
         """
         response = self.make_response(rv)
         try:
@@ -1451,13 +1436,9 @@ class Flask(Scaffold):
         return False
 
     def ensure_sync(self, func: t.Callable) -> t.Callable:
-        """Ensure that the function is synchronous for WSGI workers.
-        Plain ``def`` functions are returned as-is. ``async def``
-        functions are wrapped to run and wait for the response.
-
-        Override this method to change how the app runs async views.
-
-        .. versionadded:: 2.0
+        """
+        如果 func 是普通的同步函数（plain def 函数），则直接返回该函数本身，不做任何修改。
+        如果 func 是异步函数（async def 函数），则通过 async_to_sync 方法将其包装，以便在运行和等待响应时适应异步函数的特性。
         """
         if iscoroutinefunction(func):
             return self.async_to_sync(func)
@@ -1495,64 +1476,36 @@ class Flask(Scaffold):
         return asgiref_async_to_sync(func)
 
     def make_response(self, rv: ResponseReturnValue) -> Response:
-        """Convert the return value from a view function to an instance of
-        :attr:`response_class`.
+        """
+        接受视图函数的返回值作为参数，然后根据不同类型的返回值进行相应的处理，最终将其转换为一个响应对象并返回。
+        必须返回Response对象。
+        可以是：
+            str：将字符串编码为 UTF-8 后作为响应对象的正文内容。
+            bytes：直接作为响应对象的正文内容。
+            dict：将字典转换为 JSON 格式后作为响应对象的正文内容。
+            tuple：可以是 (body, status, headers)、(body, status) 或 (body, headers) 的形式，分别表示响应对象的主体内容、状态码和响应头。
 
-        :param rv: the return value from the view function. The view function
-            must return a response. Returning ``None``, or the view ending
-            without returning, is not allowed. The following types are allowed
-            for ``view_rv``:
-
-            ``str``
-                A response object is created with the string encoded to UTF-8
-                as the body.
-
-            ``bytes``
-                A response object is created with the bytes as the body.
-
-            ``dict``
-                A dictionary that will be jsonify'd before being returned.
-
-            ``tuple``
-                Either ``(body, status, headers)``, ``(body, status)``, or
-                ``(body, headers)``, where ``body`` is any of the other types
-                allowed here, ``status`` is a string or an integer, and
-                ``headers`` is a dictionary or a list of ``(key, value)``
-                tuples. If ``body`` is a :attr:`response_class` instance,
-                ``status`` overwrites the exiting value and ``headers`` are
-                extended.
-
-            :attr:`response_class`
-                The object is returned unchanged.
-
-            other :class:`~werkzeug.wrappers.Response` class
-                The object is coerced to :attr:`response_class`.
-
-            :func:`callable`
-                The function is called as a WSGI application. The result is
-                used to create a response object.
-
-        .. versionchanged:: 0.9
-           Previously a tuple was interpreted as the arguments for the
-           response object.
+            :attr:`response_class`：原样返回
+            :class:`~werkzeug.wrappers.Response`：强制转换为Response
+            :func:`callable`：该函数被称为 WSGI 应用程序。 结果用于创建响应对象。
         """
 
         status = headers = None
 
-        # unpack tuple returns
+        # 解包tuple
         if isinstance(rv, tuple):
             len_rv = len(rv)
 
-            # a 3-tuple is unpacked directly
+            # 3元组直接解包
             if len_rv == 3:
                 rv, status, headers = rv
-            # decide if a 2-tuple has status or headers
+            # 确定 2 元组是否有状态或标头
             elif len_rv == 2:
                 if isinstance(rv[1], (Headers, dict, tuple, list)):
                     rv, headers = rv
                 else:
                     rv, status = rv
-            # other sized tuples are not allowed
+            # 其它情况，抛出异常
             else:
                 raise TypeError(
                     "The view function did not return a valid response tuple."
@@ -1560,7 +1513,7 @@ class Flask(Scaffold):
                     " (body, status), or (body, headers)."
                 )
 
-        # the body must not be None
+        # body不能为空
         if rv is None:
             raise TypeError(
                 f"The view function for {request.endpoint!r} did not"
@@ -1571,9 +1524,6 @@ class Flask(Scaffold):
         # make sure the body is an instance of the response class
         if not isinstance(rv, self.response_class):
             if isinstance(rv, (str, bytes, bytearray)):
-                # let the response class set the status and headers instead of
-                # waiting to do it manually, so that the class can handle any
-                # special logic
                 rv = self.response_class(rv, status=status, headers=headers)
                 status = headers = None
             elif isinstance(rv, dict):
@@ -1713,17 +1663,8 @@ class Flask(Scaffold):
         return None
 
     def process_response(self, response: Response) -> Response:
-        """Can be overridden in order to modify the response object
-        before it's sent to the WSGI server.  By default this will
-        call all the :meth:`after_request` decorated functions.
-
-        .. versionchanged:: 0.5
-           As of Flask 0.5 the functions registered for after request
-           execution are called in reverse order of registration.
-
-        :param response: a :attr:`response_class` object.
-        :return: a new response object or the same, has to be an
-                 instance of :attr:`response_class`.
+        """
+        调用所有的_after_request_functions
         """
         ctx = _request_ctx_stack.top
         funcs: t.Iterable[AfterRequestCallable] = ctx._after_request_functions
@@ -1741,25 +1682,8 @@ class Flask(Scaffold):
     def do_teardown_request(
             self, exc: t.Optional[BaseException] = _sentinel  # type: ignore
     ) -> None:
-        """Called after the request is dispatched and the response is
-        returned, right before the request context is popped.
-
-        This calls all functions decorated with
-        :meth:`teardown_request`, and :meth:`Blueprint.teardown_request`
-        if a blueprint handled the request. Finally, the
-        :data:`request_tearing_down` signal is sent.
-
-        This is called by
-        :meth:`RequestContext.pop() <flask.ctx.RequestContext.pop>`,
-        which may be delayed during testing to maintain access to
-        resources.
-
-        :param exc: An unhandled exception raised while dispatching the
-            request. Detected from the current exception information if
-            not passed. Passed to each teardown function.
-
-        .. versionchanged:: 0.9
-            Added the ``exc`` argument.
+        """
+        在分发请求并返回响应之后、弹出请求上下文之前调用。
         """
         if exc is _sentinel:
             exc = sys.exc_info()[1]

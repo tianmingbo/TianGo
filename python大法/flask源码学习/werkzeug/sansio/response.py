@@ -45,10 +45,10 @@ def _set_property(name: str, doc: t.Optional[str] = None) -> property:
         return parse_set_header(self.headers.get(name), on_update)
 
     def fset(
-        self: "Response",
-        value: t.Optional[
-            t.Union[str, t.Dict[str, t.Union[str, int]], t.Iterable[str]]
-        ],
+            self: "Response",
+            value: t.Optional[
+                t.Union[str, t.Dict[str, t.Union[str, int]], t.Iterable[str]]
+            ],
     ) -> None:
         if not value:
             del self.headers[name]
@@ -61,63 +61,32 @@ def _set_property(name: str, doc: t.Optional[str] = None) -> property:
 
 
 class Response:
-    """Represents the non-IO parts of an HTTP response, specifically the
-    status and headers but not the body.
-
-    This class is not meant for general use. It should only be used when
-    implementing WSGI, ASGI, or another HTTP application spec. Werkzeug
-    provides a WSGI implementation at :cls:`werkzeug.wrappers.Response`.
-
-    :param status: The status code for the response. Either an int, in
-        which case the default status message is added, or a string in
-        the form ``{code} {message}``, like ``404 Not Found``. Defaults
-        to 200.
-    :param headers: A :class:`~werkzeug.datastructures.Headers` object,
-        or a list of ``(key, value)`` tuples that will be converted to a
-        ``Headers`` object.
-    :param mimetype: The mime type (content type without charset or
-        other parameters) of the response. If the value starts with
-        ``text/`` (or matches some other special cases), the charset
-        will be added to create the ``content_type``.
-    :param content_type: The full content type of the response.
-        Overrides building the value from ``mimetype``.
-
-    .. versionadded:: 2.0
-    """
-
     # the charset of the response.
     charset = "utf-8"
 
-    # the default status if none is provided.
+    # 默认200
     default_status = 200
 
-    # the default mimetype if none is provided.
+    # 默认text/plain
     default_mimetype: t.Optional[str] = "text/plain"
 
-    # Warn if a cookie header exceeds this size. The default, 4093, should be
-    # safely `supported by most browsers <cookie_>`_. A cookie larger than
-    # this size will still be sent, but it may be ignored or handled
-    # incorrectly by some browsers. Set to 0 to disable this check.
-    #
-    # .. versionadded:: 0.13
-    #
-    # .. _`cookie`: http://browsercookielimits.squawky.net/
+    # cookie标头设置为4093，超过这个值，某些浏览器可能会有问题
     max_cookie_size = 4093
 
     # A :class:`Headers` object representing the response headers.
     headers: Headers
 
     def __init__(
-        self,
-        status: t.Optional[t.Union[int, str, HTTPStatus]] = None,
-        headers: t.Optional[
-            t.Union[
-                t.Mapping[str, t.Union[str, int, t.Iterable[t.Union[str, int]]]],
-                t.Iterable[t.Tuple[str, t.Union[str, int]]],
-            ]
-        ] = None,
-        mimetype: t.Optional[str] = None,
-        content_type: t.Optional[str] = None,
+            self,
+            status: t.Optional[t.Union[int, str, HTTPStatus]] = None,
+            headers: t.Optional[
+                t.Union[
+                    t.Mapping[str, t.Union[str, int, t.Iterable[t.Union[str, int]]]],
+                    t.Iterable[t.Tuple[str, t.Union[str, int]]],
+                ]
+            ] = None,
+            mimetype: t.Optional[str] = None,
+            content_type: t.Optional[str] = None,
     ) -> None:
         if isinstance(headers, Headers):
             self.headers = headers
@@ -190,16 +159,16 @@ class Response:
         return status, status_code
 
     def set_cookie(
-        self,
-        key: str,
-        value: str = "",
-        max_age: t.Optional[t.Union[timedelta, int]] = None,
-        expires: t.Optional[t.Union[str, datetime, int, float]] = None,
-        path: t.Optional[str] = "/",
-        domain: t.Optional[str] = None,
-        secure: bool = False,
-        httponly: bool = False,
-        samesite: t.Optional[str] = None,
+            self,
+            key: str,
+            value: str = "",
+            max_age: t.Optional[t.Union[timedelta, int]] = None,
+            expires: t.Optional[t.Union[str, datetime, int, float]] = None,
+            path: t.Optional[str] = "/",
+            domain: t.Optional[str] = None,
+            secure: bool = False,
+            httponly: bool = False,
+            samesite: t.Optional[str] = None,
     ) -> None:
         """Sets a cookie.
 
@@ -243,13 +212,13 @@ class Response:
         )
 
     def delete_cookie(
-        self,
-        key: str,
-        path: str = "/",
-        domain: t.Optional[str] = None,
-        secure: bool = False,
-        httponly: bool = False,
-        samesite: t.Optional[str] = None,
+            self,
+            key: str,
+            path: str = "/",
+            domain: t.Optional[str] = None,
+            secure: bool = False,
+            httponly: bool = False,
+            samesite: t.Optional[str] = None,
     ) -> None:
         """Delete a cookie.  Fails silently if key doesn't exist.
 
@@ -282,9 +251,9 @@ class Response:
         """
         mt = self.mimetype
         return mt is not None and (
-            mt == "application/json"
-            or mt.startswith("application/")
-            and mt.endswith("+json")
+                mt == "application/json"
+                or mt.startswith("application/")
+                and mt.endswith("+json")
         )
 
     # Common Descriptors
@@ -590,7 +559,7 @@ class Response:
 
     @content_security_policy.setter
     def content_security_policy(
-        self, value: t.Optional[t.Union[ContentSecurityPolicy, str]]
+            self, value: t.Optional[t.Union[ContentSecurityPolicy, str]]
     ) -> None:
         if not value:
             del self.headers["content-security-policy"]
@@ -625,7 +594,7 @@ class Response:
 
     @content_security_policy_report_only.setter
     def content_security_policy_report_only(
-        self, value: t.Optional[t.Union[ContentSecurityPolicy, str]]
+            self, value: t.Optional[t.Union[ContentSecurityPolicy, str]]
     ) -> None:
         if not value:
             del self.headers["content-security-policy-report-only"]
