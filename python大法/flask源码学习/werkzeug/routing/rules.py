@@ -22,6 +22,7 @@ class Weighting(t.NamedTuple):
     argument_weights: t.List[int]
 
 
+# 数据类，类似java record
 @dataclass
 class RulePart:
     """A part of a rule.
@@ -43,18 +44,18 @@ class RulePart:
 _part_re = re.compile(
     r"""
     (?:
-        (?P<slash>\/)                                 # a slash
+        (?P<slash>\/)                                 # 匹配斜杠 /，并将其命名为 slash。
       |
-        (?P<static>[^<\/]+)                           # static rule data
+        (?P<static>[^<\/]+)                           # 匹配不包含 < 和 / 的连续字符，将其命名为 static，用于匹配静态规则数据。
       |
         (?:
           <
             (?:
-              (?P<converter>[a-zA-Z_][a-zA-Z0-9_]*)   # converter name
-              (?:\((?P<arguments>.*?)\))?             # converter arguments
+              (?P<converter>[a-zA-Z_][a-zA-Z0-9_]*)   #  匹配转换器名称，以字母或下划线开头，后跟字母、数字或下划线。
+              (?:\((?P<arguments>.*?)\))?             # 匹配括号中的参数（可选），将其命名为 arguments。
               \:                                      # variable delimiter
             )?
-            (?P<variable>[a-zA-Z_][a-zA-Z0-9_]*)      # variable name
+            (?P<variable>[a-zA-Z_][a-zA-Z0-9_]*)      # 匹配变量名称，以字母或下划线开头，后跟字母、数字或下划线。
            >
         )
     )
@@ -469,10 +470,8 @@ class Rule(RuleFactory):
         self.bind(self.map, rebind=True)
 
     def bind(self, map: "Map", rebind: bool = False) -> None:
-        """Bind the url to a map and create a regular expression based on
-        the information from the rule itself and the defaults from the map.
-
-        :internal:
+        """
+        将 url 绑定到映射，并根据规则本身的信息和映射的默认值创建正则表达式。
         """
         if self.map is not None and not rebind:
             raise RuntimeError(f"url rule {self!r} already bound to map {self.map!r}")
@@ -599,7 +598,7 @@ class Rule(RuleFactory):
             )
 
     def compile(self) -> None:
-        """Compiles the regular expression and stores it."""
+        """编译路由正则表达式并存储它。"""
         assert self.map is not None, "rule not bound"
 
         if self.map.host_matching:
@@ -624,7 +623,7 @@ class Rule(RuleFactory):
         self._trace.append((False, "|"))
         rule = self.rule
         if self.merge_slashes:
-            rule = re.sub("/{2,}?", "/", self.rule)
+            rule = re.sub("/{2,}?", "/", self.rule)  # 将连续的斜杠替换为单个斜杠
         self._parts.extend(self._parse_rule(rule))
 
         self._build: t.Callable[..., t.Tuple[str, str]]

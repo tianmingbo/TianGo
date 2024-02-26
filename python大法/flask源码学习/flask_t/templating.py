@@ -52,14 +52,14 @@ class DispatchingJinjaLoader(BaseLoader):
         self.app = app
 
     def get_source(  # type: ignore
-        self, environment: Environment, template: str
+            self, environment: Environment, template: str
     ) -> t.Tuple[str, t.Optional[str], t.Optional[t.Callable]]:
         if self.app.config["EXPLAIN_TEMPLATE_LOADING"]:
             return self._get_source_explained(environment, template)
         return self._get_source_fast(environment, template)
 
     def _get_source_explained(
-        self, environment: Environment, template: str
+            self, environment: Environment, template: str
     ) -> t.Tuple[str, t.Optional[str], t.Optional[t.Callable]]:
         attempts = []
         rv: t.Optional[t.Tuple[str, t.Optional[str], t.Optional[t.Callable[[], bool]]]]
@@ -85,7 +85,7 @@ class DispatchingJinjaLoader(BaseLoader):
         raise TemplateNotFound(template)
 
     def _get_source_fast(
-        self, environment: Environment, template: str
+            self, environment: Environment, template: str
     ) -> t.Tuple[str, t.Optional[str], t.Optional[t.Callable]]:
         for _srcobj, loader in self._iter_loaders(template):
             try:
@@ -95,7 +95,7 @@ class DispatchingJinjaLoader(BaseLoader):
         raise TemplateNotFound(template)
 
     def _iter_loaders(
-        self, template: str
+            self, template: str
     ) -> t.Generator[t.Tuple["Scaffold", BaseLoader], None, None]:
         loader = self.app.jinja_loader
         if loader is not None:
@@ -131,7 +131,7 @@ def _render(template: Template, context: dict, app: "Flask") -> str:
 
 
 def render_template(
-    template_name_or_list: t.Union[str, t.List[str]], **context: t.Any
+        template_name_or_list: t.Union[str, t.List[str]], **context: t.Any
 ) -> str:
     """Renders a templates from the templates folder with the given
     context.

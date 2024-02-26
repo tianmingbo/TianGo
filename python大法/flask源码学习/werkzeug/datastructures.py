@@ -1543,9 +1543,8 @@ class FileMultiDict(MultiDict):
 
 
 class ImmutableDict(ImmutableDictMixin, dict):
-    """An immutable :class:`dict`.
-
-    .. versionadded:: 0.5
+    """
+    不可变字典
     """
 
     def __repr__(self):

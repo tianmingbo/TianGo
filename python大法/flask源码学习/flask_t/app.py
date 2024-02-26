@@ -100,108 +100,23 @@ def _make_timedelta(value: t.Optional[timedelta]) -> t.Optional[timedelta]:
 
 
 class Flask(Scaffold):
-    """The flask object implements a WSGI application and acts as the central
-    object.  It is passed the name of the module or package of the
-    application.  Once it is created it will act as a central registry for
-    the view functions, the URL rules, templates configuration and much more.
-
-    The name of the package is used to resolve resources from inside the
-    package or the folder the module is contained in depending on if the
-    package parameter resolves to an actual python package (a folder with
-    an :file:`__init__.py` file inside) or a standard module (just a ``.py`` file).
-
-    For more information about resource loading, see :func:`open_resource`.
-
-    Usually you create a :class:`Flask` instance in your main module or
-    in the :file:`__init__.py` file of your package like this::
-
-        from flask import Flask
-        app = Flask(__name__)
-
-    .. admonition:: About the First Parameter
-
-        The idea of the first parameter is to give Flask an idea of what
-        belongs to your application.  This name is used to find resources
-        on the filesystem, can be used by extensions to improve debugging
-        information and a lot more.
-
-        So it's important what you provide there.  If you are using a single
-        module, `__name__` is always the correct value.  If you however are
-        using a package, it's usually recommended to hardcode the name of
-        your package there.
-
-        For example if your application is defined in :file:`yourapplication/app.py`
-        you should create it with one of the two versions below::
-
-            app = Flask('yourapplication')
-            app = Flask(__name__.split('.')[0])
-
-        Why is that?  The application will work even with `__name__`, thanks
-        to how resources are looked up.  However it will make debugging more
-        painful.  Certain extensions can make assumptions based on the
-        import name of your application.  For example the Flask-SQLAlchemy
-        extension will look for the code in your application that triggered
-        an SQL query in debug mode.  If the import name is not properly set
-        up, that debugging information is lost.  (For example it would only
-        pick up SQL queries in `yourapplication.app` and not
-        `yourapplication.views.frontend`)
-
-    .. versionadded:: 0.7
-       The `static_url_path`, `static_folder`, and `template_folder`
-       parameters were added.
-
-    .. versionadded:: 0.8
-       The `instance_path` and `instance_relative_config` parameters were
-       added.
-
-    .. versionadded:: 0.11
-       The `root_path` parameter was added.
-
-    .. versionadded:: 1.0
-       The ``host_matching`` and ``static_host`` parameters were added.
-
-    .. versionadded:: 1.0
-       The ``subdomain_matching`` parameter was added. Subdomain
-       matching needs to be enabled manually now. Setting
-       :data:`SERVER_NAME` does not implicitly enable it.
-
-    :param import_name: the name of the application package
-    :param static_url_path: can be used to specify a different path for the
-                            static files on the web.  Defaults to the name
-                            of the `static_folder` folder.
-    :param static_folder: The folder with static files that is served at
-        ``static_url_path``. Relative to the application ``root_path``
-        or an absolute path. Defaults to ``'static'``.
-    :param static_host: the host to use when adding the static route.
-        Defaults to None. Required when using ``host_matching=True``
-        with a ``static_folder`` configured.
-    :param host_matching: set ``url_map.host_matching`` attribute.
-        Defaults to False.
-    :param subdomain_matching: consider the subdomain relative to
-        :data:`SERVER_NAME` when matching routes. Defaults to False.
-    :param template_folder: the folder that contains the templates that should
-                            be used by the application.  Defaults to
-                            ``'templates'`` folder in the root path of the
-                            application.
-    :param instance_path: An alternative instance path for the application.
-                          By default the folder ``'instance'`` next to the
-                          package or module is assumed to be the instance
-                          path.
-    :param instance_relative_config: if set to ``True`` relative filenames
-                                     for loading the config are assumed to
-                                     be relative to the instance path instead
-                                     of the application root.
-    :param root_path: The path to the root of the application files.
-        This should only be set manually when it can't be detected
-        automatically, such as for namespace packages.
+    """
+    import_name：应用程序包的名称，用于定位文件系统上的资源，也可供扩展使用以改进调试信息等。
+    static_url_path：用于指定 Web 上静态文件的不同路径，默认为static_folder文件夹的名称。
+    static_folder：包含在static_url_path下提供服务的静态文件的文件夹，默认为'static'。
+    static_host：在添加静态路由时要使用的主机，默认为None。在使用host_matching=True和配置了static_folder时需要设置。
+    host_matching：设置url_map.host_matching属性，默认为False。
+    subdomain_matching：在匹配路由时考虑相对于SERVER_NAME的子域，默认为False。
+    template_folder：包含应用程序应使用的模板的文件夹，默认为应用程序根路径中的'templates'文件夹。
+    instance_path：应用程序的替代实例路径，默认为假设在包或模块旁边的'instance'文件夹。
+    instance_relative_config：如果设置为True，则假定用于加载配置的相对文件名与实例路径相关，而不是应用程序根路径相关。
+    root_path：应用程序文件根路径的路径。只有在无法自动检测时才应手动设置，例如用于命名空间包。
     """
 
-    # The class that is used for request objects.  See :class:`~flask.Request`
-    # for more information.
+    # 请求类
     request_class = Request
 
-    # The class that is used for response objects.  See
-    # :class:`~flask.Response` for more information.
+    # 响应类
     response_class = Response
 
     # The class that is used for the Jinja environment.
@@ -209,31 +124,10 @@ class Flask(Scaffold):
     # .. versionadded:: 0.11
     jinja_environment = Environment
 
-    # The class that is used for the :data:`~flask.g` instance.
-    #
-    # Example use cases for a custom class:
-    #
-    # 1. Store arbitrary attributes on flask.g.
-    # 2. Add a property for lazy per-request database connectors.
-    # 3. Return None instead of AttributeError on unexpected attributes.
-    # 4. Raise exception if an unexpected attr is set, a "controlled" flask.g.
-    #
-    # In Flask 0.9 this property was called `request_globals_class` but it
-    # was changed in 0.10 to :attr:`app_ctx_globals_class` because the
-    # flask.g object is now application context scoped.
-    #
-    # .. versionadded:: 0.10
+    # 用于实现g全局属性
     app_ctx_globals_class = _AppCtxGlobals
 
-    # The class that is used for the ``config`` attribute of this app.
-    # Defaults to :class:`~flask.Config`.
-    #
-    # Example use cases for a custom class:
-    #
-    # 1. Default values for certain config options.
-    # 2. Access to config values through attributes in addition to keys.
-    #
-    # .. versionadded:: 0.11
+    # 配置类
     config_class = Config
 
     # The testing flag.  Set this to ``True`` to enable the test mode of
@@ -248,63 +142,28 @@ class Flask(Scaffold):
     # ``TESTING`` configuration key.  Defaults to ``False``.
     testing = ConfigAttribute("TESTING")
 
-    # If a secret key is set, cryptographic components can use this to
-    # sign cookies and other things. Set this to a complex random value
-    # when you want to use the secure cookie for instance.
-    #
-    # This attribute can also be configured from the config with the
-    # :data:`SECRET_KEY` configuration key. Defaults to ``None``.
+    # secret_key
     secret_key = ConfigAttribute("SECRET_KEY")
 
-    # The secure cookie uses this for the name of the session cookie.
-    #
-    # This attribute can also be configured from the config with the
-    # ``SESSION_COOKIE_NAME`` configuration key.  Defaults to ``'session'``
+    # session名字，默认为session
     session_cookie_name = ConfigAttribute("SESSION_COOKIE_NAME")
 
-    # A :class:`~datetime.timedelta` which is used to set the expiration
-    # date of a permanent session.  The default is 31 days which makes a
-    # permanent session survive for roughly one month.
-    #
-    # This attribute can also be configured from the config with the
-    # ``PERMANENT_SESSION_LIFETIME`` configuration key.  Defaults to
-    # ``timedelta(days=31)``
+    # session过期时间，默认31天
     permanent_session_lifetime = ConfigAttribute(
         "PERMANENT_SESSION_LIFETIME", get_converter=_make_timedelta
     )
 
-    # A :class:`~datetime.timedelta` or number of seconds which is used
-    # as the default ``max_age`` for :func:`send_file`. The default is
-    # ``None``, which tells the browser to use conditional requests
-    # instead of a timed cache.
-    #
-    # Configured with the :data:`SEND_FILE_MAX_AGE_DEFAULT`
-    # configuration key.
-    #
-    # .. versionchanged:: 2.0
-    #     Defaults to ``None`` instead of 12 hours.
+    # 设置使用send_file函数时的默认max_age参数。max_age用于设置文件缓存的最大时长，即文件在浏览器端的缓存时间。
+    # 默认的max_age设置为None，服务器会检查文件是否有更新，如果没有更新，则返回一个304 Not Modified响应，告诉浏览器继续使用缓存的文件。
     send_file_max_age_default = ConfigAttribute(
         "SEND_FILE_MAX_AGE_DEFAULT", get_converter=_make_timedelta
     )
 
-    # Enable this if you want to use the X-Sendfile feature.  Keep in
-    # mind that the server has to support this.  This only affects files
-    # sent with the :func:`send_file` method.
-    #
-    # .. versionadded:: 0.2
-    #
-    # This attribute can also be configured from the config with the
-    # ``USE_X_SENDFILE`` configuration key.  Defaults to ``False``.
+    # use_x_sendfile 为 True 时，应用程序可以利用服务器的 X-Sendfile 功能。
+    # 使用 X-Sendfile，应用程序只需将文件路径发送给服务器，然后服务器会负责将文件发送给客户端。
     use_x_sendfile = ConfigAttribute("USE_X_SENDFILE")
 
-    # The JSON encoder class to use.  Defaults to :class:`~flask.json.JSONEncoder`.
-    #
-    # .. versionadded:: 0.10
     json_encoder = json.JSONEncoder
-
-    # The JSON decoder class to use.  Defaults to :class:`~flask.json.JSONDecoder`.
-    #
-    # .. versionadded:: 0.10
     json_decoder = json.JSONDecoder
 
     # Options that are passed to the Jinja environment in

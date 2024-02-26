@@ -690,8 +690,8 @@ class Scaffold:
 
 
 def _endpoint_from_view_func(view_func: t.Callable) -> str:
-    """Internal helper that returns the default endpoint for a given
-    function.  This always is the function name.
+    """
+    返回给定函数的endpoint,默认函数名。
     """
     assert view_func is not None, "expected view func if endpoint is not provided."
     return view_func.__name__
