@@ -1,24 +1,24 @@
-from werkzeug.local import LocalStack
-
-# 创建一个本地堆栈对象
-my_stack = LocalStack()
+import os
 
 
-# 在线程中设置变量值
-def worker():
-    my_stack.push('foo')
-    print(my_stack.top)  # 输出: foo
-    my_stack.pop()
+def simple_app(environ, start_response):
+    status = '200 OK'
+    response_headers = [('Content-type', 'text/plain')]
+    start_response(status, response_headers)
+    return ['Hello world!\n']
 
 
-# 在多个线程中调用 worker 函数
-import threading
+def wsgi_server(application):
+    environ = dict(os.environ.items())
 
-thread1 = threading.Thread(target=worker)
-thread2 = threading.Thread(target=worker)
+    def start_response(status, response_headers):
+        print(f'status: {status}')
+        print(f'response_headers: {response_headers}')
 
-thread1.start()
-thread2.start()
+    result = application(environ, start_response)
+    for data in result:
+        print(f'response_body: {data}')
 
-thread1.join()
-thread2.join()
+
+if __name__ == '__main__':
+    wsgi_server(simple_app)
