@@ -20,7 +20,7 @@ int main(int argc, char *argv[]) {
     sem_init(&sem_one, 0, 0);
     sem_init(&sem_two, 0, 1);
     pthread_create(&id_1, NULL, read, NULL);
-    pthread_create(&id_1, NULL, accu, NULL);
+    pthread_create(&id_2, NULL, accu, NULL);
     pthread_join(id_1, NULL);
     pthread_join(id_2, NULL);
     sem_destroy(&sem_one);
@@ -42,11 +42,12 @@ void *read(void *arg) {
 void *accu(void *arg) {
     int sum = 0, i;
     for (i = 0; i < 5; i++) {
+        //在信号量为0的情况下调用sem_wait函数，该线程进入阻塞状态
         sem_wait(&sem_one);
         sum += num;
         sem_post(&sem_two);
     }
-    printf("res is %d: \n", sum);
+    printf("res is: %d \n", sum);
     return NULL;
 }
 
