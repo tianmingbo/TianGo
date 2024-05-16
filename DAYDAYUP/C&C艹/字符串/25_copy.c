@@ -12,7 +12,7 @@
 char *s_gets(char *st, int n);
 
 int main() {
-    char words[LIM][SIZE];
+    char words[LIM][SIZE];//声明数组将分配储存数据的空间，而声明指针只分配储存一个地址的空间
     char tmp[SIZE];
     int i = 0;
     puts("input start with q word:");
