@@ -1,6 +1,6 @@
 //
 // Created by tmb on 24-4-28.
-// 指针和数组
+// 10.指针和数组
 //
 #include "stdio.h"
 

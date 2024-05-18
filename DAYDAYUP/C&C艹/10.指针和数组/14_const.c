@@ -1,6 +1,7 @@
 //
 // Created by 田明博 on 2024/4/27.
 // const使用
+// const放在＊左侧任意位置， 限定指针指向的数据不能改变. const放在＊的右侧，限定了指针本身不能改变。
 //
 
 #include "stdio.h"
