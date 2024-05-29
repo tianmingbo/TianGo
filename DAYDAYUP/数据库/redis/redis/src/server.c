@@ -4205,7 +4205,7 @@ int redisIsSupervised(int mode) {
     return 0;
 }
 
-
+//入口
 int main(int argc, char **argv) {
     struct timeval tv;
     int j;
