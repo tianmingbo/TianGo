@@ -15,7 +15,8 @@ int main(int argc, char *argv[]) {
     struct stat file_info;
     char *ptr;
     for (int i = 1; i < argc; i++) {
-        printf("file name:%s\n", argv[i]);
+        printf("%s: ", argv[i]);
+        //lstat检测符号链接
         if (lstat(argv[i], &file_info) < 0) {
             err_ret("stat err");
             continue;
@@ -36,7 +37,7 @@ int main(int argc, char *argv[]) {
             ptr = "套接字";
         else
             ptr = "unknown";
+        puts(ptr);
     }
-    puts(ptr);
     return 0;
 }
