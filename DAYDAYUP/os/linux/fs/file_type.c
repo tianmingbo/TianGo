@@ -3,12 +3,12 @@
 //
 //获取文件类型
 
-#include "apue.h"
-
+#include <sys/stat.h>
+#include "stdlib.h"
+#include "stdio.h"
 
 int main(int argc, char *argv[]) {
     if (argc < 2) {
-        errno = ENOENT;
         perror(argv[0]);
         exit(0);
     }
@@ -18,7 +18,7 @@ int main(int argc, char *argv[]) {
         printf("%s: ", argv[i]);
         //lstat检测符号链接
         if (lstat(argv[i], &file_info) < 0) {
-            err_ret("stat err");
+            perror("lstat()");
             continue;
         }
         if (S_ISBLK(file_info.st_mode))
