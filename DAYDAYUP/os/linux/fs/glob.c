@@ -13,7 +13,7 @@ int err_func(const char *errpath, int errno) {
 
 int main() {
     glob_t glob_result;
-    int return_value = glob("/usr/*", 0, err_func, &glob_result);
+    int return_value = glob("/etc/*", 0, err_func, &glob_result);
     //0 success
     if (return_value == 0) {
         for (size_t i = 0; i < glob_result.gl_pathc; ++i) {
