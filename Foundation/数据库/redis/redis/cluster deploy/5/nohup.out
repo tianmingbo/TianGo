@@ -1,0 +1,607 @@
+63637:C 11 Sep 2023 13:12:15.786 # oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo
+63637:C 11 Sep 2023 13:12:15.786 # Redis version=6.2.5, bits=64, commit=00000000, modified=0, pid=63637, just started
+63637:C 11 Sep 2023 13:12:15.786 # Configuration loaded
+63637:M 11 Sep 2023 13:12:15.787 * monotonic clock: POSIX clock_gettime
+63637:M 11 Sep 2023 13:12:15.788 * No cluster configuration found, I'm cf72ab16467b830cdd8cde47767bac7e9c524f73
+63637:M 11 Sep 2023 13:12:15.789 * Running mode=cluster, port=6105.
+63637:M 11 Sep 2023 13:12:15.789 # Server initialized
+63637:M 11 Sep 2023 13:12:15.789 * Ready to accept connections
+63637:M 11 Sep 2023 13:18:13.562 # configEpoch set to 5 via CLUSTER SET-CONFIG-EPOCH
+63637:M 11 Sep 2023 13:18:13.630 # IP address for this node updated to 127.0.0.1
+63637:S 11 Sep 2023 13:18:16.574 * Before turning into a replica, using my own master parameters to synthesize a cached master: I may be able to synchronize with the new master with just a partial transfer.
+63637:S 11 Sep 2023 13:18:16.574 * Connecting to MASTER 127.0.0.1:6103
+63637:S 11 Sep 2023 13:18:16.574 * MASTER <-> REPLICA sync started
+63637:S 11 Sep 2023 13:18:16.574 # Cluster state changed: ok
+63637:S 11 Sep 2023 13:18:16.575 * Non blocking connect for SYNC fired the event.
+63637:S 11 Sep 2023 13:18:16.575 * Master replied to PING, replication can continue...
+63637:S 11 Sep 2023 13:18:16.575 * Trying a partial resynchronization (request 8f18ec3648498cad33a8e622c02dddb30dfc8f9e:1).
+63637:S 11 Sep 2023 13:18:16.577 * Full resync from master: 71d9d02209765285b9849c61cc694bfe49944591:0
+63637:S 11 Sep 2023 13:18:16.577 * Discarding previously cached master state.
+63637:S 11 Sep 2023 13:18:16.675 * MASTER <-> REPLICA sync: receiving 175 bytes from master to disk
+63637:S 11 Sep 2023 13:18:16.675 * MASTER <-> REPLICA sync: Flushing old data
+63637:S 11 Sep 2023 13:18:16.675 * MASTER <-> REPLICA sync: Loading DB in memory
+63637:S 11 Sep 2023 13:18:16.675 * Loading RDB produced by version 6.2.5
+63637:S 11 Sep 2023 13:18:16.675 * RDB age 0 seconds
+63637:S 11 Sep 2023 13:18:16.675 * RDB memory usage when created 2.60 Mb
+63637:S 11 Sep 2023 13:18:16.675 * MASTER <-> REPLICA sync: Finished with success
+63637:S 11 Sep 2023 13:28:55.790 # MASTER timeout: no data nor PING received...
+63637:S 11 Sep 2023 13:28:55.790 # Connection with master lost.
+63637:S 11 Sep 2023 13:28:55.790 * Caching the disconnected master state.
+63637:S 11 Sep 2023 13:28:55.790 * Reconnecting to MASTER 127.0.0.1:6103
+63637:S 11 Sep 2023 13:28:55.791 * MASTER <-> REPLICA sync started
+63637:S 11 Sep 2023 13:28:55.792 * Non blocking connect for SYNC fired the event.
+63637:S 11 Sep 2023 13:28:55.792 * Master replied to PING, replication can continue...
+63637:S 11 Sep 2023 13:28:55.793 * Trying a partial resynchronization (request 71d9d02209765285b9849c61cc694bfe49944591:844).
+63637:S 11 Sep 2023 13:28:55.793 * Successful partial resynchronization with master.
+63637:S 11 Sep 2023 13:28:55.793 * MASTER <-> REPLICA sync: Master accepted a Partial Resynchronization.
+63637:S 11 Sep 2023 13:32:45.923 # MASTER timeout: no data nor PING received...
+63637:S 11 Sep 2023 13:32:45.923 # Connection with master lost.
+63637:S 11 Sep 2023 13:32:45.923 * Caching the disconnected master state.
+63637:S 11 Sep 2023 13:32:45.923 * Reconnecting to MASTER 127.0.0.1:6103
+63637:S 11 Sep 2023 13:32:45.924 * MASTER <-> REPLICA sync started
+63637:S 11 Sep 2023 13:32:45.924 * Non blocking connect for SYNC fired the event.
+63637:S 11 Sep 2023 13:32:45.925 * Master replied to PING, replication can continue...
+63637:S 11 Sep 2023 13:32:45.925 * Trying a partial resynchronization (request 71d9d02209765285b9849c61cc694bfe49944591:900).
+63637:S 11 Sep 2023 13:32:45.926 * Successful partial resynchronization with master.
+63637:S 11 Sep 2023 13:32:45.926 * MASTER <-> REPLICA sync: Master accepted a Partial Resynchronization.
+63637:S 11 Sep 2023 14:49:51.779 * 1 changes in 3600 seconds. Saving...
+63637:S 11 Sep 2023 14:49:51.782 * Background saving started by pid 64263
+63637:S 11 Sep 2023 14:49:52.388 # MASTER timeout: no data nor PING received...
+63637:S 11 Sep 2023 14:49:52.388 # Connection with master lost.
+63637:S 11 Sep 2023 14:49:52.388 * Caching the disconnected master state.
+63637:S 11 Sep 2023 14:49:52.388 * Reconnecting to MASTER 127.0.0.1:6103
+63637:S 11 Sep 2023 14:49:52.389 * MASTER <-> REPLICA sync started
+63637:S 11 Sep 2023 14:49:52.389 * Non blocking connect for SYNC fired the event.
+63637:S 11 Sep 2023 14:49:52.390 * Master replied to PING, replication can continue...
+63637:S 11 Sep 2023 14:49:52.391 * Trying a partial resynchronization (request 71d9d02209765285b9849c61cc694bfe49944591:970).
+63637:S 11 Sep 2023 14:49:52.391 * Successful partial resynchronization with master.
+63637:S 11 Sep 2023 14:49:52.391 * MASTER <-> REPLICA sync: Master accepted a Partial Resynchronization.
+64263:C 11 Sep 2023 14:49:52.590 * DB saved on disk
+63637:S 11 Sep 2023 14:49:52.690 * Background saving terminated with success
+63637:S 11 Sep 2023 15:27:22.239 # MASTER timeout: no data nor PING received...
+63637:S 11 Sep 2023 15:27:22.239 # Connection with master lost.
+63637:S 11 Sep 2023 15:27:22.239 * Caching the disconnected master state.
+63637:S 11 Sep 2023 15:27:22.239 * Reconnecting to MASTER 127.0.0.1:6103
+63637:S 11 Sep 2023 15:27:22.240 * MASTER <-> REPLICA sync started
+63637:S 11 Sep 2023 15:27:22.240 * Non blocking connect for SYNC fired the event.
+63637:S 11 Sep 2023 15:27:22.240 * Master replied to PING, replication can continue...
+63637:S 11 Sep 2023 15:27:22.240 * Trying a partial resynchronization (request 71d9d02209765285b9849c61cc694bfe49944591:1040).
+63637:S 11 Sep 2023 15:27:22.241 * Successful partial resynchronization with master.
+63637:S 11 Sep 2023 15:27:22.241 * MASTER <-> REPLICA sync: Master accepted a Partial Resynchronization.
+63637:S 11 Sep 2023 17:27:33.215 # MASTER timeout: no data nor PING received...
+63637:S 11 Sep 2023 17:27:33.216 # Connection with master lost.
+63637:S 11 Sep 2023 17:27:33.216 * Caching the disconnected master state.
+63637:S 11 Sep 2023 17:27:33.216 * Reconnecting to MASTER 127.0.0.1:6103
+63637:S 11 Sep 2023 17:27:33.216 * MASTER <-> REPLICA sync started
+63637:S 11 Sep 2023 17:27:33.216 * Non blocking connect for SYNC fired the event.
+63637:S 11 Sep 2023 17:27:33.217 * Master replied to PING, replication can continue...
+63637:S 11 Sep 2023 17:27:33.217 * Trying a partial resynchronization (request 71d9d02209765285b9849c61cc694bfe49944591:1096).
+63637:S 11 Sep 2023 17:27:33.217 * Successful partial resynchronization with master.
+63637:S 11 Sep 2023 17:27:33.217 * MASTER <-> REPLICA sync: Master accepted a Partial Resynchronization.
+63637:S 11 Sep 2023 19:28:22.859 # Connection with master lost.
+63637:S 11 Sep 2023 19:28:22.859 * Caching the disconnected master state.
+63637:S 11 Sep 2023 19:28:22.859 * Reconnecting to MASTER 127.0.0.1:6103
+63637:S 11 Sep 2023 19:28:22.859 * MASTER <-> REPLICA sync started
+63637:S 11 Sep 2023 19:28:22.860 * Non blocking connect for SYNC fired the event.
+63637:S 11 Sep 2023 19:28:22.860 * Master replied to PING, replication can continue...
+63637:S 11 Sep 2023 19:28:22.861 * Trying a partial resynchronization (request 71d9d02209765285b9849c61cc694bfe49944591:1152).
+63637:S 11 Sep 2023 19:28:22.862 * Successful partial resynchronization with master.
+63637:S 11 Sep 2023 19:28:22.862 * MASTER <-> REPLICA sync: Master accepted a Partial Resynchronization.
+63637:S 11 Sep 2023 20:39:03.292 # Connection with master lost.
+63637:S 11 Sep 2023 20:39:03.293 * Caching the disconnected master state.
+63637:S 11 Sep 2023 20:39:03.293 * Reconnecting to MASTER 127.0.0.1:6103
+63637:S 11 Sep 2023 20:39:03.294 * MASTER <-> REPLICA sync started
+63637:S 11 Sep 2023 20:39:03.294 * Non blocking connect for SYNC fired the event.
+63637:S 11 Sep 2023 20:39:03.296 * Master replied to PING, replication can continue...
+63637:S 11 Sep 2023 20:39:03.298 * Trying a partial resynchronization (request 71d9d02209765285b9849c61cc694bfe49944591:1222).
+63637:S 11 Sep 2023 20:39:03.298 * Successful partial resynchronization with master.
+63637:S 11 Sep 2023 20:39:03.298 * MASTER <-> REPLICA sync: Master accepted a Partial Resynchronization.
+63637:S 11 Sep 2023 20:58:35.928 # Connection with master lost.
+63637:S 11 Sep 2023 20:58:35.928 * Caching the disconnected master state.
+63637:S 11 Sep 2023 20:58:35.928 * Reconnecting to MASTER 127.0.0.1:6103
+63637:S 11 Sep 2023 20:58:35.928 * MASTER <-> REPLICA sync started
+63637:S 11 Sep 2023 20:58:35.929 * Non blocking connect for SYNC fired the event.
+63637:S 11 Sep 2023 20:58:35.929 * Master replied to PING, replication can continue...
+63637:S 11 Sep 2023 20:58:35.929 * Trying a partial resynchronization (request 71d9d02209765285b9849c61cc694bfe49944591:1348).
+63637:S 11 Sep 2023 20:58:35.929 * Successful partial resynchronization with master.
+63637:S 11 Sep 2023 20:58:35.929 * MASTER <-> REPLICA sync: Master accepted a Partial Resynchronization.
+63637:S 11 Sep 2023 21:03:05.740 # Connection with master lost.
+63637:S 11 Sep 2023 21:03:05.740 * Caching the disconnected master state.
+63637:S 11 Sep 2023 21:03:05.740 * Reconnecting to MASTER 127.0.0.1:6103
+63637:S 11 Sep 2023 21:03:05.740 * MASTER <-> REPLICA sync started
+63637:S 11 Sep 2023 21:03:05.741 * Non blocking connect for SYNC fired the event.
+63637:S 11 Sep 2023 21:03:05.741 * Master replied to PING, replication can continue...
+63637:S 11 Sep 2023 21:03:05.741 * Trying a partial resynchronization (request 71d9d02209765285b9849c61cc694bfe49944591:1418).
+63637:S 11 Sep 2023 21:03:05.741 * Successful partial resynchronization with master.
+63637:S 11 Sep 2023 21:03:05.741 * MASTER <-> REPLICA sync: Master accepted a Partial Resynchronization.
+63637:S 11 Sep 2023 21:15:46.699 # Connection with master lost.
+63637:S 11 Sep 2023 21:15:46.699 * Caching the disconnected master state.
+63637:S 11 Sep 2023 21:15:46.699 * Reconnecting to MASTER 127.0.0.1:6103
+63637:S 11 Sep 2023 21:15:46.699 * MASTER <-> REPLICA sync started
+63637:S 11 Sep 2023 21:15:46.699 * Non blocking connect for SYNC fired the event.
+63637:S 11 Sep 2023 21:15:46.699 * Master replied to PING, replication can continue...
+63637:S 11 Sep 2023 21:15:46.699 * Trying a partial resynchronization (request 71d9d02209765285b9849c61cc694bfe49944591:1474).
+63637:S 11 Sep 2023 21:15:46.699 * Successful partial resynchronization with master.
+63637:S 11 Sep 2023 21:15:46.699 * MASTER <-> REPLICA sync: Master accepted a Partial Resynchronization.
+63637:S 11 Sep 2023 22:23:38.954 # Connection with master lost.
+63637:S 11 Sep 2023 22:23:39.252 * Caching the disconnected master state.
+63637:S 11 Sep 2023 22:23:39.252 * Reconnecting to MASTER 127.0.0.1:6103
+63637:S 11 Sep 2023 22:23:39.253 * MASTER <-> REPLICA sync started
+63637:S 11 Sep 2023 22:23:39.253 * Non blocking connect for SYNC fired the event.
+63637:S 11 Sep 2023 22:23:39.255 * Master replied to PING, replication can continue...
+63637:S 11 Sep 2023 22:23:39.256 * Trying a partial resynchronization (request 71d9d02209765285b9849c61cc694bfe49944591:1628).
+63637:S 11 Sep 2023 22:23:39.257 * Successful partial resynchronization with master.
+63637:S 11 Sep 2023 22:23:39.257 * MASTER <-> REPLICA sync: Master accepted a Partial Resynchronization.
+63637:S 11 Sep 2023 22:42:42.512 # MASTER timeout: no data nor PING received...
+63637:S 11 Sep 2023 22:42:42.512 # Connection with master lost.
+63637:S 11 Sep 2023 22:42:42.512 * Caching the disconnected master state.
+63637:S 11 Sep 2023 22:42:42.513 * Reconnecting to MASTER 127.0.0.1:6103
+63637:S 11 Sep 2023 22:42:42.513 * MASTER <-> REPLICA sync started
+63637:S 11 Sep 2023 22:42:42.514 * Non blocking connect for SYNC fired the event.
+63637:S 11 Sep 2023 22:42:42.517 * Master replied to PING, replication can continue...
+63637:S 11 Sep 2023 22:42:42.517 * Trying a partial resynchronization (request 71d9d02209765285b9849c61cc694bfe49944591:1712).
+63637:S 11 Sep 2023 22:42:42.518 * Successful partial resynchronization with master.
+63637:S 11 Sep 2023 22:42:42.518 * MASTER <-> REPLICA sync: Master accepted a Partial Resynchronization.
+63637:S 11 Sep 2023 22:50:31.494 # MASTER timeout: no data nor PING received...
+63637:S 11 Sep 2023 22:50:31.496 # Connection with master lost.
+63637:S 11 Sep 2023 22:50:31.496 * Caching the disconnected master state.
+63637:S 11 Sep 2023 22:50:31.496 * Reconnecting to MASTER 127.0.0.1:6103
+63637:S 11 Sep 2023 22:50:31.497 * MASTER <-> REPLICA sync started
+63637:S 11 Sep 2023 22:50:31.497 * Non blocking connect for SYNC fired the event.
+63637:S 11 Sep 2023 22:50:31.500 * Master replied to PING, replication can continue...
+63637:S 11 Sep 2023 22:50:31.502 * Trying a partial resynchronization (request 71d9d02209765285b9849c61cc694bfe49944591:1768).
+63637:S 11 Sep 2023 22:50:31.504 * Successful partial resynchronization with master.
+63637:S 11 Sep 2023 22:50:31.504 * MASTER <-> REPLICA sync: Master accepted a Partial Resynchronization.
+63637:S 11 Sep 2023 22:53:14.071 # MASTER timeout: no data nor PING received...
+63637:S 11 Sep 2023 22:53:14.074 # Connection with master lost.
+63637:S 11 Sep 2023 22:53:14.074 * Caching the disconnected master state.
+63637:S 11 Sep 2023 22:53:14.075 * Reconnecting to MASTER 127.0.0.1:6103
+63637:S 11 Sep 2023 22:53:14.076 * MASTER <-> REPLICA sync started
+63637:S 11 Sep 2023 22:53:14.076 * Non blocking connect for SYNC fired the event.
+63637:S 11 Sep 2023 22:53:14.076 * Master replied to PING, replication can continue...
+63637:S 11 Sep 2023 22:53:14.077 * Trying a partial resynchronization (request 71d9d02209765285b9849c61cc694bfe49944591:1894).
+63637:S 11 Sep 2023 22:53:14.078 * Successful partial resynchronization with master.
+63637:S 11 Sep 2023 22:53:14.078 * MASTER <-> REPLICA sync: Master accepted a Partial Resynchronization.
+63637:S 11 Sep 2023 23:02:56.467 # Connection with master lost.
+63637:S 11 Sep 2023 23:02:56.468 * Caching the disconnected master state.
+63637:S 11 Sep 2023 23:02:56.468 * Reconnecting to MASTER 127.0.0.1:6103
+63637:S 11 Sep 2023 23:02:56.469 * MASTER <-> REPLICA sync started
+63637:S 11 Sep 2023 23:02:56.469 * Non blocking connect for SYNC fired the event.
+63637:S 11 Sep 2023 23:02:56.471 * Master replied to PING, replication can continue...
+63637:S 11 Sep 2023 23:02:56.471 * Trying a partial resynchronization (request 71d9d02209765285b9849c61cc694bfe49944591:1964).
+63637:S 11 Sep 2023 23:02:56.472 * Successful partial resynchronization with master.
+63637:S 11 Sep 2023 23:02:56.472 * MASTER <-> REPLICA sync: Master accepted a Partial Resynchronization.
+63637:S 11 Sep 2023 23:19:14.930 # Connection with master lost.
+63637:S 11 Sep 2023 23:19:14.931 * Caching the disconnected master state.
+63637:S 11 Sep 2023 23:19:14.931 * Reconnecting to MASTER 127.0.0.1:6103
+63637:S 11 Sep 2023 23:19:14.931 * MASTER <-> REPLICA sync started
+63637:S 11 Sep 2023 23:19:14.931 * Non blocking connect for SYNC fired the event.
+63637:S 11 Sep 2023 23:19:14.931 * Master replied to PING, replication can continue...
+63637:S 11 Sep 2023 23:19:14.932 * Trying a partial resynchronization (request 71d9d02209765285b9849c61cc694bfe49944591:2034).
+63637:S 11 Sep 2023 23:19:14.933 * Successful partial resynchronization with master.
+63637:S 11 Sep 2023 23:19:14.933 * MASTER <-> REPLICA sync: Master accepted a Partial Resynchronization.
+63637:S 11 Sep 2023 23:30:26.493 # MASTER timeout: no data nor PING received...
+63637:S 11 Sep 2023 23:30:26.528 # Connection with master lost.
+63637:S 11 Sep 2023 23:30:26.528 * Caching the disconnected master state.
+63637:S 11 Sep 2023 23:30:26.532 * Reconnecting to MASTER 127.0.0.1:6103
+63637:S 11 Sep 2023 23:30:26.541 * MASTER <-> REPLICA sync started
+63637:S 11 Sep 2023 23:30:26.547 * Non blocking connect for SYNC fired the event.
+63637:S 11 Sep 2023 23:30:26.664 * Master replied to PING, replication can continue...
+63637:S 11 Sep 2023 23:30:26.686 * Trying a partial resynchronization (request 71d9d02209765285b9849c61cc694bfe49944591:2090).
+63637:S 11 Sep 2023 23:30:26.690 * Successful partial resynchronization with master.
+63637:S 11 Sep 2023 23:30:26.690 * MASTER <-> REPLICA sync: Master accepted a Partial Resynchronization.
+63637:S 11 Sep 2023 23:38:16.735 # Connection with master lost.
+63637:S 11 Sep 2023 23:38:16.738 * Caching the disconnected master state.
+63637:S 11 Sep 2023 23:38:16.739 * Reconnecting to MASTER 127.0.0.1:6103
+63637:S 11 Sep 2023 23:38:16.740 * MASTER <-> REPLICA sync started
+63637:S 11 Sep 2023 23:38:16.740 * Non blocking connect for SYNC fired the event.
+63637:S 11 Sep 2023 23:38:16.741 * Master replied to PING, replication can continue...
+63637:S 11 Sep 2023 23:38:16.746 * Trying a partial resynchronization (request 71d9d02209765285b9849c61cc694bfe49944591:2160).
+63637:S 11 Sep 2023 23:38:16.747 * Successful partial resynchronization with master.
+63637:S 11 Sep 2023 23:38:16.747 * MASTER <-> REPLICA sync: Master accepted a Partial Resynchronization.
+63637:S 11 Sep 2023 23:43:54.176 # Connection with master lost.
+63637:S 11 Sep 2023 23:43:54.176 * Caching the disconnected master state.
+63637:S 11 Sep 2023 23:43:54.177 * Reconnecting to MASTER 127.0.0.1:6103
+63637:S 11 Sep 2023 23:43:54.177 * MASTER <-> REPLICA sync started
+63637:S 11 Sep 2023 23:43:54.177 * Non blocking connect for SYNC fired the event.
+63637:S 11 Sep 2023 23:43:54.177 * Master replied to PING, replication can continue...
+63637:S 11 Sep 2023 23:43:54.177 * Trying a partial resynchronization (request 71d9d02209765285b9849c61cc694bfe49944591:2230).
+63637:S 11 Sep 2023 23:43:54.177 * Successful partial resynchronization with master.
+63637:S 11 Sep 2023 23:43:54.177 * MASTER <-> REPLICA sync: Master accepted a Partial Resynchronization.
+63637:S 11 Sep 2023 23:49:30.739 # Connection with master lost.
+63637:S 11 Sep 2023 23:49:30.765 * Caching the disconnected master state.
+63637:S 11 Sep 2023 23:49:30.767 * Reconnecting to MASTER 127.0.0.1:6103
+63637:S 11 Sep 2023 23:49:30.767 * MASTER <-> REPLICA sync started
+63637:S 11 Sep 2023 23:49:30.767 * Non blocking connect for SYNC fired the event.
+63637:S 11 Sep 2023 23:49:30.768 * Master replied to PING, replication can continue...
+63637:S 11 Sep 2023 23:49:30.768 * Trying a partial resynchronization (request 71d9d02209765285b9849c61cc694bfe49944591:2286).
+63637:S 11 Sep 2023 23:49:30.769 * Successful partial resynchronization with master.
+63637:S 11 Sep 2023 23:49:30.769 * MASTER <-> REPLICA sync: Master accepted a Partial Resynchronization.
+63637:S 11 Sep 2023 23:55:07.913 # Connection with master lost.
+63637:S 11 Sep 2023 23:55:07.913 * Caching the disconnected master state.
+63637:S 11 Sep 2023 23:55:07.914 * Reconnecting to MASTER 127.0.0.1:6103
+63637:S 11 Sep 2023 23:55:07.914 * MASTER <-> REPLICA sync started
+63637:S 11 Sep 2023 23:55:07.914 * Non blocking connect for SYNC fired the event.
+63637:S 11 Sep 2023 23:55:07.914 * Master replied to PING, replication can continue...
+63637:S 11 Sep 2023 23:55:07.914 * Trying a partial resynchronization (request 71d9d02209765285b9849c61cc694bfe49944591:2356).
+63637:S 11 Sep 2023 23:55:07.915 * Successful partial resynchronization with master.
+63637:S 11 Sep 2023 23:55:07.915 * MASTER <-> REPLICA sync: Master accepted a Partial Resynchronization.
+63637:S 12 Sep 2023 00:00:45.324 # Connection with master lost.
+63637:S 12 Sep 2023 00:00:45.338 * Caching the disconnected master state.
+63637:S 12 Sep 2023 00:00:45.344 * Reconnecting to MASTER 127.0.0.1:6103
+63637:S 12 Sep 2023 00:00:45.347 * MASTER <-> REPLICA sync started
+63637:S 12 Sep 2023 00:00:45.354 * Non blocking connect for SYNC fired the event.
+63637:S 12 Sep 2023 00:00:45.368 * Master replied to PING, replication can continue...
+63637:S 12 Sep 2023 00:00:45.374 * Trying a partial resynchronization (request 71d9d02209765285b9849c61cc694bfe49944591:2426).
+63637:S 12 Sep 2023 00:00:45.385 * Successful partial resynchronization with master.
+63637:S 12 Sep 2023 00:00:45.429 * MASTER <-> REPLICA sync: Master accepted a Partial Resynchronization.
+63637:S 12 Sep 2023 00:06:21.804 # Connection with master lost.
+63637:S 12 Sep 2023 00:06:21.805 * Caching the disconnected master state.
+63637:S 12 Sep 2023 00:06:21.805 * Reconnecting to MASTER 127.0.0.1:6103
+63637:S 12 Sep 2023 00:06:21.805 * MASTER <-> REPLICA sync started
+63637:S 12 Sep 2023 00:06:21.805 * Non blocking connect for SYNC fired the event.
+63637:S 12 Sep 2023 00:06:21.806 * Master replied to PING, replication can continue...
+63637:S 12 Sep 2023 00:06:21.806 * Trying a partial resynchronization (request 71d9d02209765285b9849c61cc694bfe49944591:2496).
+63637:S 12 Sep 2023 00:06:21.807 * Successful partial resynchronization with master.
+63637:S 12 Sep 2023 00:06:21.807 * MASTER <-> REPLICA sync: Master accepted a Partial Resynchronization.
+63637:S 12 Sep 2023 00:12:00.201 # MASTER timeout: no data nor PING received...
+63637:S 12 Sep 2023 00:12:00.326 # Connection with master lost.
+63637:S 12 Sep 2023 00:12:00.326 * Caching the disconnected master state.
+63637:S 12 Sep 2023 00:12:00.326 * Reconnecting to MASTER 127.0.0.1:6103
+63637:S 12 Sep 2023 00:12:00.361 * MASTER <-> REPLICA sync started
+63637:S 12 Sep 2023 00:12:00.362 * Non blocking connect for SYNC fired the event.
+63637:S 12 Sep 2023 00:12:00.494 * Master replied to PING, replication can continue...
+63637:S 12 Sep 2023 00:12:00.512 * Trying a partial resynchronization (request 71d9d02209765285b9849c61cc694bfe49944591:2552).
+63637:S 12 Sep 2023 00:12:00.514 * Successful partial resynchronization with master.
+63637:S 12 Sep 2023 00:12:00.514 * MASTER <-> REPLICA sync: Master accepted a Partial Resynchronization.
+63637:S 12 Sep 2023 00:17:36.445 # Connection with master lost.
+63637:S 12 Sep 2023 00:17:36.445 * Caching the disconnected master state.
+63637:S 12 Sep 2023 00:17:36.446 * Reconnecting to MASTER 127.0.0.1:6103
+63637:S 12 Sep 2023 00:17:36.446 * MASTER <-> REPLICA sync started
+63637:S 12 Sep 2023 00:17:36.447 * Non blocking connect for SYNC fired the event.
+63637:S 12 Sep 2023 00:17:36.447 * Master replied to PING, replication can continue...
+63637:S 12 Sep 2023 00:17:36.448 * Trying a partial resynchronization (request 71d9d02209765285b9849c61cc694bfe49944591:2622).
+63637:S 12 Sep 2023 00:17:36.448 * Successful partial resynchronization with master.
+63637:S 12 Sep 2023 00:17:36.448 * MASTER <-> REPLICA sync: Master accepted a Partial Resynchronization.
+63637:S 12 Sep 2023 00:23:12.947 # Connection with master lost.
+63637:S 12 Sep 2023 00:23:12.947 * Caching the disconnected master state.
+63637:S 12 Sep 2023 00:23:12.947 * Reconnecting to MASTER 127.0.0.1:6103
+63637:S 12 Sep 2023 00:23:12.948 * MASTER <-> REPLICA sync started
+63637:S 12 Sep 2023 00:23:12.948 * Non blocking connect for SYNC fired the event.
+63637:S 12 Sep 2023 00:23:12.949 * Master replied to PING, replication can continue...
+63637:S 12 Sep 2023 00:23:12.950 * Trying a partial resynchronization (request 71d9d02209765285b9849c61cc694bfe49944591:2692).
+63637:S 12 Sep 2023 00:23:12.950 * Successful partial resynchronization with master.
+63637:S 12 Sep 2023 00:23:12.950 * MASTER <-> REPLICA sync: Master accepted a Partial Resynchronization.
+63637:S 12 Sep 2023 00:28:48.323 # Connection with master lost.
+63637:S 12 Sep 2023 00:28:48.325 * Caching the disconnected master state.
+63637:S 12 Sep 2023 00:28:48.334 * Reconnecting to MASTER 127.0.0.1:6103
+63637:S 12 Sep 2023 00:28:48.334 * MASTER <-> REPLICA sync started
+63637:S 12 Sep 2023 00:28:48.335 * Non blocking connect for SYNC fired the event.
+63637:S 12 Sep 2023 00:28:48.362 * Master replied to PING, replication can continue...
+63637:S 12 Sep 2023 00:28:48.375 * Trying a partial resynchronization (request 71d9d02209765285b9849c61cc694bfe49944591:2748).
+63637:S 12 Sep 2023 00:28:48.412 * Successful partial resynchronization with master.
+63637:S 12 Sep 2023 00:28:48.412 * MASTER <-> REPLICA sync: Master accepted a Partial Resynchronization.
+63637:S 12 Sep 2023 00:34:26.958 # Connection with master lost.
+63637:S 12 Sep 2023 00:34:26.962 * Caching the disconnected master state.
+63637:S 12 Sep 2023 00:34:26.965 * Reconnecting to MASTER 127.0.0.1:6103
+63637:S 12 Sep 2023 00:34:26.966 * MASTER <-> REPLICA sync started
+63637:S 12 Sep 2023 00:34:26.970 * Non blocking connect for SYNC fired the event.
+63637:S 12 Sep 2023 00:34:26.979 * Master replied to PING, replication can continue...
+63637:S 12 Sep 2023 00:34:26.979 * Trying a partial resynchronization (request 71d9d02209765285b9849c61cc694bfe49944591:2818).
+63637:S 12 Sep 2023 00:34:26.980 * Successful partial resynchronization with master.
+63637:S 12 Sep 2023 00:34:26.980 * MASTER <-> REPLICA sync: Master accepted a Partial Resynchronization.
+63637:S 12 Sep 2023 00:40:04.789 # Connection with master lost.
+63637:S 12 Sep 2023 00:40:04.790 * Caching the disconnected master state.
+63637:S 12 Sep 2023 00:40:04.790 * Reconnecting to MASTER 127.0.0.1:6103
+63637:S 12 Sep 2023 00:40:04.790 * MASTER <-> REPLICA sync started
+63637:S 12 Sep 2023 00:40:04.790 * Non blocking connect for SYNC fired the event.
+63637:S 12 Sep 2023 00:40:04.791 * Master replied to PING, replication can continue...
+63637:S 12 Sep 2023 00:40:04.792 * Trying a partial resynchronization (request 71d9d02209765285b9849c61cc694bfe49944591:2888).
+63637:S 12 Sep 2023 00:40:04.793 * Successful partial resynchronization with master.
+63637:S 12 Sep 2023 00:40:04.793 * MASTER <-> REPLICA sync: Master accepted a Partial Resynchronization.
+63637:S 12 Sep 2023 00:45:41.436 # MASTER timeout: no data nor PING received...
+63637:S 12 Sep 2023 00:45:41.485 # Connection with master lost.
+63637:S 12 Sep 2023 00:45:41.495 * Caching the disconnected master state.
+63637:S 12 Sep 2023 00:45:41.502 * Reconnecting to MASTER 127.0.0.1:6103
+63637:S 12 Sep 2023 00:45:41.511 * MASTER <-> REPLICA sync started
+63637:S 12 Sep 2023 00:45:41.551 * Non blocking connect for SYNC fired the event.
+63637:S 12 Sep 2023 00:45:41.644 * Master replied to PING, replication can continue...
+63637:S 12 Sep 2023 00:45:41.665 * Trying a partial resynchronization (request 71d9d02209765285b9849c61cc694bfe49944591:2958).
+63637:S 12 Sep 2023 00:45:41.665 * Successful partial resynchronization with master.
+63637:S 12 Sep 2023 00:45:41.665 * MASTER <-> REPLICA sync: Master accepted a Partial Resynchronization.
+63637:S 12 Sep 2023 00:51:18.764 # Connection with master lost.
+63637:S 12 Sep 2023 00:51:18.765 * Caching the disconnected master state.
+63637:S 12 Sep 2023 00:51:18.765 * Reconnecting to MASTER 127.0.0.1:6103
+63637:S 12 Sep 2023 00:51:18.765 * MASTER <-> REPLICA sync started
+63637:S 12 Sep 2023 00:51:18.765 * Non blocking connect for SYNC fired the event.
+63637:S 12 Sep 2023 00:51:18.765 * Master replied to PING, replication can continue...
+63637:S 12 Sep 2023 00:51:18.766 * Trying a partial resynchronization (request 71d9d02209765285b9849c61cc694bfe49944591:3014).
+63637:S 12 Sep 2023 00:51:18.767 * Successful partial resynchronization with master.
+63637:S 12 Sep 2023 00:51:18.767 * MASTER <-> REPLICA sync: Master accepted a Partial Resynchronization.
+63637:S 12 Sep 2023 00:56:54.639 # MASTER timeout: no data nor PING received...
+63637:S 12 Sep 2023 00:56:54.640 # Connection with master lost.
+63637:S 12 Sep 2023 00:56:54.640 * Caching the disconnected master state.
+63637:S 12 Sep 2023 00:56:54.640 * Reconnecting to MASTER 127.0.0.1:6103
+63637:S 12 Sep 2023 00:56:54.641 * MASTER <-> REPLICA sync started
+63637:S 12 Sep 2023 00:56:54.641 * Non blocking connect for SYNC fired the event.
+63637:S 12 Sep 2023 00:56:54.642 * Master replied to PING, replication can continue...
+63637:S 12 Sep 2023 00:56:54.642 * Trying a partial resynchronization (request 71d9d02209765285b9849c61cc694bfe49944591:3084).
+63637:S 12 Sep 2023 00:56:54.644 * Successful partial resynchronization with master.
+63637:S 12 Sep 2023 00:56:54.644 * MASTER <-> REPLICA sync: Master accepted a Partial Resynchronization.
+63637:S 12 Sep 2023 01:02:30.514 # Connection with master lost.
+63637:S 12 Sep 2023 01:02:30.520 * Caching the disconnected master state.
+63637:S 12 Sep 2023 01:02:30.521 * Reconnecting to MASTER 127.0.0.1:6103
+63637:S 12 Sep 2023 01:02:30.522 * MASTER <-> REPLICA sync started
+63637:S 12 Sep 2023 01:02:30.523 * Non blocking connect for SYNC fired the event.
+63637:S 12 Sep 2023 01:02:30.523 * Master replied to PING, replication can continue...
+63637:S 12 Sep 2023 01:02:30.524 * Trying a partial resynchronization (request 71d9d02209765285b9849c61cc694bfe49944591:3154).
+63637:S 12 Sep 2023 01:02:30.525 * Successful partial resynchronization with master.
+63637:S 12 Sep 2023 01:02:30.525 * MASTER <-> REPLICA sync: Master accepted a Partial Resynchronization.
+63637:S 12 Sep 2023 01:08:07.256 # Connection with master lost.
+63637:S 12 Sep 2023 01:08:07.257 * Caching the disconnected master state.
+63637:S 12 Sep 2023 01:08:07.257 * Reconnecting to MASTER 127.0.0.1:6103
+63637:S 12 Sep 2023 01:08:07.257 * MASTER <-> REPLICA sync started
+63637:S 12 Sep 2023 01:08:07.257 * Non blocking connect for SYNC fired the event.
+63637:S 12 Sep 2023 01:08:07.259 * Master replied to PING, replication can continue...
+63637:S 12 Sep 2023 01:08:07.259 * Trying a partial resynchronization (request 71d9d02209765285b9849c61cc694bfe49944591:3210).
+63637:S 12 Sep 2023 01:08:07.259 * Successful partial resynchronization with master.
+63637:S 12 Sep 2023 01:08:07.259 * MASTER <-> REPLICA sync: Master accepted a Partial Resynchronization.
+63637:S 12 Sep 2023 01:13:44.229 # MASTER timeout: no data nor PING received...
+63637:S 12 Sep 2023 01:13:44.230 # Connection with master lost.
+63637:S 12 Sep 2023 01:13:44.230 * Caching the disconnected master state.
+63637:S 12 Sep 2023 01:13:44.230 * Reconnecting to MASTER 127.0.0.1:6103
+63637:S 12 Sep 2023 01:13:44.230 * MASTER <-> REPLICA sync started
+63637:S 12 Sep 2023 01:13:44.231 * Non blocking connect for SYNC fired the event.
+63637:S 12 Sep 2023 01:13:44.232 * Master replied to PING, replication can continue...
+63637:S 12 Sep 2023 01:13:44.235 * Trying a partial resynchronization (request 71d9d02209765285b9849c61cc694bfe49944591:3280).
+63637:S 12 Sep 2023 01:13:44.235 * Successful partial resynchronization with master.
+63637:S 12 Sep 2023 01:13:44.235 * MASTER <-> REPLICA sync: Master accepted a Partial Resynchronization.
+63637:S 12 Sep 2023 01:19:21.211 # Connection with master lost.
+63637:S 12 Sep 2023 01:19:21.211 * Caching the disconnected master state.
+63637:S 12 Sep 2023 01:19:21.212 * Reconnecting to MASTER 127.0.0.1:6103
+63637:S 12 Sep 2023 01:19:21.212 * MASTER <-> REPLICA sync started
+63637:S 12 Sep 2023 01:19:21.213 * Non blocking connect for SYNC fired the event.
+63637:S 12 Sep 2023 01:19:21.213 * Master replied to PING, replication can continue...
+63637:S 12 Sep 2023 01:19:21.215 * Trying a partial resynchronization (request 71d9d02209765285b9849c61cc694bfe49944591:3350).
+63637:S 12 Sep 2023 01:19:21.216 * Successful partial resynchronization with master.
+63637:S 12 Sep 2023 01:19:21.216 * MASTER <-> REPLICA sync: Master accepted a Partial Resynchronization.
+63637:S 12 Sep 2023 01:24:57.619 # Connection with master lost.
+63637:S 12 Sep 2023 01:24:57.619 * Caching the disconnected master state.
+63637:S 12 Sep 2023 01:24:57.619 * Reconnecting to MASTER 127.0.0.1:6103
+63637:S 12 Sep 2023 01:24:57.620 * MASTER <-> REPLICA sync started
+63637:S 12 Sep 2023 01:24:57.620 * Non blocking connect for SYNC fired the event.
+63637:S 12 Sep 2023 01:24:57.620 * Master replied to PING, replication can continue...
+63637:S 12 Sep 2023 01:24:57.620 * Trying a partial resynchronization (request 71d9d02209765285b9849c61cc694bfe49944591:3420).
+63637:S 12 Sep 2023 01:24:57.620 * Successful partial resynchronization with master.
+63637:S 12 Sep 2023 01:24:57.620 * MASTER <-> REPLICA sync: Master accepted a Partial Resynchronization.
+63637:S 12 Sep 2023 01:30:33.560 # MASTER timeout: no data nor PING received...
+63637:S 12 Sep 2023 01:30:33.565 # Connection with master lost.
+63637:S 12 Sep 2023 01:30:33.565 * Caching the disconnected master state.
+63637:S 12 Sep 2023 01:30:33.565 * Reconnecting to MASTER 127.0.0.1:6103
+63637:S 12 Sep 2023 01:30:33.565 * MASTER <-> REPLICA sync started
+63637:S 12 Sep 2023 01:30:33.567 * Non blocking connect for SYNC fired the event.
+63637:S 12 Sep 2023 01:30:33.568 * Master replied to PING, replication can continue...
+63637:S 12 Sep 2023 01:30:33.569 * Trying a partial resynchronization (request 71d9d02209765285b9849c61cc694bfe49944591:3476).
+63637:S 12 Sep 2023 01:30:33.570 * Successful partial resynchronization with master.
+63637:S 12 Sep 2023 01:30:33.570 * MASTER <-> REPLICA sync: Master accepted a Partial Resynchronization.
+63637:S 12 Sep 2023 01:36:10.039 # MASTER timeout: no data nor PING received...
+63637:S 12 Sep 2023 01:36:10.040 # Connection with master lost.
+63637:S 12 Sep 2023 01:36:10.040 * Caching the disconnected master state.
+63637:S 12 Sep 2023 01:36:10.040 * Reconnecting to MASTER 127.0.0.1:6103
+63637:S 12 Sep 2023 01:36:10.041 * MASTER <-> REPLICA sync started
+63637:S 12 Sep 2023 01:36:10.041 * Non blocking connect for SYNC fired the event.
+63637:S 12 Sep 2023 01:36:10.041 * Master replied to PING, replication can continue...
+63637:S 12 Sep 2023 01:36:10.042 * Trying a partial resynchronization (request 71d9d02209765285b9849c61cc694bfe49944591:3546).
+63637:S 12 Sep 2023 01:36:10.042 * Successful partial resynchronization with master.
+63637:S 12 Sep 2023 01:36:10.043 * MASTER <-> REPLICA sync: Master accepted a Partial Resynchronization.
+63637:S 12 Sep 2023 01:41:46.635 # MASTER timeout: no data nor PING received...
+63637:S 12 Sep 2023 01:41:46.635 # Connection with master lost.
+63637:S 12 Sep 2023 01:41:46.635 * Caching the disconnected master state.
+63637:S 12 Sep 2023 01:41:46.635 * Reconnecting to MASTER 127.0.0.1:6103
+63637:S 12 Sep 2023 01:41:46.636 * MASTER <-> REPLICA sync started
+63637:S 12 Sep 2023 01:41:46.636 * Non blocking connect for SYNC fired the event.
+63637:S 12 Sep 2023 01:41:46.637 * Master replied to PING, replication can continue...
+63637:S 12 Sep 2023 01:41:46.640 * Trying a partial resynchronization (request 71d9d02209765285b9849c61cc694bfe49944591:3616).
+63637:S 12 Sep 2023 01:41:46.642 * Successful partial resynchronization with master.
+63637:S 12 Sep 2023 01:41:46.642 * MASTER <-> REPLICA sync: Master accepted a Partial Resynchronization.
+63637:S 12 Sep 2023 03:42:36.643 # MASTER timeout: no data nor PING received...
+63637:S 12 Sep 2023 03:42:36.735 # Connection with master lost.
+63637:S 12 Sep 2023 03:42:36.735 * Caching the disconnected master state.
+63637:S 12 Sep 2023 03:42:36.735 * Reconnecting to MASTER 127.0.0.1:6103
+63637:S 12 Sep 2023 03:42:36.735 * MASTER <-> REPLICA sync started
+63637:S 12 Sep 2023 03:42:36.736 * Non blocking connect for SYNC fired the event.
+63637:S 12 Sep 2023 03:42:36.823 * Master replied to PING, replication can continue...
+63637:S 12 Sep 2023 03:42:36.887 * Trying a partial resynchronization (request 71d9d02209765285b9849c61cc694bfe49944591:3672).
+63637:S 12 Sep 2023 03:42:36.893 * Successful partial resynchronization with master.
+63637:S 12 Sep 2023 03:42:36.893 * MASTER <-> REPLICA sync: Master accepted a Partial Resynchronization.
+63637:S 12 Sep 2023 05:43:27.683 # MASTER timeout: no data nor PING received...
+63637:S 12 Sep 2023 05:43:27.687 # Connection with master lost.
+63637:S 12 Sep 2023 05:43:27.687 * Caching the disconnected master state.
+63637:S 12 Sep 2023 05:43:27.687 * Reconnecting to MASTER 127.0.0.1:6103
+63637:S 12 Sep 2023 05:43:27.693 * MASTER <-> REPLICA sync started
+63637:S 12 Sep 2023 05:43:27.701 * Non blocking connect for SYNC fired the event.
+63637:S 12 Sep 2023 05:43:27.706 * Master replied to PING, replication can continue...
+63637:S 12 Sep 2023 05:43:27.722 * Trying a partial resynchronization (request 71d9d02209765285b9849c61cc694bfe49944591:3742).
+63637:S 12 Sep 2023 05:43:27.749 * Successful partial resynchronization with master.
+63637:S 12 Sep 2023 05:43:27.749 * MASTER <-> REPLICA sync: Master accepted a Partial Resynchronization.
+63637:S 12 Sep 2023 07:16:02.112 # MASTER timeout: no data nor PING received...
+63637:S 12 Sep 2023 07:16:02.113 # Connection with master lost.
+63637:S 12 Sep 2023 07:16:02.113 * Caching the disconnected master state.
+63637:S 12 Sep 2023 07:16:02.113 * Reconnecting to MASTER 127.0.0.1:6103
+63637:S 12 Sep 2023 07:16:02.114 * MASTER <-> REPLICA sync started
+63637:S 12 Sep 2023 07:16:02.114 * Non blocking connect for SYNC fired the event.
+63637:S 12 Sep 2023 07:16:02.114 * Master replied to PING, replication can continue...
+63637:S 12 Sep 2023 07:16:02.114 * Trying a partial resynchronization (request 71d9d02209765285b9849c61cc694bfe49944591:3812).
+63637:S 12 Sep 2023 07:16:02.115 * Successful partial resynchronization with master.
+63637:S 12 Sep 2023 07:16:02.115 * MASTER <-> REPLICA sync: Master accepted a Partial Resynchronization.
+63637:S 12 Sep 2023 08:40:43.839 # MASTER timeout: no data nor PING received...
+63637:S 12 Sep 2023 08:40:43.884 # Connection with master lost.
+63637:S 12 Sep 2023 08:40:43.884 * Caching the disconnected master state.
+63637:S 12 Sep 2023 08:40:43.886 * Reconnecting to MASTER 127.0.0.1:6103
+63637:S 12 Sep 2023 08:40:43.887 * MASTER <-> REPLICA sync started
+63637:S 12 Sep 2023 08:40:43.888 * Non blocking connect for SYNC fired the event.
+63637:S 12 Sep 2023 08:40:43.891 * Master replied to PING, replication can continue...
+63637:S 12 Sep 2023 08:40:43.893 * Trying a partial resynchronization (request 71d9d02209765285b9849c61cc694bfe49944591:3868).
+63637:S 12 Sep 2023 08:40:43.894 * Successful partial resynchronization with master.
+63637:S 12 Sep 2023 08:40:43.894 * MASTER <-> REPLICA sync: Master accepted a Partial Resynchronization.
+63637:S 12 Sep 2023 11:42:37.530 # MASTER timeout: no data nor PING received...
+63637:S 12 Sep 2023 11:42:37.562 # Connection with master lost.
+63637:S 12 Sep 2023 11:42:37.562 * Caching the disconnected master state.
+63637:S 12 Sep 2023 11:42:37.563 * Reconnecting to MASTER 127.0.0.1:6103
+63637:S 12 Sep 2023 11:42:37.565 * MASTER <-> REPLICA sync started
+63637:S 12 Sep 2023 11:42:37.586 * Non blocking connect for SYNC fired the event.
+63637:S 12 Sep 2023 11:42:37.784 * Master replied to PING, replication can continue...
+63637:S 12 Sep 2023 11:42:37.802 * Trying a partial resynchronization (request 71d9d02209765285b9849c61cc694bfe49944591:3966).
+63637:S 12 Sep 2023 11:42:37.805 * Successful partial resynchronization with master.
+63637:S 12 Sep 2023 11:42:37.805 * MASTER <-> REPLICA sync: Master accepted a Partial Resynchronization.
+63637:S 12 Sep 2023 12:06:38.382 # MASTER timeout: no data nor PING received...
+63637:S 12 Sep 2023 12:06:38.383 # Connection with master lost.
+63637:S 12 Sep 2023 12:06:38.383 * Caching the disconnected master state.
+63637:S 12 Sep 2023 12:06:38.383 * Reconnecting to MASTER 127.0.0.1:6103
+63637:S 12 Sep 2023 12:06:38.383 * MASTER <-> REPLICA sync started
+63637:S 12 Sep 2023 12:06:38.383 * Non blocking connect for SYNC fired the event.
+63637:S 12 Sep 2023 12:06:39.075 * Master replied to PING, replication can continue...
+63637:S 12 Sep 2023 12:06:39.075 * Trying a partial resynchronization (request 71d9d02209765285b9849c61cc694bfe49944591:4008).
+63637:S 12 Sep 2023 12:06:39.076 * Successful partial resynchronization with master.
+63637:S 12 Sep 2023 12:06:39.076 * MASTER <-> REPLICA sync: Master accepted a Partial Resynchronization.
+63637:S 12 Sep 2023 12:09:37.676 # MASTER timeout: no data nor PING received...
+63637:S 12 Sep 2023 12:09:37.754 # Connection with master lost.
+63637:S 12 Sep 2023 12:09:37.773 * Caching the disconnected master state.
+63637:S 12 Sep 2023 12:09:37.773 * Reconnecting to MASTER 127.0.0.1:6103
+63637:S 12 Sep 2023 12:09:37.773 * MASTER <-> REPLICA sync started
+63637:S 12 Sep 2023 12:09:37.773 * Non blocking connect for SYNC fired the event.
+63637:S 12 Sep 2023 12:09:37.774 * Master replied to PING, replication can continue...
+63637:S 12 Sep 2023 12:09:37.775 * Trying a partial resynchronization (request 71d9d02209765285b9849c61cc694bfe49944591:4064).
+63637:S 12 Sep 2023 12:09:37.775 * Successful partial resynchronization with master.
+63637:S 12 Sep 2023 12:09:37.775 * MASTER <-> REPLICA sync: Master accepted a Partial Resynchronization.
+63637:S 12 Sep 2023 12:23:07.540 # MASTER timeout: no data nor PING received...
+63637:S 12 Sep 2023 12:23:07.541 # Connection with master lost.
+63637:S 12 Sep 2023 12:23:07.541 * Caching the disconnected master state.
+63637:S 12 Sep 2023 12:23:07.541 * Reconnecting to MASTER 127.0.0.1:6103
+63637:S 12 Sep 2023 12:23:07.541 * MASTER <-> REPLICA sync started
+63637:S 12 Sep 2023 12:23:07.542 * Non blocking connect for SYNC fired the event.
+63637:S 12 Sep 2023 12:23:07.542 * Master replied to PING, replication can continue...
+63637:S 12 Sep 2023 12:23:07.543 * Trying a partial resynchronization (request 71d9d02209765285b9849c61cc694bfe49944591:4134).
+63637:S 12 Sep 2023 12:23:07.543 * Successful partial resynchronization with master.
+63637:S 12 Sep 2023 12:23:07.543 * MASTER <-> REPLICA sync: Master accepted a Partial Resynchronization.
+63637:S 12 Sep 2023 12:27:17.408 # MASTER timeout: no data nor PING received...
+63637:S 12 Sep 2023 12:27:17.408 # Connection with master lost.
+63637:S 12 Sep 2023 12:27:17.408 * Caching the disconnected master state.
+63637:S 12 Sep 2023 12:27:17.408 * Reconnecting to MASTER 127.0.0.1:6103
+63637:S 12 Sep 2023 12:27:17.409 * MASTER <-> REPLICA sync started
+63637:S 12 Sep 2023 12:27:17.409 * Non blocking connect for SYNC fired the event.
+63637:S 12 Sep 2023 12:27:17.411 * Master replied to PING, replication can continue...
+63637:S 12 Sep 2023 12:27:17.412 * Trying a partial resynchronization (request 71d9d02209765285b9849c61cc694bfe49944591:4204).
+63637:S 12 Sep 2023 12:27:17.413 * Successful partial resynchronization with master.
+63637:S 12 Sep 2023 12:27:17.413 * MASTER <-> REPLICA sync: Master accepted a Partial Resynchronization.
+63637:S 12 Sep 2023 12:39:33.934 # MASTER timeout: no data nor PING received...
+63637:S 12 Sep 2023 12:39:33.934 # Connection with master lost.
+63637:S 12 Sep 2023 12:39:33.934 * Caching the disconnected master state.
+63637:S 12 Sep 2023 12:39:33.935 * Reconnecting to MASTER 127.0.0.1:6103
+63637:S 12 Sep 2023 12:39:33.935 * MASTER <-> REPLICA sync started
+63637:S 12 Sep 2023 12:39:33.935 * Non blocking connect for SYNC fired the event.
+63637:S 12 Sep 2023 12:39:33.937 * Master replied to PING, replication can continue...
+63637:S 12 Sep 2023 12:39:33.939 * Trying a partial resynchronization (request 71d9d02209765285b9849c61cc694bfe49944591:4274).
+63637:S 12 Sep 2023 12:39:33.940 * Successful partial resynchronization with master.
+63637:S 12 Sep 2023 12:39:33.940 * MASTER <-> REPLICA sync: Master accepted a Partial Resynchronization.
+63637:S 12 Sep 2023 13:25:58.491 # Connection with master lost.
+63637:S 12 Sep 2023 13:25:58.491 * Caching the disconnected master state.
+63637:S 12 Sep 2023 13:25:58.491 * Reconnecting to MASTER 127.0.0.1:6103
+63637:S 12 Sep 2023 13:25:58.491 * MASTER <-> REPLICA sync started
+63637:S 12 Sep 2023 13:25:58.495 * Non blocking connect for SYNC fired the event.
+63637:S 12 Sep 2023 13:25:58.497 * Master replied to PING, replication can continue...
+63637:S 12 Sep 2023 13:25:58.498 * Trying a partial resynchronization (request 71d9d02209765285b9849c61cc694bfe49944591:8026).
+63637:S 12 Sep 2023 13:25:58.498 * Successful partial resynchronization with master.
+63637:S 12 Sep 2023 13:25:58.498 * MASTER <-> REPLICA sync: Master accepted a Partial Resynchronization.
+63637:S 12 Sep 2023 15:26:45.352 # MASTER timeout: no data nor PING received...
+63637:S 12 Sep 2023 15:26:45.637 # Connection with master lost.
+63637:S 12 Sep 2023 15:26:45.638 * Caching the disconnected master state.
+63637:S 12 Sep 2023 15:26:45.642 * Reconnecting to MASTER 127.0.0.1:6103
+63637:S 12 Sep 2023 15:26:45.643 * MASTER <-> REPLICA sync started
+63637:S 12 Sep 2023 15:26:45.643 * Non blocking connect for SYNC fired the event.
+63637:S 12 Sep 2023 15:26:45.650 * Master replied to PING, replication can continue...
+63637:S 12 Sep 2023 15:26:45.657 * Trying a partial resynchronization (request 71d9d02209765285b9849c61cc694bfe49944591:8096).
+63637:S 12 Sep 2023 15:26:45.661 * Successful partial resynchronization with master.
+63637:S 12 Sep 2023 15:26:45.661 * MASTER <-> REPLICA sync: Master accepted a Partial Resynchronization.
+63637:S 12 Sep 2023 15:29:02.897 # Connection with master lost.
+63637:S 12 Sep 2023 15:29:02.897 * Caching the disconnected master state.
+63637:S 12 Sep 2023 15:29:02.897 * Reconnecting to MASTER 127.0.0.1:6103
+63637:S 12 Sep 2023 15:29:02.897 * MASTER <-> REPLICA sync started
+63637:S 12 Sep 2023 15:29:02.897 * Non blocking connect for SYNC fired the event.
+63637:S 12 Sep 2023 15:29:02.897 * Master replied to PING, replication can continue...
+63637:S 12 Sep 2023 15:29:02.897 * Trying a partial resynchronization (request 71d9d02209765285b9849c61cc694bfe49944591:8166).
+63637:S 12 Sep 2023 15:29:02.898 * Successful partial resynchronization with master.
+63637:S 12 Sep 2023 15:29:02.898 * MASTER <-> REPLICA sync: Master accepted a Partial Resynchronization.
+63637:S 12 Sep 2023 16:24:48.998 # Connection with master lost.
+63637:S 12 Sep 2023 16:24:48.998 * Caching the disconnected master state.
+63637:S 12 Sep 2023 16:24:48.998 * Reconnecting to MASTER 127.0.0.1:6103
+63637:S 12 Sep 2023 16:24:48.999 * MASTER <-> REPLICA sync started
+63637:S 12 Sep 2023 16:24:48.999 * Non blocking connect for SYNC fired the event.
+63637:S 12 Sep 2023 16:24:49.000 * Master replied to PING, replication can continue...
+63637:S 12 Sep 2023 16:24:49.000 * Trying a partial resynchronization (request 71d9d02209765285b9849c61cc694bfe49944591:8236).
+63637:S 12 Sep 2023 16:24:49.001 * Successful partial resynchronization with master.
+63637:S 12 Sep 2023 16:24:49.001 * MASTER <-> REPLICA sync: Master accepted a Partial Resynchronization.
+63637:S 12 Sep 2023 18:24:58.400 # MASTER timeout: no data nor PING received...
+63637:S 12 Sep 2023 18:24:58.481 # Connection with master lost.
+63637:S 12 Sep 2023 18:24:58.481 * Caching the disconnected master state.
+63637:S 12 Sep 2023 18:24:58.481 * Reconnecting to MASTER 127.0.0.1:6103
+63637:S 12 Sep 2023 18:24:58.618 * MASTER <-> REPLICA sync started
+63637:S 12 Sep 2023 18:24:58.619 * Non blocking connect for SYNC fired the event.
+63637:S 12 Sep 2023 18:24:58.674 * Master replied to PING, replication can continue...
+63637:S 12 Sep 2023 18:24:58.678 * Trying a partial resynchronization (request 71d9d02209765285b9849c61cc694bfe49944591:8278).
+63637:S 12 Sep 2023 18:24:58.679 * Successful partial resynchronization with master.
+63637:S 12 Sep 2023 18:24:58.679 * MASTER <-> REPLICA sync: Master accepted a Partial Resynchronization.
+63637:S 12 Sep 2023 20:03:02.592 # Connection with master lost.
+63637:S 12 Sep 2023 20:03:02.606 * Caching the disconnected master state.
+63637:S 12 Sep 2023 20:03:02.613 * Reconnecting to MASTER 127.0.0.1:6103
+63637:S 12 Sep 2023 20:03:02.619 * MASTER <-> REPLICA sync started
+63637:S 12 Sep 2023 20:03:02.630 * Non blocking connect for SYNC fired the event.
+63637:S 12 Sep 2023 20:03:02.846 * Master replied to PING, replication can continue...
+63637:S 12 Sep 2023 20:03:02.884 * Trying a partial resynchronization (request 71d9d02209765285b9849c61cc694bfe49944591:8348).
+63637:S 12 Sep 2023 20:03:02.905 * Successful partial resynchronization with master.
+63637:S 12 Sep 2023 20:03:02.905 * MASTER <-> REPLICA sync: Master accepted a Partial Resynchronization.
+63637:S 12 Sep 2023 20:42:30.119 # Connection with master lost.
+63637:S 12 Sep 2023 20:42:30.119 * Caching the disconnected master state.
+63637:S 12 Sep 2023 20:42:30.119 * Reconnecting to MASTER 127.0.0.1:6103
+63637:S 12 Sep 2023 20:42:30.120 * MASTER <-> REPLICA sync started
+63637:S 12 Sep 2023 20:42:30.120 * Non blocking connect for SYNC fired the event.
+63637:S 12 Sep 2023 20:42:30.126 * Master replied to PING, replication can continue...
+63637:S 12 Sep 2023 20:42:30.126 * Trying a partial resynchronization (request 71d9d02209765285b9849c61cc694bfe49944591:8432).
+63637:S 12 Sep 2023 20:42:30.128 * Successful partial resynchronization with master.
+63637:S 12 Sep 2023 20:42:30.128 * MASTER <-> REPLICA sync: Master accepted a Partial Resynchronization.
+63637:S 12 Sep 2023 20:48:06.712 # Connection with master lost.
+63637:S 12 Sep 2023 20:48:06.713 * Caching the disconnected master state.
+63637:S 12 Sep 2023 20:48:06.716 * Reconnecting to MASTER 127.0.0.1:6103
+63637:S 12 Sep 2023 20:48:06.720 * MASTER <-> REPLICA sync started
+63637:S 12 Sep 2023 20:48:06.720 * Non blocking connect for SYNC fired the event.
+63637:S 12 Sep 2023 20:48:06.722 * Master replied to PING, replication can continue...
+63637:S 12 Sep 2023 20:48:06.722 * Trying a partial resynchronization (request 71d9d02209765285b9849c61cc694bfe49944591:8502).
+63637:S 12 Sep 2023 20:48:06.723 * Successful partial resynchronization with master.
+63637:S 12 Sep 2023 20:48:06.723 * MASTER <-> REPLICA sync: Master accepted a Partial Resynchronization.
+63637:S 12 Sep 2023 21:04:25.164 # Connection with master lost.
+63637:S 12 Sep 2023 21:04:25.164 * Caching the disconnected master state.
+63637:S 12 Sep 2023 21:04:25.164 * Reconnecting to MASTER 127.0.0.1:6103
+63637:S 12 Sep 2023 21:04:25.164 * MASTER <-> REPLICA sync started
+63637:S 12 Sep 2023 21:04:25.165 * Non blocking connect for SYNC fired the event.
+63637:S 12 Sep 2023 21:04:25.166 * Master replied to PING, replication can continue...
+63637:S 12 Sep 2023 21:04:25.166 * Trying a partial resynchronization (request 71d9d02209765285b9849c61cc694bfe49944591:8572).
+63637:S 12 Sep 2023 21:04:25.168 * Successful partial resynchronization with master.
+63637:S 12 Sep 2023 21:04:25.168 * MASTER <-> REPLICA sync: Master accepted a Partial Resynchronization.
+63637:S 12 Sep 2023 21:15:37.814 # Connection with master lost.
+63637:S 12 Sep 2023 21:15:37.846 * Caching the disconnected master state.
+63637:S 12 Sep 2023 21:15:37.884 * Reconnecting to MASTER 127.0.0.1:6103
+63637:S 12 Sep 2023 21:15:37.897 * MASTER <-> REPLICA sync started
+63637:S 12 Sep 2023 21:15:37.897 * Non blocking connect for SYNC fired the event.
+63637:S 12 Sep 2023 21:15:37.919 * Master replied to PING, replication can continue...
+63637:S 12 Sep 2023 21:15:37.960 * Trying a partial resynchronization (request 71d9d02209765285b9849c61cc694bfe49944591:8628).
+63637:S 12 Sep 2023 21:15:37.962 * Successful partial resynchronization with master.
+63637:S 12 Sep 2023 21:15:37.962 * MASTER <-> REPLICA sync: Master accepted a Partial Resynchronization.
+63637:S 12 Sep 2023 21:22:18.761 # Connection with master lost.
+63637:S 12 Sep 2023 21:22:18.761 * Caching the disconnected master state.
+63637:S 12 Sep 2023 21:22:18.769 * Reconnecting to MASTER 127.0.0.1:6103
+63637:S 12 Sep 2023 21:22:18.777 * MASTER <-> REPLICA sync started
+63637:S 12 Sep 2023 21:22:18.777 * Non blocking connect for SYNC fired the event.
+63637:S 12 Sep 2023 21:22:18.805 * Master replied to PING, replication can continue...
+63637:S 12 Sep 2023 21:22:18.816 * Trying a partial resynchronization (request 71d9d02209765285b9849c61cc694bfe49944591:8698).
+63637:S 12 Sep 2023 21:22:18.820 * Successful partial resynchronization with master.
+63637:S 12 Sep 2023 21:22:18.820 * MASTER <-> REPLICA sync: Master accepted a Partial Resynchronization.

@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: proxypool
+  name: proxypool
+  namespace: crawler
+spec:
+  selector:
+    app: proxypool
+  ports:
+    - port: 5555
+      name: "5555"
+      targetPort: 5555

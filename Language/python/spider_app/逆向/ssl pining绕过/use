@@ -1,0 +1,3 @@
+frida -U -f com.goldze.mvvmhabit -l hook jni.js --no-pause
+-f传入要处理的App包名
+-l传入Hook脚本
