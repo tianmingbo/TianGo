@@ -1,6 +1,0 @@
-1、frida_dump工具
-frida -U -f 包名 -l dump_dex.js --no-pause.
-一般而言，核心逻辑存放在较大的dex文件中
-2、FRIDA-DEXDump工具
-pip安装
-frida-dexdump -U -f 包名

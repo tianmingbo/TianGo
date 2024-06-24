@@ -1,1 +1,0 @@
-print(len('843a7dd12998e1d316bd835d1009d4b406b3d3d9'))

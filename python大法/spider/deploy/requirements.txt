@@ -1,5 +1,0 @@
-aiohttp==3.8.1
-itemadapter==0.6.0
-Scrapy==2.6.1
-scrapy-redis
-environs

@@ -5,6 +5,7 @@
 target.mdgit commit
 node_modules/
 *.apk
-/javaCode/.idea/
-/javaCode/out/
+/Language/java/.idea/
+/Language/java/out/
 *.class
+test.*
