@@ -8,4 +8,3 @@ node_modules/
 /Language/java/.idea/
 /Language/java/out/
 *.class
-test.*
