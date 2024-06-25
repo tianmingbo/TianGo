@@ -1,6 +1,6 @@
 //
 // Created by 田明博 on 2024/6/23.
-// 函数见跳转
+// 函数间跳转
 
 #include "stdio.h"
 #include <setjmp.h>
