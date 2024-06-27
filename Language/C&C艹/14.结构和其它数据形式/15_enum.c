@@ -4,7 +4,7 @@
 //
 #include "stdio.h"
 #include "string.h"
-#include "../../../Foundation/数据库/redis/redis/deps/jemalloc/include/msvc_compat/C99/stdbool.h"
+#include "stdbool.h"
 
 char *get_s(char *, int);
 

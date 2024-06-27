@@ -12,14 +12,14 @@
 
 char *get_s(char *st, int n);
 
-struct book {
+typedef struct {
     char title[MAXTITL];
     char author[MAXAUTH];
     float value;
-};
+} Book;
 
 int main() {
-    struct book library[BOOKS];
+    Book library[BOOKS];
     int count = 0;
     while (count < BOOKS && get_s(library[count].title, MAXTITL) != NULL &&
            library[count].title[0] != '\0') {
