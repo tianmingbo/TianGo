@@ -16,7 +16,7 @@ int main() {
         exit(1);
     }
     //double *ptr = (double *) malloc(number * sizeof(double));
-    double *ptr = (double *) calloc(number, sizeof(double));
+    double *ptr = calloc(number, sizeof(double));
     if (ptr == NULL) {
         puts("calloc() failed");
         exit(1);
