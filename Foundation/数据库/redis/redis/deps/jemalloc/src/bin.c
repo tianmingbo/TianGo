@@ -1,8 +1,8 @@
 #include "jemalloc/internal/jemalloc_preamble.h"
-#include "../include/jemalloc/internal/jemalloc_internal_includes.h"
+#include "jemalloc/internal/jemalloc_internal_includes.h"
 
-#include "../include/jemalloc/internal/bin.h"
-#include "../include/jemalloc/internal/witness.h"
+#include "jemalloc/internal/bin.h"
+#include "jemalloc/internal/witness.h"
 
 const bin_info_t bin_infos[NBINS] = {
 #define BIN_INFO_bin_yes(reg_size, slab_size, nregs)			\

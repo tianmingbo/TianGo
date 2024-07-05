@@ -1,6 +1,6 @@
 #include "test/jemalloc_test.h"
 
-#include "../../include/jemalloc/internal/util.h"
+#include "jemalloc/internal/util.h"
 
 typedef enum {
 	TOKEN_TYPE_NONE,

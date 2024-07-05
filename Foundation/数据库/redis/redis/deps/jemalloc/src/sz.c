@@ -1,5 +1,5 @@
 #include "jemalloc/internal/jemalloc_preamble.h"
-#include "../include/jemalloc/internal/sz.h"
+#include "jemalloc/internal/sz.h"
 
 JEMALLOC_ALIGNED(CACHELINE)
 const size_t sz_pind2sz_tab[NPSIZES+1] = {

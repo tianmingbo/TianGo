@@ -1,6 +1,6 @@
 #include "test/jemalloc_test.h"
 
-#include "../../include/jemalloc/internal/util.h"
+#include "jemalloc/internal/util.h"
 
 TEST_BEGIN(test_mallctl_errors) {
 	uint64_t epoch;

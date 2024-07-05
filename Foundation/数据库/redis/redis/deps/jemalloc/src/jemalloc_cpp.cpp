@@ -7,7 +7,7 @@ extern "C" {
 #endif
 
 #include "jemalloc/internal/jemalloc_preamble.h"
-#include "../include/jemalloc/internal/jemalloc_internal_includes.h"
+#include "jemalloc/internal/jemalloc_internal_includes.h"
 
 #ifdef __cplusplus
 }

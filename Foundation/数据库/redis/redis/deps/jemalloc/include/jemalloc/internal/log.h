@@ -1,9 +1,9 @@
 #ifndef JEMALLOC_INTERNAL_LOG_H
 #define JEMALLOC_INTERNAL_LOG_H
 
-#include "atomic.h"
-#include "malloc_io.h"
-#include "mutex.h"
+#include "jemalloc/internal/atomic.h"
+#include "jemalloc/internal/malloc_io.h"
+#include "jemalloc/internal/mutex.h"
 
 #ifdef JEMALLOC_LOG
 #  define JEMALLOC_LOG_VAR_BUFSIZE 1000

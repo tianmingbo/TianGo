@@ -1,10 +1,10 @@
 #define JEMALLOC_MUTEX_POOL_C_
 
 #include "jemalloc/internal/jemalloc_preamble.h"
-#include "../include/jemalloc/internal/jemalloc_internal_includes.h"
+#include "jemalloc/internal/jemalloc_internal_includes.h"
 
-#include "../include/jemalloc/internal/mutex.h"
-#include "../include/jemalloc/internal/mutex_pool.h"
+#include "jemalloc/internal/mutex.h"
+#include "jemalloc/internal/mutex_pool.h"
 
 bool
 mutex_pool_init(mutex_pool_t *pool, const char *name, witness_rank_t rank) {

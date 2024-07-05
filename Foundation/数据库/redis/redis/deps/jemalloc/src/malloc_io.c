@@ -1,9 +1,9 @@
 #define JEMALLOC_MALLOC_IO_C_
 #include "jemalloc/internal/jemalloc_preamble.h"
-#include "../include/jemalloc/internal/jemalloc_internal_includes.h"
+#include "jemalloc/internal/jemalloc_internal_includes.h"
 
-#include "../include/jemalloc/internal/malloc_io.h"
-#include "../include/jemalloc/internal/util.h"
+#include "jemalloc/internal/malloc_io.h"
+#include "jemalloc/internal/util.h"
 
 #ifdef assert
 #  undef assert
@@ -673,4 +673,4 @@ malloc_printf(const char *format, ...) {
 #undef not_reached
 #undef not_implemented
 #undef assert_not_implemented
-#include "../include/jemalloc/internal/assert.h"
+#include "jemalloc/internal/assert.h"

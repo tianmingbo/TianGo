@@ -1,12 +1,12 @@
 #define JEMALLOC_PROF_C_
 #include "jemalloc/internal/jemalloc_preamble.h"
-#include "../include/jemalloc/internal/jemalloc_internal_includes.h"
+#include "jemalloc/internal/jemalloc_internal_includes.h"
 
-#include "../include/jemalloc/internal/assert.h"
-#include "../include/jemalloc/internal/ckh.h"
-#include "../include/jemalloc/internal/hash.h"
-#include "../include/jemalloc/internal/malloc_io.h"
-#include "../include/jemalloc/internal/mutex.h"
+#include "jemalloc/internal/assert.h"
+#include "jemalloc/internal/ckh.h"
+#include "jemalloc/internal/hash.h"
+#include "jemalloc/internal/malloc_io.h"
+#include "jemalloc/internal/mutex.h"
 
 /******************************************************************************/
 

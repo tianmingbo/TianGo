@@ -1,11 +1,11 @@
 #ifndef JEMALLOC_INTERNAL_RTREE_H
 #define JEMALLOC_INTERNAL_RTREE_H
 
-#include "atomic.h"
-#include "mutex.h"
-#include "rtree_tsd.h"
+#include "jemalloc/internal/atomic.h"
+#include "jemalloc/internal/mutex.h"
+#include "jemalloc/internal/rtree_tsd.h"
 #include "jemalloc/internal/size_classes.h"
-#include "tsd.h"
+#include "jemalloc/internal/tsd.h"
 
 /*
  * This radix tree implementation is tailored to the singular purpose of

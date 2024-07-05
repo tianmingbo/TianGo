@@ -1,6 +1,6 @@
 #include "test/jemalloc_test.h"
 
-#include "../include/test/extent_hooks.h"
+#include "test/extent_hooks.h"
 
 static extent_hooks_t hooks_null = {
 	extent_alloc_hook,

@@ -1,7 +1,7 @@
 #ifndef JEMALLOC_INTERNAL_WITNESS_H
 #define JEMALLOC_INTERNAL_WITNESS_H
 
-#include "ql.h"
+#include "jemalloc/internal/ql.h"
 
 /******************************************************************************/
 /* LOCK RANKS */

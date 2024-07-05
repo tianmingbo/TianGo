@@ -1,8 +1,8 @@
 #ifndef JEMALLOC_INTERNAL_BITMAP_H
 #define JEMALLOC_INTERNAL_BITMAP_H
 
-#include "arena_types.h"
-#include "bit_util.h"
+#include "jemalloc/internal/arena_types.h"
+#include "jemalloc/internal/bit_util.h"
 #include "jemalloc/internal/size_classes.h"
 
 typedef unsigned long bitmap_t;

@@ -1,18 +1,18 @@
 #ifndef JEMALLOC_INTERNAL_ARENA_STRUCTS_B_H
 #define JEMALLOC_INTERNAL_ARENA_STRUCTS_B_H
 
-#include "arena_stats.h"
-#include "atomic.h"
-#include "bin.h"
-#include "bitmap.h"
-#include "extent_dss.h"
-#include "jemalloc_internal_types.h"
-#include "mutex.h"
-#include "nstime.h"
-#include "ql.h"
+#include "jemalloc/internal/arena_stats.h"
+#include "jemalloc/internal/atomic.h"
+#include "jemalloc/internal/bin.h"
+#include "jemalloc/internal/bitmap.h"
+#include "jemalloc/internal/extent_dss.h"
+#include "jemalloc/internal/jemalloc_internal_types.h"
+#include "jemalloc/internal/mutex.h"
+#include "jemalloc/internal/nstime.h"
+#include "jemalloc/internal/ql.h"
 #include "jemalloc/internal/size_classes.h"
-#include "smoothstep.h"
-#include "ticker.h"
+#include "jemalloc/internal/smoothstep.h"
+#include "jemalloc/internal/ticker.h"
 
 struct arena_decay_s {
 	/* Synchronizes all non-atomic fields. */

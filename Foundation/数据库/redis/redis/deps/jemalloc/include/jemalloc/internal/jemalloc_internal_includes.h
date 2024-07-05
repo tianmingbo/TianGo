@@ -40,55 +40,55 @@
 /* TYPES */
 /******************************************************************************/
 
-#include "extent_types.h"
-#include "base_types.h"
-#include "arena_types.h"
-#include "tcache_types.h"
-#include "prof_types.h"
+#include "jemalloc/internal/extent_types.h"
+#include "jemalloc/internal/base_types.h"
+#include "jemalloc/internal/arena_types.h"
+#include "jemalloc/internal/tcache_types.h"
+#include "jemalloc/internal/prof_types.h"
 
 /******************************************************************************/
 /* STRUCTS */
 /******************************************************************************/
 
-#include "arena_structs_a.h"
-#include "extent_structs.h"
-#include "base_structs.h"
-#include "prof_structs.h"
-#include "arena_structs_b.h"
-#include "tcache_structs.h"
-#include "background_thread_structs.h"
+#include "jemalloc/internal/arena_structs_a.h"
+#include "jemalloc/internal/extent_structs.h"
+#include "jemalloc/internal/base_structs.h"
+#include "jemalloc/internal/prof_structs.h"
+#include "jemalloc/internal/arena_structs_b.h"
+#include "jemalloc/internal/tcache_structs.h"
+#include "jemalloc/internal/background_thread_structs.h"
 
 /******************************************************************************/
 /* EXTERNS */
 /******************************************************************************/
 
-#include "jemalloc_internal_externs.h"
-#include "extent_externs.h"
-#include "base_externs.h"
-#include "arena_externs.h"
-#include "large_externs.h"
-#include "tcache_externs.h"
-#include "prof_externs.h"
-#include "background_thread_externs.h"
+#include "jemalloc/internal/jemalloc_internal_externs.h"
+#include "jemalloc/internal/extent_externs.h"
+#include "jemalloc/internal/base_externs.h"
+#include "jemalloc/internal/arena_externs.h"
+#include "jemalloc/internal/large_externs.h"
+#include "jemalloc/internal/tcache_externs.h"
+#include "jemalloc/internal/prof_externs.h"
+#include "jemalloc/internal/background_thread_externs.h"
 
 /******************************************************************************/
 /* INLINES */
 /******************************************************************************/
 
-#include "jemalloc_internal_inlines_a.h"
-#include "base_inlines.h"
+#include "jemalloc/internal/jemalloc_internal_inlines_a.h"
+#include "jemalloc/internal/base_inlines.h"
 /*
  * Include portions of arena code interleaved with tcache code in order to
  * resolve circular dependencies.
  */
-#include "prof_inlines_a.h"
-#include "arena_inlines_a.h"
-#include "extent_inlines.h"
-#include "jemalloc_internal_inlines_b.h"
-#include "tcache_inlines.h"
-#include "arena_inlines_b.h"
-#include "jemalloc_internal_inlines_c.h"
-#include "prof_inlines_b.h"
-#include "background_thread_inlines.h"
+#include "jemalloc/internal/prof_inlines_a.h"
+#include "jemalloc/internal/arena_inlines_a.h"
+#include "jemalloc/internal/extent_inlines.h"
+#include "jemalloc/internal/jemalloc_internal_inlines_b.h"
+#include "jemalloc/internal/tcache_inlines.h"
+#include "jemalloc/internal/arena_inlines_b.h"
+#include "jemalloc/internal/jemalloc_internal_inlines_c.h"
+#include "jemalloc/internal/prof_inlines_b.h"
+#include "jemalloc/internal/background_thread_inlines.h"
 
 #endif /* JEMALLOC_INTERNAL_INCLUDES_H */

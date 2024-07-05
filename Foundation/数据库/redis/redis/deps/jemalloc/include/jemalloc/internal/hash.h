@@ -1,7 +1,7 @@
 #ifndef JEMALLOC_INTERNAL_HASH_H
 #define JEMALLOC_INTERNAL_HASH_H
 
-#include "assert.h"
+#include "jemalloc/internal/assert.h"
 
 /*
  * The following hash function is based on MurmurHash3, placed into the public

@@ -1,9 +1,9 @@
 #ifndef JEMALLOC_INTERNAL_ARENA_STATS_H
 #define JEMALLOC_INTERNAL_ARENA_STATS_H
 
-#include "atomic.h"
-#include "mutex.h"
-#include "mutex_prof.h"
+#include "jemalloc/internal/atomic.h"
+#include "jemalloc/internal/mutex.h"
+#include "jemalloc/internal/mutex_prof.h"
 #include "jemalloc/internal/size_classes.h"
 
 /*

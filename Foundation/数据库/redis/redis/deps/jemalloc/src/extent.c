@@ -1,14 +1,14 @@
 #define JEMALLOC_EXTENT_C_
 #include "jemalloc/internal/jemalloc_preamble.h"
-#include "../include/jemalloc/internal/jemalloc_internal_includes.h"
+#include "jemalloc/internal/jemalloc_internal_includes.h"
 
-#include "../include/jemalloc/internal/assert.h"
-#include "../include/jemalloc/internal/extent_dss.h"
-#include "../include/jemalloc/internal/extent_mmap.h"
-#include "../include/jemalloc/internal/ph.h"
-#include "../include/jemalloc/internal/rtree.h"
-#include "../include/jemalloc/internal/mutex.h"
-#include "../include/jemalloc/internal/mutex_pool.h"
+#include "jemalloc/internal/assert.h"
+#include "jemalloc/internal/extent_dss.h"
+#include "jemalloc/internal/extent_mmap.h"
+#include "jemalloc/internal/ph.h"
+#include "jemalloc/internal/rtree.h"
+#include "jemalloc/internal/mutex.h"
+#include "jemalloc/internal/mutex_pool.h"
 
 /******************************************************************************/
 /* Data. */

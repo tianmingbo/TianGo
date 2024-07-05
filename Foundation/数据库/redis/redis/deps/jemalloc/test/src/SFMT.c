@@ -47,7 +47,7 @@
  */
 #define SFMT_C_
 #include "test/jemalloc_test.h"
-#include "../include/test/SFMT-params.h"
+#include "test/SFMT-params.h"
 
 #if defined(JEMALLOC_BIG_ENDIAN) && !defined(BIG_ENDIAN64)
 #define BIG_ENDIAN64 1

@@ -1,10 +1,10 @@
 #ifndef JEMALLOC_INTERNAL_TCACHE_STRUCTS_H
 #define JEMALLOC_INTERNAL_TCACHE_STRUCTS_H
 
-#include "ql.h"
+#include "jemalloc/internal/ql.h"
 #include "jemalloc/internal/size_classes.h"
-#include "cache_bin.h"
-#include "ticker.h"
+#include "jemalloc/internal/cache_bin.h"
+#include "jemalloc/internal/ticker.h"
 
 struct tcache_s {
 	/*

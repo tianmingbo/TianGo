@@ -1,10 +1,10 @@
 #ifndef JEMALLOC_INTERNAL_BIN_H
 #define JEMALLOC_INTERNAL_BIN_H
 
-#include "extent_types.h"
-#include "extent_structs.h"
-#include "mutex.h"
-#include "bin_stats.h"
+#include "jemalloc/internal/extent_types.h"
+#include "jemalloc/internal/extent_structs.h"
+#include "jemalloc/internal/mutex.h"
+#include "jemalloc/internal/bin_stats.h"
 
 /*
  * A bin contains a set of extents that are currently being used for slab

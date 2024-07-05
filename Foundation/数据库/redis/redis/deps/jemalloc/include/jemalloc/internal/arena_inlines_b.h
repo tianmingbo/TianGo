@@ -1,12 +1,12 @@
 #ifndef JEMALLOC_INTERNAL_ARENA_INLINES_B_H
 #define JEMALLOC_INTERNAL_ARENA_INLINES_B_H
 
-#include "jemalloc_internal_types.h"
-#include "mutex.h"
-#include "rtree.h"
+#include "jemalloc/internal/jemalloc_internal_types.h"
+#include "jemalloc/internal/mutex.h"
+#include "jemalloc/internal/rtree.h"
 #include "jemalloc/internal/size_classes.h"
-#include "sz.h"
-#include "ticker.h"
+#include "jemalloc/internal/sz.h"
+#include "jemalloc/internal/ticker.h"
 
 JEMALLOC_ALWAYS_INLINE prof_tctx_t *
 arena_prof_tctx_get(tsdn_t *tsdn, const void *ptr, alloc_ctx_t *alloc_ctx) {

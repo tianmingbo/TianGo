@@ -110,7 +110,7 @@
 #elif MEXP == 11213
   #include "test/SFMT-params11213.h"
 #elif MEXP == 19937
-  #include "SFMT-params19937.h"
+  #include "test/SFMT-params19937.h"
 #elif MEXP == 44497
   #include "test/SFMT-params44497.h"
 #elif MEXP == 86243

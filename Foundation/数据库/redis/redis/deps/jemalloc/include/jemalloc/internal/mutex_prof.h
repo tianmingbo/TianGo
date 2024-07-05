@@ -1,9 +1,9 @@
 #ifndef JEMALLOC_INTERNAL_MUTEX_PROF_H
 #define JEMALLOC_INTERNAL_MUTEX_PROF_H
 
-#include "atomic.h"
-#include "nstime.h"
-#include "tsd_types.h"
+#include "jemalloc/internal/atomic.h"
+#include "jemalloc/internal/nstime.h"
+#include "jemalloc/internal/tsd_types.h"
 
 #define MUTEX_PROF_GLOBAL_MUTEXES					\
     OP(background_thread)						\

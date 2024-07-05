@@ -1,7 +1,7 @@
 #ifndef JEMALLOC_INTERNAL_PROF_INLINES_B_H
 #define JEMALLOC_INTERNAL_PROF_INLINES_B_H
 
-#include "sz.h"
+#include "jemalloc/internal/sz.h"
 
 JEMALLOC_ALWAYS_INLINE bool
 prof_gdump_get_unlocked(void) {

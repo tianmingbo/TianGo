@@ -1,9 +1,9 @@
 #define JEMALLOC_WITNESS_C_
 #include "jemalloc/internal/jemalloc_preamble.h"
-#include "../include/jemalloc/internal/jemalloc_internal_includes.h"
+#include "jemalloc/internal/jemalloc_internal_includes.h"
 
-#include "../include/jemalloc/internal/assert.h"
-#include "../include/jemalloc/internal/malloc_io.h"
+#include "jemalloc/internal/assert.h"
+#include "jemalloc/internal/malloc_io.h"
 
 void
 witness_init(witness_t *witness, const char *name, witness_rank_t rank,

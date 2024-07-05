@@ -1,9 +1,9 @@
 #ifndef JEMALLOC_INTERNAL_MUTEX_POOL_H
 #define JEMALLOC_INTERNAL_MUTEX_POOL_H
 
-#include "hash.h"
-#include "mutex.h"
-#include "witness.h"
+#include "jemalloc/internal/hash.h"
+#include "jemalloc/internal/mutex.h"
+#include "jemalloc/internal/witness.h"
 
 /* We do mod reductions by this value, so it should be kept a power of 2. */
 #define MUTEX_POOL_SIZE 256

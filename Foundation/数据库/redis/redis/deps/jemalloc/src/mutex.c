@@ -1,10 +1,10 @@
 #define JEMALLOC_MUTEX_C_
 #include "jemalloc/internal/jemalloc_preamble.h"
-#include "../include/jemalloc/internal/jemalloc_internal_includes.h"
+#include "jemalloc/internal/jemalloc_internal_includes.h"
 
-#include "../include/jemalloc/internal/assert.h"
-#include "../include/jemalloc/internal/malloc_io.h"
-#include "../include/jemalloc/internal/spin.h"
+#include "jemalloc/internal/assert.h"
+#include "jemalloc/internal/malloc_io.h"
+#include "jemalloc/internal/spin.h"
 
 #ifndef _CRT_SPINCOUNT
 #define _CRT_SPINCOUNT 4000

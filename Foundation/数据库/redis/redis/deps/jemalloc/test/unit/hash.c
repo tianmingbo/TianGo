@@ -28,7 +28,7 @@
  */
 
 #include "test/jemalloc_test.h"
-#include "../../include/jemalloc/internal/hash.h"
+#include "jemalloc/internal/hash.h"
 
 typedef enum {
 	hash_variant_x86_32,

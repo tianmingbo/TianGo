@@ -1,10 +1,10 @@
 #ifndef JEMALLOC_INTERNAL_EXTENT_EXTERNS_H
 #define JEMALLOC_INTERNAL_EXTENT_EXTERNS_H
 
-#include "mutex.h"
-#include "mutex_pool.h"
-#include "ph.h"
-#include "rtree.h"
+#include "jemalloc/internal/mutex.h"
+#include "jemalloc/internal/mutex_pool.h"
+#include "jemalloc/internal/ph.h"
+#include "jemalloc/internal/rtree.h"
 
 extern size_t opt_lg_extent_max_active_fit;
 

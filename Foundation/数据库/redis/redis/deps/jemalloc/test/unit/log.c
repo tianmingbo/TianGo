@@ -1,6 +1,6 @@
 #include "test/jemalloc_test.h"
 
-#include "../../include/jemalloc/internal/log.h"
+#include "jemalloc/internal/log.h"
 
 static void
 expect_no_logging(const char *names) {

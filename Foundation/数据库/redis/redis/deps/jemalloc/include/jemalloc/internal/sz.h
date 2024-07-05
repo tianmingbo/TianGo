@@ -1,10 +1,10 @@
 #ifndef JEMALLOC_INTERNAL_SIZE_H
 #define JEMALLOC_INTERNAL_SIZE_H
 
-#include "bit_util.h"
-#include "pages.h"
+#include "jemalloc/internal/bit_util.h"
+#include "jemalloc/internal/pages.h"
 #include "jemalloc/internal/size_classes.h"
-#include "util.h"
+#include "jemalloc/internal/util.h"
 
 /*
  * sz module: Size computations.

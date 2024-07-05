@@ -1,6 +1,6 @@
 #include "test/jemalloc_test.h"
 
-#include "../../include/jemalloc/internal/spin.h"
+#include "jemalloc/internal/spin.h"
 
 TEST_BEGIN(test_spin) {
 	spin_t spinner = SPIN_INITIALIZER;

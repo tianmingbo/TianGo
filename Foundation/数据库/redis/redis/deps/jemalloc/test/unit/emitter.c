@@ -1,5 +1,5 @@
 #include "test/jemalloc_test.h"
-#include "../../include/jemalloc/internal/emitter.h"
+#include "jemalloc/internal/emitter.h"
 
 /*
  * This is so useful for debugging and feature work, we'll leave printing

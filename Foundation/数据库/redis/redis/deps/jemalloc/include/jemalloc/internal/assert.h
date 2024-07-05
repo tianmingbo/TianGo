@@ -1,5 +1,5 @@
-#include "malloc_io.h"
-#include "util.h"
+#include "jemalloc/internal/malloc_io.h"
+#include "jemalloc/internal/util.h"
 
 /*
  * Define a custom assert() in order to reduce the chances of deadlock during

@@ -1,6 +1,6 @@
 #include "test/jemalloc_test.h"
 
-#include "../../include/jemalloc/internal/bit_util.h"
+#include "jemalloc/internal/bit_util.h"
 
 #define TEST_POW2_CEIL(t, suf, pri) do {				\
 	unsigned i, pow2;						\
