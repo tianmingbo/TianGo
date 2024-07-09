@@ -10,46 +10,76 @@
  * 此外，setsid函数执行成功后，调用进程会和原先的会话组、进程组脱离，获得更高的独立性和隔离性。
  * */
 
+
 #include <stdio.h>
 #include <stdlib.h>
+#include <sys/syslog.h>
 #include <unistd.h>
+#include <fcntl.h>
 
-int main() {
-    pid_t pid = fork();
+#define FNAME "/tmp/out"
+
+static int deamonize() {
+    int fd;
+    pid_t pid;
+    pid = fork();
+
     if (pid < 0) {
-        perror("fork error");
-        exit(1);
+        return -1;
     }
 
     if (pid > 0) {
-        // 父进程退出
         exit(0);
     }
 
-    // 子进程继续执行
+    fd = open("/dev/null", O_RDWR);//输出都忽略
+    if (fd < 0) {
+        return -1;
+    }
+    if (pid == 0) {
+        printf("test");
+        fflush(NULL);
+        dup2(fd, 0);
+        dup2(fd, 1);
+        dup2(fd, 2);
+        if (fd > 2) {
+            close(fd);
+        }
+        setsid();//脱离终端
+        //umask();
+        chdir("/");
+    }
+    return 0;
+}
 
-    // 创建一个新的会话，并成为会话领导
-    if (setsid() < 0) {
-        perror("setsid error");
+int main() {
+    FILE *fp;
+
+    //开启日志服务
+    openlog("print i", LOG_PID, LOG_DAEMON);
+
+    if (deamonize()) {
+        syslog(LOG_ERR, "init failed!");
+    } else {
+        syslog(LOG_INFO, "successded!");
+    }
+
+    fp = fopen(FNAME, "w+");
+    if (fp == NULL) {
+        syslog(LOG_ERR, "write file failed!");
         exit(1);
     }
 
-    // 修改当前工作目录为根目录
-    if (chdir("/") < 0) {
-        perror("chdir error");
-        exit(1);
-    }
+    syslog(LOG_INFO, "%s opened", FNAME);
 
-    // 关闭标准输入、标准输出和标准错误
-    close(0);
-    close(1);
-    close(2);
-
-    // 在后台运行
-    while (1) {
-        // 这里可以添加具体的守护进程任务
+    for (int i = 0;; i++) {
+        fprintf(fp, "%d\n", i);
+        fflush(NULL);
+        syslog(LOG_DEBUG, "%d 写入", i);
         sleep(1);
     }
 
-    return 0;
+    closelog();
+    fclose(fp);
+    exit(0);
 }

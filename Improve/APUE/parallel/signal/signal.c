@@ -5,7 +5,7 @@
 
 //void (*signal(int signum, void (*handler)(int)))(int);
 
-void handle_signal(int signum) {
+static void handle_signal(int signum) {
     printf("Received signal (%d). Exiting...\n", signum);
     // 在这里添加自定义的信号处理逻辑
     exit(0);
@@ -19,7 +19,5 @@ int main() {
     printf("Press Ctrl+C to exit...\n");
     while (1)
         pause();
-
-
     return 0;
 }
