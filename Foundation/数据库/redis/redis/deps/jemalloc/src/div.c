@@ -1,8 +1,8 @@
 #include "jemalloc/internal/jemalloc_preamble.h"
 
-#include "../include/jemalloc/internal/div.h"
+#include "jemalloc/internal/div.h"
 
-#include "../include/jemalloc/internal/assert.h"
+#include "jemalloc/internal/assert.h"
 
 /*
  * Suppose we have n = q * d, all integers. We know n and d, and want q = n / d.

@@ -1,9 +1,9 @@
 #ifndef JEMALLOC_INTERNAL_EXTERNS_H
 #define JEMALLOC_INTERNAL_EXTERNS_H
 
-#include "atomic.h"
+#include "jemalloc/internal/atomic.h"
 #include "jemalloc/internal/size_classes.h"
-#include "tsd_types.h"
+#include "jemalloc/internal/tsd_types.h"
 
 /* TSD checks this to set thread local slow state accordingly. */
 extern bool malloc_slow;

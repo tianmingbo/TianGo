@@ -1,7 +1,7 @@
 #ifndef JEMALLOC_INTERNAL_TICKER_H
 #define JEMALLOC_INTERNAL_TICKER_H
 
-#include "util.h"
+#include "jemalloc/internal/util.h"
 
 /**
  * A ticker makes it easy to count-down events until some limit.  You

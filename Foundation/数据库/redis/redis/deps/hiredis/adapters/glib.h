@@ -1,7 +1,7 @@
 #ifndef __HIREDIS_GLIB_H__
 #define __HIREDIS_GLIB_H__
 
-#include "glib.h"
+#include <glib.h>
 
 #include "../hiredis.h"
 #include "../async.h"

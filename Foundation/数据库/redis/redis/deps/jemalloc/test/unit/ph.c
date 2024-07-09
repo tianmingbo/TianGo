@@ -1,6 +1,6 @@
 #include "test/jemalloc_test.h"
 
-#include "../../include/jemalloc/internal/ph.h"
+#include "jemalloc/internal/ph.h"
 
 typedef struct node_s node_t;
 

@@ -2,10 +2,10 @@
 #include "test/jemalloc_test.h"
 #endif
 
-#include "../../include/jemalloc/internal/extent_mmap.h"
-#include "../../include/jemalloc/internal/rtree.h"
+#include "jemalloc/internal/extent_mmap.h"
+#include "jemalloc/internal/rtree.h"
 
-#include "../include/test/extent_hooks.h"
+#include "test/extent_hooks.h"
 
 static unsigned
 get_nsizes_impl(const char *cmd) {

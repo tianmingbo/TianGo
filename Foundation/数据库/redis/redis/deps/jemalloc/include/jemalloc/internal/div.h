@@ -1,7 +1,7 @@
 #ifndef JEMALLOC_INTERNAL_DIV_H
 #define JEMALLOC_INTERNAL_DIV_H
 
-#include "assert.h"
+#include "jemalloc/internal/assert.h"
 
 /*
  * This module does the division that computes the index of a region in a slab,

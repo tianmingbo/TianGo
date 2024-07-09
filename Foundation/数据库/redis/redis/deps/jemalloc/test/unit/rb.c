@@ -1,6 +1,6 @@
 #include "test/jemalloc_test.h"
 
-#include "../../include/jemalloc/internal/rb.h"
+#include "jemalloc/internal/rb.h"
 
 #define rbtn_black_height(a_type, a_field, a_rbt, r_height) do {	\
 	a_type *rbp_bh_t;						\

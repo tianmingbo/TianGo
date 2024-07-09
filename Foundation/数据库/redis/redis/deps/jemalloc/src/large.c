@@ -1,12 +1,12 @@
 #define JEMALLOC_LARGE_C_
 #include "jemalloc/internal/jemalloc_preamble.h"
-#include "../include/jemalloc/internal/jemalloc_internal_includes.h"
+#include "jemalloc/internal/jemalloc_internal_includes.h"
 
-#include "../include/jemalloc/internal/assert.h"
-#include "../include/jemalloc/internal/extent_mmap.h"
-#include "../include/jemalloc/internal/mutex.h"
-#include "../include/jemalloc/internal/rtree.h"
-#include "../include/jemalloc/internal/util.h"
+#include "jemalloc/internal/assert.h"
+#include "jemalloc/internal/extent_mmap.h"
+#include "jemalloc/internal/mutex.h"
+#include "jemalloc/internal/rtree.h"
+#include "jemalloc/internal/util.h"
 
 /******************************************************************************/
 

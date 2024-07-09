@@ -1,12 +1,12 @@
 #ifndef JEMALLOC_INTERNAL_CTL_H
 #define JEMALLOC_INTERNAL_CTL_H
 
-#include "jemalloc_internal_types.h"
-#include "malloc_io.h"
-#include "mutex_prof.h"
-#include "ql.h"
+#include "jemalloc/internal/jemalloc_internal_types.h"
+#include "jemalloc/internal/malloc_io.h"
+#include "jemalloc/internal/mutex_prof.h"
+#include "jemalloc/internal/ql.h"
 #include "jemalloc/internal/size_classes.h"
-#include "stats.h"
+#include "jemalloc/internal/stats.h"
 
 /* Maximum ctl tree depth. */
 #define CTL_MAX_DEPTH	7

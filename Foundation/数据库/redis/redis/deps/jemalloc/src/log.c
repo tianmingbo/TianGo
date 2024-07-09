@@ -1,7 +1,7 @@
 #include "jemalloc/internal/jemalloc_preamble.h"
-#include "../include/jemalloc/internal/jemalloc_internal_includes.h"
+#include "jemalloc/internal/jemalloc_internal_includes.h"
 
-#include "../include/jemalloc/internal/log.h"
+#include "jemalloc/internal/log.h"
 
 char log_var_names[JEMALLOC_LOG_VAR_BUFSIZE];
 atomic_b_t log_init_done = ATOMIC_INIT(false);

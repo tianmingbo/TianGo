@@ -1,7 +1,7 @@
 #include "jemalloc/internal/jemalloc_preamble.h"
-#include "../include/jemalloc/internal/jemalloc_internal_includes.h"
+#include "jemalloc/internal/jemalloc_internal_includes.h"
 
-#include "../include/jemalloc/internal/assert.h"
+#include "jemalloc/internal/assert.h"
 
 #ifndef JEMALLOC_ZONE
 #  error "This source file is for zones on Darwin (OS X)."

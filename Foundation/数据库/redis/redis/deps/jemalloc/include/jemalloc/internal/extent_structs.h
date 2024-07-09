@@ -1,11 +1,11 @@
 #ifndef JEMALLOC_INTERNAL_EXTENT_STRUCTS_H
 #define JEMALLOC_INTERNAL_EXTENT_STRUCTS_H
 
-#include "atomic.h"
-#include "bitmap.h"
-#include "mutex.h"
-#include "ql.h"
-#include "ph.h"
+#include "jemalloc/internal/atomic.h"
+#include "jemalloc/internal/bitmap.h"
+#include "jemalloc/internal/mutex.h"
+#include "jemalloc/internal/ql.h"
+#include "jemalloc/internal/ph.h"
 #include "jemalloc/internal/size_classes.h"
 
 typedef enum {

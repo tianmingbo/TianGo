@@ -1,6 +1,6 @@
 #include "test/jemalloc_test.h"
 
-#include "../../include/jemalloc/internal/util.h"
+#include "jemalloc/internal/util.h"
 
 static void
 test_switch_background_thread_ctl(bool new_val) {

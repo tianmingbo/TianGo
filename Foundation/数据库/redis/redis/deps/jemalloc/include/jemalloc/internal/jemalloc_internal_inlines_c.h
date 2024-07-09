@@ -1,9 +1,9 @@
 #ifndef JEMALLOC_INTERNAL_INLINES_C_H
 #define JEMALLOC_INTERNAL_INLINES_C_H
 
-#include "jemalloc_internal_types.h"
-#include "sz.h"
-#include "witness.h"
+#include "jemalloc/internal/jemalloc_internal_types.h"
+#include "jemalloc/internal/sz.h"
+#include "jemalloc/internal/witness.h"
 
 /*
  * Translating the names of the 'i' functions:

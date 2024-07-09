@@ -1,9 +1,9 @@
 #define JEMALLOC_TCACHE_C_
 #include "jemalloc/internal/jemalloc_preamble.h"
-#include "../include/jemalloc/internal/jemalloc_internal_includes.h"
+#include "jemalloc/internal/jemalloc_internal_includes.h"
 
-#include "../include/jemalloc/internal/assert.h"
-#include "../include/jemalloc/internal/mutex.h"
+#include "jemalloc/internal/assert.h"
+#include "jemalloc/internal/mutex.h"
 #include "jemalloc/internal/size_classes.h"
 
 /******************************************************************************/

@@ -1,6 +1,6 @@
 #include "test/jemalloc_test.h"
 
-#include "../../include/jemalloc/internal/div.h"
+#include "jemalloc/internal/div.h"
 
 TEST_BEGIN(test_div_exhaustive) {
 	for (size_t divisor = 2; divisor < 1000 * 1000; ++divisor) {

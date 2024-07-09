@@ -1,12 +1,12 @@
 #ifndef JEMALLOC_INTERNAL_EXTENT_INLINES_H
 #define JEMALLOC_INTERNAL_EXTENT_INLINES_H
 
-#include "mutex.h"
-#include "mutex_pool.h"
-#include "pages.h"
-#include "prng.h"
-#include "ql.h"
-#include "sz.h"
+#include "jemalloc/internal/mutex.h"
+#include "jemalloc/internal/mutex_pool.h"
+#include "jemalloc/internal/pages.h"
+#include "jemalloc/internal/prng.h"
+#include "jemalloc/internal/ql.h"
+#include "jemalloc/internal/sz.h"
 
 static inline void
 extent_lock(tsdn_t *tsdn, extent_t *extent) {

@@ -1,6 +1,6 @@
 #include "test/jemalloc_test.h"
 
-#include "../include/test/extent_hooks.h"
+#include "test/extent_hooks.h"
 
 static bool
 check_background_thread_enabled(void) {

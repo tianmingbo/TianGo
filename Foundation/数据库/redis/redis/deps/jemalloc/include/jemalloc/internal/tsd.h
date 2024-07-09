@@ -1,16 +1,16 @@
 #ifndef JEMALLOC_INTERNAL_TSD_H
 #define JEMALLOC_INTERNAL_TSD_H
 
-#include "arena_types.h"
-#include "assert.h"
-#include "jemalloc_internal_externs.h"
-#include "prof_types.h"
-#include "ql.h"
-#include "rtree_tsd.h"
-#include "tcache_types.h"
-#include "tcache_structs.h"
-#include "util.h"
-#include "witness.h"
+#include "jemalloc/internal/arena_types.h"
+#include "jemalloc/internal/assert.h"
+#include "jemalloc/internal/jemalloc_internal_externs.h"
+#include "jemalloc/internal/prof_types.h"
+#include "jemalloc/internal/ql.h"
+#include "jemalloc/internal/rtree_tsd.h"
+#include "jemalloc/internal/tcache_types.h"
+#include "jemalloc/internal/tcache_structs.h"
+#include "jemalloc/internal/util.h"
+#include "jemalloc/internal/witness.h"
 
 /*
  * Thread-Specific-Data layout
@@ -171,7 +171,7 @@ void tsd_slow_update(tsd_t *tsd);
 #elif (defined(_WIN32))
 #include "jemalloc/internal/tsd_win.h"
 #else
-#include "tsd_generic.h"
+#include "jemalloc/internal/tsd_generic.h"
 #endif
 
 /*

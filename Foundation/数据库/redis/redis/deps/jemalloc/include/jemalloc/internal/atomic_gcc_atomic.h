@@ -1,7 +1,7 @@
 #ifndef JEMALLOC_INTERNAL_ATOMIC_GCC_ATOMIC_H
 #define JEMALLOC_INTERNAL_ATOMIC_GCC_ATOMIC_H
 
-#include "assert.h"
+#include "jemalloc/internal/assert.h"
 
 #define ATOMIC_INIT(...) {__VA_ARGS__}
 

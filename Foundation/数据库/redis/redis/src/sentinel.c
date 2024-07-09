@@ -1,6 +1,6 @@
 #include "server.h"
-#include "../deps/hiredis/hiredis.h"
-#include "../deps/hiredis/async.h"
+#include "hiredis.h"
+#include "async.h"
 
 #include <ctype.h>
 #include <arpa/inet.h>

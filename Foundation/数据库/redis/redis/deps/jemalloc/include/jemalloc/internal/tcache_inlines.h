@@ -1,12 +1,12 @@
 #ifndef JEMALLOC_INTERNAL_TCACHE_INLINES_H
 #define JEMALLOC_INTERNAL_TCACHE_INLINES_H
 
-#include "bin.h"
-#include "jemalloc_internal_types.h"
+#include "jemalloc/internal/bin.h"
+#include "jemalloc/internal/jemalloc_internal_types.h"
 #include "jemalloc/internal/size_classes.h"
-#include "sz.h"
-#include "ticker.h"
-#include "util.h"
+#include "jemalloc/internal/sz.h"
+#include "jemalloc/internal/ticker.h"
+#include "jemalloc/internal/util.h"
 
 static inline bool
 tcache_enabled_get(tsd_t *tsd) {

@@ -1,7 +1,7 @@
 #ifndef JEMALLOC_INTERNAL_QL_H
 #define JEMALLOC_INTERNAL_QL_H
 
-#include "qr.h"
+#include "jemalloc/internal/qr.h"
 
 /* List definitions. */
 #define ql_head(a_type)							\

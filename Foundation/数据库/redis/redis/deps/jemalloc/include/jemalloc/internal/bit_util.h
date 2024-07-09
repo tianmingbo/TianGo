@@ -1,7 +1,7 @@
 #ifndef JEMALLOC_INTERNAL_BIT_UTIL_H
 #define JEMALLOC_INTERNAL_BIT_UTIL_H
 
-#include "assert.h"
+#include "jemalloc/internal/assert.h"
 
 #define BIT_UTIL_INLINE static inline
 

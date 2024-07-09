@@ -1,10 +1,10 @@
 #ifndef JEMALLOC_INTERNAL_MUTEX_H
 #define JEMALLOC_INTERNAL_MUTEX_H
 
-#include "atomic.h"
-#include "mutex_prof.h"
-#include "tsd.h"
-#include "witness.h"
+#include "jemalloc/internal/atomic.h"
+#include "jemalloc/internal/mutex_prof.h"
+#include "jemalloc/internal/tsd.h"
+#include "jemalloc/internal/witness.h"
 
 typedef enum {
 	/* Can only acquire one mutex of a given witness rank at a time. */

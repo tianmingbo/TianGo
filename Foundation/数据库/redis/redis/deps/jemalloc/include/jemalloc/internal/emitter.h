@@ -1,7 +1,7 @@
 #ifndef JEMALLOC_INTERNAL_EMITTER_H
 #define JEMALLOC_INTERNAL_EMITTER_H
 
-#include "ql.h"
+#include "jemalloc/internal/ql.h"
 
 typedef enum emitter_output_e emitter_output_t;
 enum emitter_output_e {

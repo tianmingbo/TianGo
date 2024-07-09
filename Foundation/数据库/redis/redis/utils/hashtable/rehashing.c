@@ -1,5 +1,5 @@
 #include "redis.h"
-#include "../../src/dict.h"
+#include "dict.h"
 
 void _redisAssert(char *x, char *y, int l) {
     printf("ASSERT: %s %s %d\n",x,y,l);

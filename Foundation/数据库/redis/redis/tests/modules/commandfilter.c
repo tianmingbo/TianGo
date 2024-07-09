@@ -1,5 +1,5 @@
 #define REDISMODULE_EXPERIMENTAL_API
-#include "../../src/redismodule.h"
+#include "redismodule.h"
 
 #include <string.h>
 

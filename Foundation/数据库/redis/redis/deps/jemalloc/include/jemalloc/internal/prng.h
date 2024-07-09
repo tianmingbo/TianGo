@@ -1,8 +1,8 @@
 #ifndef JEMALLOC_INTERNAL_PRNG_H
 #define JEMALLOC_INTERNAL_PRNG_H
 
-#include "atomic.h"
-#include "bit_util.h"
+#include "jemalloc/internal/atomic.h"
+#include "jemalloc/internal/bit_util.h"
 
 /*
  * Simple linear congruential pseudo-random number generator:
