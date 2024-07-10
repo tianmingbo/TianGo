@@ -11,7 +11,7 @@
 #include "mytbf.h"
 
 static const int SIZE = 1024;
-static const int CPS = 3;
+static const int CPS = 10;
 static const int BURST = 100;//最大令牌数
 
 static volatile int token = 0;//持有令牌数

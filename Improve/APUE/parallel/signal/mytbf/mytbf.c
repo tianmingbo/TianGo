@@ -43,6 +43,7 @@ static void handler(int sig) {
 static void mod_load() {
     alarm_status = signal(SIGALRM, handler);//保存alarm信号处理函数原来的状态
     alarm(1);
+    atexit(mod_load); //退出时调用
 }
 
 //卸载信号处理模块 当发生异常退出时 可以将占用的资源释放 将alarm信号取消

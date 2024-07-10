@@ -11,6 +11,7 @@
 #include "errno.h"
 #include "unistd.h"
 #include <fcntl.h>
+#include <sys/time.h>
 
 #define CPS 10
 #define BUFSIZE CPS
@@ -18,7 +19,7 @@
 static volatile int loop = 0;
 
 static void alrm_handler(int s) {
-    alarm(1);
+//    alarm(1);
     loop = 1;
 }
 
@@ -27,11 +28,22 @@ int main(int argc, char *argv[]) {
         puts("Usage err..");
         exit(1);
     }
+    struct itimerval timer;
+
     char buf[BUFSIZE];
     int sfd, dfd = 1;
     ssize_t len, pos, ret;
     signal(SIGALRM, alrm_handler);
-    alarm(1);
+    timer.it_interval.tv_sec = 1; //1s 1次
+    timer.it_interval.tv_usec = 0;
+    timer.it_value.tv_sec = 1;
+    timer.it_value.tv_usec = 0;
+    // 启动定时器
+    if (setitimer(ITIMER_REAL, &timer, NULL) == -1) {
+        perror("setitimer()");
+        exit(EXIT_FAILURE);
+    }
+//    alarm(1);
     do {
         if ((sfd = open(argv[1], O_RDONLY)) < 0) {
             if (errno != EINTR) {
