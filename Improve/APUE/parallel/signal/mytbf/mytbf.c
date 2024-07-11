@@ -92,7 +92,7 @@ int mytbf_fetchtoken(mytbf_t *ptr, int size) {
 
     //有token继续
     while (tbf->token <= 0)
-        pause();
+        pause(); //使进程挂起,直到接收一个信号
 
     int n = tbf->token < size ? tbf->token : size;
 
