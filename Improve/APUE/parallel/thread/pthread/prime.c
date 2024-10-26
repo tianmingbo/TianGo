@@ -30,7 +30,7 @@ int main() {
     pthread_t tid[NTHR];
     struct arg_st *p;
     void *ret;
-    for (i = LEFT; i < RIGHT; i++) {
+    for (i = LEFT; i <= RIGHT; i++) {
         p = malloc(sizeof(*p));
         if (p == NULL) {
             perror("malloc()");

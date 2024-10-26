@@ -7,8 +7,15 @@
 #include "stdlib.h"
 #include "unistd.h"
 
+void print_id() {
+    pid_t pid = getpid();
+    pthread_t tid = pthread_self();
+    printf("pid: %d, tid:%lu\n", pid, tid->__sig);
+}
+
 void *func(void *arg) {
     puts("thread is working");
+    print_id();
     pthread_exit(NULL);
 //    return NULL;
 }
@@ -22,6 +29,7 @@ int main() {
         puts("pthread_create error");
         exit(1);
     }
+    printf("return tid: %ld\n", tid->__sig);
     pthread_join(tid, &rt_ptr);
     puts("end");
     return 0;

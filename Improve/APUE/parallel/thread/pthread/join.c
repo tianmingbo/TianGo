@@ -1,3 +1,8 @@
+/**
+ * int pthread_join(pthread_t thread, void **value_ptr)
+ * thread: 要等待的线程标识符，即要等待的线程 ID。
+ * retval: 线程的退出状态.如果不需要返回值，可以传 NULL。
+ * */
 #include "stdio.h"
 #include "stdlib.h"
 #include "pthread.h"

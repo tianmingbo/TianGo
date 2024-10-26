@@ -13,7 +13,7 @@ void cleanup(void *arg) {
 void *func1(void *arg) {
     puts("thread1 return");
     pthread_cleanup_push(cleanup, "thread1 first");
-        pthread_cleanup_push(cleanup, "thread2 second");
+        pthread_cleanup_push(cleanup, "thread1 second");
             puts("thread 1 put complete");
             if (arg)
                 //如果线程是从它的启动例程中返回而终止的话,清理程序不会被调用
