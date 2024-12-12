@@ -1,59 +1,50 @@
-//
-// Created by 田明博 on 24-10-26.
-// 按顺序输出abcd 使用互斥量
-//
+#include "stdlib.h"
+#include "stdio.h"
+#include "pthread.h"
+#include "string.h"
+#include "unistd.h"
 
-#include <stdlib.h>
-#include <stdio.h>
-#include <pthread.h>
-#include <unistd.h>
+#define TNUM 4
 
-#define THR_NUM 4
-static pthread_mutex_t mut[THR_NUM];
+static pthread_mutex_t mutex[TNUM]; // 定义互斥锁
 
-struct ARG {
+typedef struct {
     int n;
-};
+} tr_arg;
 
-static int next(int n) {
-    return (n + 1) == THR_NUM ? 0 : n + 1;
-}
-
-static void *print(void *arg) {
-    int t_i = ((struct ARG *) arg)->n;
-    int c = 'a' + t_i;
+static void *func(void *arg) {
+    int n = ((tr_arg *) arg)->n;
+    printf("%d\n", n);
+    int c = 'a' + n;
     while (1) {
-        pthread_mutex_lock(mut + t_i);
-        fputc(c, stdout);
-        pthread_mutex_unlock(mut + next(t_i));
+        pthread_mutex_lock(mutex + n);
+        printf("%c", c);
+        pthread_mutex_unlock(mutex + (n + 1) % TNUM);
     }
+
     pthread_exit(NULL);
 }
 
 int main() {
+    pthread_t tid[TNUM];
+    tr_arg *args = malloc(sizeof(tr_arg) * TNUM);
     int err, i;
-    pthread_t tid[THR_NUM];
-    struct ARG *p;
 
-    for (i = 0; i < THR_NUM; i++) {
-        if ((p = malloc(sizeof(*p))) == NULL) {
-            perror("malloc()");
-            exit(1);
-        }
-        p->n = i;
-        pthread_mutex_init(mut + i, NULL);
-        pthread_mutex_lock(mut + i);
-        err = pthread_create(tid + i, NULL, print, p);
+    for (i = 0; i < TNUM; i++) {
+        pthread_mutex_init(mutex + i, NULL);
+        pthread_mutex_lock(mutex + i);
+        (args + i)->n = i;
+        err = pthread_create(tid + i, NULL, func, args + i);
         if (err) {
-            perror("pthread_create()");
+            fprintf(stderr, "pthread_create():%s\n", strerror(err));
             exit(1);
         }
     }
-    //释放第一个线程互斥量
-    pthread_mutex_unlock(mut);
-    alarm(1);
-    for (i = 0; i < THR_NUM; i++) {
+    alarm(5);
+    pthread_mutex_unlock(mutex);
+    for (i = 0; i < TNUM; i++) {
         pthread_join(tid[i], NULL);
     }
+    free(args);
     return 0;
 }
