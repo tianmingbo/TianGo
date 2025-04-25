@@ -4,7 +4,7 @@
   * <zlbytes> <zltail> <zllen> <entry> <entry> ... <entry> <zlend>
   * 注意：如果没有另外指定，所有字段都以小端存储。
   *
-  * <uint32_t zlbytes> 记录zplist占用字节数,包括zlbytes4个字节
+  * <uint32_t zlbytes> 记录zplist占用字节数,包括zlbytes 4个字节
   * <uint32_t zltail> 最后一个节点的偏移量,用于支持链表尾部删除或反向遍历
   * <uint16_t zllen> entry数。 当有超过2^16-2个entry，这个值设置为2^16-1
   * <uint8_t zlend> 标志位,ziplist结尾,255
@@ -21,17 +21,19 @@
   * 0xFE <4 字节无符号小端 prevlen> <编码> <entry>
   *
   * encoding:
-  * |00pppppp| - 1 字节
+  * 字符串类型：
+  * |00pppppp|   1 字节
   * 长度小于或等于63字节（6位）的字符串值。
   * “pppppp”表示无符号6位长度。
   *
-  * |01pppppp|QQQQQQQQ| - 2字节, 长度小于或等于16383字节（14位）的字符串值。
+  * |01pppppp|QQQQQQQQ|  2字节, 长度小于或等于16383字节（14位）的字符串值。
   * 重要提示：14 位数字以大端存储。
   *
-  * |10000000|qqqqqqqq|rrrrrrrr|ssssssss|tttttttt| - 5字节
+  * |10000000|qqqqqqqq|rrrrrrrr|ssssssss|tttttttt|  5字节
   * 长度大于或等于16384字节的字符串值。仅第一个字节后面的4个字节代表长度,最多 32^2-1。 第一个字节的低 6 位未被使用，设置为零。
   * 重要提示：32 位数字以大端存储。
   *
+  * 整数类型：
   * |11000000| - 3字节, 整数编码为 int16_t（2 个字节）。
   * |11010000| - 5字节, 整数编码为 int32_t（4 个字节）。
   * |11100000| - 9 字节, 整数编码为 int64_t（8 字节）。
