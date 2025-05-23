@@ -3,7 +3,8 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/kirinlabs/HttpRequest"
+	"github.com/levigross/grequests"
+	"log"
 )
 
 type AddRes struct {
@@ -11,12 +12,14 @@ type AddRes struct {
 }
 
 func add(a, b int) int {
-	req := HttpRequest.NewRequest()
-	res, _ := req.Get(fmt.Sprintf("http://127.0.0.1:8080/add?a=%d&b=%d", a, b))
-	body, _ := res.Body()
-	fmt.Println(string(body))
+	url := fmt.Sprintf("http://127.0.0.1:8080/add?a=%d&b=%d", a, b)
+
+	resp, err := grequests.Get(url, nil)
+	if err != nil {
+		log.Fatal(err)
+	}
 	rspData := AddRes{}
-	_ = json.Unmarshal(body, &rspData)
+	_ = json.Unmarshal(resp.Bytes(), &rspData)
 	return rspData.Result
 }
 
