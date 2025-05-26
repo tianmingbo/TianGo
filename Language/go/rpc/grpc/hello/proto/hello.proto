@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package hello;
+
+option go_package = "./pb;pb";   //option go_package = "导入路径;包名";
+
+service HelloService {
+  rpc SayHello (HelloRequest) returns (HelloReply);
+}
+
+
+message HelloRequest {
+  string name = 1;
+}
+
+message HelloReply {
+  string message = 1;
+}

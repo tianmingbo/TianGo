@@ -7,14 +7,6 @@ import (
 	"net/rpc"
 )
 
-type Args struct {
-	A int
-	B int
-}
-type Reply struct {
-	Result string
-}
-
 func main() {
 	a := flag.Int("a", 0, "第一个数字")
 	b := flag.Int("b", 0, "第二个数字")
@@ -26,14 +18,14 @@ func main() {
 	}
 	defer client.Close()
 	var reply Reply
-	//args := &Args{
-	//	A: *a,
-	//	B: *b,
-	//}
-	fmt.Println("?")
-	err = client.Call("Calculator.Add", "1", &reply)
+	args := Args{
+		A: *a,
+		B: *b,
+	}
+	err = client.Call("Calculator.Add", args, &reply)
 	if err != nil {
 		log.Fatalln("call", err)
+		return
 	}
 	fmt.Println("res: ", reply.Result)
 }

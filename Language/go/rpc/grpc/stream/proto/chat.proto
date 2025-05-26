@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+option go_package = "./pb;pb";
+
+package chat;
+
+
+message MessageRequest{
+  string content = 1;
+  string sender = 2;
+}
+
+message MessageResponse{
+  string content = 1;
+  string receiver = 2;
+  int32 seq = 3;
+}
+
+//统计结果
+message  StatsResponse{
+  int32 total_messages = 1;
+  int32 total_bytes = 2;
+}
+
+service ChatService{
+  //简单rpc
+  rpc SendMessage(MessageRequest) returns (MessageResponse);
+  //客户端流
+  rpc SendStream(stream MessageRequest) returns (StatsResponse);
+  //服务端流
+  rpc ReceiveStream(MessageRequest) returns (stream MessageResponse);
+  //双向流
+  rpc BiStream(stream MessageRequest) returns (stream MessageResponse);
+}
