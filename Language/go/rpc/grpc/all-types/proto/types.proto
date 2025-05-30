@@ -1,0 +1,86 @@
+syntax = "proto3";
+
+option go_package = "./pb;pb";
+
+import "google/protobuf/empty.proto";
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/duration.proto";
+import "google/protobuf/wrappers.proto";
+import "google/protobuf/struct.proto";
+
+message ScalarTypes{
+  int32 int32_value = 1;
+  int64 int64_value = 2;
+  uint32 uint32_value = 3;
+  uint64 uint64_value = 4;
+  sint32 sint32_value = 5; //有符号 32 位整数（优化）,负数编码效率更高
+  sint64 sint64_value = 6;
+  fixed32 fixed32_value = 7; //无符号 32 位整数（固定）,始终占 4 字节，大数值效率更高
+  fixed64 fixed64_value = 8;
+  sfixed32 sfixed32_value = 9;//有符号 32 位整数（固定）	始终占 4 字节
+  sfixed64 sfixed64_value = 10;
+  float float_value = 11;
+  double double_value = 12;
+  bool bool_value = 13;
+  string string_value = 14;
+  bytes bytes_value = 15;
+}
+
+enum Color{
+  RED = 0;
+  GREEN = 1;
+  BLUE = 2;
+  YELLOW = 3;
+}
+
+message InnerMessage {
+  string name = 1;
+}
+
+//复合类型
+message ComplexTypes {
+  InnerMessage  inner_message = 1;
+
+  Color color = 2; //枚举
+  repeated string names = 3; //字符串数组
+  repeated int32 numbers = 4;
+
+  map<string, int32> map_value = 5;
+  map<int32, InnerMessage> map_message = 6;
+}
+
+//特殊类型
+message SpecialTypes{
+  google.protobuf.Timestamp timestamp = 1;
+  google.protobuf.Duration duration = 2;
+  google.protobuf.Empty empty = 3;
+  google.protobuf.Struct dynamic = 4;
+}
+
+// 包装类型示例,对应的值可为空
+message WrapperTypes {
+  google.protobuf.Int32Value int32_value = 1;
+  google.protobuf.Int64Value int64_value = 2;
+  google.protobuf.UInt32Value uint32_value = 3;
+  google.protobuf.UInt64Value uint64_value = 4;
+  google.protobuf.FloatValue float_value = 5;
+  google.protobuf.DoubleValue double_value = 6;
+  google.protobuf.BoolValue bool_value = 7;
+  google.protobuf.StringValue string_value = 8;
+  google.protobuf.BytesValue bytes_value = 9;
+}
+
+// 综合示例
+message AllTypes {
+  ScalarTypes scalars = 1;
+  ComplexTypes complex = 2;
+  SpecialTypes special = 3;
+  WrapperTypes wrappers = 4;
+}
+
+// 服务定义
+service TypesService {
+  rpc TestAllTypes(AllTypes) returns (AllTypes);
+}
+
+//protoc --go_out=. --go-grpc_out=. ./proto/types.proto

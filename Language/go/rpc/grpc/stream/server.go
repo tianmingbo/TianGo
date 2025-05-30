@@ -10,6 +10,7 @@ import (
 	"lGo/rpc/grpc/stream/pb"
 	"log"
 	"net"
+	"sync/atomic"
 	"time"
 )
 
@@ -19,7 +20,7 @@ type server struct {
 }
 
 func (s *server) SendMessage(ctx context.Context, req *pb.MessageRequest) (*pb.MessageResponse, error) {
-	fmt.Printf("received %s from %s", req.Content, req.Sender)
+	fmt.Printf("received ‘%s’ from ‘%s’\n", req.Content, req.Sender)
 	time.Sleep(100 * time.Millisecond)
 
 	return &pb.MessageResponse{
@@ -29,7 +30,11 @@ func (s *server) SendMessage(ctx context.Context, req *pb.MessageRequest) (*pb.M
 	}, nil
 }
 
-// 客户端流
+/*
+客户端流
+stream.Recv() 循环接收消息
+SendAndClose() 返回最终响应
+*/
 func (s *server) SendStream(stream pb.ChatService_SendStreamServer) error {
 	var (
 		totalMessages int32
@@ -50,7 +55,7 @@ func (s *server) SendStream(stream pb.ChatService_SendStreamServer) error {
 	}
 }
 
-// 服务端流
+// 服务端流 使用 stream.Send() 发送多条消息，自然结束流
 func (s *server) ReceiveStream(req *pb.MessageRequest, stream pb.ChatService_ReceiveStreamServer) error {
 	fmt.Printf("ReceiveStream : %s from %s", req.Content, req.Sender)
 	for i := 0; i < 10; i++ {
@@ -65,8 +70,32 @@ func (s *server) ReceiveStream(req *pb.MessageRequest, stream pb.ChatService_Rec
 	}
 	return nil
 }
+
 func (s *server) BiStream(stream pb.ChatService_BiStreamServer) error {
-	return status.Errorf(codes.Unimplemented, "method BiStream not implemented")
+	go func() {
+		for {
+			req, err := stream.Recv()
+			if err == io.EOF {
+				return //客户端关闭流
+			}
+			if err != nil {
+				log.Printf("receive message err,%v", err)
+			}
+
+			seq := atomic.AddInt32(&s.counter, 1)
+			log.Printf("received message #%d: %s from %s", seq, req.Content, req.Sender)
+
+			if err := stream.Send(&pb.MessageResponse{
+				Content:  fmt.Sprintf("received %s", req.Content),
+				Receiver: req.Sender,
+				Seq:      seq,
+			}); err != nil {
+				return
+			}
+		}
+	}()
+	<-stream.Context().Done()
+	return stream.Context().Err()
 }
 
 func main() {
