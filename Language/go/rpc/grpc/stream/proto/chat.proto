@@ -32,3 +32,5 @@ service ChatService{
   //双向流
   rpc BiStream(stream MessageRequest) returns (stream MessageResponse);
 }
+
+//protoc --go_out=. --go-grpc_out=. chat.proto
