@@ -4,7 +4,7 @@ import "fmt"
 
 func main() {
 	db := GetConnect()
-	err := db.AutoMigrate(&User{})
+	err := db.AutoMigrate(&User{}, &Order{})
 	if err != nil {
 		panic(err)
 	}

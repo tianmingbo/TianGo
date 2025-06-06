@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"gorm.io/gorm/clause"
 	"log"
 	"math/rand"
 	"time"
@@ -25,6 +26,10 @@ func generateRandomUsers(count int) []User {
 			Name:  name,
 			Age:   age,
 			Email: email,
+			Orders: []Order{
+				{Amount: 100 * i},
+				{Amount: 100*i + 1},
+			},
 		}
 	}
 
@@ -42,6 +47,20 @@ func saveUsersToDB(db *gorm.DB, users []User) (error, int64) {
 	return res.Error, res.RowsAffected
 }
 
+// upsert操作
+func upsertUsersToDB(db *gorm.DB, users []User) (error, int64) {
+	//通过索引直接修改原始切片|使用指针循环
+	for i := range users {
+		(&users[i]).Name = "tian"
+	}
+	// INSERT INTO `users` (`name`,`age`,`email`,`id`) VALUES ('tian',30,'tian890@example.com',1) ON DUPLICATE KEY UPDATE `name`=VALUES(`name`),`age`=VALUES(`age`)
+	res := db.Clauses(clause.OnConflict{
+		Columns:   []clause.Column{{Name: "id"}},                     // 冲突检测字段
+		DoUpdates: clause.AssignmentColumns([]string{"name", "age"}), // 冲突时更新的字段
+	}).Create(&users) // 批量插入数据
+	return res.Error, res.RowsAffected
+}
+
 func main() {
 	users := generateRandomUsers(20)
 	fmt.Printf("生成了 %d 条用户数据\n", len(users))
@@ -54,4 +73,10 @@ func main() {
 		fmt.Println("add:", addCount)
 	}
 	fmt.Println("用户数据已成功保存到数据库")
+
+	if err, addCount := upsertUsersToDB(db, users); err != nil {
+		log.Fatalf("upsert到数据库失败: %v", err)
+	} else {
+		fmt.Println("upsert:", addCount)
+	}
 }
