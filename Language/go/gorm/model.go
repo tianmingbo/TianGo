@@ -7,7 +7,7 @@ import (
 
 type Profile struct {
 	gorm.Model
-	UserID  uint // 外键
+	UserID  uint `gorm:"not null;unique"` // 外键，关联User，确保唯一性（一对一）
 	Address string
 	Phone   string
 }
@@ -18,9 +18,16 @@ type User struct {
 	Email     string `gorm:"size:255;unique"`
 	Status    bool   `gorm:"default:false"`
 	UpdatedAt time.Time
-	DeletedAt gorm.DeletedAt // 软删除字段
-	Orders    []Order        `gorm:"constraint:OnDelete:CASCADE"` // 级联删除, 一对多关联
-	Profile   Profile        `gorm:"foreignKey:UserID"`           // 拥有一个 Profile
+	//DeletedAt gorm.DeletedAt // 软删除字段
+	Orders  []Order `gorm:"constraint:OnDelete:CASCADE"`                                    // 级联删除, 一对多关联
+	Profile Profile `gorm:"foreignKey:UserID;constraint:OnUpdate:CASCADE,OnDelete:CASCADE"` // 拥有一个 Profile
+	Roles   []Role  `gorm:"many2many:user_roles;"`
+}
+
+type Role struct {
+	gorm.Model
+	Name  string
+	Users []User `gorm:"many2many:user_roles;"`
 }
 
 type Order struct {
