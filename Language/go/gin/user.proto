@@ -1,0 +1,32 @@
+// user.proto
+syntax = "proto3";
+
+package api;
+option go_package = "./pb;api";
+
+// 用户消息定义
+message User {
+  int64 id = 1;
+  string name = 2;
+  string email = 3;
+  int32 age = 4;
+  enum Gender {
+    UNKNOWN = 0;
+    MALE = 1;
+    FEMALE = 2;
+  }
+  Gender gender = 5;
+}
+
+// 用户列表请求
+message UserListRequest {
+  int32 page = 1;
+  int32 page_size = 2;
+  string keyword = 3;
+}
+
+// 用户列表响应
+message UserListResponse {
+  repeated User users = 1;
+  int32 total = 2;
+}
