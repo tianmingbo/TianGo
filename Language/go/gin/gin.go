@@ -2,19 +2,23 @@ package main
 
 import (
 	"fmt"
+	"lGo/gin/middleware"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/gin/binding"
+	"github.com/go-playground/validator/v10"
 	"google.golang.org/protobuf/proto"
 
 	"lGo/gin/pb"
+	"lGo/gin/validate"
 )
 
 type User struct {
-	Name  string `json:"name"`
-	Email string `json:"email"`
-	Age   int    `json:"age"`
+	Name     string `json:"name" binding:"required"`
+	Email    string `json:"email" binding:"omitempty,email"`
+	Age      int    `json:"age" binding:"omitempty,min=1,max=130"`
+	Password string `json:"password" binding:"omitempty,strongPassword"`
 }
 
 func pong(c *gin.Context) {
@@ -44,9 +48,15 @@ func createUser(c *gin.Context) {
 	// 1 绑定结构体
 	var user User
 	if err := c.ShouldBindBodyWith(&user, binding.JSON); err != nil {
-		fmt.Println(err, "??")
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return
+		//错误信息格式化
+		if verrs, ok := err.(validator.ValidationErrors); ok {
+			errs := make([]string, 0)
+			for _, v := range verrs {
+				errs = append(errs, fmt.Sprintf("字段 %s 验证失败: %s", v.Field(), v.Tag()))
+			}
+			c.JSON(http.StatusBadRequest, gin.H{"errors": errs})
+			return
+		}
 	}
 	//2直接解析
 	var jsonData map[string]interface{}
@@ -57,10 +67,11 @@ func createUser(c *gin.Context) {
 	}
 	c.JSON(201, gin.H{
 		"auth":          auth,
+		"form_name":     name,
+		"form_email":    email,
 		"session_id":    session_id,
-		"name":          name,
-		"email":         email,
 		"all_form_data": formData,
+		"user":          user,
 		"json_data":     jsonData,
 	})
 }
@@ -100,11 +111,21 @@ func parseProtobuf(c *gin.Context) {
 
 func main() {
 	router := gin.Default()
+
+	// 获取验证器引擎
+	if v, ok := binding.Validator.Engine().(*validator.Validate); ok {
+		// 注册自定义标签 "username"
+		err := v.RegisterValidation("strongPassword", validate.PasswordValidator)
+		if err != nil {
+			return
+		}
+	}
+
 	router.GET("/ping", pong)
-	api := router.Group("/api") //路由分组
+	v1 := router.Group("/api") //路由分组
 	{
-		api.GET("/users/:id", getUsers)
-		api.POST("/users", createUser)
+		v1.GET("/users/:id", getUsers)
+		v1.POST("/users", middleware.Logger(), createUser) //使用中间件
 	}
 	protobuf := router.Group("/protobuf")
 	{

@@ -5,7 +5,7 @@ import "fmt"
 func main() {
 	db := GetConnect()
 
-	//var users []User
+	var users []User
 	var user User
 	result := db.First(&user) //SELECT * FROM `users` ORDER BY `users`.`id` LIMIT 1
 	fmt.Println(user, result.Error, result.RowsAffected)
@@ -16,8 +16,38 @@ func main() {
 	db.Last(&user)
 	fmt.Println(user) // SELECT * FROM `users` WHERE `users`.`id` = 1 ORDER BY `users`.`id` DESC LIMIT 1
 
-	db.First(&user, "id=?", 10)
+	db.First(&user, 10) // SELECT * FROM `users` WHERE `users`.`id` = 10 ORDER BY `users`.`id` LIMIT 1
 	fmt.Println(user)
+
+	db.Find(&users, []int{3, 4, 5}) //SELECT * FROM `users` WHERE `users`.`id` IN (3,4,5)
+	fmt.Println(users)
+
+	//where
+	var user3 User
+	db.Where("name = ?", "Ivan").First(&user3)
+	fmt.Println(user3)
+
+	db.Where("name != ?", "Ivan").Find(&users)
+	fmt.Println(users)
+
+	db.Where("id between ? and ?", 11, 15).Find(&users)
+	fmt.Println(users)
+
+	db.Where("name like ?", "%a%").Limit(5).Find(&users)
+	fmt.Println(users)
+
+	//Struct & Map
+	db.Where(&User{Name: "", Age: 65}).Find(&users) //结构体查询不会使用0值。map查询会使用
+	fmt.Println(users)
+
+	db.Where(map[string]interface{}{"name": "Tom", "age": 65}).Find(&users)
+	fmt.Println(users)
+
+	db.Where([]int{1, 2, 3}).Find(&users)
+	fmt.Println(users)
+
+	db.Where(&User{Name: "jinzhu"}, "Age").Find(&users)
+	fmt.Println(users)
 
 	//内联条件
 	var user2 User

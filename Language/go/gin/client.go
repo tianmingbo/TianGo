@@ -4,11 +4,12 @@ import (
 	"bytes"
 	"context"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"os"
 
 	"github.com/golang/protobuf/proto"
+
 	"lGo/gin/pb"
 )
 
@@ -31,7 +32,7 @@ func main() {
 	req, err := http.NewRequestWithContext(
 		context.Background(),
 		"POST",
-		"http://localhost:8080/api/users", // 替换为实际API地址
+		"http://localhost:8080/protobuf/users", // 替换为实际API地址
 		bytes.NewBuffer(data),
 	)
 	if err != nil {
@@ -53,7 +54,7 @@ func main() {
 	defer resp.Body.Close()
 
 	// 读取响应数据
-	respData, err := ioutil.ReadAll(resp.Body)
+	respData, err := io.ReadAll(resp.Body)
 	if err != nil {
 		fmt.Printf("读取响应失败: %v\n", err)
 		os.Exit(1)
