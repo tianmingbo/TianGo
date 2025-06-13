@@ -1,9 +1,15 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"lGo/gin/middleware"
+	"log"
 	"net/http"
+	"os"
+	"os/signal"
+	"syscall"
+	"time"
 
 	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/gin/binding"
@@ -125,11 +131,36 @@ func main() {
 	v1 := router.Group("/api") //路由分组
 	{
 		v1.GET("/users/:id", getUsers)
-		v1.POST("/users", middleware.Logger(), createUser) //使用中间件
+		v1.POST("/users", middleware.Logger(), middleware.Auth(), createUser) //使用中间件
 	}
 	protobuf := router.Group("/protobuf")
 	{
 		protobuf.POST("/users", parseProtobuf)
 	}
-	router.Run() // 监听并在 0.0.0.0:8080 上启动服务
+	//router.Run() 监听并在 0.0.0.0:8080 上启动服务
+
+	srv := http.Server{
+		Addr:    ":8080",
+		Handler: router,
+	}
+	go func() {
+		if err := srv.ListenAndServe(); err != nil && err != http.ErrServerClosed {
+			log.Fatalf("listen: %s\n", err)
+		}
+	}()
+	log.Println("服务器已启动，监听端口 :8080")
+	log.Println("按 Ctrl+C 优雅停止服务器...")
+
+	s := make(chan os.Signal, 1)
+	signal.Notify(s, syscall.SIGINT, syscall.SIGTERM) //注册信号处理器：将 SIGINT 和 SIGTERM 信号转发到 quit 通道。
+	<-s                                               //读s
+
+	log.Println("stopping")
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+
+	if err := srv.Shutdown(ctx); err != nil {
+		log.Fatal("stopped failed:", err)
+	}
+	log.Println("stopped")
 }
