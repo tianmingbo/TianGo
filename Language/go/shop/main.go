@@ -2,11 +2,12 @@ package main
 
 import (
 	"fmt"
-	"google.golang.org/grpc"
 	"net"
-	"shop/handle"
 
-	"shop/proto"
+	"google.golang.org/grpc"
+
+	"lGo/shop/handle"
+	"lGo/shop/proto"
 )
 
 func main() {

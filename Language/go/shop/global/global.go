@@ -26,7 +26,7 @@ func init() {
 	)
 	dsn := "tian:Tian666~@tcp(124.222.56.172)/gorm?charset=utf8mb4&parseTime=True&loc=Local"
 	var err error
-	db, err = gorm.Open(mysql.Open(dsn), &gorm.Config{Logger: newLogger})
+	DB, err = gorm.Open(mysql.Open(dsn), &gorm.Config{Logger: newLogger})
 	if err != nil {
 		panic("failed to connect database")
 	}
