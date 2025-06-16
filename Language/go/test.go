@@ -1,10 +1,8 @@
 package main
 
-import (
-	"fmt"
-	"math/rand"
-)
+import "fmt"
 
 func main() {
-	fmt.Println(rand.Int())
+	a := []int{1, 3, 4}
+	fmt.Println(a[3:4])
 }
