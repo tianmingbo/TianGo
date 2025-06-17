@@ -11,7 +11,8 @@ import (
 )
 
 var (
-	DB *gorm.DB
+	DB     *gorm.DB
+	SECRET string
 )
 
 func init() {
@@ -31,4 +32,5 @@ func init() {
 		panic("failed to connect database")
 	}
 	fmt.Println("connect database success")
+	SECRET = "!$%^fgfgjhqw"
 }

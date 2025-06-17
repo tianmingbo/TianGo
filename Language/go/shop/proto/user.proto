@@ -17,8 +17,8 @@ message  CheckPasswordResponse {
 }
 
 message checkPasswordReq {
-  string password = 1;
-  string encryptedPassword = 2;
+  int32 id = 1;
+  string password = 2;
 }
 
 message Response {
@@ -31,7 +31,7 @@ message UpdateUserReq {
   string password = 2;
   string mobile = 3;
   string nickName = 4;
-  uint64 birthDay = 5;
+  string birthDay = 5;
   string gender = 6;
   int32 role = 7;
 }
@@ -61,7 +61,7 @@ message UserInfoResponse {
   string password = 2;
   string mobile = 3;
   string nickName = 4;
-  uint64 birthDay = 5;
+  string birthDay = 5;
   string gender = 6;
   int32 role = 7;
 }

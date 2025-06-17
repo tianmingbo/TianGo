@@ -10,7 +10,7 @@ import (
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
 
-	"shop/models"
+	"lGo/shop/models"
 )
 
 func GetConnect() *gorm.DB {
