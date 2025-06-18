@@ -1,0 +1,72 @@
+syntax = "proto3";
+
+
+option go_package = '.;proto';
+
+service User {
+  rpc getUserList(PageInfo) returns (UserListResponse); //用户列表
+  rpc getUserInfo(IdRequest) returns (UserInfoResponse); //通过id查找用户
+  rpc getUserMobile(MobileRequest) returns (UserInfoResponse); //通过手机查找用户
+  rpc createUser(CreateUserReq) returns (UserInfoResponse); //创建用户
+  rpc updateUser(UpdateUserReq) returns (Response);
+  rpc checkPassword(checkPasswordReq) returns (CheckPasswordResponse);
+}
+
+message  CheckPasswordResponse {
+  bool is_valid = 1;
+}
+
+message checkPasswordReq {
+  int32 id = 1;
+  string password = 2;
+}
+
+message Response {
+  int32 code = 1;
+  string msg = 2;
+}
+
+message UpdateUserReq {
+  int32 id = 1;
+  string password = 2;
+  string mobile = 3;
+  string nickName = 4;
+  string birthDay = 5;
+  string gender = 6;
+  int32 role = 7;
+}
+
+message CreateUserReq {
+  string nickName = 1;
+  string password = 2;
+  string mobile = 3;
+}
+
+message MobileRequest {
+  string mobile = 1;
+}
+
+message  IdRequest {
+  int32 id = 1;
+}
+
+message PageInfo {
+  uint32 page = 1;
+  uint32 size = 2;
+
+}
+
+message UserInfoResponse {
+  int32 id = 1;
+  string password = 2;
+  string mobile = 3;
+  string nickName = 4;
+  string birthDay = 5;
+  string gender = 6;
+  int32 role = 7;
+}
+
+message UserListResponse{
+  int32 total = 1;
+  repeated UserInfoResponse data = 2;
+}

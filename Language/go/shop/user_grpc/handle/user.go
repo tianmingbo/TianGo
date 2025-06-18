@@ -4,6 +4,7 @@ import (
 	"context"
 	"crypto/sha512"
 	"encoding/hex"
+	proto2 "lGo/shop/user_service/proto"
 	"time"
 
 	"google.golang.org/grpc/codes"
@@ -11,11 +12,10 @@ import (
 
 	"lGo/shop/global"
 	model "lGo/shop/models"
-	"lGo/shop/proto"
 )
 
 type UserServer struct {
-	proto.UnimplementedUserServer
+	proto2.UnimplementedUserServer
 }
 
 func page(users []model.User, pageNum int, size int) ([]model.User, error) {
@@ -27,12 +27,12 @@ func page(users []model.User, pageNum int, size int) ([]model.User, error) {
 	}
 }
 
-func ModelToRsp(user model.User) *proto.UserInfoResponse {
+func ModelToRsp(user model.User) *proto2.UserInfoResponse {
 	birthday := ""
 	if user.Birthday != nil {
 		birthday = user.Birthday.Format(time.DateTime)
 	}
-	return &proto.UserInfoResponse{
+	return &proto2.UserInfoResponse{
 		Id:       user.ID,
 		Mobile:   user.Mobile,
 		NickName: user.NickName,
@@ -48,11 +48,11 @@ func encodePwd(pwd string) string {
 	return hex.EncodeToString(hash[:])
 }
 
-func (u *UserServer) GetUserList(ctx context.Context, req *proto.PageInfo) (*proto.UserListResponse, error) {
+func (u *UserServer) GetUserList(ctx context.Context, req *proto2.PageInfo) (*proto2.UserListResponse, error) {
 	var users []model.User
 	global.DB.Find(&users)
 
-	var resp = &proto.UserListResponse{}
+	var resp = &proto2.UserListResponse{}
 	resp.Total = int32(len(users))
 
 	users, _ = page(users, int(req.Page), int(req.Size))
@@ -62,17 +62,17 @@ func (u *UserServer) GetUserList(ctx context.Context, req *proto.PageInfo) (*pro
 	}
 	return resp, nil
 }
-func (u *UserServer) GetUserInfo(ctx context.Context, req *proto.IdRequest) (*proto.UserInfoResponse, error) {
+func (u *UserServer) GetUserInfo(ctx context.Context, req *proto2.IdRequest) (*proto2.UserInfoResponse, error) {
 	var user model.User
 	result := global.DB.First(&user, req.Id)
 	if result.RowsAffected == 0 {
 		return nil, status.Errorf(codes.NotFound, "用户不存在")
 	}
-	var resp = &proto.UserInfoResponse{}
+	var resp = &proto2.UserInfoResponse{}
 	resp = ModelToRsp(user)
 	return resp, nil
 }
-func (u *UserServer) GetUserMobile(ctx context.Context, req *proto.MobileRequest) (*proto.UserInfoResponse, error) {
+func (u *UserServer) GetUserMobile(ctx context.Context, req *proto2.MobileRequest) (*proto2.UserInfoResponse, error) {
 	var user model.User
 	res := global.DB.Where("mobile = ?", req.Mobile).First(&user)
 	if res.RowsAffected == 0 {
@@ -80,7 +80,7 @@ func (u *UserServer) GetUserMobile(ctx context.Context, req *proto.MobileRequest
 	}
 	return ModelToRsp(user), nil
 }
-func (u *UserServer) CreateUser(ctx context.Context, req *proto.CreateUserReq) (*proto.UserInfoResponse, error) {
+func (u *UserServer) CreateUser(ctx context.Context, req *proto2.CreateUserReq) (*proto2.UserInfoResponse, error) {
 	user := model.User{
 		NickName: req.NickName,
 		Mobile:   req.Mobile,
@@ -94,7 +94,7 @@ func (u *UserServer) CreateUser(ctx context.Context, req *proto.CreateUserReq) (
 	}
 	return ModelToRsp(user), nil
 }
-func (u *UserServer) UpdateUser(ctx context.Context, req *proto.UpdateUserReq) (*proto.Response, error) {
+func (u *UserServer) UpdateUser(ctx context.Context, req *proto2.UpdateUserReq) (*proto2.Response, error) {
 	var user model.User
 	if result := global.DB.First(&user, req.Id); result.RowsAffected == 0 {
 		return nil, status.Errorf(codes.NotFound, "用户不存在")
@@ -114,14 +114,14 @@ func (u *UserServer) UpdateUser(ctx context.Context, req *proto.UpdateUserReq) (
 		return nil, status.Errorf(codes.Internal, result.Error.Error())
 	}
 
-	return &proto.Response{Code: 200, Msg: "更新成功"}, nil
+	return &proto2.Response{Code: 200, Msg: "更新成功"}, nil
 }
-func (u *UserServer) CheckPassword(ctx context.Context, req *proto.CheckPasswordReq) (*proto.CheckPasswordResponse, error) {
+func (u *UserServer) CheckPassword(ctx context.Context, req *proto2.CheckPasswordReq) (*proto2.CheckPasswordResponse, error) {
 	var user model.User
 	if result := global.DB.First(&user, req.Id); result.RowsAffected == 0 {
 		return nil, status.Errorf(codes.NotFound, "用户不存在")
 	}
-	var resp = &proto.CheckPasswordResponse{}
+	var resp = &proto2.CheckPasswordResponse{}
 	resp.IsValid = false
 	if encodePwd(req.Password) == user.Password {
 		resp.IsValid = true

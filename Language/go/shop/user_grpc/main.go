@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
+	"lGo/shop/user_service/proto"
 	"log"
 	"net"
 	"runtime/debug"
@@ -14,7 +15,6 @@ import (
 	"google.golang.org/grpc"
 
 	"lGo/shop/handle"
-	"lGo/shop/proto"
 )
 
 // 服务状态管理
