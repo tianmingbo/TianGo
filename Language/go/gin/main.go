@@ -2,7 +2,11 @@ package main
 
 import (
 	"context"
+	"errors"
 	"fmt"
+	"github.com/go-playground/locales/zh"
+	ut "github.com/go-playground/universal-translator"
+	zh_translations "github.com/go-playground/validator/v10/translations/zh"
 	"lGo/gin/middleware"
 	"log"
 	"net/http"
@@ -43,8 +47,8 @@ func getUsers(c *gin.Context) {
 func createUser(c *gin.Context) {
 	name := c.PostForm("name") //获取单个表单字段
 	email := c.DefaultPostForm("email", "11@hotmail.com")
-	auth := c.GetHeader("Authorization")    // 获取请求头
-	session_id, _ := c.Cookie("session_id") // 获取 Cookie
+	auth := c.GetHeader("Authorization")   // 获取请求头
+	sessionId, _ := c.Cookie("session_id") // 获取 Cookie
 	// 获取所有表单数据
 	formData := make(map[string][]string)
 	c.Request.ParseForm()
@@ -55,9 +59,10 @@ func createUser(c *gin.Context) {
 	var user User
 	if err := c.ShouldBindBodyWith(&user, binding.JSON); err != nil {
 		//错误信息格式化
-		if verrs, ok := err.(validator.ValidationErrors); ok {
+		var vErrs validator.ValidationErrors
+		if errors.As(err, &vErrs) {
 			errs := make([]string, 0)
-			for _, v := range verrs {
+			for _, v := range vErrs {
 				errs = append(errs, fmt.Sprintf("字段 %s 验证失败: %s", v.Field(), v.Tag()))
 			}
 			c.JSON(http.StatusBadRequest, gin.H{"errors": errs})
@@ -75,7 +80,7 @@ func createUser(c *gin.Context) {
 		"auth":          auth,
 		"form_name":     name,
 		"form_email":    email,
-		"session_id":    session_id,
+		"session_id":    sessionId,
 		"all_form_data": formData,
 		"user":          user,
 		"json_data":     jsonData,
@@ -115,18 +120,45 @@ func parseProtobuf(c *gin.Context) {
 	c.Data(http.StatusOK, "application/octet-stream", respData)
 }
 
-func main() {
-	router := gin.Default()
-
+func initValidator() {
 	// 获取验证器引擎
-	if v, ok := binding.Validator.Engine().(*validator.Validate); ok {
-		// 注册自定义标签 "username"
-		err := v.RegisterValidation("strongPassword", validate.PasswordValidator)
-		if err != nil {
-			return
-		}
+	v, ok := binding.Validator.Engine().(*validator.Validate)
+	if !ok {
+		fmt.Println("绑定自定义验证器失败")
 	}
 
+	err := v.RegisterValidation("strongPassword", validate.PasswordValidator)
+	if err != nil {
+		return
+	}
+
+	//注册翻译器
+	zhT := zh.New()
+	uni := ut.New(zhT, zhT)
+
+	trans, _ := uni.GetTranslator("zh")
+	err = zh_translations.RegisterDefaultTranslations(v, trans)
+	if err != nil {
+		fmt.Println("init trans failed")
+	}
+
+	err = v.RegisterTranslation("required", trans, func(ut ut.Translator) error {
+		//翻译注册器
+		return ut.Add("strongPassword", "{0} 验证失败!", true)
+	}, func(ut ut.Translator, fe validator.FieldError) string {
+		//翻译获取器
+		t, _ := ut.T("strongPassword", fe.Field())
+		return t
+	})
+	if err != nil {
+		fmt.Println("注册翻译器失败")
+		return
+	}
+}
+
+func main() {
+	router := gin.Default()
+	initValidator()
 	router.GET("/ping", pong)
 	v1 := router.Group("/api") //路由分组
 	{
