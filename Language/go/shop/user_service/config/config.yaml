@@ -1,7 +1,8 @@
-app:
-  name: MyApp
+server:
+  name: "user-service"
   env: production
   port: 8080
+  jwtKey: "secret"
 
 database:
   host: localhost

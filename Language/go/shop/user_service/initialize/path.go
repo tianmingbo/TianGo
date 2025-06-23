@@ -11,7 +11,7 @@ func InitFilePath() {
 	basePath := getAbsPath()
 	global.FileConfig.ConfigFile = basePath + "/config/config.yaml"
 	global.FileConfig.LogFile = basePath + "/logs"
-	fmt.Println(global.FileConfig)
+	fmt.Printf("配置文件路径：%s\n", global.FileConfig.ConfigFile)
 }
 
 func getAbsPath() string {

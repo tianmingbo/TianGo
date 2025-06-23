@@ -4,9 +4,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"github.com/go-playground/locales/zh"
-	ut "github.com/go-playground/universal-translator"
-	zh_translations "github.com/go-playground/validator/v10/translations/zh"
+	"lGo/gin/global"
 	"lGo/gin/middleware"
 	"log"
 	"net/http"
@@ -17,7 +15,10 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/gin/binding"
+	"github.com/go-playground/locales/zh"
+	ut "github.com/go-playground/universal-translator"
 	"github.com/go-playground/validator/v10"
+	zh_translations "github.com/go-playground/validator/v10/translations/zh"
 	"google.golang.org/protobuf/proto"
 
 	"lGo/gin/pb"
@@ -44,6 +45,38 @@ func getUsers(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"id": id, "name": name, "age": age, "all_query": all_query})
 }
 
+// 处理验证错误
+func handleValidationError(c *gin.Context, err error) bool {
+	if err == nil {
+		return false
+	}
+
+	var ve validator.ValidationErrors
+	if errors.As(err, &ve) {
+		rsp := make(map[string]string)
+
+		for _, fieldError := range ve {
+			// 获取翻译后的错误消息
+			rsp[fieldError.Field()] = fieldError.Translate(global.Translator)
+		}
+
+		c.JSON(http.StatusBadRequest, gin.H{
+			"code":    400,
+			"message": "参数验证失败",
+			"rsp":     rsp,
+		})
+
+		return true
+	}
+
+	c.JSON(http.StatusBadRequest, gin.H{
+		"code":    400,
+		"message": "请求格式错误",
+		"error":   err.Error(),
+	})
+
+	return true
+}
 func createUser(c *gin.Context) {
 	name := c.PostForm("name") //获取单个表单字段
 	email := c.DefaultPostForm("email", "11@hotmail.com")
@@ -59,15 +92,8 @@ func createUser(c *gin.Context) {
 	var user User
 	if err := c.ShouldBindBodyWith(&user, binding.JSON); err != nil {
 		//错误信息格式化
-		var vErrs validator.ValidationErrors
-		if errors.As(err, &vErrs) {
-			errs := make([]string, 0)
-			for _, v := range vErrs {
-				errs = append(errs, fmt.Sprintf("字段 %s 验证失败: %s", v.Field(), v.Tag()))
-			}
-			c.JSON(http.StatusBadRequest, gin.H{"errors": errs})
-			return
-		}
+		handleValidationError(c, err)
+		return
 	}
 	//2直接解析
 	var jsonData map[string]interface{}
@@ -136,13 +162,13 @@ func initValidator() {
 	zhT := zh.New()
 	uni := ut.New(zhT, zhT)
 
-	trans, _ := uni.GetTranslator("zh")
-	err = zh_translations.RegisterDefaultTranslations(v, trans)
+	global.Translator, _ = uni.GetTranslator("zh")
+	err = zh_translations.RegisterDefaultTranslations(v, global.Translator)
 	if err != nil {
 		fmt.Println("init trans failed")
 	}
 
-	err = v.RegisterTranslation("required", trans, func(ut ut.Translator) error {
+	err = v.RegisterTranslation("strongPassword", global.Translator, func(ut ut.Translator) error {
 		//翻译注册器
 		return ut.Add("strongPassword", "{0} 验证失败!", true)
 	}, func(ut ut.Translator, fe validator.FieldError) string {

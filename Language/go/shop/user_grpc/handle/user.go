@@ -10,8 +10,8 @@ import (
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 
-	"lGo/shop/global"
-	model "lGo/shop/models"
+	"lGo/shop/user_grpc/global"
+	model "lGo/shop/user_grpc/models"
 )
 
 type UserServer struct {
