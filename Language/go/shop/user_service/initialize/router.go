@@ -10,6 +10,7 @@ func InitRouter() *gin.Engine {
 	Router := gin.Default()
 	userV1 := Router.Group("/user/v1")
 	router.InitUserRouter(userV1)
+	router.InitBaseRouter(userV1)
 	zap.S().Info("init router success")
 	return Router
 }

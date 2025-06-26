@@ -4,7 +4,6 @@ import (
 	"errors"
 	"github.com/spf13/viper"
 	"go.uber.org/zap"
-	"lGo/shop/user_service/config"
 	"lGo/shop/user_service/global"
 )
 
@@ -25,10 +24,9 @@ func InitConfig() {
 			return
 		}
 	}
-	var cfg config.Config
-	if err := viper.Unmarshal(&cfg); err != nil {
+	if err := viper.Unmarshal(&global.Config); err != nil {
 		zap.S().Errorf("配置文件解析失败: %v", err)
 		return
 	}
-	zap.S().Info("文件解析成功")
+	zap.S().Info("配置解析成功")
 }

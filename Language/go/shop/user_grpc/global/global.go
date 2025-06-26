@@ -25,7 +25,7 @@ func init() {
 			ParameterizedQueries: false, // 禁用参数化查询，显示完整 SQL
 		},
 	)
-	dsn := "tian:Tian666~@tcp(124.222.56.172)/gorm?charset=utf8mb4&parseTime=True&loc=Local"
+	dsn := "tian:Tian666~@tcp(124.222.56.171)/gorm?charset=utf8mb4&parseTime=True&loc=Local"
 	var err error
 	DB, err = gorm.Open(mysql.Open(dsn), &gorm.Config{Logger: newLogger})
 	if err != nil {

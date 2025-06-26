@@ -14,4 +14,14 @@ database:
 logging:
   level: info
   format: json
-  output: logs/app.log
+  output: "logs/app.log"
+
+redis:
+  addr: ""
+  password: ""
+  db: 0
+  poolSize: 10
+  minIdleConns: 5
+  maxConnAge: 60000
+  idleTimeout: 60000
+  maxRetries: 3

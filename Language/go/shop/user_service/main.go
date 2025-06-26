@@ -3,6 +3,7 @@ package main
 import (
 	"flag"
 	"go.uber.org/zap"
+	"lGo/shop/user_service/global"
 	"lGo/shop/user_service/initialize"
 )
 
@@ -22,6 +23,8 @@ func main() {
 	initialize.InitConfig()
 	//
 	initialize.InitGrpcClient()
+
+	initialize.InitRedisPool(global.Config.RedisConfig)
 
 	router := initialize.InitRouter()
 	err := router.Run(":8888")
