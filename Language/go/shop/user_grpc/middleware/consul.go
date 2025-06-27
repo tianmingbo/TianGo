@@ -1,10 +1,9 @@
-package main
+package middleware
 
 import (
 	"fmt"
-	"log"
-
 	"github.com/hashicorp/consul/api"
+	"log"
 )
 
 // ConsulService 表示注册到Consul的服务
@@ -34,7 +33,7 @@ func (cs *ConsulService) RegisterService(id, name, address string, port int, tag
 		Address: address,
 		Port:    port,
 		Check: &api.AgentServiceCheck{
-			HTTP:                           fmt.Sprintf("http://%s:%d/health", address, port),
+			GRPC:                           fmt.Sprintf("%s:%d", address, port),
 			Interval:                       "10s",
 			Timeout:                        "3s",
 			DeregisterCriticalServiceAfter: "1m",
@@ -73,10 +72,10 @@ func (cs *ConsulService) GetService(serviceName string) ([]*api.ServiceEntry, er
 
 func main() {
 	// 创建Consul客户端
-	consul, err := NewConsulService("10.6.64.191:8500")
-	if err != nil {
-		log.Fatalf("初始化Consul客户端失败: %v", err)
-	}
+	//consul, err := NewConsulService("10.6.64.191:8500")
+	//if err != nil {
+	//	log.Fatalf("初始化Consul客户端失败: %v", err)
+	//}
 
 	// 注册服务
 	//err = consul.RegisterService(
@@ -119,9 +118,9 @@ func main() {
 	//log.Println("服务更新成功")
 
 	// 删除服务
-	err = consul.DeregisterService("user-service-1")
-	if err != nil {
-		log.Fatalf("删除服务失败: %v", err)
-	}
-	log.Println("服务删除成功")
+	//err = consul.DeregisterService("user-service-1")
+	//if err != nil {
+	//	log.Fatalf("删除服务失败: %v", err)
+	//}
+	//log.Println("服务删除成功")
 }

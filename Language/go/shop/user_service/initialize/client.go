@@ -4,8 +4,8 @@ import (
 	"go.uber.org/zap"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
+	pb "lGo/shop/proto"
 	"lGo/shop/user_service/global"
-	pb "lGo/shop/user_service/proto"
 	"log"
 )
 

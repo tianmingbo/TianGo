@@ -6,8 +6,15 @@ import (
 	"lGo/shop/user_service/rotuer"
 )
 
+func health(c *gin.Context) {
+	c.JSON(200, gin.H{
+		"message": "pong",
+	})
+}
+
 func InitRouter() *gin.Engine {
 	Router := gin.Default()
+	Router.GET("/health", health)
 	userV1 := Router.Group("/user/v1")
 	router.InitUserRouter(userV1)
 	router.InitBaseRouter(userV1)

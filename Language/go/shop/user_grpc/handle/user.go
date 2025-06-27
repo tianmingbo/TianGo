@@ -4,12 +4,12 @@ import (
 	"context"
 	"crypto/sha512"
 	"encoding/hex"
-	proto2 "lGo/shop/user_service/proto"
 	"time"
 
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 
+	proto2 "lGo/shop/proto"
 	"lGo/shop/user_grpc/global"
 	model "lGo/shop/user_grpc/models"
 )

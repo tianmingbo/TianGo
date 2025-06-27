@@ -1,0 +1,14 @@
+name: "user-service"
+host: "10.6"
+tags: [ "user_service" ,"grpc" ]
+
+mysql:
+  host: "1"
+  port: 3306
+  db: "gorm"
+  user: "tian"
+  password: "~"
+
+consul:
+  host: "10.6.64.191"
+  port: 8500
