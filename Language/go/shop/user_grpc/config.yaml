@@ -1,13 +1,13 @@
 name: "user-service"
-host: "10.6"
+host: "10.6.64.239"
 tags: [ "user_service" ,"grpc" ]
 
 mysql:
-  host: "1"
+  host: "124.222.56.172"
   port: 3306
   db: "gorm"
   user: "tian"
-  password: "~"
+  password: "Tian666~"
 
 consul:
   host: "10.6.64.191"

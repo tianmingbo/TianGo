@@ -5,14 +5,25 @@ import (
 	"github.com/spf13/viper"
 	"go.uber.org/zap"
 	"lGo/shop/user_grpc/global"
+	"path"
+	"runtime"
 )
+
+func getAbsPath() string {
+	var abPath string
+	_, filename, _, ok := runtime.Caller(2)
+	if ok {
+		abPath = path.Dir(filename)
+	}
+	return abPath
+}
 
 func InitConfig() {
 	viper.SetConfigName("config")
 	// 配置文件类型
 	viper.SetConfigType("yaml")
 	// 配置文件搜索路径
-	viper.AddConfigPath("./shop/user_grpc") // 当前目录
+	viper.AddConfigPath(getAbsPath()) // 当前目录
 
 	// 读取配置文件
 	if err := viper.ReadInConfig(); err != nil {

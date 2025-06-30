@@ -1,16 +1,18 @@
 package main
 
 import (
-	"flag"
+	"fmt"
+	uuid "github.com/satori/go.uuid"
 	"go.uber.org/zap"
 	"lGo/shop/user_service/global"
 	"lGo/shop/user_service/initialize"
+	"lGo/shop/user_service/middleware"
+	"os"
+	"os/signal"
+	"syscall"
 )
 
 func main() {
-	//Port := flag.Int("port", 8022, "port: 服务端口(release模式下随机获取)")
-	//Mode := flag.String("mode", "release", "mode: 服务启动模式 debug 开发模式 / release 服务注册模式")
-	flag.Parse()
 	//初始化文件路径
 	initialize.InitFilePath()
 	//初始化logger
@@ -27,9 +29,32 @@ func main() {
 	initialize.InitRedisPool(global.Config.RedisConfig)
 
 	router := initialize.InitRouter()
-	err := router.Run(":8888")
+
+	go func() {
+		zap.S().Infof("启动服务器, 端口： %d", global.Config.Server.Port)
+		err := router.Run(fmt.Sprintf("0.0.0.0:%d", global.Config.Server.Port))
+		if err != nil {
+			panic(err)
+		}
+		zap.S().Debug("start success")
+	}()
+
+	//服务注册
+	addr := fmt.Sprintf("%s:%d", global.Config.ConsulInfo.Host, global.Config.ConsulInfo.Port)
+	registerClient, _ := middleware.NewConsulService(addr)
+	serviceId := fmt.Sprintf("%s", uuid.NewV4())
+	err := registerClient.RegisterService(serviceId, global.Config.Server.Name, global.Config.Server.Host, global.Config.Server.Port, global.Config.Server.Tags)
 	if err != nil {
-		panic(err)
+		zap.S().Panic("服务注册失败:", err.Error())
 	}
-	zap.S().Debug("start success")
+
+	//接收终止信号
+	quit := make(chan os.Signal)
+	signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM)
+	<-quit
+	if err = registerClient.DeregisterService(serviceId); err != nil {
+		zap.S().Info("注销失败:", err.Error())
+	} else {
+		zap.S().Info("注销成功:")
+	}
 }

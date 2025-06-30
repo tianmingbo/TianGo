@@ -12,6 +12,7 @@ require (
 	github.com/golang/protobuf v1.5.4
 	github.com/hashicorp/consul/api v1.32.1
 	github.com/levigross/grequests v0.0.0-20231203190023-9c307ef1f48d
+	github.com/mbobakov/grpc-consul-resolver v1.5.3
 	github.com/mojocn/base64Captcha v1.3.8
 	github.com/natefinch/lumberjack v2.0.0+incompatible
 	github.com/satori/go.uuid v1.2.0
@@ -36,6 +37,7 @@ require (
 	github.com/fsnotify/fsnotify v1.8.0 // indirect
 	github.com/gabriel-vasile/mimetype v1.4.3 // indirect
 	github.com/gin-contrib/sse v0.1.0 // indirect
+	github.com/go-playground/form v3.1.4+incompatible // indirect
 	github.com/go-sql-driver/mysql v1.7.0 // indirect
 	github.com/go-viper/mapstructure/v2 v2.2.1 // indirect
 	github.com/goccy/go-json v0.10.2 // indirect
@@ -51,6 +53,7 @@ require (
 	github.com/hashicorp/serf v0.10.1 // indirect
 	github.com/jinzhu/inflection v1.0.0 // indirect
 	github.com/jinzhu/now v1.1.5 // indirect
+	github.com/jpillora/backoff v1.0.0 // indirect
 	github.com/json-iterator/go v1.1.12 // indirect
 	github.com/klauspost/cpuid/v2 v2.2.7 // indirect
 	github.com/leodido/go-urn v1.4.0 // indirect
@@ -61,6 +64,7 @@ require (
 	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
 	github.com/modern-go/reflect2 v1.0.2 // indirect
 	github.com/pelletier/go-toml/v2 v2.2.3 // indirect
+	github.com/pkg/errors v0.9.1 // indirect
 	github.com/sagikazarmark/locafero v0.7.0 // indirect
 	github.com/sourcegraph/conc v0.3.0 // indirect
 	github.com/spf13/afero v1.12.0 // indirect

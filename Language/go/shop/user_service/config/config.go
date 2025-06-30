@@ -17,13 +17,19 @@ type RedisConfig struct {
 	IdleTimeout  time.Duration `mapstructure:"idleTimeout"`  // 空闲连接超时时间
 	MaxRetries   int           `mapstructure:"maxRetries"`   // 最大重试次数
 }
+type ConsulConfig struct {
+	Host string `mapstructure:"host" json:"host"`
+	Port int    `mapstructure:"port" json:"port"`
+}
 
 type Config struct {
 	Server struct {
-		Name   string `mapstructure:"name"`
-		Env    string `mapstructure:"env"`
-		Port   int    `mapstructure:"port"`
-		JwtKey string `mapstructure:"jwtKey"`
+		Name   string   `mapstructure:"name"`
+		Env    string   `mapstructure:"env"`
+		Port   int      `mapstructure:"port"`
+		JwtKey string   `mapstructure:"jwtKey"`
+		Host   string   `mapstructure:"host"`
+		Tags   []string `mapstructure:"tags" json:"tags"`
 	} `mapstructure:"server"`
 	Database struct {
 		Host     string `mapstructure:"host"`
@@ -38,4 +44,5 @@ type Config struct {
 		Output string `mapstructure:"output"`
 	} `mapstructure:"logging"`
 	RedisConfig `mapstructure:"redis"`
+	ConsulInfo  ConsulConfig `mapstructure:"consul" json:"consul"`
 }
