@@ -1,14 +1,7 @@
-name: "user-service"
-host: "10.6.64.239"
-tags: [ "user_service" ,"grpc" ]
-
-mysql:
-  host: "124.222.56.172"
-  port: 3306
-  db: "gorm"
-  user: "tian"
-  password: "Tian666~"
-
-consul:
-  host: "10.6.64.191"
-  port: 8500
+host: '10.6.64.191'
+port: 8848
+namespace: 'f3daa134-d12d-4b92-9bf0-3b01f4eb9302'
+user: 'nacos'
+password: 'dali666'
+dataid: 'user-srv.json'
+group: 'dev'

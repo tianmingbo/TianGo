@@ -6,9 +6,10 @@ import (
 )
 
 var (
-	DB     *gorm.DB
-	SECRET string
-	Config config.ServerConfig
+	DB          *gorm.DB
+	SECRET      string
+	Config      config.ServerConfig
+	NacosConfig config.NacosConfig
 )
 
 func init() {

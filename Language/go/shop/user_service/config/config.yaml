@@ -1,33 +1,7 @@
-server:
-  name: "user-web"
-  env: production
-  host: "10.6.64.239"
-  tags: [ "user_service" ,"grpc" ]
-  port: 8888
-  jwtKey: "secret"
-
-database:
-  host: localhost
-  port: 5432
-  user: postgres
-  password: secret
-  dbname: mydb
-
-logging:
-  level: info
-  format: json
-  output: "logs/app.log"
-
-redis:
-  addr: "10.3.1.235:6379"
-  password: "Xijingkeji@2024"
-  db: 0
-  poolSize: 10
-  minIdleConns: 5
-  maxConnAge: 60000
-  idleTimeout: 60000
-  maxRetries: 3
-
-consul:
-  host: "10.6.64.191"
-  port: 8500
+host: '10.6.64.191'
+port: 8848
+namespace: 'f3daa134-d12d-4b92-9bf0-3b01f4eb9302'
+user: 'nacos'
+password: 'dali666'
+dataid: 'user-web.json'
+group: 'dev'

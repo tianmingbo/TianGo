@@ -13,9 +13,10 @@ type Pool interface {
 }
 
 var (
-	UserClient proto.UserClient
-	Translator ut.Translator
-	FileConfig config.FileConfig
-	Config     config.Config
-	RedisPool  Pool
+	UserClient  proto.UserClient
+	Translator  ut.Translator
+	FileConfig  config.FileConfig
+	Config      config.Config
+	NacosConfig config.NacosConfig
+	RedisPool   Pool
 )
