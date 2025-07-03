@@ -1,0 +1,7 @@
+host: '10.6.64.191'
+port: 8848
+namespace: '7ea300af-1f11-4f81-8dc8-9389a9163e09'
+user: 'nacos'
+password: 'dali666'
+dataid: 'goods-srv.json'
+group: 'dev'
