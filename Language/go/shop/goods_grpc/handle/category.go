@@ -2,6 +2,7 @@ package handle
 
 import (
 	"context"
+	"encoding/json"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 	"google.golang.org/protobuf/types/known/emptypb"
@@ -10,31 +11,56 @@ import (
 	"lGo/shop/goods_grpc/proto"
 )
 
+type treeNode struct {
+	model.Category
+	Children []*treeNode `json:"children"`
+}
+
 func getCategory1() (*proto.CategoryListResponse, error) {
 	var categorys []model.Category
 	res := proto.CategoryListResponse{}
 	result := global.DB.Find(&categorys)
 	res.Total = int32(result.RowsAffected)
-	info := make(map[int32][]int32)
+
+	nodeMap := make(map[int32]*treeNode)
 	for _, category := range categorys {
-		if v, ok := info[category.ParentCategoryID]; ok {
-			v = append(v, category.ID)
-			info[category.ParentCategoryID] = v
-		} else {
-			info[category.ParentCategoryID] = []int32{category.ID}
+		nodeMap[category.ID] = &treeNode{
+			Category: category,
+			Children: make([]*treeNode, 0),
 		}
 	}
+
+	var roots []*treeNode
+	for _, node := range nodeMap {
+		if node.ParentCategoryID == 0 {
+			roots = append(roots, node)
+		} else {
+			if parent, ok := nodeMap[node.ParentCategoryID]; ok {
+				parent.Children = append(parent.Children, node)
+			}
+		}
+	}
+	bytes, err := json.Marshal(roots)
+	if err != nil {
+		return nil, status.Errorf(codes.Internal, "marshal json err: %v", err)
+	}
+	res.JsonData = string(bytes)
 	return &res, nil
 }
 
-//func getCategory2()(*proto.CategoryListResponse, error) {
-//
-//}
-
-func (g *GoodsServer) GetAllCategorysList(context.Context, *emptypb.Empty) (*proto.CategoryListResponse, error) {
-	return getCategory1()
+func getCategory2() (*proto.CategoryListResponse, error) {
+	var categorys []model.Category
+	global.DB.Where(&model.Category{Level: 1}).Preload("SubCategory.SubCategory").Find(&categorys)
+	b, _ := json.Marshal(&categorys)
+	return &proto.CategoryListResponse{JsonData: string(b)}, nil
 }
-func (g *GoodsServer) GetSubCategory(context.Context, *proto.CategoryListRequest) (*proto.SubCategoryListResponse, error) {
+
+func (g *GoodsServer) GetAllCategorysList(ctx context.Context, req *emptypb.Empty) (*proto.CategoryListResponse, error) {
+	//return getCategory1()
+	return getCategory2()
+}
+func (g *GoodsServer) GetSubCategory(ctx context.Context, req *proto.CategoryListRequest) (*proto.SubCategoryListResponse, error) {
+
 	return nil, status.Errorf(codes.Unimplemented, "method GetSubCategory not implemented")
 }
 func (g *GoodsServer) CreateCategory(context.Context, *proto.CategoryInfoRequest) (*proto.CategoryInfoResponse, error) {
