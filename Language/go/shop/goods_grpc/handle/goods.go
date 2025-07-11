@@ -45,8 +45,6 @@ func ModelToResponse(goods model.Goods) proto.GoodsInfoResponse {
 
 func (g *GoodsServer) GoodsList(ctx context.Context, req *proto.GoodsFilterRequest) (*proto.GoodsListResponse, error) {
 	var goods []model.Goods
-	var category model.Category
-	var brand model.Brands
 	sql := "select * from goods where 1=1"
 	var args []interface{}
 
@@ -55,7 +53,7 @@ func (g *GoodsServer) GoodsList(ctx context.Context, req *proto.GoodsFilterReque
 		args = append(args, req.PriceMin)
 	}
 	if req.PriceMax > 0 {
-		sql += "and shop_price < ?"
+		sql += " and shop_price < ?"
 		args = append(args, req.PriceMin)
 	}
 	if req.IsHot {
@@ -63,9 +61,6 @@ func (g *GoodsServer) GoodsList(ctx context.Context, req *proto.GoodsFilterReque
 	}
 	if req.IsNew {
 		sql += " and is_new=1"
-	}
-	if req.IsTab {
-		sql += " and is_tab =1"
 	}
 	if req.TopCategory > 0 {
 		sql += " and category_id = ?"
@@ -76,7 +71,7 @@ func (g *GoodsServer) GoodsList(ctx context.Context, req *proto.GoodsFilterReque
 		args = append(args, "%"+req.KeyWords+"%")
 	}
 	if req.Brand > 0 {
-		sql += " and brand_id = ?"
+		sql += " and brands_id = ?"
 		args = append(args, req.Brand)
 	}
 	if req.Pages > 0 && req.PagePerNums > 0 {
@@ -89,6 +84,47 @@ func (g *GoodsServer) GoodsList(ctx context.Context, req *proto.GoodsFilterReque
 	res := proto.GoodsListResponse{}
 	res.Total = int32(len(goods))
 
+	var categories []model.Category
+	var brands []model.Brands
+	categoryInfos := make(map[int32]*model.Category)
+	brandInfos := make(map[int32]*model.Brands)
+	categoryIds := make([]int32, 0)
+	brandIds := make([]int32, 0)
+
+	for _, good := range goods {
+		categoryIds = append(categoryIds, good.CategoryID)
+		brandIds = append(brandIds, good.BrandsID)
+	}
+
+	global.DB.Find(&categories, categoryIds)
+	global.DB.Find(&brands, brandIds)
+
+	for _, category := range categories {
+		categoryInfos[category.ID] = &category
+	}
+	for _, brand := range brands {
+		brandInfos[brand.ID] = &brand
+	}
+
+	for _, good := range goods {
+		if v, ok := categoryInfos[good.CategoryID]; ok {
+			good.Category = model.Category{
+				BaseModel: model.BaseModel{ID: good.CategoryID},
+				Name:      v.Name,
+			}
+		}
+
+		if v, ok := brandInfos[good.BrandsID]; ok {
+			good.Brands = model.Brands{
+				BaseModel: model.BaseModel{ID: good.BrandsID},
+				Name:      v.Name,
+				Logo:      v.Logo,
+			}
+		}
+
+		goodsInfoResponse := ModelToResponse(good)
+		res.Data = append(res.Data, &goodsInfoResponse)
+	}
 	return &res, nil
 }
 func (g *GoodsServer) BatchGetGoods(ctx context.Context, req *proto.BatchGoodsIdInfo) (*proto.GoodsListResponse, error) {

@@ -10,6 +10,10 @@ type Category struct {
 	IsTab            bool        `gorm:"default:false;not null" json:"is_tab"`
 }
 
+func (Category) TableName() string {
+	return "category"
+}
+
 type Brands struct {
 	BaseModel
 	Name string `gorm:"type:varchar(20);not null"`

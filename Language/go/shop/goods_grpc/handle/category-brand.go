@@ -11,11 +11,64 @@ import (
 	"lGo/shop/goods_grpc/proto"
 )
 
-func (g *GoodsServer) CategoryBrandList(context.Context, *proto.CategoryBrandFilterRequest) (*proto.CategoryBrandListResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CategoryBrandList not implemented")
+func (g *GoodsServer) CategoryBrandList(ctx context.Context, req *proto.CategoryBrandFilterRequest) (*proto.CategoryBrandListResponse, error) {
+	var categoryBrands []model.GoodsCategoryBrand
+	res := proto.CategoryBrandListResponse{}
+
+	var total int64
+	global.DB.Model(&model.GoodsCategoryBrand{}).Count(&total)
+	res.Total = int32(total)
+
+	if result := global.DB.Preload("Category").Preload("Brands").Scopes(Paginate(int(req.Pages), int(req.PagePerNums))).Find(&categoryBrands); result.RowsAffected == 0 {
+		return nil, status.Errorf(codes.NotFound, "未找到数据")
+	}
+	var categoryResponses []*proto.CategoryBrandResponse
+	for _, categoryBrand := range categoryBrands {
+		categoryResponses = append(categoryResponses, &proto.CategoryBrandResponse{
+			Id: categoryBrand.ID,
+			Category: &proto.CategoryInfoResponse{
+				Id:             categoryBrand.Category.ID,
+				Name:           categoryBrand.Category.Name,
+				ParentCategory: categoryBrand.Category.ParentCategoryID,
+				Level:          categoryBrand.Category.Level,
+				IsTab:          categoryBrand.Category.IsTab,
+			},
+			Brand: &proto.BrandInfoResponse{
+				Id:   categoryBrand.Brands.ID,
+				Name: categoryBrand.Brands.Name,
+				Logo: categoryBrand.Brands.Logo,
+			},
+		})
+	}
+
+	res.Data = categoryResponses
+	return &res, nil
 }
-func (g *GoodsServer) GetCategoryBrandList(context.Context, *proto.CategoryInfoRequest) (*proto.BrandListResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetCategoryBrandList not implemented")
+func (s *GoodsServer) GetCategoryBrandList(ctx context.Context, req *proto.CategoryInfoRequest) (*proto.BrandListResponse, error) {
+	brandListResponse := proto.BrandListResponse{}
+
+	var category model.Category
+	if result := global.DB.Find(&category, req.Id).First(&category); result.RowsAffected == 0 {
+		return nil, status.Errorf(codes.InvalidArgument, "商品分类不存在")
+	}
+
+	var categoryBrands []model.GoodsCategoryBrand
+	if result := global.DB.Preload("Brands").Where(&model.GoodsCategoryBrand{CategoryID: req.Id}).Find(&categoryBrands); result.RowsAffected > 0 {
+		brandListResponse.Total = int32(result.RowsAffected)
+	}
+
+	var brandInfoResponses []*proto.BrandInfoResponse
+	for _, categoryBrand := range categoryBrands {
+		brandInfoResponses = append(brandInfoResponses, &proto.BrandInfoResponse{
+			Id:   categoryBrand.Brands.ID,
+			Name: categoryBrand.Brands.Name,
+			Logo: categoryBrand.Brands.Logo,
+		})
+	}
+
+	brandListResponse.Data = brandInfoResponses
+
+	return &brandListResponse, nil
 }
 
 func (g *GoodsServer) CreateCategoryBrand(ctx context.Context, req *proto.CategoryBrandRequest) (*proto.CategoryBrandResponse, error) {
