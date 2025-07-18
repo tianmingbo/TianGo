@@ -11,42 +11,38 @@ import (
 	"github.com/apache/rocketmq-client-go/v2/primitive"
 )
 
-// use concurrent consumer model, when Subscribe function return consumer.ConsumeRetryLater, the message will be
-// send to RocketMQ retry topic. we could set DelayLevelWhenNextConsume in ConsumeConcurrentlyContext, which used to
-// indicate the delay of message re-send to origin topic from retry topic.
+// 使用并发消费模型，当 Subscribe 函数返回 consumer.ConsumeRetryLater 时，消息将被发送到 retry topic。
+// 可以在 ConsumeConcurrentlyContext 中设置 DelayLevelWhenNextConsume，用于设置消息从retry topic重新发送到原始topic的延迟时间。
 //
-// in this example, we always set DelayLevelWhenNextConsume=1, means that the message will be sent to origin topic after
-// 1s. in case of the unlimited retry, we will return consumer.ConsumeSuccess after ReconsumeTimes > 5
+// 本例中，我们始终设置 DelayLevelWhenNextConsume=1，表示消息将在 1 秒后发送到原始topic。
+// 在无限次重试的情况下，在 ReconsumeTimes > 5 后返回 consumer.ConsumeSuccess
 func main() {
 	c, _ := rocketmq.NewPushConsumer(
-		consumer.WithGroupName("testGroup"),
+		consumer.WithGroupName("testRetry2"),
 		consumer.WithNsResolver(primitive.NewPassthroughResolver([]string{"10.6.64.191:9876"})),
 		consumer.WithConsumerModel(consumer.Clustering),
 	)
 
-	// The DelayLevel specify the waiting time that before next reconsume,
-	// and it range is from 1 to 18 now.
-	//
-	// The time of each level is the value of indexing of {level-1} in [1s, 5s, 10s, 30s,
-	// 1m, 2m, 3m, 4m, 5m, 6m, 7m, 8m, 9m, 10m, 20m, 30m, 1h, 2h]
+	// DelayLevel指定下次消息被重新消费的时间间隔，范围是1~18
+	// 分别对应[1s, 5s, 10s, 30s,1m, 2m, 3m, 4m, 5m, 6m, 7m, 8m, 9m, 10m, 20m, 30m, 1h, 2h]
 	delayLevel := 1
-	err := c.Subscribe("TopicTest", consumer.MessageSelector{}, func(ctx context.Context,
-		msgs ...*primitive.MessageExt) (consumer.ConsumeResult, error) {
-		fmt.Printf("subscribe callback len: %d \n", len(msgs))
+	err := c.Subscribe("test", consumer.MessageSelector{},
+		func(ctx context.Context, msgs ...*primitive.MessageExt) (consumer.ConsumeResult, error) {
+			fmt.Printf("subscribe callback len: %d \n", len(msgs))
 
-		concurrentCtx, _ := primitive.GetConcurrentlyCtx(ctx)
-		concurrentCtx.DelayLevelWhenNextConsume = delayLevel // only run when return consumer.ConsumeRetryLater
+			concurrentCtx, _ := primitive.GetConcurrentlyCtx(ctx)
+			concurrentCtx.DelayLevelWhenNextConsume = delayLevel // only run when return consumer.ConsumeRetryLater
 
-		for _, msg := range msgs {
-			if msg.ReconsumeTimes > 5 {
-				fmt.Printf("msg ReconsumeTimes > 5. msg: %v", msg)
-				return consumer.ConsumeSuccess, nil
-			} else {
-				fmt.Printf("subscribe callback: %v \n", msg)
+			for _, msg := range msgs {
+				if msg.ReconsumeTimes > 5 {
+					fmt.Printf("msg ReconsumeTimes > 5. msg: %v", msg)
+					return consumer.ConsumeSuccess, nil
+				} else {
+					fmt.Printf("subscribe callback: %v \n", msg)
+				}
 			}
-		}
-		return consumer.ConsumeRetryLater, nil
-	})
+			return consumer.ConsumeRetryLater, nil
+		})
 	if err != nil {
 		fmt.Println(err.Error())
 	}

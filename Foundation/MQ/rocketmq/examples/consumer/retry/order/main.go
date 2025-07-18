@@ -1,7 +1,7 @@
-/**
- * use orderly consumer model, when Subscribe function return consumer.SuspendCurrentQueueAMoment, it will be re-send to
- * local msg queue for later consume if msg.ReconsumeTimes < MaxReconsumeTimes, otherwise, it will be send to rocketmq
- * DLQ topic, we should manually resolve the msg.
+/*
+* 使用有序消费模型，当 Subscribe 函数返回 consumer.SuspendCurrentQueueAMoment 时，
+* 如果 msg.ReconsumeTimes < MaxReconsumeTimes，则会将消息重新发送到本地消息队列以供后续消费；
+* 否则，将消息发送到 rocketmq DLQ 主题，我们需要手动解析该消息。
  */
 package main
 
@@ -18,30 +18,32 @@ import (
 
 func main() {
 	c, _ := rocketmq.NewPushConsumer(
-		consumer.WithGroupName("testGroup"),
+		consumer.WithGroupName("testRetry"),
 		consumer.WithNsResolver(primitive.NewPassthroughResolver([]string{"10.6.64.191:9876"})),
 		consumer.WithConsumerModel(consumer.Clustering),
-		consumer.WithConsumeFromWhere(consumer.ConsumeFromFirstOffset),
-		consumer.WithConsumerOrder(true),
-		consumer.WithMaxReconsumeTimes(5),
+		consumer.WithConsumeFromWhere(consumer.ConsumeFromFirstOffset), //从最早的消息开始消费
+		consumer.WithConsumerOrder(true),                               //启用顺序消费模式
+		consumer.WithMaxReconsumeTimes(5),                              //最大重试次数,超过后进入死信队列
 	)
 
-	err := c.Subscribe("TopicTest", consumer.MessageSelector{}, func(ctx context.Context,
-		msgs ...*primitive.MessageExt) (consumer.ConsumeResult, error) {
-		orderlyCtx, _ := primitive.GetOrderlyCtx(ctx)
-		fmt.Printf("orderly context: %v\n", orderlyCtx)
-		fmt.Printf("subscribe orderly callback len: %d \n", len(msgs))
+	err := c.Subscribe("test", consumer.MessageSelector{},
+		func(ctx context.Context, msgs ...*primitive.MessageExt) (consumer.ConsumeResult, error) {
+			orderlyCtx, _ := primitive.GetOrderlyCtx(ctx)
+			fmt.Printf("orderly context: %v\n", orderlyCtx)
+			fmt.Printf("subscribe orderly callback len: %d \n", len(msgs))
 
-		for _, msg := range msgs {
-			if msg.ReconsumeTimes > 5 {
-				fmt.Printf("msg ReconsumeTimes > 5. msg: %v", msg)
-			} else {
-				fmt.Printf("subscribe orderly callback: %v \n", msg)
+			for _, msg := range msgs {
+				fmt.Println("重试次数：", msg.ReconsumeTimes)
+				if msg.ReconsumeTimes > 5 {
+					fmt.Printf("msg ReconsumeTimes > 5. msg: %v", msg)
+				} else {
+					fmt.Printf("subscribe orderly callback: %v \n", msg)
+				}
 			}
-		}
-		return consumer.SuspendCurrentQueueAMoment, nil
+			//SuspendCurrentQueueAMoment表示消息失败,触发重试
+			return consumer.SuspendCurrentQueueAMoment, nil
 
-	})
+		})
 	if err != nil {
 		fmt.Println(err.Error())
 	}
