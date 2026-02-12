@@ -1,0 +1,15 @@
+# ---------------------------------------------------------
+# 2. 服务配置 (Service)
+# ---------------------------------------------------------
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-service
+spec:
+  selector:
+    app: mysql
+  ports:
+    - protocol: TCP
+      port: 3306       # 集群内部访问端口
+      targetPort: 3306
+  type: ClusterIP      # 仅限集群内部访问，确保数据库安全

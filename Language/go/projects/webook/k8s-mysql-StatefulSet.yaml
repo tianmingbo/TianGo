@@ -1,0 +1,47 @@
+# ---------------------------------------------------------
+# 3. 有状态部署 (StatefulSet)
+# ---------------------------------------------------------
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mysql
+spec:
+  serviceName: "mysql-service"
+  replicas: 1          # 单节点部署，若需主从架构需更复杂的配置（如 Operator）
+  selector:
+    matchLabels:
+      app: mysql
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      containers:
+        - name: mysql
+          image: mysql:8.4.0
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: "123456"
+          ports:
+            - containerPort: 3306
+              name: mysql
+
+          # 资源限制（生产环境必配）
+          resources:
+            requests:
+              cpu: "500m"
+              memory: "1Gi"
+            limits:
+              cpu: "1000m"
+              memory: "2Gi"
+
+          # 数据持久化挂载
+          volumeMounts:
+            - name: mysql-data
+              mountPath: /var/lib/mysql # MySQL 默认数据存储路径
+
+      # 绑定上面定义的 PVC
+      volumes:
+        - name: mysql-data
+          persistentVolumeClaim:
+            claimName: mysql-pvc

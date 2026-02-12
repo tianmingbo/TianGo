@@ -1,0 +1,13 @@
+# ---------------------------------------------------------
+# 1. 存储配置 (PersistentVolumeClaim)
+# ---------------------------------------------------------
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mysql-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce    # 磁盘只能被单个节点以读写模式挂载
+  resources:
+    requests:
+      storage: 20Gi    # 申请 20GB 空间，根据业务调整
