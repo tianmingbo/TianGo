@@ -22,6 +22,7 @@ var JwtKey = []byte("your_secret_key") // 实际生产中应从环境变量读�
 
 type UserHandler struct {
 	svc           *service.UserService
+	smsSvc        *service.CodeService
 	emailRegexExp *regexp2.Regexp
 	pwdRegexExp   *regexp2.Regexp
 }
@@ -40,6 +41,64 @@ func (u *UserHandler) Register(server *gin.Engine) {
 	ug.POST("/signup", u.Signup)
 	ug.POST("/edit", u.Edit)
 	ug.GET("/profile", u.Profile)
+	ug.POST("/login_sms/code/send", u.SendLoginSMSCode)
+	ug.POST("/login_sms", u.LoginSMS)
+
+}
+
+func (u *UserHandler) LoginSMS(c *gin.Context) {
+	type Req struct {
+		Phone string `json:"phone" binding:"required"`
+		Code  string `json:"code" binding:"required"`
+	}
+	var req Req
+	if err := c.ShouldBind(&req); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"message": "invalid request"})
+		return
+	}
+	ok, err := u.smsSvc.Verify(c, "login", req.Phone, req.Code)
+	if errors.Is(err, service.ErrCodeVerifyTooManyTimes) {
+		c.JSON(http.StatusUnauthorized, gin.H{"message": "verify too many times"})
+		return
+	}
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"message": "系统异常"})
+		return
+	}
+	if !ok {
+		c.JSON(http.StatusOK, gin.H{"message": "验证码错误"})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"message": "验证码校验成功"})
+	//todo 登录
+}
+
+func (u *UserHandler) SendLoginSMSCode(c *gin.Context) {
+	type Req struct {
+		Phone string `json:"phone" binding:"required"`
+	}
+	var req Req
+	if err := c.ShouldBindJSON(&req); err != nil {
+		c.JSON(http.StatusOK, gin.H{
+			"message": "invalid request",
+		})
+		return
+	}
+	err := u.smsSvc.Send(c, "login", req.Phone)
+	if errors.Is(err, service.ErrCodeSendTooMany) {
+		c.JSON(http.StatusOK, gin.H{
+			"message": "send too many",
+		})
+		return
+	}
+	if err != nil {
+		c.JSON(http.StatusOK, gin.H{
+			"message": "系统异常",
+		})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"message": "ok"})
 }
 
 func (u *UserHandler) Login(c *gin.Context) {
