@@ -8,11 +8,11 @@ import (
 type Service struct {
 }
 
-func newService() *Service {
+func NewService() *Service {
 	return &Service{}
 }
 
 func (s Service) Send(ctx context.Context, tplId string, paramSet []string, number ...string) error {
-	fmt.Printf("code is %s", paramSet)
+	fmt.Printf("code is %s\n", paramSet)
 	return nil
 }

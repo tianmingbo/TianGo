@@ -22,14 +22,15 @@ var JwtKey = []byte("your_secret_key") // 实际生产中应从环境变量读�
 
 type UserHandler struct {
 	svc           *service.UserService
-	smsSvc        *service.CodeService
+	codeSvc       *service.CodeService
 	emailRegexExp *regexp2.Regexp
 	pwdRegexExp   *regexp2.Regexp
 }
 
-func NewUserHandler(svc *service.UserService) *UserHandler {
+func NewUserHandler(svc *service.UserService, codeSvc *service.CodeService) *UserHandler {
 	return &UserHandler{
 		svc:           svc,
+		codeSvc:       codeSvc,
 		emailRegexExp: regexp2.MustCompile(emailPattern, regexp2.None),
 		pwdRegexExp:   regexp2.MustCompile(pwdPattern, regexp2.None),
 	}
@@ -56,7 +57,7 @@ func (u *UserHandler) LoginSMS(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"message": "invalid request"})
 		return
 	}
-	ok, err := u.smsSvc.Verify(c, "login", req.Phone, req.Code)
+	ok, err := u.codeSvc.Verify(c, "login", req.Phone, req.Code)
 	if errors.Is(err, service.ErrCodeVerifyTooManyTimes) {
 		c.JSON(http.StatusUnauthorized, gin.H{"message": "verify too many times"})
 		return
@@ -84,7 +85,7 @@ func (u *UserHandler) SendLoginSMSCode(c *gin.Context) {
 		})
 		return
 	}
-	err := u.smsSvc.Send(c, "login", req.Phone)
+	err := u.codeSvc.Send(c, "login", req.Phone)
 	if errors.Is(err, service.ErrCodeSendTooMany) {
 		c.JSON(http.StatusOK, gin.H{
 			"message": "send too many",

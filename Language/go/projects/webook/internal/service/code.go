@@ -33,7 +33,7 @@ func (svc *CodeService) Send(ctx context.Context,
 	// 这个码, 谁来管, 谁来生成？
 	phone string) error {
 	code := svc.generateCode()
-	err := svc.repo.Store(ctx, code, biz, phone)
+	err := svc.repo.Store(ctx, biz, phone, code)
 	if err != nil {
 		return err
 	}
