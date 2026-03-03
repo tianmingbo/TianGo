@@ -36,7 +36,7 @@ func NewUserHandler(svc *service.UserService, codeSvc *service.CodeService) *Use
 	}
 }
 
-func (u *UserHandler) Register(server *gin.Engine) {
+func (u *UserHandler) RegisterRoutes(server *gin.Engine) {
 	ug := server.Group("users")
 	ug.POST("/login", u.LoginJWT)
 	ug.POST("/signup", u.Signup)
