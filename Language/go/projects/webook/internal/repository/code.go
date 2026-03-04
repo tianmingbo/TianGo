@@ -2,19 +2,19 @@ package repository
 
 import (
 	"context"
-	"webook/internal/repository/cache"
+	"webook/internal/repository/cache/code"
 )
 
 var (
-	ErrCodeSendTooMany        = cache.ErrCodeSendTooMany
-	ErrCodeVerifyTooManyTimes = cache.ErrCodeVerifyTooManyTimes
+	ErrCodeSendTooMany        = code.ErrCodeSendTooMany
+	ErrCodeVerifyTooManyTimes = code.ErrCodeVerifyTooManyTimes
 )
 
 type CodeRepository struct {
-	cache *cache.CodeRedisCache
+	cache *code.RedisCodeCache
 }
 
-func NewCodeRepository(cache *cache.CodeRedisCache) *CodeRepository {
+func NewCodeRepository(cache *code.RedisCodeCache) *CodeRepository {
 	return &CodeRepository{
 		cache: cache,
 	}

@@ -4,22 +4,22 @@ import (
 	"context"
 	"errors"
 	"webook/internal/domain"
-	"webook/internal/repository/cache"
+	"webook/internal/repository/cache/user"
 	"webook/internal/repository/dao"
 )
 
 var (
 	ErrUserDuplicateEmail = dao.ErrUserDuplicateEmail
 	ErrUserNotFound       = dao.ErrUserNotFound
-	ErrKeyNotExist        = cache.ErrKeyNotExist
+	ErrKeyNotExist        = user.ErrKeyNotExist
 )
 
 type UserRepository struct {
 	dao   *dao.UserDao
-	cache *cache.UserCache
+	cache *user.RedisUserCache
 }
 
-func NewUserRepository(dao *dao.UserDao, cache *cache.UserCache) *UserRepository {
+func NewUserRepository(dao *dao.UserDao, cache *user.RedisUserCache) *UserRepository {
 	return &UserRepository{
 		dao:   dao,
 		cache: cache,

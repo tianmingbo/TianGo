@@ -1,4 +1,4 @@
-package cache
+package code
 
 import (
 	"context"
@@ -6,6 +6,7 @@ import (
 	"errors"
 	"fmt"
 	"github.com/redis/go-redis/v9"
+	"webook/internal/repository/cache"
 )
 
 var (
@@ -22,15 +23,16 @@ var luaSetCode string
 //go:embed lua/verify_code.lua
 var luaVerifyCode string
 
-type CodeRedisCache struct {
+type RedisCodeCache struct {
 	client redis.Cmdable
 }
 
-func NewCodeRedisCache(client redis.Cmdable) *CodeRedisCache {
-	return &CodeRedisCache{client: client}
+func NewRedisCodeCache(client redis.Cmdable) cache.CodeCache {
+	//接收者是*RedisCodeCache（指针类型），因此*RedisCodeCache类型 “自动实现” 了CodeCache接口
+	return &RedisCodeCache{client: client}
 }
 
-func (c *CodeRedisCache) Set(ctx context.Context, biz, phone, inputCode string) error {
+func (c *RedisCodeCache) Set(ctx context.Context, biz, phone, inputCode string) error {
 	res, err := c.client.Eval(
 		ctx,
 		luaSetCode,
@@ -50,11 +52,11 @@ func (c *CodeRedisCache) Set(ctx context.Context, biz, phone, inputCode string) 
 	}
 }
 
-func (c *CodeRedisCache) key(biz, phone string) string {
+func (c *RedisCodeCache) key(biz, phone string) string {
 	return fmt.Sprintf("phone_code:%s:%s", biz, phone)
 }
 
-func (c *CodeRedisCache) Verify(ctx context.Context, biz, phone, inputCode string) (bool, error) {
+func (c *RedisCodeCache) Verify(ctx context.Context, biz, phone, inputCode string) (bool, error) {
 	res, err := c.client.Eval(
 		ctx,
 		luaVerifyCode,

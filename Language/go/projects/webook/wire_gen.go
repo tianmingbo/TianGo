@@ -9,7 +9,8 @@ package main
 import (
 	"github.com/gin-gonic/gin"
 	"webook/internal/repository"
-	"webook/internal/repository/cache"
+	"webook/internal/repository/cache/code"
+	"webook/internal/repository/cache/user"
 	"webook/internal/repository/dao"
 	"webook/internal/service"
 	"webook/internal/web"
@@ -24,10 +25,10 @@ func InitWebUser() *gin.Engine {
 	v := ioc.InitMiddlewares(cmdable)
 	db := ioc.InitDb()
 	userDao := dao.NewUserDao(db)
-	userCache := cache.NewUserCache(cmdable)
+	userCache := user.NewUserRedisCache(cmdable)
 	userRepository := repository.NewUserRepository(userDao, userCache)
 	userService := service.NewUserService(userRepository)
-	codeRedisCache := cache.NewCodeRedisCache(cmdable)
+	codeRedisCache := code.NewRedisCodeCache(cmdable)
 	codeRepository := repository.NewCodeRepository(codeRedisCache)
 	smsService := ioc.InitSMSService()
 	codeService := service.NewCodeService(codeRepository, smsService)
