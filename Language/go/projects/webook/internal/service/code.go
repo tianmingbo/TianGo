@@ -15,19 +15,19 @@ var (
 
 const codeTplID = "1234"
 
-type CodeService struct {
-	repo   *repository.CodeRepository
+type codeService struct {
+	repo   repository.CodeRepository
 	smsSvc sms.Service
 }
 
-func NewCodeService(repo *repository.CodeRepository, smsSvc sms.Service) *CodeService {
-	return &CodeService{
+func NewCodeService(repo repository.CodeRepository, smsSvc sms.Service) CodeService {
+	return &codeService{
 		repo:   repo,
 		smsSvc: smsSvc,
 	}
 }
 
-func (svc *CodeService) Send(ctx context.Context,
+func (svc *codeService) Send(ctx context.Context,
 	// 区别使用业务
 	biz string,
 	// 这个码, 谁来管, 谁来生成？
@@ -44,10 +44,10 @@ func (svc *CodeService) Send(ctx context.Context,
 	return nil
 }
 
-func (svc *CodeService) generateCode() string {
+func (svc *codeService) generateCode() string {
 	return fmt.Sprintf("%06d", rand.Intn(1000000))
 }
 
-func (svc *CodeService) Verify(ctx context.Context, biz, phone, inputCode string) (bool, error) {
+func (svc *codeService) Verify(ctx context.Context, biz, phone, inputCode string) (bool, error) {
 	return svc.repo.Verify(ctx, biz, phone, inputCode)
 }

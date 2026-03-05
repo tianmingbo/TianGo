@@ -26,17 +26,17 @@ type User struct {
 	Utime    int64
 }
 
-type UserDao struct {
+type GormUserDao struct {
 	db *gorm.DB
 }
 
-func NewUserDao(db *gorm.DB) *UserDao {
-	return &UserDao{
+func NewUserDao(db *gorm.DB) UserDao {
+	return &GormUserDao{
 		db: db,
 	}
 }
 
-func (u *UserDao) Insert(ctx context.Context, user User) error {
+func (u *GormUserDao) Insert(ctx context.Context, user User) error {
 	now := time.Now().UnixMilli()
 	user.Ctime = now
 	user.Utime = now
@@ -51,18 +51,18 @@ func (u *UserDao) Insert(ctx context.Context, user User) error {
 	return err
 }
 
-func (u *UserDao) FindByEmail(ctx context.Context, email string) (User, error) {
+func (u *GormUserDao) FindByEmail(ctx context.Context, email string) (User, error) {
 	var user User
 	err := u.db.WithContext(ctx).Where("email = ?", email).First(&user).Error
 	return user, err
 }
 
-func (u *UserDao) UpdateById(ctx context.Context, user User) error {
+func (u *GormUserDao) UpdateById(ctx context.Context, user User) error {
 	userId := ctx.Value("UserId")
 	return u.db.WithContext(ctx).Where("id = ?", userId).Updates(&user).Error
 }
 
-func (u *UserDao) FindById(ctx context.Context) (User, error) {
+func (u *GormUserDao) FindById(ctx context.Context) (User, error) {
 	var user User
 	userId := ctx.Value("UserId")
 	err := u.db.WithContext(ctx).Where("id = ?", userId).First(&user).Error

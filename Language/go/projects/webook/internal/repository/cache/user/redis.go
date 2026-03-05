@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"time"
 	"webook/internal/domain"
+	"webook/internal/repository/cache"
 
 	"github.com/redis/go-redis/v9"
 )
@@ -18,7 +19,7 @@ type RedisUserCache struct {
 	expire time.Duration
 }
 
-func NewUserRedisCache(client redis.Cmdable) *RedisUserCache {
+func NewUserRedisCache(client redis.Cmdable) cache.UserCache {
 	return &RedisUserCache{
 		client: client,
 		expire: time.Minute * 15,

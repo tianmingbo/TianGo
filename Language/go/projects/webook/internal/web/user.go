@@ -21,13 +21,13 @@ const (
 var JwtKey = []byte("your_secret_key") // 实际生产中应从环境变量读取
 
 type UserHandler struct {
-	svc           *service.UserService
-	codeSvc       *service.CodeService
+	svc           service.UserService
+	codeSvc       service.CodeService
 	emailRegexExp *regexp2.Regexp
 	pwdRegexExp   *regexp2.Regexp
 }
 
-func NewUserHandler(svc *service.UserService, codeSvc *service.CodeService) *UserHandler {
+func NewUserHandler(svc service.UserService, codeSvc service.CodeService) *UserHandler {
 	return &UserHandler{
 		svc:           svc,
 		codeSvc:       codeSvc,

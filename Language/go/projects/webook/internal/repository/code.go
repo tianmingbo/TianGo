@@ -2,6 +2,7 @@ package repository
 
 import (
 	"context"
+	"webook/internal/repository/cache"
 	"webook/internal/repository/cache/code"
 )
 
@@ -10,20 +11,20 @@ var (
 	ErrCodeVerifyTooManyTimes = code.ErrCodeVerifyTooManyTimes
 )
 
-type CodeRepository struct {
-	cache *code.RedisCodeCache
+type CacheCodeRepository struct {
+	cache cache.CodeCache
 }
 
-func NewCodeRepository(cache *code.RedisCodeCache) *CodeRepository {
-	return &CodeRepository{
+func NewCodeRepository(cache cache.CodeCache) CodeRepository {
+	return &CacheCodeRepository{
 		cache: cache,
 	}
 }
 
-func (c *CodeRepository) Store(ctx context.Context, biz, phone, inputCode string) error {
+func (c *CacheCodeRepository) Store(ctx context.Context, biz, phone, inputCode string) error {
 	return c.cache.Set(ctx, biz, phone, inputCode)
 }
 
-func (c *CodeRepository) Verify(ctx context.Context, biz, phone, inputCode string) (bool, error) {
+func (c *CacheCodeRepository) Verify(ctx context.Context, biz, phone, inputCode string) (bool, error) {
 	return c.cache.Verify(ctx, biz, phone, inputCode)
 }
