@@ -2,6 +2,7 @@ package repository
 
 import (
 	"context"
+	"database/sql"
 	"errors"
 	"webook/internal/domain"
 	"webook/internal/repository/cache"
@@ -28,10 +29,7 @@ func NewUserRepository(dao dao.UserDao, cache cache.UserCache) UserRepository {
 }
 
 func (r *CacheUserRepository) CreateUser(ctx context.Context, u domain.User) error {
-	return r.dao.Insert(ctx, dao.User{
-		Email:    u.Email,
-		Password: u.Password,
-	})
+	return r.dao.Insert(ctx, r.domainToEntity(u))
 }
 
 func (r *CacheUserRepository) FindByEmail(ctx context.Context, email string) (domain.User, error) {
@@ -41,18 +39,13 @@ func (r *CacheUserRepository) FindByEmail(ctx context.Context, email string) (do
 	}
 	return domain.User{
 		Id:       u.ID,
-		Email:    u.Email,
+		Email:    u.Email.String,
 		Password: u.Password,
 	}, nil
 }
 
 func (r *CacheUserRepository) UpdateById(ctx context.Context, u domain.User) error {
-	return r.dao.UpdateById(ctx, dao.User{
-		Phone:    u.Phone,
-		NickName: u.Nickname,
-		Birthday: u.Birthday,
-		AboutMe:  u.AboutMe,
-	})
+	return r.dao.UpdateById(ctx, r.domainToEntity(u))
 }
 
 func (r *CacheUserRepository) FindById(ctx context.Context) (domain.User, error) {
@@ -69,14 +62,42 @@ func (r *CacheUserRepository) FindById(ctx context.Context) (domain.User, error)
 		}
 		u = domain.User{
 			Id:       ue.ID,
-			Email:    ue.Email,
-			Phone:    ue.Phone,
-			Nickname: ue.NickName,
-			Birthday: ue.Birthday,
-			AboutMe:  ue.AboutMe,
+			Email:    ue.Email.String,
+			Phone:    ue.Phone.String,
+			Nickname: ue.NickName.String,
+			Birthday: ue.Birthday.String,
+			AboutMe:  ue.AboutMe.String,
 		}
 		go func() { _ = r.cache.Set(ctx, u) }()
+		return u, nil
 	}
 
 	return domain.User{}, nil
+}
+
+func (r *CacheUserRepository) domainToEntity(user domain.User) dao.User {
+	return dao.User{
+		ID: user.Id,
+		Email: sql.NullString{
+			String: user.Email,
+			Valid:  user.Email != "",
+		},
+		Password: user.Password,
+		Phone: sql.NullString{
+			String: user.Phone,
+			Valid:  user.Phone != "",
+		},
+		NickName: sql.NullString{
+			String: user.Nickname,
+			Valid:  user.Nickname != "",
+		},
+		Birthday: sql.NullString{
+			String: user.Birthday,
+			Valid:  user.Birthday != "",
+		},
+		AboutMe: sql.NullString{
+			String: user.AboutMe,
+			Valid:  user.AboutMe != "",
+		},
+	}
 }

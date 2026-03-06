@@ -2,6 +2,7 @@ package dao
 
 import (
 	"context"
+	"database/sql"
 	"errors"
 	"time"
 
@@ -14,16 +15,21 @@ var (
 	ErrUserNotFound       = gorm.ErrRecordNotFound
 )
 
+//	type NullString struct {
+//	   String string // 实际的字符串值
+//	   Valid  bool   // 标记值是否有效（true=非NULL，false=NULL）
+//	}
+
 type User struct {
-	ID       int64  `gorm:"primaryKey,autoIncrement"`
-	Email    string `gorm:"unique"`
-	Phone    string `gorm:"unique"`
+	ID       int64          `gorm:"primaryKey,autoIncrement"`
+	Email    sql.NullString `gorm:"type:varchar(100);unique"`
+	Phone    sql.NullString `gorm:"type:varchar(100);unique"`
 	Password string
-	NickName string
-	Birthday string
-	AboutMe  string
-	Ctime    int64
-	Utime    int64
+	NickName sql.NullString
+	Birthday sql.NullString
+	AboutMe  sql.NullString
+	Ctime    int64 `gorm:"autoCreateTime:milli"`
+	Utime    int64 `gorm:"autoCreateTime:milli"`
 }
 
 type GormUserDao struct {
