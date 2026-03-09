@@ -4,11 +4,11 @@
 //go:build !wireinject
 // +build !wireinject
 
-package main
+package integration
 
 import (
 	"github.com/gin-gonic/gin"
-	"webook/internal/ioc"
+	ioc2 "webook/internal/ioc"
 	"webook/internal/repository"
 	"webook/internal/repository/cache/code"
 	"webook/internal/repository/cache/user"
@@ -26,18 +26,18 @@ wire.Bind()：绑定接口与实现，解决面向接口编程的依赖注入问
 */
 // 依赖注入，控制反转
 func InitWebUser() *gin.Engine {
-	cmdable := ioc.InitRedis()
-	v := ioc.InitMiddlewares(cmdable)
-	db := ioc.InitDb()
+	cmdable := ioc2.InitRedis()
+	v := ioc2.InitMiddlewares(cmdable)
+	db := ioc2.InitDb()
 	userDao := dao.NewUserDao(db)
 	userCache := user.NewUserRedisCache(cmdable)
 	userRepository := repository.NewUserRepository(userDao, userCache)
 	userService := service.NewUserService(userRepository)
 	codeCache := code.NewRedisCodeCache(cmdable)
 	codeRepository := repository.NewCodeRepository(codeCache)
-	smsService := ioc.InitSMSService()
+	smsService := ioc2.InitSMSService()
 	codeService := service.NewCodeService(codeRepository, smsService)
 	userHandler := web.NewUserHandler(userService, codeService)
-	engine := ioc.InitWebServer(v, userHandler)
+	engine := ioc2.InitWebServer(v, userHandler)
 	return engine
 }

@@ -8,13 +8,13 @@ package main
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/google/wire"
+	"webook/internal/ioc"
 	"webook/internal/repository"
 	"webook/internal/repository/cache/code"
 	"webook/internal/repository/cache/user"
 	"webook/internal/repository/dao"
 	"webook/internal/service"
 	"webook/internal/web"
-	"webook/ioc"
 )
 
 /**
