@@ -14,6 +14,14 @@ type RedisSlideWindow struct {
 	rate int
 }
 
+func NewRedisSlidingWindowLimiter(cmd redis.Cmdable, interval time.Duration, rate int) Limiter {
+	return &RedisSlideWindow{
+		cmd:      cmd,
+		interval: interval,
+		rate:     rate,
+	}
+}
+
 //go:embed slide_window.lua
 var luaScript string
 

@@ -9,21 +9,26 @@ import (
 	"time"
 	"webook/internal/web"
 	"webook/internal/web/middleware"
-	"webook/pkg/middleware/ratelimit"
+	"webook/pkg/ratelimit"
+
+	//"webook/pkg/middleware/ratelimit"
+	limitbuilder "webook/pkg/middleware/ratelimit"
 )
 
-func InitWebServer(middlewares []gin.HandlerFunc, userHandler *web.UserHandler) *gin.Engine {
+func InitWebServer(middlewares []gin.HandlerFunc, userHandler *web.UserHandler, oauthHandler *web.OAuth2FeiShuHandler) *gin.Engine {
 	server := gin.Default()
 	server.Use(middlewares...)
 	userHandler.RegisterRoutes(server)
+	oauthHandler.RegisterRoutes(server)
 	return server
 }
 
 func InitMiddlewares(redisClient redis.Cmdable) []gin.HandlerFunc {
+	limiter := ratelimit.NewRedisSlidingWindowLimiter(redisClient, time.Minute, 1000)
 	return []gin.HandlerFunc{
 		coresHandler(),
 		cookieHandler(),
-		ratelimit.NewBuilder(redisClient, time.Minute, 10).Build(),
+		limitbuilder.NewBuilder(limiter).Build(),
 		loginJWTMiddlewareBuilder(),
 	}
 }
@@ -54,5 +59,7 @@ func loginJWTMiddlewareBuilder() gin.HandlerFunc {
 		IgnorePaths("/users/signup").
 		IgnorePaths("/users/login_sms").
 		IgnorePaths("/users/login_sms/code/send").
+		IgnorePaths("/oauth2/feishu/authurl").
+		IgnorePaths("/oauth2/feishu/callback").
 		Build()
 }

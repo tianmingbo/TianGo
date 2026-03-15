@@ -7,10 +7,10 @@ package config
 
 var Config = config{
 	DB: DBConfig{
-		DSN: "root:123456@tcp(10.6.64.191:3306)/webook",
+		DSN: "root:123456@tcp(127.0.0.1:3306)/webook",
 	},
 	Redis: RedisConfig{
-		Addr:     "10.6.64.191:6389",
-		Password: "tian666",
+		Addr:     "127.0.0.1:6379",
+		Password: "123456",
 	},
 }

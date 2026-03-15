@@ -5,11 +5,9 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-	"time"
 	"webook/pkg/ratelimit"
 
 	"github.com/gin-gonic/gin"
-	"github.com/redis/go-redis/v9"
 )
 
 type Builder struct {
@@ -17,9 +15,10 @@ type Builder struct {
 	limiter ratelimit.Limiter
 }
 
-func NewBuilder(cmd redis.Cmdable, interval time.Duration, rate int) *Builder {
+func NewBuilder(limiter ratelimit.Limiter) *Builder {
 	return &Builder{
-		prefix: "ip-limiter",
+		prefix:  "ip-limiter",
+		limiter: limiter,
 	}
 }
 

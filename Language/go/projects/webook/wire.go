@@ -40,9 +40,12 @@ func InitWebUser() *gin.Engine {
 		service.NewCodeService,
 
 		ioc.InitSMSService,
+		ioc.InitMiddlewares,
+		ioc.InitOAuth2FeiShuService,
 
 		web.NewUserHandler,
-		ioc.InitMiddlewares,
+		web.NewOAuth2FeiShuHandler,
+
 		ioc.InitWebServer,
 	)
 	return gin.Default()
