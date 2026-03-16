@@ -19,4 +19,5 @@ type UserService interface {
 	Login(ctx context.Context, email string, password string) (domain.User, error)
 	Edit(ctx context.Context, u domain.User) error
 	Profile(ctx context.Context) (domain.User, error)
+	FindOrCreateByFeiShu(ctx context.Context, feiShuInfo domain.FeiShuInfo) (domain.User, error)
 }

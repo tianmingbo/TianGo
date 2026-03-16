@@ -8,8 +8,6 @@ import (
 	"net/http"
 	"net/url"
 	"webook/internal/domain"
-
-	"github.com/lithammer/shortuuid"
 )
 
 var (
@@ -26,9 +24,8 @@ func NewFeiShuOAuth2Service(appId string, secret string) *FeiShuOAuth2Service {
 	return &FeiShuOAuth2Service{appId: appId, secret: secret, scope: "user:info.basic"}
 }
 
-func (f *FeiShuOAuth2Service) AuthURL(ctx context.Context) (string, error) {
+func (f *FeiShuOAuth2Service) AuthURL(ctx context.Context, state string) (string, error) {
 	const urlPattern = "https://open.feishu.cn/open-apis/authen/v1/index?app_id=%s&redirect_uri=%s&scope=%s&response_type=code&state=%s"
-	state := shortuuid.New()
 	// 使用生成的state值构建URL
 	sprintf := fmt.Sprintf(urlPattern, f.appId, redirectURL, f.scope, state)
 	fmt.Println(sprintf, "???")
@@ -36,13 +33,12 @@ func (f *FeiShuOAuth2Service) AuthURL(ctx context.Context) (string, error) {
 }
 
 type Response struct {
-	Data Data `json:"data"` // 只保留需要的Data字段
+	Code int64  `json:"code"`
+	Msg  string `json:"msg"`
+	Data Data   `json:"data"` // 只保留需要的Data字段
 }
 
 type Data struct {
-	Code int64  `json:"code"`
-	Msg  string `json:"msg"`
-
 	AccessToken  string `json:"access_token"`
 	ExpiresIn    int    `json:"expires_in"`
 	RefreshToken string `json:"refresh_token"`
@@ -89,6 +85,9 @@ func (f *FeiShuOAuth2Service) VerifyCode(ctx context.Context, code string, state
 	err = decoder.Decode(&res)
 	if err != nil {
 		return domain.FeiShuInfo{}, err
+	}
+	if res.Code != 0 {
+		return domain.FeiShuInfo{}, fmt.Errorf("feishu return err:%s, msg:%s", res.Code, res.Msg)
 	}
 	return domain.FeiShuInfo{
 		OpenId:  res.Data.OpenId,

@@ -11,9 +11,9 @@ import (
 )
 
 var (
-	ErrUserDuplicateEmail = dao.ErrUserDuplicateEmail
-	ErrUserNotFound       = dao.ErrUserNotFound
-	ErrKeyNotExist        = user.ErrKeyNotExist
+	ErrUserDuplicate = dao.ErrUserDuplicate
+	ErrUserNotFound  = dao.ErrUserNotFound
+	ErrKeyNotExist   = user.ErrKeyNotExist
 )
 
 type CacheUserRepository struct {
@@ -75,6 +75,20 @@ func (r *CacheUserRepository) FindById(ctx context.Context) (domain.User, error)
 	return domain.User{}, nil
 }
 
+func (r *CacheUserRepository) FindByFeiShu(ctx context.Context, unionId string) (domain.User, error) {
+	u, err := r.dao.FindByFeishu(ctx, unionId)
+	if err != nil {
+		return domain.User{}, err
+	}
+	return domain.User{
+		Id:    u.ID,
+		Email: u.Email.String,
+		FeiShuInfo: domain.FeiShuInfo{
+			UnionId: u.FeiShuUnionID.String,
+		},
+	}, nil
+}
+
 func (r *CacheUserRepository) domainToEntity(user domain.User) dao.User {
 	return dao.User{
 		ID: user.Id,
@@ -86,6 +100,10 @@ func (r *CacheUserRepository) domainToEntity(user domain.User) dao.User {
 		Phone: sql.NullString{
 			String: user.Phone,
 			Valid:  user.Phone != "",
+		},
+		FeiShuUnionID: sql.NullString{
+			String: user.FeiShuInfo.UnionId,
+			Valid:  user.FeiShuInfo.UnionId != "",
 		},
 		NickName: sql.NullString{
 			String: user.Nickname,

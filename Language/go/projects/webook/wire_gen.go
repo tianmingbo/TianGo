@@ -39,7 +39,7 @@ func InitWebUser() *gin.Engine {
 	codeService := service.NewCodeService(codeRepository, smsService)
 	userHandler := web.NewUserHandler(userService, codeService)
 	oauth2Service := ioc.InitOAuth2FeiShuService()
-	oAuth2FeiShuHandler := web.NewOAuth2FeiShuHandler(oauth2Service)
+	oAuth2FeiShuHandler := web.NewOAuth2FeiShuHandler(oauth2Service, userService)
 	engine := ioc.InitWebServer(v, userHandler, oAuth2FeiShuHandler)
 	return engine
 }

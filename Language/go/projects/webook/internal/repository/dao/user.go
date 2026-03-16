@@ -11,8 +11,8 @@ import (
 )
 
 var (
-	ErrUserDuplicateEmail = errors.New("邮箱冲突")
-	ErrUserNotFound       = gorm.ErrRecordNotFound
+	ErrUserDuplicate = errors.New("邮箱/手机已被注册")
+	ErrUserNotFound  = gorm.ErrRecordNotFound
 )
 
 //	type NullString struct {
@@ -21,15 +21,16 @@ var (
 //	}
 
 type User struct {
-	ID       int64          `gorm:"primaryKey,autoIncrement"`
-	Email    sql.NullString `gorm:"type:varchar(100);unique"`
-	Phone    sql.NullString `gorm:"type:varchar(100);unique"`
-	Password string
-	NickName sql.NullString
-	Birthday sql.NullString
-	AboutMe  sql.NullString
-	Ctime    int64 `gorm:"autoCreateTime:milli"`
-	Utime    int64 `gorm:"autoCreateTime:milli"`
+	ID            int64          `gorm:"primaryKey,autoIncrement"`
+	Email         sql.NullString `gorm:"type:varchar(100);unique"`
+	Phone         sql.NullString `gorm:"type:varchar(100);unique"`
+	Password      string
+	NickName      sql.NullString
+	FeiShuUnionID sql.NullString `gorm:"unique"`
+	Birthday      sql.NullString
+	AboutMe       sql.NullString
+	Ctime         int64 `gorm:"autoCreateTime:milli"`
+	Utime         int64 `gorm:"autoCreateTime:milli"`
 }
 
 type GormUserDao struct {
@@ -51,7 +52,7 @@ func (u *GormUserDao) Insert(ctx context.Context, user User) error {
 	if errors.As(err, &mysqlErr) {
 		const uniqueConflictErrNo uint16 = 1062
 		if mysqlErr.Number == uniqueConflictErrNo {
-			return ErrUserDuplicateEmail
+			return ErrUserDuplicate
 		}
 	}
 	return err
@@ -60,6 +61,12 @@ func (u *GormUserDao) Insert(ctx context.Context, user User) error {
 func (u *GormUserDao) FindByEmail(ctx context.Context, email string) (User, error) {
 	var user User
 	err := u.db.WithContext(ctx).Where("email = ?", email).First(&user).Error
+	return user, err
+}
+
+func (u *GormUserDao) FindByFeishu(ctx context.Context, unionId string) (User, error) {
+	var user User
+	err := u.db.WithContext(ctx).Where("fei_shu_union_id = ?", unionId).First(&user).Error
 	return user, err
 }
 

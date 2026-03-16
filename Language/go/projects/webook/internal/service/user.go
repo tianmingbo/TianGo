@@ -10,7 +10,7 @@ import (
 )
 
 var (
-	ErrUserDuplicateEmail = repository.ErrUserDuplicateEmail
+	ErrUserDuplicateEmail = repository.ErrUserDuplicate
 	ErrInvalidUserOrEmail = errors.New("邮箱或密码不对")
 )
 
@@ -54,4 +54,17 @@ func (s *userService) Edit(ctx context.Context, u domain.User) error {
 }
 func (s *userService) Profile(ctx context.Context) (domain.User, error) {
 	return s.repo.FindById(ctx)
+}
+func (s *userService) FindOrCreateByFeiShu(ctx context.Context, feiShuInfo domain.FeiShuInfo) (domain.User, error) {
+	u, err := s.repo.FindByFeiShu(ctx, feiShuInfo.UnionId)
+	if !errors.Is(err, repository.ErrUserNotFound) {
+		return u, err
+	}
+	err = s.repo.CreateUser(ctx, domain.User{
+		FeiShuInfo: feiShuInfo,
+	})
+	if err != nil && !errors.Is(err, repository.ErrUserDuplicate) {
+		return u, err
+	}
+	return s.repo.FindByFeiShu(ctx, feiShuInfo.UnionId)
 }

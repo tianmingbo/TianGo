@@ -15,4 +15,5 @@ type UserRepository interface {
 	FindByEmail(ctx context.Context, email string) (domain.User, error)
 	UpdateById(ctx context.Context, u domain.User) error
 	FindById(ctx context.Context) (domain.User, error)
+	FindByFeiShu(ctx context.Context, unionId string) (domain.User, error)
 }

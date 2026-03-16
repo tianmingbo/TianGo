@@ -9,4 +9,5 @@ type UserDao interface {
 	FindByEmail(ctx context.Context, email string) (User, error)
 	UpdateById(ctx context.Context, user User) error
 	FindById(ctx context.Context) (User, error)
+	FindByFeishu(ctx context.Context, unionId string) (User, error)
 }
