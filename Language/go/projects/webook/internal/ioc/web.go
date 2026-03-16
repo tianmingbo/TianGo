@@ -1,15 +1,17 @@
 package ioc
 
 import (
+	"time"
+	"webook/internal/web"
+	ijwt "webook/internal/web/jwt"
+	"webook/internal/web/middleware"
+	"webook/pkg/ratelimit"
+
 	"github.com/gin-contrib/cors"
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-contrib/sessions/cookie"
 	"github.com/gin-gonic/gin"
 	"github.com/redis/go-redis/v9"
-	"time"
-	"webook/internal/web"
-	"webook/internal/web/middleware"
-	"webook/pkg/ratelimit"
 
 	//"webook/pkg/middleware/ratelimit"
 	limitbuilder "webook/pkg/middleware/ratelimit"
@@ -23,13 +25,13 @@ func InitWebServer(middlewares []gin.HandlerFunc, userHandler *web.UserHandler, 
 	return server
 }
 
-func InitMiddlewares(redisClient redis.Cmdable) []gin.HandlerFunc {
+func InitMiddlewares(redisClient redis.Cmdable, jwt ijwt.Jwt) []gin.HandlerFunc {
 	limiter := ratelimit.NewRedisSlidingWindowLimiter(redisClient, time.Minute, 1000)
 	return []gin.HandlerFunc{
 		coresHandler(),
 		cookieHandler(),
 		limitbuilder.NewBuilder(limiter).Build(),
-		loginJWTMiddlewareBuilder(),
+		loginJWTMiddlewareBuilder(jwt),
 	}
 }
 
@@ -53,8 +55,8 @@ func cookieHandler() gin.HandlerFunc {
 	return sessions.Sessions("ssid", store)
 }
 
-func loginJWTMiddlewareBuilder() gin.HandlerFunc {
-	return middleware.NewLoginMiddleBuilder().
+func loginJWTMiddlewareBuilder(jwt ijwt.Jwt) gin.HandlerFunc {
+	return middleware.NewLoginMiddleBuilder(jwt).
 		IgnorePaths("/users/login").
 		IgnorePaths("/users/signup").
 		IgnorePaths("/users/login_sms").

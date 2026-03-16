@@ -3,9 +3,9 @@ package web
 import (
 	"errors"
 	"net/http"
-	"time"
 	"webook/internal/domain"
 	"webook/internal/service"
+	ijwt "webook/internal/web/jwt"
 
 	"github.com/dlclark/regexp2"
 	"github.com/gin-contrib/sessions"
@@ -18,21 +18,21 @@ const (
 	pwdPattern   = `^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#@$!%*?&]).{8,20}$`
 )
 
-var JwtKey = []byte("your_secret_key") // 实际生产中应从环境变量读取
-
 type UserHandler struct {
 	svc           service.UserService
 	codeSvc       service.CodeService
 	emailRegexExp *regexp2.Regexp
 	pwdRegexExp   *regexp2.Regexp
+	ijwt.Jwt
 }
 
-func NewUserHandler(svc service.UserService, codeSvc service.CodeService) *UserHandler {
+func NewUserHandler(svc service.UserService, codeSvc service.CodeService, jwt ijwt.Jwt) *UserHandler {
 	return &UserHandler{
 		svc:           svc,
 		codeSvc:       codeSvc,
 		emailRegexExp: regexp2.MustCompile(emailPattern, regexp2.None),
 		pwdRegexExp:   regexp2.MustCompile(pwdPattern, regexp2.None),
+		Jwt:           jwt,
 	}
 }
 
@@ -44,7 +44,65 @@ func (u *UserHandler) RegisterRoutes(server *gin.Engine) {
 	ug.GET("/profile", u.Profile)
 	ug.POST("/login_sms/code/send", u.SendLoginSMSCode)
 	ug.POST("/login_sms", u.LoginSMS)
+	ug.POST("/refresh_token", u.RefreshToken)
+	ug.POST("/logout", u.LogoutJWT)
 
+}
+
+func (h *UserHandler) LogoutJWT(ctx *gin.Context) {
+	err := h.ClearToken(ctx)
+	if err != nil {
+		ctx.JSON(http.StatusOK, gin.H{
+			"message": "退出登录失败",
+		})
+		return
+	}
+
+	ctx.JSON(http.StatusOK, gin.H{"message": "logout"})
+	return
+}
+
+// RefreshToken 刷新 JWT Token
+// 该函数用于通过 refresh token 获取新的 access token，实现令牌的无感知刷新
+// 参数:
+//   - c: gin.Context，HTTP 请求上下文，包含请求信息和响应对象
+//
+// 处理流程:
+//  1. 从请求中提取 refresh token
+//  2. 解析并验证 refresh token 的有效性
+//  3. 检查 session 是否仍然有效
+//  4. 设置新的 JWT token
+//
+// 返回值:
+//   - 成功时返回 HTTP 200 状态码和成功消息
+//   - 失败时返回 HTTP 401 未授权状态码
+func (u *UserHandler) RefreshToken(c *gin.Context) {
+	// 从请求上下文中提取 refresh token
+	refreshToken := u.ExtractToken(c)
+	var rc ijwt.RefreshClaims
+	// 解析 refresh token 并验证其签名和有效性
+	token, err := jwt.ParseWithClaims(refreshToken, &rc, func(token *jwt.Token) (interface{}, error) {
+		return ijwt.RefreshTokenKey, nil
+	})
+	if err != nil || !token.Valid {
+		c.AbortWithStatus(http.StatusUnauthorized)
+		return
+	}
+
+	// 检查用户 session 是否有效，验证登录状态
+	err = u.CheckSession(c, rc.Ssid)
+	if err != nil {
+		c.AbortWithStatus(http.StatusUnauthorized)
+		return
+	}
+
+	// 为用户生成并设置新的 JWT token
+	err = u.SetJWTToken(c, rc.UserId, rc.Ssid)
+	if err != nil {
+		c.AbortWithStatus(http.StatusUnauthorized)
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"message": "refresh token successfully"})
 }
 
 func (u *UserHandler) LoginSMS(c *gin.Context) {
@@ -70,8 +128,19 @@ func (u *UserHandler) LoginSMS(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{"message": "验证码错误"})
 		return
 	}
+
+	//user, err := u.svc.FindOrCreate(c, req.Phone)
+	//if err != nil {
+	//	c.JSON(http.StatusOK,gin.H{"message": "系统错误"})
+	//	return
+	//}
+	//
+	//if err = u.SetLoginToken(c, user.Id); err != nil {
+	//	c.JSON(http.StatusOK,gin.H{"message": "系统错误"})
+	//	return
+	//}
+
 	c.JSON(http.StatusOK, gin.H{"message": "验证码校验成功"})
-	//todo 登录
 }
 
 func (u *UserHandler) SendLoginSMSCode(c *gin.Context) {
@@ -142,19 +211,6 @@ type Claims struct {
 	jwt.RegisteredClaims
 }
 
-// GenerateToken 生成一个 Token
-func GenerateToken(userID int64) (string, error) {
-	expirationTime := time.Now().Add(24 * time.Hour) // 有效期 24 小时
-	claims := &Claims{
-		UserID: userID,
-		RegisteredClaims: jwt.RegisteredClaims{
-			ExpiresAt: jwt.NewNumericDate(expirationTime),
-		},
-	}
-
-	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
-	return token.SignedString(JwtKey)
-}
 func (u *UserHandler) LoginJWT(c *gin.Context) {
 	type LoginReq struct {
 		Email    string `json:"email" binding:"required"`
@@ -181,14 +237,13 @@ func (u *UserHandler) LoginJWT(c *gin.Context) {
 		return
 	}
 
-	token, err := GenerateToken(user.Id)
+	err = u.SetLoginToken(c, user.Id)
 	if err != nil {
 		c.JSON(http.StatusOK, gin.H{
 			"message": "系统异常",
 		})
 		return
 	}
-	c.Header("Authorization", "Bearer "+token)
 	c.JSON(http.StatusOK, gin.H{"message": "ok"})
 }
 

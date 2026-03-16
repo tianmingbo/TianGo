@@ -6,8 +6,6 @@
 package main
 
 import (
-	"github.com/gin-gonic/gin"
-	"github.com/google/wire"
 	"webook/internal/ioc"
 	"webook/internal/repository"
 	"webook/internal/repository/cache/code"
@@ -15,6 +13,10 @@ import (
 	"webook/internal/repository/dao"
 	"webook/internal/service"
 	"webook/internal/web"
+	ijwt "webook/internal/web/jwt"
+
+	"github.com/gin-gonic/gin"
+	"github.com/google/wire"
 )
 
 /**
@@ -43,6 +45,7 @@ func InitWebUser() *gin.Engine {
 		ioc.InitMiddlewares,
 		ioc.InitOAuth2FeiShuService,
 
+		ijwt.NewRedisJwt,
 		web.NewUserHandler,
 		web.NewOAuth2FeiShuHandler,
 

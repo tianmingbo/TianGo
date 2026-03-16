@@ -2,26 +2,30 @@ package web
 
 import (
 	"fmt"
-	"github.com/gin-gonic/gin"
-	"github.com/golang-jwt/jwt/v5"
-	"github.com/lithammer/shortuuid"
 	"net/http"
 	"time"
 	"webook/internal/service"
 	"webook/internal/service/oauth2"
+	ijwt "webook/internal/web/jwt"
+
+	"github.com/gin-gonic/gin"
+	"github.com/golang-jwt/jwt/v5"
+	"github.com/lithammer/shortuuid"
 )
 
 type OAuth2FeiShuHandler struct {
 	svc      oauth2.Service
 	userSvc  service.UserService
 	stateKey []byte
+	ijwt.Jwt
 }
 
-func NewOAuth2FeiShuHandler(svc oauth2.Service, userSvc service.UserService) *OAuth2FeiShuHandler {
+func NewOAuth2FeiShuHandler(svc oauth2.Service, userSvc service.UserService, jwt ijwt.Jwt) *OAuth2FeiShuHandler {
 	return &OAuth2FeiShuHandler{
 		svc:      svc,
 		userSvc:  userSvc,
 		stateKey: []byte("rterdtfgjhkuiygtfyrcgbnk"),
+		Jwt:      jwt,
 	}
 }
 
@@ -76,6 +80,11 @@ func (o *OAuth2FeiShuHandler) Callback(context *gin.Context) {
 		return
 	}
 	user, err := o.userSvc.FindOrCreateByFeiShu(context, info)
+	if err != nil {
+		context.JSON(http.StatusOK, gin.H{"message": "系统错误"})
+		return
+	}
+	err = o.SetLoginToken(context, user.Id)
 	if err != nil {
 		context.JSON(http.StatusOK, gin.H{"message": "系统错误"})
 		return

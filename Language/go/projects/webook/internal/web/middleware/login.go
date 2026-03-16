@@ -2,8 +2,7 @@ package middleware
 
 import (
 	"net/http"
-	"strings"
-	"webook/internal/web"
+	ijwt "webook/internal/web/jwt"
 
 	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt/v5"
@@ -11,10 +10,13 @@ import (
 
 type LoginMiddleBuilder struct {
 	paths []string
+	ijwt.Jwt
 }
 
-func NewLoginMiddleBuilder() *LoginMiddleBuilder {
-	return &LoginMiddleBuilder{}
+func NewLoginMiddleBuilder(jwt ijwt.Jwt) *LoginMiddleBuilder {
+	return &LoginMiddleBuilder{
+		Jwt: jwt,
+	}
 }
 
 func (l *LoginMiddleBuilder) IgnorePaths(path string) *LoginMiddleBuilder {
@@ -23,37 +25,52 @@ func (l *LoginMiddleBuilder) IgnorePaths(path string) *LoginMiddleBuilder {
 }
 
 func (l *LoginMiddleBuilder) Build() gin.HandlerFunc {
-	return func(c *gin.Context) {
+	return func(ctx *gin.Context) {
+		// 不需要登录校验
 		for _, path := range l.paths {
-			if c.Request.URL.Path == path {
+			if ctx.Request.URL.Path == path {
+				ctx.Next()
 				return
 			}
 		}
-
-		authHeader := c.GetHeader("Authorization")
-		if authHeader == "" {
-			c.AbortWithStatus(http.StatusUnauthorized)
-			return
-		}
-
-		parts := strings.SplitN(authHeader, " ", 2)
-		if !(len(parts) == 2 && parts[0] == "Bearer") {
-			c.AbortWithStatus(http.StatusUnauthorized)
-			return
-		}
-
-		// 解析 Token
-		claims := &web.Claims{}
-		token, err := jwt.ParseWithClaims(parts[1], claims, func(token *jwt.Token) (interface{}, error) {
-			return web.JwtKey, nil
+		// 使用 JWT 进行登录校验
+		tokenStr := l.ExtractToken(ctx)
+		claims := &ijwt.UserClaims{}
+		token, err := jwt.ParseWithClaims(tokenStr, claims, func(token *jwt.Token) (interface{}, error) {
+			return []byte("pBMH@cKP65sknQI%ijB2DzhFnvsfiyt*"), nil
 		})
-
-		if err != nil || !token.Valid {
-			c.AbortWithStatus(http.StatusUnauthorized)
+		if err != nil {
+			ctx.AbortWithStatus(http.StatusUnauthorized)
 			return
 		}
 
-		c.Set("UserId", claims.UserID)
-		c.Next()
+		if token == nil || !token.Valid || claims.UserId == 0 {
+			ctx.AbortWithStatus(http.StatusUnauthorized)
+			return
+		}
+
+		// 校验 UserAgent
+		if claims.UserAgent != ctx.Request.UserAgent() {
+			// 严重的安全问题
+			// 理论上要加监控
+			ctx.AbortWithStatus(http.StatusUnauthorized)
+			return
+		}
+
+		// 一种降级策略
+		//if redis 崩了 {
+		//	return
+		//}
+
+		// 验证 ssid
+		err = l.CheckSession(ctx, claims.Ssid)
+		if err != nil {
+			// 要么 redis 有问题，要么已经退出登录
+			ctx.AbortWithStatus(http.StatusUnauthorized)
+			return
+		}
+
+		ctx.Set("claims", claims)
+		ctx.Set("userId", claims.UserId)
 	}
 }

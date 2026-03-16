@@ -15,6 +15,7 @@ import (
 	"webook/internal/repository/dao"
 	"webook/internal/service"
 	"webook/internal/web"
+	"webook/internal/web/jwt"
 )
 
 // Injectors from wire.go:
@@ -27,7 +28,8 @@ wire.Bind()：绑定接口与实现，解决面向接口编程的依赖注入问
 // 依赖注入，控制反转
 func InitWebUser() *gin.Engine {
 	cmdable := ioc.InitRedis()
-	v := ioc.InitMiddlewares(cmdable)
+	jwtJwt := jwt.NewRedisJwt(cmdable)
+	v := ioc.InitMiddlewares(cmdable, jwtJwt)
 	db := ioc.InitDb()
 	userDao := dao.NewUserDao(db)
 	userCache := user.NewUserRedisCache(cmdable)
@@ -37,9 +39,9 @@ func InitWebUser() *gin.Engine {
 	codeRepository := repository.NewCodeRepository(codeCache)
 	smsService := ioc.InitSMSService()
 	codeService := service.NewCodeService(codeRepository, smsService)
-	userHandler := web.NewUserHandler(userService, codeService)
+	userHandler := web.NewUserHandler(userService, codeService, jwtJwt)
 	oauth2Service := ioc.InitOAuth2FeiShuService()
-	oAuth2FeiShuHandler := web.NewOAuth2FeiShuHandler(oauth2Service, userService)
+	oAuth2FeiShuHandler := web.NewOAuth2FeiShuHandler(oauth2Service, userService, jwtJwt)
 	engine := ioc.InitWebServer(v, userHandler, oAuth2FeiShuHandler)
 	return engine
 }
