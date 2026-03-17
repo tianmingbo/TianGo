@@ -1,0 +1,17 @@
+name: "my-go-app"
+server:
+  port: 8080
+  debug: true
+  allowed_ips:
+    - "127.0.0.1"
+    - "192.168.1.0/24"
+mysql:
+  host: "127.0.0.1"
+  port: 3306
+  user: "root"
+  password: "123456"
+redis:
+  host: "127.0.0.1"
+  port: 6379
+  password: ""
+  db: 0
