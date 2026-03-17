@@ -1,0 +1,5 @@
+mysql:
+  dsn: "root:123456@tcp(10.6.64.191:3306)/webook?charset=utf8mb4&parseTime=True&loc=Local"
+redis:
+  addr: "10.6.64.191:6389"
+  password: "tian666"
