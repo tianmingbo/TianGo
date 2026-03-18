@@ -4,7 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
-	"fmt"
+	"webook/pkg/logger"
 
 	"github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common"
 	tencentError "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common/errors"
@@ -15,13 +15,15 @@ type Service struct {
 	client    *sms.Client
 	appId     string
 	signature string
+	l         logger.Logger
 }
 
-func newService(client *sms.Client, appId, signature string) *Service {
+func newService(client *sms.Client, appId, signature string, l logger.Logger) *Service {
 	return &Service{
 		client:    client,
 		appId:     appId,
 		signature: signature,
+		l:         l,
 	}
 }
 
@@ -38,13 +40,13 @@ func (s Service) Send(ctx context.Context, tplId string, paramSet []string, numb
 	// 处理异常
 	var tencentCloudSDKError *tencentError.TencentCloudSDKError
 	if errors.As(err, &tencentCloudSDKError) {
-		fmt.Printf("An API error has returned: %s", err)
+		s.l.Errorf("tencent sms api error: %v", err)
 		return errors.New(err.Error())
 	}
 	if err != nil {
 		return err
 	}
 	b, _ := json.Marshal(response.Response)
-	fmt.Printf("%s", b)
+	s.l.Infof("tencent sms response: %s", b)
 	return nil
 }

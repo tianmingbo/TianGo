@@ -2,10 +2,10 @@ package jwt
 
 import (
 	"fmt"
-	"log"
 	"net/http"
 	"strings"
 	"time"
+	"webook/pkg/logger"
 
 	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt/v5"
@@ -25,6 +25,7 @@ type RefreshClaims struct {
 }
 type RedisJwt struct {
 	cmd redis.Cmdable
+	l   logger.Logger
 }
 
 func (r *RedisJwt) SetLoginToken(ctx *gin.Context, userId int64) error {
@@ -49,7 +50,7 @@ func (r *RedisJwt) SetRefreshToken(ctx *gin.Context, userId int64, ssid string) 
 	if err != nil {
 		return err
 	}
-	log.Println(tokenStr)
+	r.l.Infof("refresh token generated, user_id=%d, ssid=%s", userId, ssid)
 	ctx.Header("x-refresh-token", tokenStr)
 	return nil
 }
@@ -62,8 +63,8 @@ func (r *RedisJwt) ClearToken(ctx *gin.Context) error {
 	claims := ctx.MustGet("cliams").(*UserClaims)
 	return r.cmd.Set(ctx, fmt.Sprintf("users:ssid:%s", claims.Ssid), "", time.Hour*24*7).Err()
 }
-func NewRedisJwt(cmd redis.Cmdable) Jwt {
-	return &RedisJwt{cmd: cmd}
+func NewRedisJwt(cmd redis.Cmdable, l logger.Logger) Jwt {
+	return &RedisJwt{cmd: cmd, l: l}
 }
 
 func (r *RedisJwt) ExtractToken(ctx *gin.Context) string {
@@ -104,7 +105,7 @@ func (r *RedisJwt) SetJWTToken(ctx *gin.Context, userId int64, ssid string) erro
 	if err != nil {
 		return err
 	}
-	fmt.Println(tokenStr)
+	r.l.Infof("access token generated, user_id=%d, ssid=%s", userId, ssid)
 	ctx.Header("x-jwt-token", tokenStr)
 	return nil
 }

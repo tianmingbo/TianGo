@@ -27,21 +27,22 @@ wire.Bind()：绑定接口与实现，解决面向接口编程的依赖注入问
 */
 // 依赖注入，控制反转
 func InitWebUser() *gin.Engine {
-	cmdable := ioc.InitRedis()
-	jwtJwt := jwt.NewRedisJwt(cmdable)
-	v := ioc.InitMiddlewares(cmdable, jwtJwt)
-	db := ioc.InitDb()
+	logger := ioc.InitLogger()
+	cmdable := ioc.InitRedis(logger)
+	jwtJwt := jwt.NewRedisJwt(cmdable, logger.Named("security"))
+	v := ioc.InitMiddlewares(cmdable, jwtJwt, logger)
+	db := ioc.InitDb(logger)
 	userDao := dao.NewUserDao(db)
 	userCache := user.NewUserRedisCache(cmdable)
 	userRepository := repository.NewUserRepository(userDao, userCache)
 	userService := service.NewUserService(userRepository)
 	codeCache := code.NewRedisCodeCache(cmdable)
 	codeRepository := repository.NewCodeRepository(codeCache)
-	smsService := ioc.InitSMSService()
+	smsService := ioc.InitSMSService(logger)
 	codeService := service.NewCodeService(codeRepository, smsService)
 	userHandler := web.NewUserHandler(userService, codeService, jwtJwt)
-	oauth2Service := ioc.InitOAuth2FeiShuService()
-	oAuth2FeiShuHandler := web.NewOAuth2FeiShuHandler(oauth2Service, userService, jwtJwt)
+	oauth2Service := ioc.InitOAuth2FeiShuService(logger)
+	oAuth2FeiShuHandler := web.NewOAuth2FeiShuHandler(oauth2Service, userService, jwtJwt, logger.Named("security"))
 	engine := ioc.InitWebServer(v, userHandler, oAuth2FeiShuHandler)
 	return engine
 }

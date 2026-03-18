@@ -3,9 +3,9 @@ package failover
 import (
 	"context"
 	"errors"
-	"log"
 	"sync/atomic"
 	"webook/internal/service/sms"
+	"webook/pkg/logger"
 )
 
 //实现自动故障转移SMS
@@ -13,11 +13,13 @@ import (
 type SMSService struct {
 	svcs []sms.Service //所有服务
 	idx  uint64        //当前调用的服务的下标
+	l    logger.Logger
 }
 
-func NewService(svcs []sms.Service) *SMSService {
+func NewService(svcs []sms.Service, l logger.Logger) *SMSService {
 	return &SMSService{
 		svcs: svcs,
+		l:    l,
 	}
 }
 
@@ -27,7 +29,7 @@ func (s *SMSService) Send(ctx context.Context, tplId string, paramSet []string, 
 		if err == nil {
 			return nil
 		}
-		log.Println(err)
+		s.l.Errorf("sms provider failed: %v", err)
 	}
 	return errors.New("轮询了所有的服务商，但是发送都失败了")
 }
@@ -45,7 +47,7 @@ func (s *SMSService) SendV1(ctx context.Context, tplId string, paramSet []string
 		case context.Canceled, context.DeadlineExceeded:
 			return err
 		}
-		log.Println(err)
+		s.l.Errorf("sms provider failed: %v", err)
 	}
 
 	return errors.New("轮询了所有的服务商，但是发送都失败了")
