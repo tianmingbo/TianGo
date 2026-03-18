@@ -29,12 +29,11 @@ func InitWebServer(middlewares []gin.HandlerFunc, userHandler *web.UserHandler, 
 
 func InitMiddlewares(redisClient redis.Cmdable, jwt ijwt.Jwt, l logger.Logger) []gin.HandlerFunc {
 	limiter := ratelimit.NewRedisSlidingWindowLimiter(redisClient, time.Minute, 1000)
-	accessLogger := l.Named("access")
 	return []gin.HandlerFunc{
 		coresHandler(),
 		cookieHandler(),
-		middleware.NewAccessLogMiddlewareBuilder(accessLogger).Build(),
-		limitbuilder.NewBuilder(limiter, accessLogger).Build(),
+		middleware.GinLoggerMiddleware(l),
+		limitbuilder.NewBuilder(limiter, l).Build(),
 		loginJWTMiddlewareBuilder(jwt),
 	}
 }

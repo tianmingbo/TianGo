@@ -8,7 +8,6 @@ import (
 )
 
 func InitRedis(l logger.Logger) redis.Cmdable {
-	l = l.Named("system")
 	v := viper.New()
 	if GetOS() == "Windows" {
 		v.SetConfigName("dev_remote") // 配置文件名（不带后缀）

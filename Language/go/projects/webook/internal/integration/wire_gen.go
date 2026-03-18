@@ -29,7 +29,7 @@ wire.Bind()：绑定接口与实现，解决面向接口编程的依赖注入问
 func InitWebUser() *gin.Engine {
 	logger := ioc2.InitLogger()
 	cmdable := ioc2.InitRedis(logger)
-	jwtJwt := jwt.NewRedisJwt(cmdable, logger.Named("security"))
+	jwtJwt := jwt.NewRedisJwt(cmdable, logger)
 	v := ioc2.InitMiddlewares(cmdable, jwtJwt, logger)
 	db := ioc2.InitDb(logger)
 	userDao := dao.NewUserDao(db)
@@ -40,9 +40,13 @@ func InitWebUser() *gin.Engine {
 	codeRepository := repository.NewCodeRepository(codeCache)
 	smsService := ioc2.InitSMSService(logger)
 	codeService := service.NewCodeService(codeRepository, smsService)
-	userHandler := web.NewUserHandler(userService, codeService, jwtJwt)
+	userHandler := web.NewUserHandler(userService, codeService, jwtJwt, logger)
 	oauth2Service := ioc2.InitOAuth2FeiShuService(logger)
-	oAuth2FeiShuHandler := web.NewOAuth2FeiShuHandler(oauth2Service, userService, jwtJwt, logger.Named("security"))
-	engine := ioc2.InitWebServer(v, userHandler, oAuth2FeiShuHandler)
+	oAuth2FeiShuHandler := web.NewOAuth2FeiShuHandler(oauth2Service, userService, jwtJwt, logger)
+	articleDao := dao.NewGormArticleDao(db)
+	articleRepository := repository.NewArticleRepository(articleDao)
+	articleService := service.NewArticleService(articleRepository)
+	articleHandler := web.NewArticleHandler(articleService, logger)
+	engine := ioc2.InitWebServer(v, userHandler, oAuth2FeiShuHandler, articleHandler)
 	return engine
 }

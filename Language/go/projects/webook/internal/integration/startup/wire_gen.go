@@ -20,6 +20,6 @@ func InitArticleHandler() *web.ArticleHandler {
 	articleDao := dao.NewGormArticleDao(db)
 	articleRepository := repository.NewArticleRepository(articleDao)
 	articleService := service.NewArticleService(articleRepository)
-	articleHandler := web.NewArticleHandler(articleService)
+	articleHandler := web.NewArticleHandler(articleService, nil)
 	return articleHandler
 }

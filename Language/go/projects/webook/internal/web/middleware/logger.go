@@ -2,90 +2,95 @@ package middleware
 
 import (
 	"bytes"
-	"fmt"
 	"io"
 	"net/http"
-	"strings"
 	"time"
 	"webook/pkg/logger"
 
 	"github.com/gin-gonic/gin"
 )
 
-type AccessLogMiddlewareBuilder struct {
-	l            logger.Logger
-	maxBodyBytes int
-}
-
-func NewAccessLogMiddlewareBuilder(l logger.Logger) *AccessLogMiddlewareBuilder {
-	return &AccessLogMiddlewareBuilder{
-		l:            l,
-		maxBodyBytes: 2048,
-	}
-}
-
-func (b *AccessLogMiddlewareBuilder) MaxBodyBytes(n int) *AccessLogMiddlewareBuilder {
-	if n > 0 {
-		b.maxBodyBytes = n
-	}
-	return b
-}
-
-func (b *AccessLogMiddlewareBuilder) Build() gin.HandlerFunc {
-	return func(ctx *gin.Context) {
-		start := time.Now()
-		reqBody := readAndRestoreRequestBody(ctx.Request, b.maxBodyBytes)
-
-		blw := &bodyLogWriter{
-			ResponseWriter: ctx.Writer,
-			body:           bytes.NewBuffer(nil),
-		}
-		ctx.Writer = blw
-		ctx.Next()
-
-		cost := time.Since(start)
-		respBody := truncate(blw.body.String(), b.maxBodyBytes)
-		line := fmt.Sprintf("method=%s path=%s query=%q status=%d cost=%s ip=%s req=%q resp=%q",
-			ctx.Request.Method, ctx.FullPath(), ctx.Request.URL.RawQuery, ctx.Writer.Status(),
-			cost, ctx.ClientIP(), reqBody, respBody)
-		if len(ctx.Errors) > 0 || ctx.Writer.Status() >= http.StatusInternalServerError {
-			b.l.Errorf(line)
-			return
-		}
-		b.l.Infof(line)
-	}
-}
+const maxLoggedBodySize = 4 * 1024
 
 type bodyLogWriter struct {
 	gin.ResponseWriter
 	body *bytes.Buffer
 }
 
-func (w *bodyLogWriter) Write(data []byte) (int, error) {
-	w.body.Write(data)
-	return w.ResponseWriter.Write(data)
+func (w *bodyLogWriter) Write(b []byte) (int, error) {
+	if w.body.Len() < maxLoggedBodySize {
+		remain := maxLoggedBodySize - w.body.Len()
+		if len(b) > remain {
+			w.body.Write(b[:remain])
+		} else {
+			w.body.Write(b)
+		}
+	}
+	return w.ResponseWriter.Write(b)
 }
 
-func (w *bodyLogWriter) WriteString(s string) (int, error) {
-	w.body.WriteString(s)
-	return w.ResponseWriter.WriteString(s)
+// GinLoggerMiddleware 记录请求与响应关键信息（方法、路径、状态码、耗时、请求体、响应体）。
+func GinLoggerMiddleware(logger logger.Logger) gin.HandlerFunc {
+	return func(c *gin.Context) {
+		if logger == nil {
+			c.Next()
+			return
+		}
+
+		start := time.Now()
+		method := c.Request.Method
+		path := c.Request.URL.Path
+		query := c.Request.URL.RawQuery
+		clientIP := c.ClientIP()
+
+		var reqBodyText string
+		if c.Request.Body != nil {
+			bodyBytes, err := io.ReadAll(c.Request.Body)
+			if err == nil {
+				c.Request.Body = io.NopCloser(bytes.NewBuffer(bodyBytes))
+				reqBodyText = truncateText(string(bodyBytes), maxLoggedBodySize)
+			} else {
+				reqBodyText = "<read request body failed>"
+			}
+		}
+
+		blw := &bodyLogWriter{
+			ResponseWriter: c.Writer,
+			body:           bytes.NewBuffer(nil),
+		}
+		c.Writer = blw
+
+		c.Next()
+
+		latency := time.Since(start)
+		statusCode := c.Writer.Status()
+		respBodyText := truncateText(blw.body.String(), maxLoggedBodySize)
+		errText := c.Errors.ByType(gin.ErrorTypePrivate).String()
+
+		levelLog := logger.Info
+		if statusCode >= http.StatusInternalServerError {
+			levelLog = logger.Error
+		} else if statusCode >= http.StatusBadRequest {
+			levelLog = logger.Warn
+		}
+
+		levelLog("http access",
+			"method", method,
+			"path", path,
+			"query", query,
+			"client_ip", clientIP,
+			"status", statusCode,
+			"latency_ms", latency.Milliseconds(),
+			"request_body", reqBodyText,
+			"response_body", respBodyText,
+			"errors", errText,
+		)
+	}
 }
 
-func readAndRestoreRequestBody(req *http.Request, maxBytes int) string {
-	if req == nil || req.Body == nil {
-		return ""
+func truncateText(in string, max int) string {
+	if max <= 0 || len(in) <= max {
+		return in
 	}
-	raw, err := io.ReadAll(req.Body)
-	if err != nil {
-		return fmt.Sprintf("read_request_body_failed:%v", err)
-	}
-	req.Body = io.NopCloser(bytes.NewReader(raw))
-	return truncate(string(raw), maxBytes)
-}
-
-func truncate(s string, maxBytes int) string {
-	if maxBytes <= 0 || len(s) <= maxBytes {
-		return strings.TrimSpace(s)
-	}
-	return strings.TrimSpace(s[:maxBytes]) + "...(truncated)"
+	return in[:max] + "...(truncated)"
 }

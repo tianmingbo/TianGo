@@ -40,13 +40,13 @@ func InitWebUser() *gin.Engine {
 	codeRepository := repository.NewCodeRepository(codeCache)
 	smsService := ioc.InitSMSService(logger)
 	codeService := service.NewCodeService(codeRepository, smsService)
-	userHandler := web.NewUserHandler(userService, codeService, jwtJwt)
+	userHandler := web.NewUserHandler(userService, codeService, jwtJwt, logger)
 	oauth2Service := ioc.InitOAuth2FeiShuService(logger)
 	oAuth2FeiShuHandler := web.NewOAuth2FeiShuHandler(oauth2Service, userService, jwtJwt, logger)
 	articleDao := dao.NewGormArticleDao(db)
 	articleRepository := repository.NewArticleRepository(articleDao)
 	articleService := service.NewArticleService(articleRepository)
-	articleHandler := web.NewArticleHandler(articleService)
+	articleHandler := web.NewArticleHandler(articleService, logger)
 	engine := ioc.InitWebServer(v, userHandler, oAuth2FeiShuHandler, articleHandler)
 	return engine
 }

@@ -11,12 +11,18 @@ import (
 	"webook/internal/repository/dao"
 	"webook/internal/service"
 	"webook/internal/web"
+	"webook/pkg/logger"
 )
+
+func initNilLogger() logger.Logger {
+	return nil
+}
 
 func InitArticleHandler() *web.ArticleHandler {
 	wire.Build(
 		//ioc.InitLogger,
 		InitDb,
+		initNilLogger,
 		//ioc.InitRedis,
 		service.NewArticleService,
 		repository.NewArticleRepository,

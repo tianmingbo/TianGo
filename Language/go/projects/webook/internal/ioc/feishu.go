@@ -7,7 +7,6 @@ import (
 )
 
 func InitOAuth2FeiShuService(l logger.Logger) oauth2.Service {
-	l = l.Named("security")
 	appId, ok := os.LookupEnv("FEISHU_APP_ID")
 	if !ok {
 		appId = "cli_a938dc3865785cbb"

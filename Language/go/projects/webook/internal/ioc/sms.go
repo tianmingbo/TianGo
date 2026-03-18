@@ -7,5 +7,5 @@ import (
 )
 
 func InitSMSService(l logger.Logger) sms.Service {
-	return memory.NewService(l.Named("sms"))
+	return memory.NewService(l)
 }

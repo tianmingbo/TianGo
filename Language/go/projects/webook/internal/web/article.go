@@ -1,23 +1,23 @@
 package web
 
 import (
-	"fmt"
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"webook/internal/domain"
 	"webook/internal/service"
 	ijwt "webook/internal/web/jwt"
+	"webook/pkg/logger"
 )
 
 type ArticleHandler struct {
 	svc service.ArticleService
-	//l   logger.Logger
+	l   logger.Logger
 }
 
-func NewArticleHandler(svc service.ArticleService) *ArticleHandler {
+func NewArticleHandler(svc service.ArticleService, l logger.Logger) *ArticleHandler {
 	return &ArticleHandler{
 		svc: svc,
-		//l:   l,
+		l:   l,
 	}
 }
 
@@ -41,8 +41,7 @@ func (a *ArticleHandler) Edit(ctx *gin.Context) {
 	claims, ok := c.(*ijwt.UserClaims)
 	if !ok {
 		ctx.JSON(http.StatusOK, gin.H{"message": "系统错误"})
-		//a.l.Errorf("未发现用户的 session 信息")
-		fmt.Println("未发现用户的 session 信息")
+		a.l.Error("missing claims in context when edit article")
 		return
 	}
 	id, err := a.svc.Save(ctx, domain.Article{
@@ -54,7 +53,7 @@ func (a *ArticleHandler) Edit(ctx *gin.Context) {
 	})
 	if err != nil {
 		ctx.JSON(http.StatusOK, gin.H{"message": "系统错误"})
-		//h.l.Error("保存帖子失败", logger.Error(err))
+		a.l.Error("save article failed", "author_id", claims.UserId, "error", err)
 		return
 	}
 	ctx.JSON(http.StatusOK, gin.H{"message": "OK", "data": id})
