@@ -32,15 +32,18 @@ func InitWebUser() *gin.Engine {
 		ioc.InitRedis,
 
 		dao.NewUserDao,
+		dao.NewGormArticleDao,
 
 		user.NewUserRedisCache,
 		code.NewRedisCodeCache,
 
 		repository.NewUserRepository,
 		repository.NewCodeRepository,
+		repository.NewArticleRepository,
 
 		service.NewUserService,
 		service.NewCodeService,
+		service.NewArticleService,
 
 		ioc.InitSMSService,
 		ioc.InitMiddlewares,
@@ -48,6 +51,7 @@ func InitWebUser() *gin.Engine {
 
 		ijwt.NewRedisJwt,
 		web.NewUserHandler,
+		web.NewArticleHandler,
 		web.NewOAuth2FeiShuHandler,
 
 		ioc.InitWebServer,

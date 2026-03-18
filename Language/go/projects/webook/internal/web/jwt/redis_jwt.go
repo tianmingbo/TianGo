@@ -60,7 +60,7 @@ func (r *RedisJwt) ClearToken(ctx *gin.Context) error {
 	ctx.Header("x-jwt-token", "")
 	ctx.Header("x-refresh-token", "")
 
-	claims := ctx.MustGet("cliams").(*UserClaims)
+	claims := ctx.MustGet("claims").(*UserClaims)
 	return r.cmd.Set(ctx, fmt.Sprintf("users:ssid:%s", claims.Ssid), "", time.Hour*24*7).Err()
 }
 func NewRedisJwt(cmd redis.Cmdable, l logger.Logger) Jwt {

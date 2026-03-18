@@ -21,3 +21,7 @@ type UserService interface {
 	Profile(ctx context.Context) (domain.User, error)
 	FindOrCreateByFeiShu(ctx context.Context, feiShuInfo domain.FeiShuInfo) (domain.User, error)
 }
+
+type ArticleService interface {
+	Save(ctx context.Context, article domain.Article) (int64, error)
+}

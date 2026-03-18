@@ -1,4 +1,4 @@
-package ioc
+package startup
 
 import (
 	"time"
@@ -18,12 +18,11 @@ import (
 	limitbuilder "webook/pkg/middleware/ratelimit"
 )
 
-func InitWebServer(middlewares []gin.HandlerFunc, userHandler *web.UserHandler, oauthHandler *web.OAuth2FeiShuHandler, articleHandler *web.ArticleHandler) *gin.Engine {
+func InitWebServer(middlewares []gin.HandlerFunc, userHandler *web.UserHandler, oauthHandler *web.OAuth2FeiShuHandler) *gin.Engine {
 	server := gin.Default()
 	server.Use(middlewares...)
 	userHandler.RegisterRoutes(server)
 	oauthHandler.RegisterRoutes(server)
-	articleHandler.RegisterRoutes(server)
 	return server
 }
 
