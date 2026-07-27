@@ -20,7 +20,8 @@ func init() {
 
 // 集成测试
 func TestUserHandler_SendSMSCode(t *testing.T) {
-	rdb := ioc.InitRedis()
+	l := ioc.InitLogger()
+	rdb := ioc.InitRedis(l)
 	server := InitWebUser()
 	testCases := []struct {
 		name string

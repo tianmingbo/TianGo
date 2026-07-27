@@ -2,17 +2,18 @@ package memory
 
 import (
 	"context"
-	"fmt"
+	"webook/pkg/logger"
 )
 
 type Service struct {
+	l logger.Logger
 }
 
-func NewService() *Service {
-	return &Service{}
+func NewService(l logger.Logger) *Service {
+	return &Service{l: l}
 }
 
 func (s Service) Send(ctx context.Context, tplId string, paramSet []string, number ...string) error {
-	fmt.Printf("code is %s\n", paramSet)
+	s.l.Infof("mock sms send, tpl=%s, params=%v, numbers=%v", tplId, paramSet, number)
 	return nil
 }

@@ -4,8 +4,10 @@ import (
 	"errors"
 	"net/http"
 	"webook/internal/domain"
+
 	"webook/internal/service"
 	ijwt "webook/internal/web/jwt"
+	"webook/pkg/logger"
 
 	"github.com/dlclark/regexp2"
 	"github.com/gin-contrib/sessions"
@@ -23,16 +25,18 @@ type UserHandler struct {
 	codeSvc       service.CodeService
 	emailRegexExp *regexp2.Regexp
 	pwdRegexExp   *regexp2.Regexp
+	l             logger.Logger
 	ijwt.Jwt
 }
 
-func NewUserHandler(svc service.UserService, codeSvc service.CodeService, jwt ijwt.Jwt) *UserHandler {
+func NewUserHandler(svc service.UserService, codeSvc service.CodeService, jwt ijwt.Jwt, l logger.Logger) *UserHandler {
 	return &UserHandler{
 		svc:           svc,
 		codeSvc:       codeSvc,
 		emailRegexExp: regexp2.MustCompile(emailPattern, regexp2.None),
 		pwdRegexExp:   regexp2.MustCompile(pwdPattern, regexp2.None),
 		Jwt:           jwt,
+		l:             l,
 	}
 }
 
@@ -228,9 +232,12 @@ func (u *UserHandler) LoginJWT(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{
 			"message": "invalid user or email",
 		})
+		u.l.Error("invalid user or email", "email", req.Email)
+
 		return
 	}
 	if err != nil {
+		u.l.Error("login failed", "email", req.Email, "error", err)
 		c.JSON(http.StatusOK, gin.H{
 			"message": "系统异常",
 		})
@@ -239,6 +246,7 @@ func (u *UserHandler) LoginJWT(c *gin.Context) {
 
 	err = u.SetLoginToken(c, user.Id)
 	if err != nil {
+		u.l.Error("set login token failed", "user_id", user.Id, "error", err)
 		c.JSON(http.StatusOK, gin.H{
 			"message": "系统异常",
 		})

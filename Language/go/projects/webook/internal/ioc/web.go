@@ -5,6 +5,7 @@ import (
 	"webook/internal/web"
 	ijwt "webook/internal/web/jwt"
 	"webook/internal/web/middleware"
+	"webook/pkg/logger"
 	"webook/pkg/ratelimit"
 
 	"github.com/gin-contrib/cors"
@@ -17,20 +18,22 @@ import (
 	limitbuilder "webook/pkg/middleware/ratelimit"
 )
 
-func InitWebServer(middlewares []gin.HandlerFunc, userHandler *web.UserHandler, oauthHandler *web.OAuth2FeiShuHandler) *gin.Engine {
+func InitWebServer(middlewares []gin.HandlerFunc, userHandler *web.UserHandler, oauthHandler *web.OAuth2FeiShuHandler, articleHandler *web.ArticleHandler) *gin.Engine {
 	server := gin.Default()
 	server.Use(middlewares...)
 	userHandler.RegisterRoutes(server)
 	oauthHandler.RegisterRoutes(server)
+	articleHandler.RegisterRoutes(server)
 	return server
 }
 
-func InitMiddlewares(redisClient redis.Cmdable, jwt ijwt.Jwt) []gin.HandlerFunc {
+func InitMiddlewares(redisClient redis.Cmdable, jwt ijwt.Jwt, l logger.Logger) []gin.HandlerFunc {
 	limiter := ratelimit.NewRedisSlidingWindowLimiter(redisClient, time.Minute, 1000)
 	return []gin.HandlerFunc{
 		coresHandler(),
 		cookieHandler(),
-		limitbuilder.NewBuilder(limiter).Build(),
+		middleware.GinLoggerMiddleware(l),
+		limitbuilder.NewBuilder(limiter, l).Build(),
 		loginJWTMiddlewareBuilder(jwt),
 	}
 }

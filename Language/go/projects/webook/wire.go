@@ -27,19 +27,23 @@ wire.Bind()：绑定接口与实现，解决面向接口编程的依赖注入问
 // 依赖注入，控制反转
 func InitWebUser() *gin.Engine {
 	wire.Build(
+		ioc.InitLogger,
 		ioc.InitDb,
 		ioc.InitRedis,
 
 		dao.NewUserDao,
+		dao.NewGormArticleDao,
 
 		user.NewUserRedisCache,
 		code.NewRedisCodeCache,
 
 		repository.NewUserRepository,
 		repository.NewCodeRepository,
+		repository.NewArticleRepository,
 
 		service.NewUserService,
 		service.NewCodeService,
+		service.NewArticleService,
 
 		ioc.InitSMSService,
 		ioc.InitMiddlewares,
@@ -47,6 +51,7 @@ func InitWebUser() *gin.Engine {
 
 		ijwt.NewRedisJwt,
 		web.NewUserHandler,
+		web.NewArticleHandler,
 		web.NewOAuth2FeiShuHandler,
 
 		ioc.InitWebServer,

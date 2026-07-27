@@ -8,6 +8,7 @@ import (
 	"net/http"
 	"net/url"
 	"webook/internal/domain"
+	"webook/pkg/logger"
 )
 
 var (
@@ -18,17 +19,18 @@ type FeiShuOAuth2Service struct {
 	appId  string
 	secret string
 	scope  string
+	l      logger.Logger
 }
 
-func NewFeiShuOAuth2Service(appId string, secret string) *FeiShuOAuth2Service {
-	return &FeiShuOAuth2Service{appId: appId, secret: secret, scope: "user:info.basic"}
+func NewFeiShuOAuth2Service(appId string, secret string, l logger.Logger) *FeiShuOAuth2Service {
+	return &FeiShuOAuth2Service{appId: appId, secret: secret, scope: "user:info.basic", l: l}
 }
 
 func (f *FeiShuOAuth2Service) AuthURL(ctx context.Context, state string) (string, error) {
 	const urlPattern = "https://open.feishu.cn/open-apis/authen/v1/index?app_id=%s&redirect_uri=%s&scope=%s&response_type=code&state=%s"
 	// 使用生成的state值构建URL
 	sprintf := fmt.Sprintf(urlPattern, f.appId, redirectURL, f.scope, state)
-	fmt.Println(sprintf, "???")
+	f.l.Infof("generated feishu oauth url, state=%s", state)
 	return sprintf, nil
 }
 
@@ -64,7 +66,7 @@ func (f *FeiShuOAuth2Service) VerifyCode(ctx context.Context, code string, state
 	}
 	jsonData, err := json.Marshal(reqData)
 	if err != nil {
-		fmt.Printf("JSON序列化失败: %v\n", err)
+		f.l.Errorf("marshal feishu token request failed: %v", err)
 		return domain.FeiShuInfo{}, err
 	}
 	resp, err := http.Post(tokenUrl, "application/json", bytes.NewBuffer(jsonData))
@@ -87,7 +89,7 @@ func (f *FeiShuOAuth2Service) VerifyCode(ctx context.Context, code string, state
 		return domain.FeiShuInfo{}, err
 	}
 	if res.Code != 0 {
-		return domain.FeiShuInfo{}, fmt.Errorf("feishu return err:%s, msg:%s", res.Code, res.Msg)
+		return domain.FeiShuInfo{}, fmt.Errorf("feishu return err:%d, msg:%s", res.Code, res.Msg)
 	}
 	return domain.FeiShuInfo{
 		OpenId:  res.Data.OpenId,
